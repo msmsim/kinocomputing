@@ -31,6 +31,17 @@ const TIME_ZONE = "Europe/London";
 // note scan skips it for free.
 const REDIRECTS = "_redirects";
 
+// GoatCounter. Pageview counts only — no cookies and no cross-site identifiers,
+// which is what keeps the site free of a consent banner. Set to "" to take the
+// script back off every page.
+const ANALYTICS = "https://kinocomputing.goatcounter.com/count";
+
+// The share card. One image for the whole site: every note shares it until
+// there is a reason for any note to have its own.
+const OG_IMAGE = "kinocomputing-basic-og.jpg";
+const OG_IMAGE_ALT =
+  "Kinocomputing — alternative paradigms of computing and intelligence";
+
 
 const check = process.argv.includes("--check");
 
@@ -290,13 +301,25 @@ function renderStream(template, notes) {
     slug: note.slug,
   }).trim()).join("\n");
 
-  const shell = template.slice(0, each.start) + entries + template.slice(each.end);
+  let shell = template.slice(0, each.start) + entries + template.slice(each.end);
+
+  const imageTags = imageFields()
+    .filter(({ tag }) => tag)
+    .map(({ tag }) => `    ${tag}`)
+    .join("\n");
+  // With no card there is nothing to put on the placeholder's line, so the line
+  // goes rather than being filled with emptiness.
+  if (!imageTags) shell = shell.replace(/^[ \t]*\{\{image\}\}\n/m, "");
 
   return fill(shell, {
     index_path: INDEX_PATH,
     index_url: `${SITE_BASE}${INDEX_PATH}`,
     count: String(notes.length),
     stylesheet,
+    // The same card the notes get, rendered from the same fields, so the front
+    // page can't end up sharing differently from everything on it.
+    twitter_card: image ? "summary_large_image" : "summary",
+    image: imageTags,
   });
 }
 
@@ -367,6 +390,27 @@ function withMain(html, content) {
 }
 
 /**
+ * Puts the counter script last in the body, on every page the build touches, so
+ * a new note is counted without its author having to remember anything.
+ *
+ * Any tag already present comes out first: the endpoint stays a one-line change
+ * here, a page can't end up counting itself twice, and emptying ANALYTICS
+ * removes the script from the whole site on the next build rather than leaving
+ * it on pages that already have it.
+ */
+function withAnalytics(html) {
+  const out = html.replace(
+    /[ \t]*<script[^>]*\bdata-goatcounter\b[\s\S]*?<\/script>\n?/g, ""
+  );
+  const end = out.lastIndexOf("</body>");
+  if (!ANALYTICS || end === -1) return out;
+
+  const tag = `<script data-goatcounter="${ANALYTICS}"\n`
+    + `        async src="//gc.zgo.at/count.js"></script>`;
+  return `${out.slice(0, end)}${tag}\n${out.slice(end)}`;
+}
+
+/**
  * Puts the rebuilt footer back at the end of the body. The old footer and any
  * loose stamp or nav left over from an earlier layout come out first, so the
  * result is the same whether the page was last built by this version or not.
@@ -392,6 +436,84 @@ function withNotefoot(html, rendered) {
  * ordering derives from, and the descriptions, which are prose about the note
  * and can't be derived. Those are checked instead — see auditHead.
  */
+/** A PNG's dimensions, out of the IHDR chunk that always opens the file. */
+function pngSize(bytes) {
+  const signature = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+  if (bytes.length < 24) return null;
+  if (!bytes.subarray(0, 8).equals(signature)) return null;
+  if (bytes.toString("latin1", 12, 16) !== "IHDR") return null;
+  return { width: bytes.readUInt32BE(16), height: bytes.readUInt32BE(20) };
+}
+
+/**
+ * A JPEG's dimensions, from the frame header. Unlike PNG there is no fixed
+ * offset — the header sits after however many metadata segments the encoder
+ * wrote — so the segment chain is walked until a start-of-frame turns up.
+ */
+function jpegSize(bytes) {
+  if (bytes.length < 4 || bytes.readUInt16BE(0) !== 0xffd8) return null;
+
+  let at = 2;
+  while (at + 9 < bytes.length) {
+    if (bytes[at] !== 0xff) return null;
+    // Encoders may pad with 0xff before a marker.
+    if (bytes[at + 1] === 0xff) { at += 1; continue; }
+
+    const marker = bytes[at + 1];
+    // Standalone markers carry no length field to skip over.
+    if (marker === 0x01 || (marker >= 0xd0 && marker <= 0xd9)) { at += 2; continue; }
+    // Start of scan: the compressed data begins, so there is no header to find.
+    if (marker === 0xda) return null;
+
+    // SOF0-SOF15 hold the frame header. DHT, JPG and DAC share the range and
+    // are not frame headers, so they are stepped over like anything else.
+    if (marker >= 0xc0 && marker <= 0xcf
+        && marker !== 0xc4 && marker !== 0xc8 && marker !== 0xcc) {
+      return {
+        height: bytes.readUInt16BE(at + 5),
+        width: bytes.readUInt16BE(at + 7),
+      };
+    }
+    at += 2 + bytes.readUInt16BE(at + 2);
+  }
+  return null;
+}
+
+/**
+ * The card's dimensions. Declaring them lets a scraper lay the preview out
+ * before it has fetched the image, which is the difference between a card that
+ * appears with the link and one that pops in after.
+ *
+ * Returns null for a format neither reader knows, and the caller then omits the
+ * two tags rather than publishing a guess — an unrecognised card should cost
+ * the optimisation, not correctness.
+ */
+const imageSize = (bytes) => pngSize(bytes) ?? jpegSize(bytes);
+
+/**
+ * The share-card tags, shared by the notes and the stream so there is one
+ * description of the card rather than two that can drift.
+ *
+ * Every tag is always listed, with a null where the card doesn't supply one, so
+ * removing the image — or swapping it for a format whose dimensions can't be
+ * read — takes the stale tags out with it. A page left advertising an image
+ * that 404s shares worse than one advertising none.
+ */
+function imageFields() {
+  const size = image?.width ? image : null;
+  return [
+    ["og:image", image?.url],
+    ["og:image:width", size && String(size.width)],
+    ["og:image:height", size && String(size.height)],
+    ["og:image:alt", image && OG_IMAGE_ALT],
+  ].map(([property, content]) => ({
+    find: new RegExp(`<meta property="${property}" content="[^"]*">`),
+    tag: content
+      ? `<meta property="${property}" content="${content}">`
+      : null,
+  }));
+}
+
 const headFields = ({ title, url, type }) => [
   { find: /<title>[^<]*<\/title>/,
     tag: `<title>${title} | ${SITE_NAME}</title>` },
@@ -403,18 +525,30 @@ const headFields = ({ title, url, type }) => [
     tag: `<meta property="og:type" content="${type}">` },
   { find: /<meta property="og:site_name" content="[^"]*">/,
     tag: `<meta property="og:site_name" content="${SITE_NAME}">` },
+  // A 1200x630 card shown as summary would be cropped to a small square
+  // thumbnail, so the card and this value have to change together.
   { find: /<meta name="twitter:card" content="[^"]*">/,
-    tag: `<meta name="twitter:card" content="summary">` },
+    tag: `<meta name="twitter:card" content="${image ? "summary_large_image" : "summary"}">` },
   { find: /<link rel="canonical" href="[^"]*">/,
     tag: `<link rel="canonical" href="${url}">` },
   { find: /<link rel="stylesheet" href="[^"]*">/,
     tag: `<link rel="stylesheet" href="${stylesheet}">` },
+  ...imageFields(),
 ];
 
-/** Rewrites the derivable head fields, adding any the page is missing. */
+/**
+ * Rewrites the derivable head fields, adding any the page is missing and
+ * removing any the site no longer has a value for.
+ */
 function normaliseHead(html, meta) {
   let out = html;
   for (const { find, tag } of headFields(meta)) {
+    if (tag === null) {
+      // The whole line goes, indentation and newline included, so a dropped tag
+      // doesn't leave a blank line behind in the head.
+      out = out.replace(new RegExp(`[ \\t]*${find.source}\\n?`), "");
+      continue;
+    }
     if (find.test(out)) {
       out = out.replace(find, () => tag);
       continue;
@@ -517,10 +651,23 @@ const stylesheet = `/note.css?v=${createHash("sha256")
   .update(await readFile(join(NOTES_DIR, "note.css")))
   .digest("hex").slice(0, 8)}`;
 
+// The card, fingerprinted for the same reason and one more: the social
+// scrapers cache by URL for days, so a redrawn card at an unchanged URL keeps
+// being shared as the old one. og:image must be absolute — the scrapers fetch
+// it without a page to resolve against. A missing file is a warning rather than
+// a failure; a deploy with no share card is better than no deploy.
+const card = await readFile(join(NOTES_DIR, OG_IMAGE)).catch(() => null);
+if (!card) console.warn(`${OG_IMAGE}: not found, publishing without a share card`);
+const image = card && {
+  url: `${SITE_BASE}/${OG_IMAGE}?v=${createHash("sha256")
+    .update(card).digest("hex").slice(0, 8)}`,
+  ...(imageSize(card) ?? {}),
+};
+
 const writes = [];
 
 const indexPath = join(NOTES_DIR, "index.html");
-const index = renderStream(streamTemplate, notes);
+const index = withAnalytics(renderStream(streamTemplate, notes));
 const currentIndex = await readFile(indexPath, "utf8").catch(() => null);
 if (index !== currentIndex) writes.push([indexPath, index]);
 
@@ -543,6 +690,7 @@ notes.forEach((note, i) => {
   updated = withNotefoot(updated, renderNotefoot(
     noteTemplate, note, notes[i + 1] ?? null, notes[i - 1] ?? null
   ));
+  updated = withAnalytics(updated);
 
   // Audited after the rewrites, so it reports what actually ships rather than
   // what the publisher happened to hand over.

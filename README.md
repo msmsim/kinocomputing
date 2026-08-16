@@ -105,6 +105,30 @@ description always wins and is copied across to the other tag rather than left
 to disagree with a derived one. So a hand-written note needs nothing but a
 timestamp and a `<main>`.
 
+### The share card
+
+`kinocomputing-basic-og.jpg` is the card for the whole site — every note shares
+it until one has a reason of its own. The build emits `og:image` as an absolute
+URL (scrapers fetch it with no page to resolve against), reads `og:image:width`
+and `og:image:height` out of the image's own header so a preview can be laid out
+before the image arrives, and sets `twitter:card` to `summary_large_image`,
+since a 1200×630 card sent as `summary` is cropped to a square thumbnail.
+
+It is a JPEG rather than a PNG, and deliberately kept small: WhatsApp only
+generates a preview for cards under roughly 300KB, so a lossless 1.6MB gradient
+silently got no card there at all. Both PNG and JPEG headers are read, so the
+format can change back without losing the dimensions.
+
+The card is fingerprinted like the stylesheet, and for one more reason: the
+social scrapers cache by URL for days, so a redrawn card at an unchanged URL
+goes on being shared as the old one.
+
+Every image tag is emitted or removed on each build. Delete the card and the
+tags go with it and `twitter:card` falls back to `summary`; swap it for a format
+whose dimensions can't be read and only the width and height drop. A missing
+card is a warning, never a failure — a deploy with no share card beats no
+deploy.
+
 What is left is checked rather than fixed — the build warns, never fails, since
 a bad description is worse as a blocked deploy than as a line in the log:
 
@@ -116,6 +140,20 @@ than what the publisher handed over.
 
 `article:published_time` is never touched. It is the input the entire ordering
 derives from.
+
+## Analytics
+
+GoatCounter, from the `ANALYTICS` constant in `tools/build-stream.mjs`. The
+build puts the script last in the body of the stream and of every note, so a
+new note is counted without its author having to remember anything.
+
+Any tag already on a page is replaced rather than joined, so the endpoint is a
+one-line change and a page can't count itself twice. Setting `ANALYTICS` to `""`
+takes the script off the whole site on the next build rather than leaving it on
+the pages that already had it. Scripts that aren't GoatCounter's are left alone.
+
+It counts pageviews with no cookies and no cross-site identifiers, which is what
+keeps the site free of a consent banner.
 
 ## The masthead
 

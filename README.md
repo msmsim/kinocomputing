@@ -15,7 +15,7 @@ carries everything the build needs:
 `tools/build-stream.mjs` reads every `*.html` in the root except `index.html`
 and anything prefixed `_`, sorts them newest-first, and writes:
 
-1. `index.html` — the stream, from the `<!-- each:entry -->` block in `_stream.html`
+1. `index.html` — the stream, from the `<!-- each:entry -->` block in `_stream.html`, each note summarised to its title and opening block
 2. the `<footer class="notefoot">` block in each note page, from `_note.html`
 3. the derivable `<head>` fields in each note page
 
@@ -29,6 +29,18 @@ The datestamp is rebuilt from `article:published_time` rather than left as the
 publisher wrote it, so a change of format or time zone reaches notes that
 already exist. The footer is torn down and re-emitted whole on each build, and a
 page still carrying the older loose-sibling layout is migrated in the process.
+
+## The stream
+
+Each note appears as its title plus its opening block. If anything follows,
+a `Read more…` link to the note is appended; if nothing does, the note shows
+whole and gets no link. That is what keeps the title itself from having to be a
+link — the stream reads as the notes wherever it can, and only defers to the
+page when it is genuinely holding something back.
+
+"Opening block" means the first top-level element, with depth tracked on the tag
+itself, so a note that opens with a blockquote or a list comes back whole rather
+than being cut at the first `</p>` inside it.
 
 ## Note titles
 

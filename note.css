@@ -115,6 +115,15 @@ hr {
   letter-spacing: -0.005em;
 }
 
+/* READ MORE
+
+   Only present in the stream, and only on a note the stream is holding
+   something back from. It is the way into a long note, so the title above it
+   doesn't have to be a link. */
+p.more {
+  margin: 0.75em 0 0;
+}
+
 /* NOTE BODY
 
    The note itself. The slug is the note's only name and it already sits in the

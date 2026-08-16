@@ -144,6 +144,70 @@ function parseNote(fileSlug, html) {
   };
 }
 
+const VOID_ELEMENTS = new Set(["hr", "img", "br", "input", "meta", "link"]);
+
+/**
+ * Splits a fragment into its first top-level element and whatever follows.
+ * Depth is tracked on the tag itself, so a blockquote wrapping paragraphs comes
+ * back whole rather than being cut at the first </p> inside it.
+ *
+ * Returns null for anything that doesn't start with an element, which the
+ * caller treats as "can't summarise this", not as an error.
+ */
+function firstBlock(html) {
+  const open = html.match(/^\s*<([a-z][a-z0-9]*)\b[^>]*>/i);
+  if (!open) return null;
+
+  const tag = open[1].toLowerCase();
+  if (VOID_ELEMENTS.has(tag)) {
+    const end = open.index + open[0].length;
+    return { block: html.slice(0, end), rest: html.slice(end) };
+  }
+
+  const tags = new RegExp(`<(/?)${tag}\\b[^>]*>`, "gi");
+  tags.lastIndex = open.index;
+
+  let depth = 0;
+  let match;
+  while ((match = tags.exec(html)) !== null) {
+    depth += match[1] ? -1 : 1;
+    if (depth === 0) {
+      const end = match.index + match[0].length;
+      return { block: html.slice(0, end), rest: html.slice(end) };
+    }
+  }
+  return null;
+}
+
+/**
+ * What a note shows in the stream: its title, its opening block, and a way in
+ * if there is more. A note that fits in one block shows whole and gets no link
+ * — the stream should read as the note itself wherever it can, and only defer
+ * to the page when there is genuinely something being held back.
+ */
+function previewOf(note) {
+  const parts = [];
+  let rest = note.content;
+
+  if (note.title) {
+    const title = firstBlock(rest);
+    if (!title) return note.content;
+    parts.push(title.block.trim());
+    rest = title.rest;
+  }
+
+  const opening = firstBlock(rest.trim());
+  if (!opening) return note.content;
+  parts.push(opening.block.trim());
+
+  if (opening.rest.trim()) {
+    parts.push(
+      `<p class="more"><a href="${note.path}" target="_self">Read more…</a></p>`
+    );
+  }
+  return parts.join("\n");
+}
+
 /** Substitutes {{name}} placeholders. Values are pre-rendered HTML. */
 const fill = (template, values) =>
   template.replace(/\{\{(\w+)\}\}/g, (whole, name) =>
@@ -157,11 +221,11 @@ function renderStream(template, notes) {
   // template's own newlines around the each-block would otherwise leave a blank
   // line between articles.
   const entries = notes.map((note) => fill(each.inner, {
-    // On its own page a note's title is the h1 and its subheadings hang under
+    // On its own page a note's title is the h1 and any subheadings hang under
     // it. In the stream every note is one article among many, so the whole set
     // steps down a level and the nesting survives. h6 has nowhere to go and
     // stays put, which is the only case that flattens.
-    content: note.content.replace(
+    content: previewOf(note).replace(
       /<(\/?)h([1-5])\b/gi,
       (whole, slash, level) => `<${slash}h${Number(level) + 1}`
     ),

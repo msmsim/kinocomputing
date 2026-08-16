@@ -1,0 +1,197 @@
+/* NOTE PAGE STYLES
+
+   Loaded by the stream and by every note page. Notes are generated as bare
+   structure — nothing emits styling of its own — so everything a note looks
+   like is decided here. Edit this file to restyle the whole site at once; no
+   republishing needed. */
+
+html {
+  scrollbar-gutter: stable both-edges;
+}
+
+body {
+  font-size: 14px;
+  line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #1a1a1a;
+  background: #ffffff;
+  max-width: 65ch;
+  margin: 1rem auto;
+  padding: 0 1rem;
+}
+
+/* HEADINGS */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  margin-top: 1em;
+  margin-bottom: 0.3em;
+  font-weight: 500;
+}
+
+h1 { font-size: 1.5em; }
+h2 { font-size: 1.35em; }
+h3 { font-size: 1.15em; }
+h4 { font-size: 1.05em; }
+
+/* PARAGRAPHS */
+p {
+  margin-top: 0;
+  margin-bottom: 0.75em;
+}
+
+/* LINKS */
+a {
+  color: #0066cc;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #0052a3;
+  background: #e6f0ff;
+}
+
+/* LISTS */
+ul, ol {
+  margin-bottom: 0.75em;
+  padding-left: 1.25em;
+}
+
+li {
+  margin-bottom: 0.25em;
+}
+
+/* BLOCKQUOTES */
+blockquote {
+  margin: 0.75em 0;
+  padding-left: 1em;
+  border-left: 3px solid #ddd;
+  font-style: italic;
+  color: #555;
+}
+
+/* CODE */
+code {
+  font-family: "SF Mono", Monaco, "Cascadia Code", monospace;
+  font-size: 0.9em;
+  background: #f5f5f5;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+}
+
+pre {
+  background: #f5f5f5;
+  padding: 1em;
+  overflow-x: auto;
+  border-radius: 3px;
+  line-height: 1.4;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+}
+
+/* HORIZONTAL RULES */
+hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 1em 0;
+}
+
+/* NOTE BODY
+
+   The note itself. The slug is the note's only name and it already sits in the
+   title bar and the URL, so it is deliberately not repeated on the page. */
+main {
+  margin-top: 3rem;
+}
+
+main > :first-child {
+  margin-top: 0;
+}
+
+/* BACK LINK
+
+   Top left on a note page, back to the stream. The stream itself is the root,
+   so it carries no back link of its own. */
+nav.back {
+  margin: 0 0 0.75em;
+}
+
+/* DATESTAMP
+
+   Right-aligned under the note, and the note's own permalink — the one thing
+   on the page worth copying. */
+.stamp {
+  margin: 0.5em 0 0;
+  text-align: right;
+  font-size: 0.85em;
+}
+
+.stamp a {
+  color: #555;
+  text-decoration: none;
+  border-bottom: 1px dotted #bbb;
+}
+
+.stamp a:hover {
+  color: #0066cc;
+  background: #e6f0ff;
+}
+
+/* SOURCE
+
+   Where a note is about something published elsewhere, the link to it sits with
+   the datestamp rather than in the prose, so a note that came in as a share
+   reads like every other note until the footer. Solid underline against the
+   stamp's dotted one, and the arrow, so the two right-aligned lines don't read
+   as one field. */
+p.source {
+  margin: 1.25em 0 0;
+  text-align: right;
+  font-size: 0.85em;
+}
+
+p.source a {
+  color: #555;
+  text-decoration: none;
+  border-bottom: 1px solid #ccc;
+}
+
+p.source a:hover {
+  color: #0066cc;
+  background: #e6f0ff;
+}
+
+/* OLDER / NEWER
+
+   Either may be absent at the ends of the stream, so the newer link is pushed
+   right on its own rather than relying on both being present. */
+nav.adjacent {
+  display: flex;
+  gap: 1em;
+  margin: 2em 0 1em;
+  font-size: 0.9em;
+}
+
+nav.adjacent a[rel="next"] {
+  margin-left: auto;
+}
+
+/* STREAM
+
+   The front page: every note in full, newest first. It carries no heading —
+   the page title and the URL already say what it is. */
+article:first-of-type {
+  margin-top: 3rem;
+}
+
+article + article {
+  border-top: 1px solid #ddd;
+  margin-top: 1.5em;
+  padding-top: 1.5em;
+}
+
+article > :first-child {
+  margin-top: 0;
+}

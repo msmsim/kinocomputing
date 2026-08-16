@@ -1,95 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kino Computing</title>
-  <meta name="description" content="Kino Computing">
-  <style>
-    :root {
-      color-scheme: light dark;
-      --bg: #ffffff;
-      --fg: #1a1a1a;
-      --muted: #666666;
-      --rule: #e3e3e3;
-      --link: #2c5fd6;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #111214;
-        --fg: #eceded;
-        --muted: #9a9c9f;
-        --rule: #2a2c30;
-        --link: #7ea6ff;
-      }
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      padding: 4rem 1.5rem;
-      background: var(--bg);
-      color: var(--fg);
-      font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    main {
-      max-width: 40rem;
-      margin: 0 auto;
-    }
-
-    h1 {
-      margin: 0 0 .25rem;
-      font-size: 1.75rem;
-      letter-spacing: -0.02em;
-    }
-
-    .tagline {
-      margin: 0 0 2rem;
-      color: var(--muted);
-    }
-
-    hr {
-      border: 0;
-      border-top: 1px solid var(--rule);
-      margin: 2rem 0;
-    }
-
-    a {
-      color: var(--link);
-    }
-
-    footer {
-      margin-top: 3rem;
-      color: var(--muted);
-      font-size: .875rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>Kino Computing</title>
+    <meta name="description" content="Notes and shares.">
+    <meta property="og:title" content="Kino Computing">
+    <meta property="og:description" content="Notes and shares.">
+    <meta property="og:url" content="https://kinocomputing.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Kino Computing">
+    <link rel="canonical" href="https://kinocomputing.com/">
+    <link rel="stylesheet" href="/note.css">
 </head>
 <body>
-  <main>
-    <h1>Kino Computing</h1>
-    <p class="tagline">Coming soon.</p>
-
-    <hr>
-
-    <p>
-      Placeholder page. Replace this copy with whatever the site is actually about.
-    </p>
-
-    <p>
-      Contact: <a href="mailto:matt@msweet.net">matt@msweet.net</a>
-    </p>
-
-    <footer>
-      &copy; <span id="year">2026</span> Kino Computing
-    </footer>
-  </main>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+<article>
+<p>The newest note sits at the top of the stream, and its <em>Next</em> link is
+absent rather than dead. The oldest is the mirror of it.</p>
+<p class="stamp"><a href="/003-cobalt-wrens" target="_self"><time datetime="2026-08-16T11:05:00+01:00">16 Aug 2026, 11:05</time></a></p>
+</article>
+<article>
+<p>A share reads like any other note until the footer — the link to wherever it
+came from sits with the datestamp rather than in the prose.</p>
+<blockquote><p>The quoted bit, if there is one.</p></blockquote>
+<p class="source"><a href="https://example.com/">Where this came from ↗</a></p>
+<p class="stamp"><a href="/002-amber-lynx" target="_self"><time datetime="2026-08-15T18:40:00+01:00">15 Aug 2026, 18:40</time></a></p>
+</article>
+<article>
+<p>A first note, to give the stream something to be. Replace it.</p>
+<p class="stamp"><a href="/001-slate-herons" target="_self"><time datetime="2026-08-14T09:12:00+01:00">14 Aug 2026, 09:12</time></a></p>
+</article>
 </body>
 </html>

@@ -4,20 +4,30 @@ A stream of notes and shares at [kinocomputing.com](https://kinocomputing.com).
 
 ## How it works
 
-The repo root is the source of truth. Each note is a standalone HTML page that
-carries everything the build needs:
+`notes/` is the source of truth and `dist/` is the deploy. Each note is a
+standalone HTML page in `notes/` that carries everything the build needs:
 
 - `<meta property="article:published_time" content="...">` — an ISO timestamp,
   which decides where the note falls in the stream
 - a `<main>` element — the note body, inlined verbatim into the stream
 - an empty `<nav class="adjacent"></nav>` — the build fills in prev/next
 
-`tools/build-stream.mjs` reads every `*.html` in the root except `index.html`
-and anything prefixed `_`, sorts them newest-first, and writes:
+`tools/build-stream.mjs` reads every `*.html` in `notes/` except `index.html`
+and anything prefixed `_`, sorts them newest-first, and writes `dist/`:
 
 1. `index.html` — the stream, from the `<!-- each:entry -->` block in `_stream.html`, each note summarised to its title and opening block
-2. the `<footer class="notefoot">` block in each note page, from `_note.html`
-3. the derivable `<head>` fields in each note page
+2. one page per note, its `<footer class="notefoot">` built from `_note.html` and its derivable `<head>` fields filled in
+3. `_redirects`, and the assets — `note.css`, the share card
+
+Nothing under `notes/` is ever written to. The build only reads it, so a note
+stays exactly as its publisher wrote it however many times the site is built,
+and `dist/` is rebuilt from empty each time rather than patched — it can only
+hold what the last run produced.
+
+The two directories exist because motes addresses a repo path and a URL path
+with one setting and can't be told they differ. Reading from one place and
+writing to another reconciles that, and pays for itself twice over: the sources
+are never modified, and the tooling and README are no longer part of the site.
 
 The footer is one line: datestamp left, navigation right. The nav is the only
 navigation a page carries — there is no separate back link — and reads
@@ -58,33 +68,38 @@ rewrite the note's first line.
 ### The URL follows the title
 
 A titled note is published at a path made from its title — `<p><strong>Notes
-can have titles</strong></p>` becomes `/notes-can-have-titles` — and **the build
-renames the file on disk to match**. An untitled note keeps the name its
-publisher gave it.
+can have titles</strong></p>` becomes `/notes-can-have-titles`. The source file
+keeps whatever name it was given; only the published page is named by the title.
+An untitled note is published under its filename.
 
 Rules, in order:
 
 - Untitled notes are placed first, so they always keep their own filename. A new
   note whose title happened to slugify onto an existing file's name would
   otherwise silently move that note's URL.
-- Names already taken get `-2`, `-3` appended — including `index` and the
-  `PAGES` paths, and the name of any root file the scan skipped.
+- Names already taken get `-2`, `-3` appended — including `index`, the asset
+  names, and the name of any file in `notes/` the scan skipped.
 - A title with nothing slug-worthy in it falls back to the filename.
 - Resolution runs in filename order, so the same notes always yield the same
   paths whatever order the directory is read in.
 
 ### Redirects
 
-Renaming breaks any URL already shared, so every rename is recorded in
-`_redirects`, which Cloudflare Pages reads from the deploy root. Entries are
-**only ever added**: the build can see a rename exactly once, on the run that
-performs it, so a dropped entry is gone for good. Retitling twice leaves both
-hops, and browsers follow the chain.
+`dist/_redirects`, which Cloudflare Pages reads from the deploy root, keeps
+every URL a note has been reachable at pointing at the note. Two rules per note
+are derived:
 
-Renames happen on disk, which matters locally: running the build in your working
-tree moves files. In CI it is harmless — the checkout is thrown away — but a
-local run is a real rename, so commit before running it if you want the
-publisher's filenames back.
+- `/<file name>` → the note, so a note published before it was titled — or
+  retitled since — is still reachable at the URL it went out with
+- `/notes/<file name>` → the note, because motes writes internal links in that
+  form. They arrive inside the note body, which the build passes through
+  untouched, so they are met with a redirect rather than rewritten
+
+Both are re-derived on every build. Source filenames never change, so unlike a
+build that renames in place, nothing has to be remembered between runs and
+there is no entry that can be lost by pruning. A `_redirects` at the repo root
+is optional and is folded in first, for anything the build can't know about —
+a URL from a previous site, say.
 
 ## Head metadata
 
@@ -159,8 +174,7 @@ keeps the site free of a consent banner.
 
 There isn't one, for now. The site title, subtitle and page footers were removed
 deliberately; pages carry their content, their datestamp and their nav, nothing
-else. `_masthead.html` is left in the repo unused — it is `_`-prefixed, so the
-build skips it and it is never served — and holds the wording if it comes back.
+else. The wording is in the git history if it comes back.
 
 Nothing currently links to `/about`. It is reachable only by typing the URL.
 
@@ -172,23 +186,56 @@ title is "About", so the slug it derives is `about` and the URL is unchanged.
 
 If a page ever genuinely can't be a note, the pattern that worked was a
 `<name>/index.html` in its own directory, listed in a `PAGES` constant so the
-build maintained its head and nav. A root-level `about.html` without a timestamp
-would instead be scanned as a candidate note and skipped with a warning on every
-build. That machinery is in the git history rather than the tree.
+build maintained its head and nav. That machinery is in the git history rather
+than the tree.
 
-Anything that can drop a conforming file into the root joins the stream with
+Anything that can drop a conforming file into `notes/` joins the stream with
 correct neighbours. There is no registry and no ordering to agree on, so
 multiple publishers can coexist without coordinating.
 
-A root `*.html` file missing `published_time` or `<main>` is warned about and
+A file in `notes/` missing `published_time` or `<main>` is warned about and
 skipped rather than ingested — that is the guard against the flat namespace,
-since notes are unprefixed at the top level.
+since notes share one directory with no prefix.
 
-## Publishing
+## Publishing from motes
 
-Add `NNN-colour-animal.html` to the root and push. The numbering is cosmetic;
+[motes](https://github.com/msmsim/motes) publishes to this repo directly. Vault
+settings:
+
+| setting | value |
+| ------- | ----- |
+| base url | `https://kinocomputing.com` |
+| owner / repo | `msmsim` / `kinocomputing` |
+| notes folder | `notes` |
+
+The folder has to be `notes` rather than the site root: motes uses that one
+setting as both the repo path it commits to and the URL path it links to, so an
+empty value would build `//` into every path. That is the whole reason the
+sources live in a directory of their own — the build reconciles the two by
+reading `notes/` and publishing to `/`.
+
+Consequences worth knowing:
+
+- motes writes only `notes/<slug>.html`. The stream is this build's alone, so
+  `_stream.html` is never applied by the app and can use values motes doesn't
+  supply.
+- The templates are at `notes/_note.html` and `notes/_stream.html`, which is
+  where motes looks for them.
+- motes drops `<!-- if:stamp -->` and `<!-- if:home -->` when it renders a note,
+  since it supplies no such values. The build rebuilds the footer whole on every
+  deploy and puts both back.
+- A note is titleless to motes, but its markdown renderer emits
+  `<p><strong>…</strong></p>` for a lone bolded line — which is exactly what
+  this build promotes to a title. Bold first lines work from the phone.
+- Deleting a note in motes removes `notes/<slug>.html` by its original name, so
+  a retitled note is still taken down correctly; the build never renames the
+  file it addresses.
+
+## Publishing by hand
+
+Add `NNN-colour-animal.html` to `notes/` and push. The numbering is cosmetic;
 ordering comes from the timestamp alone, and a note that opens with a bolded
-line is republished at a path made from that line instead.
+line is published at a path made from that line instead.
 
 ```
 node tools/build-stream.mjs          # rebuild
@@ -205,7 +252,7 @@ Cloudflare Pages, built from a fresh checkout on every push:
 | ---------------- | ---------------------------- |
 | Framework preset | None                         |
 | Build command    | `node tools/build-stream.mjs` |
-| Output directory | `/`                          |
+| Output directory | `dist`                       |
 
-Nothing is committed back, so the copies in git keep whatever adjacent nav they
-were last written with. Only the deployed output is guaranteed current.
+`dist/` is generated and git-ignored — nothing is committed back. The repo holds
+sources; the deploy holds pages, and only the deploy is ever current.

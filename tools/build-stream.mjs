@@ -15,21 +15,33 @@
 //
 // --check exits 1 if anything would change, without writing.
 
-import { readdir, readFile, unlink, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { join } from "node:path";
 
-// The notes sit at the root: a note published as 001-teal-voles.html is served
-// at /001-teal-voles, and the stream is the site's front page.
-const NOTES_DIR = ".";
+// Notes are published into a folder of their own and served from the site root:
+// a note written as notes/001-teal-voles.html is served at /001-teal-voles, and
+// the stream is the site's front page.
+//
+// The folder exists because motes addresses a repo path and a URL path with the
+// same setting, and can't be told they differ. Reading from one place and
+// writing to another reconciles that, and pays for itself twice over: the
+// sources are never modified by a build, and only built pages are deployed —
+// the tooling, the README and the templates stay out of the site.
+const SOURCE_DIR = "notes";
+const OUT_DIR = "dist";
 const SITE_BASE = "https://kinocomputing.com";
 const SITE_NAME = "Kinocomputing";
 const INDEX_PATH = "/";
 const TIME_ZONE = "Europe/London";
 
-// Cloudflare Pages reads this from the deploy root. It is _-prefixed, so the
-// note scan skips it for free.
+// Cloudflare Pages reads this from the deploy root. A copy at the repo root is
+// optional and seeds the generated one, for rules no build could derive.
 const REDIRECTS = "_redirects";
+
+// Copied into the deploy as they are. Everything else at the repo root — the
+// build, the README — is tooling, and stays out of the site.
+const ASSETS = ["note.css"];
 
 // GoatCounter. Pageview counts only — no cookies and no cross-site identifiers,
 // which is what keeps the site free of a consent banner. Set to "" to take the
@@ -587,18 +599,18 @@ function auditHead(html, slug) {
   }
 }
 
-const files = (await readdir(NOTES_DIR))
+const files = (await readdir(SOURCE_DIR))
   .filter((name) => name.endsWith(".html"))
   .filter((name) => name !== "index.html" && !name.startsWith("_"));
 
 const notes = [];
-// Anything in the root that isn't a note still owns its name, so a title can't
-// be slugified onto the path of a file the scan decided to leave alone.
-const reserved = new Set(["index"]);
+// Anything in the source folder that isn't a note still owns its name, so a
+// title can't be slugified onto the path of a file the scan left alone.
+const reserved = new Set(["index", ...ASSETS]);
 
 for (const file of files) {
   const fileSlug = file.replace(/\.html$/, "");
-  const html = await readFile(join(NOTES_DIR, file), "utf8");
+  const html = await readFile(join(SOURCE_DIR, file), "utf8");
   const note = parseNote(fileSlug, html);
   if (!note) {
     console.warn(`skipped ${file}: no published_time or no <main>`);
@@ -640,38 +652,40 @@ for (const pass of [(note) => !note.title, (note) => note.title]) {
 // and a rerun can't shuffle two notes published in the same second.
 notes.sort((a, b) => new Date(b.iso) - new Date(a.iso) || b.slug.localeCompare(a.slug));
 
-const streamTemplate = await readFile(join(NOTES_DIR, "_stream.html"), "utf8");
-const noteTemplate = await readFile(join(NOTES_DIR, "_note.html"), "utf8");
+// Beside the notes, which is where motes looks for them too.
+const streamTemplate = await readFile(join(SOURCE_DIR, "_stream.html"), "utf8");
+const noteTemplate = await readFile(join(SOURCE_DIR, "_note.html"), "utf8");
 
 // The stylesheet is fingerprinted with its own contents. Every page is rebuilt
 // on each deploy anyway, so the cost is nothing, and it means an edit to
 // note.css can't be masked by a browser or an edge cache still holding the old
 // one — which is otherwise indistinguishable from the edit not working.
+const assets = new Map();
+for (const name of ASSETS) assets.set(name, await readFile(name));
+
 const stylesheet = `/note.css?v=${createHash("sha256")
-  .update(await readFile(join(NOTES_DIR, "note.css")))
-  .digest("hex").slice(0, 8)}`;
+  .update(assets.get("note.css")).digest("hex").slice(0, 8)}`;
 
 // The card, fingerprinted for the same reason and one more: the social
 // scrapers cache by URL for days, so a redrawn card at an unchanged URL keeps
 // being shared as the old one. og:image must be absolute — the scrapers fetch
 // it without a page to resolve against. A missing file is a warning rather than
 // a failure; a deploy with no share card is better than no deploy.
-const card = await readFile(join(NOTES_DIR, OG_IMAGE)).catch(() => null);
+const card = await readFile(OG_IMAGE).catch(() => null);
 if (!card) console.warn(`${OG_IMAGE}: not found, publishing without a share card`);
+if (card) assets.set(OG_IMAGE, card);
 const image = card && {
   url: `${SITE_BASE}/${OG_IMAGE}?v=${createHash("sha256")
     .update(card).digest("hex").slice(0, 8)}`,
   ...(imageSize(card) ?? {}),
 };
 
-const writes = [];
+// The deploy, built in memory and compared against what is on disk at the end.
+// Nothing under the source folder is written to, so a local build leaves the
+// notes exactly as their publisher wrote them.
+const site = new Map(assets);
 
-const indexPath = join(NOTES_DIR, "index.html");
-const index = withAnalytics(renderStream(streamTemplate, notes));
-const currentIndex = await readFile(indexPath, "utf8").catch(() => null);
-if (index !== currentIndex) writes.push([indexPath, index]);
-
-const renames = [];
+site.set("index.html", withAnalytics(renderStream(streamTemplate, notes)));
 
 notes.forEach((note, i) => {
   const { html } = note;
@@ -696,61 +710,69 @@ notes.forEach((note, i) => {
   // what the publisher happened to hand over.
   auditHead(updated, note.slug);
 
-  const target = join(NOTES_DIR, `${note.slug}.html`);
-  if (note.slug !== note.fileSlug) {
-    renames.push([join(NOTES_DIR, `${note.fileSlug}.html`), note.fileSlug, note.slug]);
-    writes.push([target, updated]);
-  } else if (updated !== html) {
-    writes.push([target, updated]);
-  }
+  site.set(`${note.slug}.html`, updated);
 });
 
-
 /**
- * Records where a note used to live, so a URL that has ever been published
- * keeps working after a retitle moves it.
+ * Keeps every URL a note has ever been reachable at pointing at the note.
  *
- * Entries are only ever added. The build can see a rename exactly once — on the
- * run that performs it — and after that the old filename is gone, so anything
- * dropped here is lost for good. Accumulating a little dead config is the far
- * cheaper mistake.
+ * Two are derived. A note is published under its title, but its file is named
+ * by whatever motes generated, so `/042-teal-otters` has to reach a retitled
+ * note. And motes writes internal links as `/<source folder>/<file name>`,
+ * because it addresses a repo path and a URL path with one setting — those
+ * arrive in the note body, which the build passes through untouched, so they
+ * are met with a redirect rather than a rewrite.
+ *
+ * Both are re-derived on every build: the source filenames never change, so
+ * unlike a build that renames in place, nothing here has to be remembered
+ * between runs. A `_redirects` at the repo root is folded in for anything the
+ * build can't know about — a URL from a previous site, say.
  */
-async function renderRedirects(pairs) {
-  const existing = await readFile(join(NOTES_DIR, REDIRECTS), "utf8").catch(() => "");
-  const lines = new Set(
-    existing.split("\n").map((line) => line.trim()).filter(Boolean)
-  );
-  for (const [, from, to] of pairs) {
-    lines.add(`${INDEX_PATH}${from} ${INDEX_PATH}${to} 301`);
+async function renderRedirects() {
+  const seed = await readFile(REDIRECTS, "utf8").catch(() => "");
+  const lines = new Set(seed.split("\n").map((line) => line.trim()).filter(Boolean));
+
+  for (const note of notes) {
+    lines.add(`${INDEX_PATH}${SOURCE_DIR}/${note.fileSlug} ${note.path} 301`);
+    if (note.slug !== note.fileSlug) {
+      lines.add(`${INDEX_PATH}${note.fileSlug} ${note.path} 301`);
+    }
   }
   return `${[...lines].sort().join("\n")}\n`;
 }
 
-if (renames.length > 0) {
-  const redirectsPath = join(NOTES_DIR, REDIRECTS);
-  const redirects = await renderRedirects(renames);
-  const current = await readFile(redirectsPath, "utf8").catch(() => null);
-  if (redirects !== current) writes.push([redirectsPath, redirects]);
+site.set(REDIRECTS, await renderRedirects());
+
+// What the deploy folder holds now, so a page dropped from the site is noticed
+// as a change and doesn't linger from an earlier build.
+const existing = new Map();
+for (const name of await readdir(OUT_DIR).catch(() => [])) {
+  existing.set(name, await readFile(join(OUT_DIR, name)).catch(() => null));
 }
 
-if (writes.length === 0 && renames.length === 0) {
+// A file absent from the deploy reads as undefined here, not as empty content.
+const same = (a, b) =>
+  a != null && b != null && Buffer.from(a).equals(Buffer.from(b));
+
+const changed = [...site.keys()].filter((n) => !same(site.get(n), existing.get(n)));
+const stale = [...existing.keys()].filter((n) => !site.has(n));
+
+if (changed.length === 0 && stale.length === 0) {
   console.log(`${notes.length} notes, already up to date`);
   process.exit(0);
 }
 
 if (check) {
-  console.error(`${writes.length} file(s) would change:`);
-  for (const [path] of writes) console.error(`  ${path}`);
-  for (const [path, from, to] of renames) {
-    console.error(`  ${path} -> ${to}.html (redirect from ${INDEX_PATH}${from})`);
-  }
+  console.error(`${changed.length + stale.length} file(s) would change:`);
+  for (const name of changed) console.error(`  ${join(OUT_DIR, name)}`);
+  for (const name of stale) console.error(`  ${join(OUT_DIR, name)} (removed)`);
   process.exit(1);
 }
 
-for (const [path, content] of writes) await writeFile(path, content);
-// Only after the replacement is safely on disk, so an interrupted build leaves
-// a duplicate rather than a hole.
-for (const [path] of renames) await unlink(path);
+// Rebuilt from empty rather than patched, so the folder can only ever hold what
+// this run produced — the same guarantee the fresh checkout gives in CI.
+await rm(OUT_DIR, { recursive: true, force: true });
+await mkdir(OUT_DIR, { recursive: true });
+for (const [name, content] of site) await writeFile(join(OUT_DIR, name), content);
 
-const moved = renames.length ? `, moved ${renames.length}` : "";
-console.log(`${notes.length} notes, wrote ${writes.length} file(s)${moved}`);
+console.log(`${notes.length} notes, wrote ${site.size} file(s) to ${OUT_DIR}/`);

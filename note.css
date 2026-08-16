@@ -100,77 +100,112 @@ hr {
 
 /* MASTHEAD
 
-   Title, subtitle and the disclosed description. Identical markup in both
-   positions — a <header> at the top of the stream, a <footer> at the foot of a
-   note — so the mechanics are the same and only the framing moves. */
+   Title, subtitle and the disclosed description. One block of markup serves
+   both positions — a <header> at the top of the stream, a <footer> at the foot
+   of a note — so the disclosure behaves identically in each and there is a
+   single place to edit the words. What differs is presentation only, and it is
+   all decided below: the stream banners it, the note runs it as one line. */
 .masthead h1 {
-  margin: 0 0 0.15em;
-  font-size: 1.5em;
-  font-weight: 500;
+  margin: 0;
+  font-size: 1.75em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* The subtitle is one step down and deliberately quieter — it sits inline so it
+   shares a line with the disclosure arrow rather than pushing it onto its own. */
+.masthead h2 {
+  display: inline;
+  font-size: 1.05em;
+  font-weight: 400;
+  color: #555;
 }
 
 header.masthead {
   margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #ddd;
 }
 
-/* Below the note it is the subordinate thing on the page, so it is set smaller
-   and fenced off rather than repeating the front page's weight. */
+/* The masthead already fences the stream off, so the first note doesn't need
+   the standing-clear margin it takes when nothing precedes it. */
+header.masthead + article {
+  margin-top: 0;
+}
+
+/* Below a note the masthead is a footnote to it rather than the page's banner,
+   so the title and subtitle collapse onto one line of running text: the h1 is
+   dropped and the site name is set as a lead-in to the subtitle instead. */
 footer.masthead {
   margin-top: 3rem;
   padding-top: 1.25em;
   border-top: 1px solid #ddd;
-  font-size: 0.9em;
 }
 
 footer.masthead h1 {
-  font-size: 1.15em;
+  display: none;
+}
+
+footer.masthead h2 {
+  font-size: 1em;
+}
+
+/* Real text rather than generated content, so the site name is selectable and
+   indexable on a note page — it is simply hidden where the h1 already says it. */
+.masthead .lead {
+  display: none;
+}
+
+footer.masthead .lead {
+  display: inline;
+}
+
+footer.masthead .claim {
+  text-transform: lowercase;
 }
 
 /* THE DISCLOSURE
 
    <details> rather than script: the description is present in the markup, so it
    is findable and readable with JS off, and the control is keyboard-operable
-   for free. The whole summary line is a click target — that part is unavoidable
-   and harmless — but only "Learn more." is dressed as one, so the affordance
-   points at the right words. */
+   for free. The native marker is the whole affordance — no second "learn more"
+   label to keep in step with the open state. */
 .about {
-  margin: 0;
+  margin: 0.9em 0 0;
 }
 
 .about summary {
-  cursor: default;
-  list-style: none;
-}
-
-.about summary::-webkit-details-marker {
-  display: none;
-}
-
-.about .toggle {
   cursor: pointer;
-  color: #0066cc;
-  text-decoration: underline;
 }
 
-.about summary:hover .toggle {
-  color: #0052a3;
-  background: #e6f0ff;
+.about summary:hover h2 {
+  color: #1a1a1a;
 }
-
-/* One label swapped for the other off the open attribute alone — the state
-   already lives on <details>, so nothing has to track it. */
-.about .less { display: none; }
-.about[open] .more { display: none; }
-.about[open] .less { display: inline; }
 
 .about summary:focus-visible {
   outline: 2px solid #0066cc;
   outline-offset: 2px;
 }
 
-.about p {
-  margin: 0.75em 0 0;
+/* Indented under the summary that opened it, and a step quieter again. */
+.about .description {
+  margin-top: 1.25em;
+  padding-left: 1.5em;
+  font-size: 0.95em;
+  color: #444;
+}
+
+.about .description p {
+  margin: 0 0 0.75em;
   max-width: 60ch;
+}
+
+.about .description p:last-child {
+  margin-bottom: 0;
+}
+
+footer.masthead .description {
+  color: #666;
 }
 
 /* NOTE BODY

@@ -18,6 +18,24 @@ and anything prefixed `_`, sorts them newest-first, and writes:
 1. `index.html` — the stream, from the `<!-- each:entry -->` block in `_stream.html`
 2. the `<nav class="adjacent">` block in each note page, from `_note.html`
 3. the `<footer class="masthead">` block in each note page, from `_masthead.html`
+4. the derivable `<head>` fields and the back-link in each note page
+
+## Head metadata
+
+`<title>`, `og:title`, `og:url`, `og:type`, `og:site_name`, `twitter:card` and
+`rel="canonical"` are pure functions of the slug and the constants at the top of
+`tools/build-stream.mjs`, so the build rewrites them on every run and adds any a
+page is missing. Renaming the site or moving the domain is a one-line change
+there; nothing needs republishing.
+
+Not derivable, so left alone and checked instead — the build warns, never fails,
+since a bad description is worse as a blocked deploy than as a line in the log:
+
+- a missing, empty, or disagreeing `description` / `og:description`
+- an unfilled `{{placeholder}}` left in the head
+
+`article:published_time` is never touched. It is the input the entire ordering
+derives from.
 
 ## The masthead
 

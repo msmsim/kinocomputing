@@ -22,6 +22,7 @@ import { join } from "node:path";
 // at /001-teal-voles, and the stream is the site's front page.
 const NOTES_DIR = ".";
 const SITE_BASE = "https://kinocomputing.com";
+const SITE_NAME = "Kinocomputing";
 const INDEX_PATH = "/";
 const TIME_ZONE = "Europe/London";
 
@@ -146,6 +147,79 @@ function replaceBlock(html, open, close, rendered) {
 }
 
 /**
+ * The head fields that are pure functions of the slug and the site constants.
+ * The build owns them for the same reason it owns the masthead: renaming the
+ * site or moving the domain otherwise silently strands every note published
+ * before the change, and a wrong canonical is the kind of breakage that shows
+ * up as duplicate content and broken share cards rather than as an error.
+ *
+ * Deliberately not here: article:published_time, which is the input the whole
+ * ordering derives from, and the descriptions, which are prose about the note
+ * and can't be derived. Those are checked instead — see auditHead.
+ */
+const headFields = (note) => {
+  const url = `${SITE_BASE}${note.path}`;
+  return [
+    { find: /<title>[^<]*<\/title>/,
+      tag: `<title>${note.slug} | ${SITE_NAME}</title>` },
+    { find: /<meta property="og:title" content="[^"]*">/,
+      tag: `<meta property="og:title" content="${note.slug}">` },
+    { find: /<meta property="og:url" content="[^"]*">/,
+      tag: `<meta property="og:url" content="${url}">` },
+    { find: /<meta property="og:type" content="[^"]*">/,
+      tag: `<meta property="og:type" content="article">` },
+    { find: /<meta property="og:site_name" content="[^"]*">/,
+      tag: `<meta property="og:site_name" content="${SITE_NAME}">` },
+    { find: /<meta name="twitter:card" content="[^"]*">/,
+      tag: `<meta name="twitter:card" content="summary">` },
+    { find: /<link rel="canonical" href="[^"]*">/,
+      tag: `<link rel="canonical" href="${url}">` },
+  ];
+};
+
+/** Rewrites the derivable head fields, adding any the page is missing. */
+function normaliseHead(html, note) {
+  let out = html;
+  for (const { find, tag } of headFields(note)) {
+    if (find.test(out)) {
+      out = out.replace(find, () => tag);
+      continue;
+    }
+    const end = out.indexOf("</head>");
+    if (end === -1) return out;
+    out = `${out.slice(0, end)}    ${tag}\n${out.slice(end)}`;
+  }
+  return out;
+}
+
+/**
+ * Warns about head metadata the build can't derive and therefore can't fix. A
+ * note still publishes with any of these wrong — a missing description is worse
+ * as a failed deploy than as a line in the build log — so these never throw.
+ */
+function auditHead(html, slug) {
+  const value = (re) => html.match(re)?.[1];
+  const description = value(/<meta name="description" content="([^"]*)"/);
+  const ogDescription = value(/<meta property="og:description" content="([^"]*)"/);
+
+  const say = (message) => console.warn(`${slug}: ${message}`);
+
+  if (description === undefined) say("no meta description");
+  else if (!description.trim()) say("empty meta description");
+  if (ogDescription === undefined) say("no og:description");
+
+  if (description !== undefined && ogDescription !== undefined
+      && description !== ogDescription) {
+    say("meta description and og:description disagree");
+  }
+  // An unfilled template placeholder reads as plausible prose in the markup and
+  // only looks wrong once it is someone's search result.
+  if (/\{\{\w+\}\}/.test(html.slice(0, html.indexOf("</head>")))) {
+    say("unfilled {{placeholder}} in head");
+  }
+}
+
+/**
  * The masthead is the one thing on a note page that isn't about that note, so
  * it is rewritten from _masthead.html on every build rather than baked in at
  * publish time. Editing the partial restyles the whole site's framing on the
@@ -198,13 +272,21 @@ const index = renderStream(streamTemplate, notes);
 const currentIndex = await readFile(indexPath, "utf8").catch(() => null);
 if (index !== currentIndex) writes.push([indexPath, index]);
 
+const backNav =
+  `<nav class="back"><a href="${INDEX_PATH}" target="_self">← ${SITE_NAME}</a></nav>`;
+
 notes.forEach((note, i) => {
   const html = pages.get(note.slug);
-  let updated = replaceBlock(
-    html, '<nav class="adjacent">', "</nav>",
+  auditHead(html, note.slug);
+
+  let updated = normaliseHead(html, note);
+  updated = replaceBlock(updated, '<nav class="back">', "</nav>", backNav);
+  updated = replaceBlock(
+    updated, '<nav class="adjacent">', "</nav>",
     renderAdjacent(noteTemplate, notes[i + 1] ?? null, notes[i - 1] ?? null)
   );
   updated = withMasthead(updated, noteMasthead);
+
   if (updated !== html) writes.push([join(NOTES_DIR, `${note.slug}.html`), updated]);
 });
 

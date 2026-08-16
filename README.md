@@ -17,6 +17,20 @@ and anything prefixed `_`, sorts them newest-first, and writes:
 
 1. `index.html` — the stream, from the `<!-- each:entry -->` block in `_stream.html`
 2. the `<nav class="adjacent">` block in each note page, from `_note.html`
+3. the `<footer class="masthead">` block in each note page, from `_masthead.html`
+
+## The masthead
+
+Title, subtitle, and a description disclosed by `<details>` — no JavaScript, so
+it works with JS off and is keyboard-operable. It sits in a `<header>` at the
+top of the stream and a `<footer>` at the foot of a note; same markup and same
+mechanics, only the position and the framing change.
+
+It lives in `_masthead.html` and is rewritten into every page on each build
+rather than baked in at publish time, so editing that one file restyles the
+whole site's framing on the next deploy with nothing republished — the same
+bargain `note.css` makes. A note that has no masthead block gets one appended,
+so a publisher whose template lags still ends up current.
 
 Anything that can drop a conforming file into the root joins the stream with
 correct neighbours. There is no registry and no ordering to agree on, so

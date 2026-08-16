@@ -98,6 +98,81 @@ hr {
   margin: 1em 0;
 }
 
+/* MASTHEAD
+
+   Title, subtitle and the disclosed description. Identical markup in both
+   positions — a <header> at the top of the stream, a <footer> at the foot of a
+   note — so the mechanics are the same and only the framing moves. */
+.masthead h1 {
+  margin: 0 0 0.15em;
+  font-size: 1.5em;
+  font-weight: 500;
+}
+
+header.masthead {
+  margin-bottom: 2.5rem;
+}
+
+/* Below the note it is the subordinate thing on the page, so it is set smaller
+   and fenced off rather than repeating the front page's weight. */
+footer.masthead {
+  margin-top: 3rem;
+  padding-top: 1.25em;
+  border-top: 1px solid #ddd;
+  font-size: 0.9em;
+}
+
+footer.masthead h1 {
+  font-size: 1.15em;
+}
+
+/* THE DISCLOSURE
+
+   <details> rather than script: the description is present in the markup, so it
+   is findable and readable with JS off, and the control is keyboard-operable
+   for free. The whole summary line is a click target — that part is unavoidable
+   and harmless — but only "Learn more." is dressed as one, so the affordance
+   points at the right words. */
+.about {
+  margin: 0;
+}
+
+.about summary {
+  cursor: default;
+  list-style: none;
+}
+
+.about summary::-webkit-details-marker {
+  display: none;
+}
+
+.about .toggle {
+  cursor: pointer;
+  color: #0066cc;
+  text-decoration: underline;
+}
+
+.about summary:hover .toggle {
+  color: #0052a3;
+  background: #e6f0ff;
+}
+
+/* One label swapped for the other off the open attribute alone — the state
+   already lives on <details>, so nothing has to track it. */
+.about .less { display: none; }
+.about[open] .more { display: none; }
+.about[open] .less { display: inline; }
+
+.about summary:focus-visible {
+  outline: 2px solid #0066cc;
+  outline-offset: 2px;
+}
+
+.about p {
+  margin: 0.75em 0 0;
+  max-width: 60ch;
+}
+
 /* NOTE BODY
 
    The note itself. The slug is the note's only name and it already sits in the

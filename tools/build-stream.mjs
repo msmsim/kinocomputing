@@ -1,5 +1,5 @@
-// Builds index.html and the prev/next links in every note page, from the note
-// pages themselves.
+// Builds index.html, and the prev/next links and masthead in every note page,
+// from the note pages themselves.
 //
 // Every value comes out of the published pages, so there is no registry to keep
 // in sync and no ordering to agree on: the repo root is the source of truth.
@@ -24,6 +24,12 @@ const NOTES_DIR = ".";
 const SITE_BASE = "https://kinocomputing.com";
 const INDEX_PATH = "/";
 const TIME_ZONE = "Europe/London";
+
+// The stream carries the masthead in a <header> at the top and a note carries
+// it in a <footer> at the bottom; same markup, different landmark, so the CSS
+// can tell the two positions apart.
+const MASTHEAD_OPEN = '<footer class="masthead">';
+const MASTHEAD_CLOSE = "</footer>";
 
 const check = process.argv.includes("--check");
 
@@ -97,6 +103,7 @@ function renderStream(template, notes) {
     index_path: INDEX_PATH,
     index_url: `${SITE_BASE}${INDEX_PATH}`,
     count: String(notes.length),
+    masthead,
   });
 }
 
@@ -127,11 +134,33 @@ function renderAdjacent(noteTemplate, older, newer) {
   return `<nav class="adjacent">${inner}</nav>`;
 }
 
-/** Replaces the page's adjacent-nav in place, leaving the rest byte-identical. */
-function withAdjacent(html, rendered) {
-  const nav = between(html, '<nav class="adjacent">', "</nav>");
-  if (!nav) return html;
-  return html.slice(0, nav.start) + rendered + html.slice(nav.end);
+/**
+ * Replaces one delimited block in place, leaving the rest of the page
+ * byte-identical. Returns the page unchanged if the block isn't there, so a
+ * note that predates a block simply doesn't get one rather than failing.
+ */
+function replaceBlock(html, open, close, rendered) {
+  const block = between(html, open, close);
+  if (!block) return html;
+  return html.slice(0, block.start) + rendered + html.slice(block.end);
+}
+
+/**
+ * The masthead is the one thing on a note page that isn't about that note, so
+ * it is rewritten from _masthead.html on every build rather than baked in at
+ * publish time. Editing the partial restyles the whole site's framing on the
+ * next deploy with nothing republished — the same bargain note.css makes.
+ *
+ * A note missing the block entirely gets one appended, so a publisher whose
+ * template lags behind still ends up with the current masthead.
+ */
+function withMasthead(html, rendered) {
+  if (between(html, MASTHEAD_OPEN, MASTHEAD_CLOSE)) {
+    return replaceBlock(html, MASTHEAD_OPEN, MASTHEAD_CLOSE, rendered);
+  }
+  const end = html.lastIndexOf("</body>");
+  if (end === -1) return html;
+  return html.slice(0, end) + rendered + "\n" + html.slice(end);
 }
 
 const files = (await readdir(NOTES_DIR))
@@ -157,6 +186,10 @@ notes.sort((a, b) => new Date(b.iso) - new Date(a.iso) || b.slug.localeCompare(a
 
 const streamTemplate = await readFile(join(NOTES_DIR, "_stream.html"), "utf8");
 const noteTemplate = await readFile(join(NOTES_DIR, "_note.html"), "utf8");
+const masthead = (await readFile(join(NOTES_DIR, "_masthead.html"), "utf8")).trim();
+
+// Same content top and bottom; only the wrapping landmark differs.
+const noteMasthead = `${MASTHEAD_OPEN}\n${masthead}\n${MASTHEAD_CLOSE}`;
 
 const writes = [];
 
@@ -167,10 +200,11 @@ if (index !== currentIndex) writes.push([indexPath, index]);
 
 notes.forEach((note, i) => {
   const html = pages.get(note.slug);
-  const updated = withAdjacent(
-    html,
+  let updated = replaceBlock(
+    html, '<nav class="adjacent">', "</nav>",
     renderAdjacent(noteTemplate, notes[i + 1] ?? null, notes[i - 1] ?? null)
   );
+  updated = withMasthead(updated, noteMasthead);
   if (updated !== html) writes.push([join(NOTES_DIR, `${note.slug}.html`), updated]);
 });
 

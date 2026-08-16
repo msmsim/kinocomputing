@@ -32,6 +32,13 @@ const TIME_ZONE = "Europe/London";
 const MASTHEAD_OPEN = '<footer class="masthead">';
 const MASTHEAD_CLOSE = "</footer>";
 
+// Hand-written pages that aren't notes. Kept in their own directory so the root
+// scan doesn't have to know about them, and listed here so their head and
+// masthead are maintained by the build rather than left to rot.
+const PAGES = [
+  { file: join("about", "index.html"), path: "/about", title: "About" },
+];
+
 const check = process.argv.includes("--check");
 
 /** "3 Aug 2026, 22:49" — the format already on every published page. */
@@ -157,30 +164,27 @@ function replaceBlock(html, open, close, rendered) {
  * ordering derives from, and the descriptions, which are prose about the note
  * and can't be derived. Those are checked instead — see auditHead.
  */
-const headFields = (note) => {
-  const url = `${SITE_BASE}${note.path}`;
-  return [
-    { find: /<title>[^<]*<\/title>/,
-      tag: `<title>${note.slug} | ${SITE_NAME}</title>` },
-    { find: /<meta property="og:title" content="[^"]*">/,
-      tag: `<meta property="og:title" content="${note.slug}">` },
-    { find: /<meta property="og:url" content="[^"]*">/,
-      tag: `<meta property="og:url" content="${url}">` },
-    { find: /<meta property="og:type" content="[^"]*">/,
-      tag: `<meta property="og:type" content="article">` },
-    { find: /<meta property="og:site_name" content="[^"]*">/,
-      tag: `<meta property="og:site_name" content="${SITE_NAME}">` },
-    { find: /<meta name="twitter:card" content="[^"]*">/,
-      tag: `<meta name="twitter:card" content="summary">` },
-    { find: /<link rel="canonical" href="[^"]*">/,
-      tag: `<link rel="canonical" href="${url}">` },
-  ];
-};
+const headFields = ({ title, url, type }) => [
+  { find: /<title>[^<]*<\/title>/,
+    tag: `<title>${title} | ${SITE_NAME}</title>` },
+  { find: /<meta property="og:title" content="[^"]*">/,
+    tag: `<meta property="og:title" content="${title}">` },
+  { find: /<meta property="og:url" content="[^"]*">/,
+    tag: `<meta property="og:url" content="${url}">` },
+  { find: /<meta property="og:type" content="[^"]*">/,
+    tag: `<meta property="og:type" content="${type}">` },
+  { find: /<meta property="og:site_name" content="[^"]*">/,
+    tag: `<meta property="og:site_name" content="${SITE_NAME}">` },
+  { find: /<meta name="twitter:card" content="[^"]*">/,
+    tag: `<meta name="twitter:card" content="summary">` },
+  { find: /<link rel="canonical" href="[^"]*">/,
+    tag: `<link rel="canonical" href="${url}">` },
+];
 
 /** Rewrites the derivable head fields, adding any the page is missing. */
-function normaliseHead(html, note) {
+function normaliseHead(html, meta) {
   let out = html;
-  for (const { find, tag } of headFields(note)) {
+  for (const { find, tag } of headFields(meta)) {
     if (find.test(out)) {
       out = out.replace(find, () => tag);
       continue;
@@ -279,7 +283,9 @@ notes.forEach((note, i) => {
   const html = pages.get(note.slug);
   auditHead(html, note.slug);
 
-  let updated = normaliseHead(html, note);
+  let updated = normaliseHead(html, {
+    title: note.slug, url: `${SITE_BASE}${note.path}`, type: "article",
+  });
   updated = replaceBlock(updated, '<nav class="back">', "</nav>", backNav);
   updated = replaceBlock(
     updated, '<nav class="adjacent">', "</nav>",
@@ -289,6 +295,28 @@ notes.forEach((note, i) => {
 
   if (updated !== html) writes.push([join(NOTES_DIR, `${note.slug}.html`), updated]);
 });
+
+// Standing pages get the same head, back-link and masthead as a note. They have
+// no timestamp and no place in the stream, so they live in their own directory
+// rather than the root, which is also what keeps them out of the scan above
+// instead of being skipped with a warning on every build.
+for (const page of PAGES) {
+  const file = join(NOTES_DIR, page.file);
+  const html = await readFile(file, "utf8").catch(() => null);
+  if (html === null) {
+    console.warn(`skipped ${page.file}: not found`);
+    continue;
+  }
+  auditHead(html, page.file);
+
+  let updated = normaliseHead(html, {
+    title: page.title, url: `${SITE_BASE}${page.path}`, type: "website",
+  });
+  updated = replaceBlock(updated, '<nav class="back">', "</nav>", backNav);
+  updated = withMasthead(updated, noteMasthead);
+
+  if (updated !== html) writes.push([file, updated]);
+}
 
 if (writes.length === 0) {
   console.log(`${notes.length} notes, already up to date`);

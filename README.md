@@ -39,16 +39,30 @@ derives from.
 
 ## The masthead
 
-Title, subtitle, and a description disclosed by `<details>` — no JavaScript, so
-it works with JS off and is keyboard-operable. It sits in a `<header>` at the
-top of the stream and a `<footer>` at the foot of a note; same markup and same
-mechanics, only the position and the framing change.
+Title and subtitle, in `_masthead.html`. One block of markup serves both
+positions — a `<header>` at the top of the stream, a `<footer>` at the foot of
+every other page — and CSS decides the rest: the stream banners it, everything
+else runs it as one line reading `Kinocomputing: researching …`. The site name
+is real text in a `.lead` span, hidden wherever the `<h1>` already says it.
 
-It lives in `_masthead.html` and is rewritten into every page on each build
-rather than baked in at publish time, so editing that one file restyles the
-whole site's framing on the next deploy with nothing republished — the same
-bargain `note.css` makes. A note that has no masthead block gets one appended,
-so a publisher whose template lags still ends up current.
+It is rewritten into every page on each build rather than baked in at publish
+time, so editing that one file restyles the whole site's framing on the next
+deploy with nothing republished — the same bargain `note.css` makes. A page with
+no masthead block gets one appended, so a publisher whose template lags still
+ends up current.
+
+The subtitle links to `/about`, which is the only route to it.
+
+## Standing pages
+
+Pages that aren't notes — currently just `/about` — live in their own directory
+as `<name>/index.html` and are listed in `PAGES` at the top of the build script.
+
+The directory matters. A root-level `about.html` would be scanned as a candidate
+note, found to have no `article:published_time`, and skipped with a warning on
+every single build; a subdirectory falls out of the scan without special-casing.
+Listing it in `PAGES` then gets its head, back-link and masthead maintained by
+the build exactly like a note's, so it can't rot through a rename.
 
 Anything that can drop a conforming file into the root joins the stream with
 correct neighbours. There is no registry and no ordering to agree on, so

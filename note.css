@@ -100,11 +100,11 @@ hr {
 
 /* MASTHEAD
 
-   Title, subtitle and the disclosed description. One block of markup serves
-   both positions — a <header> at the top of the stream, a <footer> at the foot
-   of a note — so the disclosure behaves identically in each and there is a
-   single place to edit the words. What differs is presentation only, and it is
-   all decided below: the stream banners it, the note runs it as one line. */
+   Title and subtitle. One block of markup serves both positions — a <header> at
+   the top of the stream, a <footer> at the foot of every other page — so there
+   is a single place to edit the words. What differs is presentation only, and
+   it is all decided below: the stream banners it, everything else runs it as
+   one line of text. */
 .masthead h1 {
   margin: 0;
   font-size: 1.75em;
@@ -112,10 +112,9 @@ hr {
   letter-spacing: -0.01em;
 }
 
-/* The subtitle is one step down and deliberately quieter — it sits inline so it
-   shares a line with the disclosure arrow rather than pushing it onto its own. */
+/* One step down from the title and deliberately quieter. */
 .masthead h2 {
-  display: inline;
+  margin: 0.4em 0 0;
   font-size: 1.05em;
   font-weight: 400;
   color: #555;
@@ -133,9 +132,9 @@ header.masthead + article {
   margin-top: 0;
 }
 
-/* Below a note the masthead is a footnote to it rather than the page's banner,
-   so the title and subtitle collapse onto one line of running text: the h1 is
-   dropped and the site name is set as a lead-in to the subtitle instead. */
+/* At the foot of a page the masthead is a footnote rather than a banner, so the
+   title and subtitle collapse onto one line of running text: the h1 is dropped
+   and the site name is set as a lead-in to the subtitle instead. */
 footer.masthead {
   margin-top: 3rem;
   padding-top: 1.25em;
@@ -147,6 +146,7 @@ footer.masthead h1 {
 }
 
 footer.masthead h2 {
+  margin: 0;
   font-size: 1em;
 }
 
@@ -164,48 +164,17 @@ footer.masthead .claim {
   text-transform: lowercase;
 }
 
-/* THE DISCLOSURE
-
-   <details> rather than script: the description is present in the markup, so it
-   is findable and readable with JS off, and the control is keyboard-operable
-   for free. The native marker is the whole affordance — no second "learn more"
-   label to keep in step with the open state. */
-.about {
-  margin: 0.9em 0 0;
+/* The subtitle is the way to the about page, so it is the only link in the
+   masthead and carries no underline of its own — the hierarchy already marks it
+   out, and an underlined subtitle at this size reads as clutter. */
+.masthead h2 a {
+  color: inherit;
+  text-decoration: none;
 }
 
-.about summary {
-  cursor: pointer;
-}
-
-.about summary:hover h2 {
+.masthead h2 a:hover {
   color: #1a1a1a;
-}
-
-.about summary:focus-visible {
-  outline: 2px solid #0066cc;
-  outline-offset: 2px;
-}
-
-/* Indented under the summary that opened it, and a step quieter again. */
-.about .description {
-  margin-top: 1.25em;
-  padding-left: 1.5em;
-  font-size: 0.95em;
-  color: #444;
-}
-
-.about .description p {
-  margin: 0 0 0.75em;
-  max-width: 60ch;
-}
-
-.about .description p:last-child {
-  margin-bottom: 0;
-}
-
-footer.masthead .description {
-  color: #666;
+  background: #e6f0ff;
 }
 
 /* NOTE BODY

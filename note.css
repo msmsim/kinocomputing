@@ -116,18 +116,28 @@ hr {
   letter-spacing: -0.01em;
 }
 
-/* One step down from the title and deliberately quieter. */
+/* Well down from the title and deliberately quiet: smaller, lighter, greyer. */
 .masthead h2 {
   margin: 0.4em 0 0;
-  font-size: 1.05em;
-  font-weight: 400;
-  color: #555;
+  font-size: 0.95em;
+  font-weight: 300;
+  color: #666;
 }
 
+/* Wordmark left, the one utility link right, sharing the title's baseline. */
 header.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1.5em;
   margin-bottom: 2.5rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid #ddd;
+}
+
+header.masthead .site {
+  flex: none;
+  font-size: 0.9em;
 }
 
 /* The masthead already fences the stream off, so the first note doesn't need
@@ -168,17 +178,10 @@ footer.masthead .claim {
   text-transform: lowercase;
 }
 
-/* The wordmark is the way to the about page, in both positions. At title size
-   an underline reads as a mistake rather than an affordance, so the h1 alone
-   opts out of the site's link treatment; the footer's inline one keeps it. */
-.masthead h1 a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.masthead h1 a:hover {
-  background: #f0f0f0;
-}
+/* The stream states the title and subtitle plainly and puts the one link to the
+   about page top right. A note has no room for that, so there the wordmark
+   itself carries the link — which is why it is markup in .lead rather than
+   chrome in the stream template. */
 
 /* NOTE BODY
 

@@ -202,6 +202,67 @@ function previewOf(note) {
   return parts.join("\n");
 }
 
+// Long enough to be a useful search snippet, short enough not to be truncated
+// mid-word by someone else's ellipsis.
+const DESCRIPTION_LENGTH = 160;
+
+/** Cuts at a word boundary, or mid-word if there isn't a usable one. */
+function truncate(text, max) {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max);
+  const space = cut.lastIndexOf(" ");
+  const kept = space > max * 0.6 ? cut.slice(0, space) : cut;
+  return `${kept.replace(/[\s.,;:—–-]+$/, "")}…`;
+}
+
+/**
+ * A description drawn from the note's opening paragraph. Without one a note
+ * gets a bare search result and an empty share card, and the opening line is
+ * what a description would have said anyway.
+ */
+function describe(note) {
+  let rest = note.content;
+  if (note.title) {
+    const title = firstBlock(rest);
+    if (title) rest = title.rest;
+  }
+  const opening = firstBlock(rest.trim());
+  if (!opening) return "";
+  const text = stripTags(opening.block);
+  return text ? asText(truncate(text, DESCRIPTION_LENGTH)) : "";
+}
+
+/**
+ * Fills in whichever of the two description tags is missing or empty. An
+ * authored one always wins, and is copied across to the other rather than
+ * being left to disagree with a derived one.
+ */
+function withDescription(html, derived) {
+  const read = (pattern) => html.match(pattern)?.[1]?.trim() ?? "";
+  const name = /<meta name="description" content="([^"]*)">/;
+  const og = /<meta property="og:description" content="([^"]*)">/;
+
+  const value = read(name) || read(og) || derived;
+  if (!value) return html;
+
+  let out = html;
+  for (const [pattern, tag] of [
+    [name, `<meta name="description" content="${value}">`],
+    [og, `<meta property="og:description" content="${value}">`],
+  ]) {
+    const found = out.match(pattern);
+    if (found?.[1].trim()) continue;
+    if (found) {
+      out = out.replace(pattern, () => tag);
+      continue;
+    }
+    const end = out.indexOf("</head>");
+    if (end === -1) continue;
+    out = `${out.slice(0, end)}    ${tag}\n${out.slice(end)}`;
+  }
+  return out;
+}
+
 /** Substitutes {{name}} placeholders. Values are pre-rendered HTML. */
 const fill = (template, values) =>
   template.replace(/\{\{(\w+)\}\}/g, (whole, name) =>
@@ -467,7 +528,6 @@ const renames = [];
 
 notes.forEach((note, i) => {
   const { html } = note;
-  auditHead(html, note.fileSlug);
 
   let updated = normaliseHead(html, {
     // A titled note is named by its title; an untitled one falls back to the
@@ -476,12 +536,17 @@ notes.forEach((note, i) => {
     url: `${SITE_BASE}${note.path}`,
     type: "article",
   });
+  updated = withDescription(updated, describe(note));
   updated = withMain(updated, note.content);
   updated = removeBlock(updated, '<nav class="back">', "</nav>");
   updated = removeBlock(updated, '<footer class="masthead">', "</footer>");
   updated = withNotefoot(updated, renderNotefoot(
     noteTemplate, note, notes[i + 1] ?? null, notes[i - 1] ?? null
   ));
+
+  // Audited after the rewrites, so it reports what actually ships rather than
+  // what the publisher happened to hand over.
+  auditHead(updated, note.slug);
 
   const target = join(NOTES_DIR, `${note.slug}.html`);
   if (note.slug !== note.fileSlug) {

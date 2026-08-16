@@ -99,11 +99,20 @@ The stylesheet is fingerprinted with a hash of its own contents —
 or edge cache still serving the old one, which is otherwise indistinguishable
 from the edit not having worked.
 
-Not derivable, so left alone and checked instead — the build warns, never fails,
-since a bad description is worse as a blocked deploy than as a line in the log:
+`description` and `og:description` are filled from the note's opening paragraph
+when absent or empty, trimmed to 160 characters at a word boundary. An authored
+description always wins and is copied across to the other tag rather than left
+to disagree with a derived one. So a hand-written note needs nothing but a
+timestamp and a `<main>`.
 
-- a missing, empty, or disagreeing `description` / `og:description`
+What is left is checked rather than fixed — the build warns, never fails, since
+a bad description is worse as a blocked deploy than as a line in the log:
+
+- a `description` / `og:description` that still disagree
 - an unfilled `{{placeholder}}` left in the head
+
+The audit runs on the finished page, so it reports what actually ships rather
+than what the publisher handed over.
 
 `article:published_time` is never touched. It is the input the entire ordering
 derives from.

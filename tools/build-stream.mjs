@@ -1,5 +1,5 @@
-// Builds index.html, and the prev/next links and masthead in every note page,
-// from the note pages themselves.
+// Builds index.html, and the head and navigation of every note page, from the
+// note pages themselves.
 //
 // Every value comes out of the published pages, so there is no registry to keep
 // in sync and no ordering to agree on: the repo root is the source of truth.
@@ -26,15 +26,9 @@ const SITE_NAME = "Kinocomputing";
 const INDEX_PATH = "/";
 const TIME_ZONE = "Europe/London";
 
-// The stream carries the masthead in a <header> at the top and a note carries
-// it in a <footer> at the bottom; same markup, different landmark, so the CSS
-// can tell the two positions apart.
-const MASTHEAD_OPEN = '<footer class="masthead">';
-const MASTHEAD_CLOSE = "</footer>";
-
 // Hand-written pages that aren't notes. Kept in their own directory so the root
-// scan doesn't have to know about them, and listed here so their head and
-// masthead are maintained by the build rather than left to rot.
+// scan doesn't have to know about them, and listed here so their head and nav
+// are maintained by the build rather than left to rot.
 const PAGES = [
   { file: join("about", "index.html"), path: "/about", title: "About" },
 ];
@@ -111,7 +105,6 @@ function renderStream(template, notes) {
     index_path: INDEX_PATH,
     index_url: `${SITE_BASE}${INDEX_PATH}`,
     count: String(notes.length),
-    masthead,
   });
 }
 
@@ -171,10 +164,10 @@ function removeBlock(html, open, close) {
 
 /**
  * The head fields that are pure functions of the slug and the site constants.
- * The build owns them for the same reason it owns the masthead: renaming the
- * site or moving the domain otherwise silently strands every note published
- * before the change, and a wrong canonical is the kind of breakage that shows
- * up as duplicate content and broken share cards rather than as an error.
+ * The build owns them because renaming the site or moving the domain otherwise
+ * silently strands every note published before the change, and a wrong
+ * canonical is the kind of breakage that shows up as duplicate content and
+ * broken share cards rather than as an error.
  *
  * Deliberately not here: article:published_time, which is the input the whole
  * ordering derives from, and the descriptions, which are prose about the note
@@ -239,24 +232,6 @@ function auditHead(html, slug) {
   }
 }
 
-/**
- * The masthead is the one thing on a note page that isn't about that note, so
- * it is rewritten from _masthead.html on every build rather than baked in at
- * publish time. Editing the partial restyles the whole site's framing on the
- * next deploy with nothing republished — the same bargain note.css makes.
- *
- * A note missing the block entirely gets one appended, so a publisher whose
- * template lags behind still ends up with the current masthead.
- */
-function withMasthead(html, rendered) {
-  if (between(html, MASTHEAD_OPEN, MASTHEAD_CLOSE)) {
-    return replaceBlock(html, MASTHEAD_OPEN, MASTHEAD_CLOSE, rendered);
-  }
-  const end = html.lastIndexOf("</body>");
-  if (end === -1) return html;
-  return html.slice(0, end) + rendered + "\n" + html.slice(end);
-}
-
 const files = (await readdir(NOTES_DIR))
   .filter((name) => name.endsWith(".html"))
   .filter((name) => name !== "index.html" && !name.startsWith("_"));
@@ -280,10 +255,6 @@ notes.sort((a, b) => new Date(b.iso) - new Date(a.iso) || b.slug.localeCompare(a
 
 const streamTemplate = await readFile(join(NOTES_DIR, "_stream.html"), "utf8");
 const noteTemplate = await readFile(join(NOTES_DIR, "_note.html"), "utf8");
-const masthead = (await readFile(join(NOTES_DIR, "_masthead.html"), "utf8")).trim();
-
-// Same content top and bottom; only the wrapping landmark differs.
-const noteMasthead = `${MASTHEAD_OPEN}\n${masthead}\n${MASTHEAD_CLOSE}`;
 
 const writes = [];
 
@@ -304,13 +275,13 @@ notes.forEach((note, i) => {
     updated, '<nav class="adjacent">', "</nav>",
     renderAdjacent(noteTemplate, notes[i + 1] ?? null, notes[i - 1] ?? null)
   );
-  updated = withMasthead(updated, noteMasthead);
+  updated = removeBlock(updated, '<footer class="masthead">', "</footer>");
 
   if (updated !== html) writes.push([join(NOTES_DIR, `${note.slug}.html`), updated]);
 });
 
-// Standing pages get the same head, back-link and masthead as a note. They have
-// no timestamp and no place in the stream, so they live in their own directory
+// Standing pages get the same head and nav treatment as a note. They have no
+// timestamp and no place in the stream, so they live in their own directory
 // rather than the root, which is also what keeps them out of the scan above
 // instead of being skipped with a warning on every build.
 for (const page of PAGES) {
@@ -332,7 +303,7 @@ for (const page of PAGES) {
     updated, '<nav class="adjacent">', "</nav>",
     renderAdjacent(noteTemplate, null, null)
   );
-  updated = withMasthead(updated, noteMasthead);
+  updated = removeBlock(updated, '<footer class="masthead">', "</footer>");
 
   if (updated !== html) writes.push([file, updated]);
 }

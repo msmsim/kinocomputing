@@ -17,8 +17,7 @@ and anything prefixed `_`, sorts them newest-first, and writes:
 
 1. `index.html` — the stream, from the `<!-- each:entry -->` block in `_stream.html`
 2. the `<nav class="adjacent">` block in each note page, from `_note.html`
-3. the `<footer class="masthead">` block in each note page, from `_masthead.html`
-4. the derivable `<head>` fields in each note page
+3. the derivable `<head>` fields in each note page
 
 Navigation is one left-aligned run under the note — `↑ All | ← Previous |
 → Next` — and it is the only navigation a page carries; there is no separate
@@ -45,19 +44,12 @@ derives from.
 
 ## The masthead
 
-Title and subtitle, in `_masthead.html`. One block of markup serves both
-positions — a `<header>` at the top of the stream, a `<footer>` at the foot of
-every other page — and CSS decides the rest: the stream banners it, everything
-else runs it as one line reading `Kinocomputing: researching …`. The site name
-is real text in a `.lead` span, hidden wherever the `<h1>` already says it.
+There isn't one, for now. The site title, subtitle and page footers were removed
+deliberately; pages carry their content, their datestamp and their nav, nothing
+else. `_masthead.html` is left in the repo unused — it is `_`-prefixed, so the
+build skips it and it is never served — and holds the wording if it comes back.
 
-It is rewritten into every page on each build rather than baked in at publish
-time, so editing that one file restyles the whole site's framing on the next
-deploy with nothing republished — the same bargain `note.css` makes. A page with
-no masthead block gets one appended, so a publisher whose template lags still
-ends up current.
-
-The wordmark links to `/about`, in both positions, and is the only route to it.
+Nothing currently links to `/about`. It is reachable only by typing the URL.
 
 ## Standing pages
 

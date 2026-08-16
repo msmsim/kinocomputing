@@ -15,7 +15,8 @@
 //
 // --check exits 1 if anything would change, without writing.
 
-import { readdir, readFile, writeFile } from "node:fs/promises";
+import { readdir, readFile, unlink, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import { join } from "node:path";
 
 // The notes sit at the root: a note published as 001-teal-voles.html is served
@@ -25,6 +26,10 @@ const SITE_BASE = "https://kinocomputing.com";
 const SITE_NAME = "Kinocomputing";
 const INDEX_PATH = "/";
 const TIME_ZONE = "Europe/London";
+
+// Cloudflare Pages reads this from the deploy root. It is _-prefixed, so the
+// note scan skips it for free.
+const REDIRECTS = "_redirects";
 
 // Hand-written pages that aren't notes. Kept in their own directory so the root
 // scan doesn't have to know about them, and listed here so their head and nav
@@ -55,12 +60,67 @@ const between = (html, open, close) => {
 };
 
 /**
+ * A note may open with a bolded line. That line is the note's title: it is
+ * promoted to a heading here, and becomes the page's name in place of the slug.
+ * A note that opens with prose has no title and stays named by its slug.
+ *
+ * The already-promoted form is matched first so a second build reads back the
+ * title it wrote rather than concluding the note has lost one. Bold that is
+ * only part of a paragraph is left alone — a note beginning with an emphasised
+ * clause is prose, not a heading, and guessing wrong there rewrites the note.
+ */
+function readTitle(content) {
+  const patterns = [
+    /^<h1 class="title">([\s\S]*?)<\/h1>\s*/,
+    /^<p>\s*<strong>([\s\S]*?)<\/strong>\s*<\/p>\s*/,
+    /^<p>\s*<b>([\s\S]*?)<\/b>\s*<\/p>\s*/,
+  ];
+
+  for (const pattern of patterns) {
+    const found = content.match(pattern);
+    if (!found) continue;
+    const title = found[1].trim();
+    if (!title) continue;
+    const body = content.slice(found[0].length);
+    return {
+      title,
+      content: `<h1 class="title">${title}</h1>${body ? `\n${body}` : ""}`,
+    };
+  }
+  return { title: null, content };
+}
+
+/** Tag-free plain text. */
+const stripTags = (html) =>
+  html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+
+/** Tag-free, quote-safe text for a title attribute or a <title> element. */
+const asText = (html) => stripTags(html).replace(/"/g, "&quot;");
+
+/**
+ * A URL slug from a note's title. Entities are dropped rather than spelled out,
+ * apostrophes close up so "don't" gives "dont" and not "don-t", and the result
+ * is capped so an unusually long title can't produce an unusable path.
+ * Returns "" for a title with nothing slug-worthy in it, which the caller
+ * treats as having no title at all.
+ */
+const slugify = (title) => stripTags(title)
+  .replace(/&[a-z]+;|&#\d+;/gi, " ")
+  .replace(/['’]/g, "")
+  .toLowerCase()
+  .normalize("NFKD").replace(/[̀-ͯ]/g, "")
+  .replace(/[^a-z0-9]+/g, "-")
+  .replace(/^-+|-+$/g, "")
+  .slice(0, 60)
+  .replace(/-+$/, "");
+
+/**
  * A note page reduced to what the stream needs. Returns null for anything that
  * doesn't look like one, so a stray file in the root — which, with the notes
  * unprefixed at the top level, is the likely shape of a mistake — is skipped
  * rather than silently corrupting the index.
  */
-function parseNote(slug, html) {
+function parseNote(fileSlug, html) {
   const published = html.match(
     /<meta property="article:published_time" content="([^"]+)"/
   );
@@ -70,12 +130,17 @@ function parseNote(slug, html) {
   const iso = published[1];
   if (Number.isNaN(new Date(iso).getTime())) return null;
 
+  const { title, content } = readTitle(main.inner.trim());
+
+  // slug and path are assigned later: a titled note is published at a path made
+  // from its title, which can only be settled once every note is known.
   return {
-    slug,
+    fileSlug,
     iso,
+    title,
+    html,
     // The stream shows the note body verbatim; the template supplies the stamp.
-    content: main.inner.trim(),
-    path: `${INDEX_PATH}${slug}`,
+    content,
   };
 }
 
@@ -92,7 +157,13 @@ function renderStream(template, notes) {
   // template's own newlines around the each-block would otherwise leave a blank
   // line between articles.
   const entries = notes.map((note) => fill(each.inner, {
-    content: note.content,
+    // A note's title is its page's h1, but in the stream every note is one
+    // article among many, so it steps down a level and the page keeps a sane
+    // outline in both places.
+    content: note.content.replace(
+      /^<h1 class="title">([\s\S]*?)<\/h1>/,
+      (whole, inner) => `<h2 class="title">${inner}</h2>`
+    ),
     path: note.path,
     datetime_iso: note.iso,
     datetime: displayTime(note.iso),
@@ -105,6 +176,7 @@ function renderStream(template, notes) {
     index_path: INDEX_PATH,
     index_url: `${SITE_BASE}${INDEX_PATH}`,
     count: String(notes.length),
+    stylesheet,
   });
 }
 
@@ -167,6 +239,13 @@ function removeBlock(html, open, close) {
   return html.slice(0, block.start) + html.slice(end);
 }
 
+/** Writes the note body back, with any leading bold promoted to a heading. */
+function withMain(html, content) {
+  const main = between(html, "<main>", "</main>");
+  if (!main) return html;
+  return `${html.slice(0, main.start)}<main>\n${content}\n</main>${html.slice(main.end)}`;
+}
+
 /**
  * Puts the rebuilt footer back at the end of the body. The old footer and any
  * loose stamp or nav left over from an earlier layout come out first, so the
@@ -208,6 +287,8 @@ const headFields = ({ title, url, type }) => [
     tag: `<meta name="twitter:card" content="summary">` },
   { find: /<link rel="canonical" href="[^"]*">/,
     tag: `<link rel="canonical" href="${url}">` },
+  { find: /<link rel="stylesheet" href="[^"]*">/,
+    tag: `<link rel="stylesheet" href="${stylesheet}">` },
 ];
 
 /** Rewrites the derivable head fields, adding any the page is missing. */
@@ -256,17 +337,49 @@ const files = (await readdir(NOTES_DIR))
   .filter((name) => name.endsWith(".html"))
   .filter((name) => name !== "index.html" && !name.startsWith("_"));
 
-const pages = new Map();
 const notes = [];
+// Anything in the root that isn't a note still owns its name, so a title can't
+// be slugified onto the path of a file the scan decided to leave alone.
+const reserved = new Set(["index", ...PAGES.map((page) => page.path.slice(1))]);
+
 for (const file of files) {
+  const fileSlug = file.replace(/\.html$/, "");
   const html = await readFile(join(NOTES_DIR, file), "utf8");
-  const note = parseNote(file.replace(/\.html$/, ""), html);
+  const note = parseNote(fileSlug, html);
   if (!note) {
     console.warn(`skipped ${file}: no published_time or no <main>`);
+    reserved.add(fileSlug);
     continue;
   }
-  pages.set(note.slug, html);
   notes.push(note);
+}
+
+/**
+ * Settles where each note is published.
+ *
+ * A titled note takes its path from the title; an untitled one keeps the name
+ * its publisher gave the file. Untitled notes are placed first so they always
+ * hold their own filename — otherwise a new note whose title happened to
+ * slugify onto an existing file's name would silently move that note's URL.
+ *
+ * Resolution runs in filename order rather than publication order so the same
+ * set of notes always yields the same set of paths, whatever order the
+ * directory is read in.
+ */
+for (const pass of [(note) => !note.title, (note) => note.title]) {
+  for (const note of [...notes].sort((a, b) => a.fileSlug.localeCompare(b.fileSlug))) {
+    if (!pass(note) || note.slug) continue;
+
+    let slug = (note.title && slugify(note.title)) || note.fileSlug;
+    if (reserved.has(slug)) {
+      let n = 2;
+      while (reserved.has(`${slug}-${n}`)) n += 1;
+      slug = `${slug}-${n}`;
+    }
+    reserved.add(slug);
+    note.slug = slug;
+    note.path = `${INDEX_PATH}${slug}`;
+  }
 }
 
 // Newest first, as the stream reads. Ties break on slug so the order is total
@@ -276,6 +389,14 @@ notes.sort((a, b) => new Date(b.iso) - new Date(a.iso) || b.slug.localeCompare(a
 const streamTemplate = await readFile(join(NOTES_DIR, "_stream.html"), "utf8");
 const noteTemplate = await readFile(join(NOTES_DIR, "_note.html"), "utf8");
 
+// The stylesheet is fingerprinted with its own contents. Every page is rebuilt
+// on each deploy anyway, so the cost is nothing, and it means an edit to
+// note.css can't be masked by a browser or an edge cache still holding the old
+// one — which is otherwise indistinguishable from the edit not working.
+const stylesheet = `/note.css?v=${createHash("sha256")
+  .update(await readFile(join(NOTES_DIR, "note.css")))
+  .digest("hex").slice(0, 8)}`;
+
 const writes = [];
 
 const indexPath = join(NOTES_DIR, "index.html");
@@ -283,20 +404,33 @@ const index = renderStream(streamTemplate, notes);
 const currentIndex = await readFile(indexPath, "utf8").catch(() => null);
 if (index !== currentIndex) writes.push([indexPath, index]);
 
+const renames = [];
+
 notes.forEach((note, i) => {
-  const html = pages.get(note.slug);
-  auditHead(html, note.slug);
+  const { html } = note;
+  auditHead(html, note.fileSlug);
 
   let updated = normaliseHead(html, {
-    title: note.slug, url: `${SITE_BASE}${note.path}`, type: "article",
+    // A titled note is named by its title; an untitled one falls back to the
+    // slug, which is the only other name it has.
+    title: note.title ? asText(note.title) : note.slug,
+    url: `${SITE_BASE}${note.path}`,
+    type: "article",
   });
+  updated = withMain(updated, note.content);
   updated = removeBlock(updated, '<nav class="back">', "</nav>");
   updated = removeBlock(updated, '<footer class="masthead">', "</footer>");
   updated = withNotefoot(updated, renderNotefoot(
     noteTemplate, note, notes[i + 1] ?? null, notes[i - 1] ?? null
   ));
 
-  if (updated !== html) writes.push([join(NOTES_DIR, `${note.slug}.html`), updated]);
+  const target = join(NOTES_DIR, `${note.slug}.html`);
+  if (note.slug !== note.fileSlug) {
+    renames.push([join(NOTES_DIR, `${note.fileSlug}.html`), note.fileSlug, note.slug]);
+    writes.push([target, updated]);
+  } else if (updated !== html) {
+    writes.push([target, updated]);
+  }
 });
 
 // Standing pages get the same head and nav treatment as a note. They have no
@@ -324,7 +458,34 @@ for (const page of PAGES) {
   if (updated !== html) writes.push([file, updated]);
 }
 
-if (writes.length === 0) {
+/**
+ * Records where a note used to live, so a URL that has ever been published
+ * keeps working after a retitle moves it.
+ *
+ * Entries are only ever added. The build can see a rename exactly once — on the
+ * run that performs it — and after that the old filename is gone, so anything
+ * dropped here is lost for good. Accumulating a little dead config is the far
+ * cheaper mistake.
+ */
+async function renderRedirects(pairs) {
+  const existing = await readFile(join(NOTES_DIR, REDIRECTS), "utf8").catch(() => "");
+  const lines = new Set(
+    existing.split("\n").map((line) => line.trim()).filter(Boolean)
+  );
+  for (const [, from, to] of pairs) {
+    lines.add(`${INDEX_PATH}${from} ${INDEX_PATH}${to} 301`);
+  }
+  return `${[...lines].sort().join("\n")}\n`;
+}
+
+if (renames.length > 0) {
+  const redirectsPath = join(NOTES_DIR, REDIRECTS);
+  const redirects = await renderRedirects(renames);
+  const current = await readFile(redirectsPath, "utf8").catch(() => null);
+  if (redirects !== current) writes.push([redirectsPath, redirects]);
+}
+
+if (writes.length === 0 && renames.length === 0) {
   console.log(`${notes.length} notes, already up to date`);
   process.exit(0);
 }
@@ -332,8 +493,16 @@ if (writes.length === 0) {
 if (check) {
   console.error(`${writes.length} file(s) would change:`);
   for (const [path] of writes) console.error(`  ${path}`);
+  for (const [path, from, to] of renames) {
+    console.error(`  ${path} -> ${to}.html (redirect from ${INDEX_PATH}${from})`);
+  }
   process.exit(1);
 }
 
 for (const [path, content] of writes) await writeFile(path, content);
-console.log(`${notes.length} notes, wrote ${writes.length} file(s)`);
+// Only after the replacement is safely on disk, so an interrupted build leaves
+// a duplicate rather than a hole.
+for (const [path] of renames) await unlink(path);
+
+const moved = renames.length ? `, moved ${renames.length}` : "";
+console.log(`${notes.length} notes, wrote ${writes.length} file(s)${moved}`);

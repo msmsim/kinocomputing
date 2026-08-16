@@ -102,6 +102,19 @@ hr {
   margin: 1em 0;
 }
 
+/* NOTE TITLE
+
+   A note that opens with a bolded line has that line as its title. It is a
+   real heading rather than a bold paragraph, so it names the page in the
+   outline and in the tab as well as on screen. h1 on the note's own page, h2
+   in the stream, where it is one article among many — one rule for both. */
+.title {
+  margin: 0 0 0.6em;
+  font-size: 1.15em;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
 /* NOTE BODY
 
    The note itself. The slug is the note's only name and it already sits in the

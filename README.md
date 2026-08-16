@@ -30,13 +30,62 @@ publisher wrote it, so a change of format or time zone reaches notes that
 already exist. The footer is torn down and re-emitted whole on each build, and a
 page still carrying the older loose-sibling layout is migrated in the process.
 
+## Note titles
+
+A note may open with a bolded line on its own — `<p><strong>…</strong></p>`.
+That line is the note's title: the build promotes it to `<h1 class="title">` on
+the note's own page, steps it down to `<h2>` in the stream where the note is one
+article among many, and names the page by it in `<title>` and `og:title` in
+place of the slug. A note that opens with prose has no title and is named by its
+slug, exactly as before.
+
+Bold that is only part of a paragraph is left alone. A note beginning with an
+emphasised clause is prose, not a heading, and guessing wrong there would
+rewrite the note's first line.
+
+### The URL follows the title
+
+A titled note is published at a path made from its title — `<p><strong>Notes
+can have titles</strong></p>` becomes `/notes-can-have-titles` — and **the build
+renames the file on disk to match**. An untitled note keeps the name its
+publisher gave it.
+
+Rules, in order:
+
+- Untitled notes are placed first, so they always keep their own filename. A new
+  note whose title happened to slugify onto an existing file's name would
+  otherwise silently move that note's URL.
+- Names already taken get `-2`, `-3` appended — including `index` and the
+  `PAGES` paths, and the name of any root file the scan skipped.
+- A title with nothing slug-worthy in it falls back to the filename.
+- Resolution runs in filename order, so the same notes always yield the same
+  paths whatever order the directory is read in.
+
+### Redirects
+
+Renaming breaks any URL already shared, so every rename is recorded in
+`_redirects`, which Cloudflare Pages reads from the deploy root. Entries are
+**only ever added**: the build can see a rename exactly once, on the run that
+performs it, so a dropped entry is gone for good. Retitling twice leaves both
+hops, and browsers follow the chain.
+
+Renames happen on disk, which matters locally: running the build in your working
+tree moves files. In CI it is harmless — the checkout is thrown away — but a
+local run is a real rename, so commit before running it if you want the
+publisher's filenames back.
+
 ## Head metadata
 
-`<title>`, `og:title`, `og:url`, `og:type`, `og:site_name`, `twitter:card` and
-`rel="canonical"` are pure functions of the slug and the constants at the top of
-`tools/build-stream.mjs`, so the build rewrites them on every run and adds any a
-page is missing. Renaming the site or moving the domain is a one-line change
-there; nothing needs republishing.
+`<title>`, `og:title`, `og:url`, `og:type`, `og:site_name`, `twitter:card`,
+`rel="canonical"` and the stylesheet link are all derived from the note and the
+constants at the top of `tools/build-stream.mjs`, so the build rewrites them on
+every run and adds any a page is missing. Renaming the site or moving the domain
+is a one-line change there; nothing needs republishing.
+
+The stylesheet is fingerprinted with a hash of its own contents —
+`/note.css?v=0b5519bc` — so an edit to `note.css` can't be masked by a browser
+or edge cache still serving the old one, which is otherwise indistinguishable
+from the edit not having worked.
 
 Not derivable, so left alone and checked instead — the build warns, never fails,
 since a bad description is worse as a blocked deploy than as a line in the log:
@@ -77,8 +126,9 @@ since notes are unprefixed at the top level.
 
 ## Publishing
 
-Add `NNN-colour-animal.html` to the root and push. The slug numbering is
-cosmetic; ordering comes from the timestamp alone.
+Add `NNN-colour-animal.html` to the root and push. The numbering is cosmetic;
+ordering comes from the timestamp alone, and a note that opens with a bolded
+line is republished at a path made from that line instead.
 
 ```
 node tools/build-stream.mjs          # rebuild

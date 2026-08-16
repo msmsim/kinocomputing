@@ -18,7 +18,13 @@ and anything prefixed `_`, sorts them newest-first, and writes:
 1. `index.html` — the stream, from the `<!-- each:entry -->` block in `_stream.html`
 2. the `<nav class="adjacent">` block in each note page, from `_note.html`
 3. the `<footer class="masthead">` block in each note page, from `_masthead.html`
-4. the derivable `<head>` fields and the back-link in each note page
+4. the derivable `<head>` fields in each note page
+
+Navigation is one left-aligned run under the note — `↑ All | ← Previous |
+→ Next` — and it is the only navigation a page carries; there is no separate
+back link. Any of the three may be absent, so each separator is emitted with
+the link it leads to rather than assumed. A standing page has no neighbours and
+renders down to just `↑ All`.
 
 ## Head metadata
 
@@ -51,7 +57,7 @@ deploy with nothing republished — the same bargain `note.css` makes. A page wi
 no masthead block gets one appended, so a publisher whose template lags still
 ends up current.
 
-The subtitle links to `/about`, which is the only route to it.
+The wordmark links to `/about`, in both positions, and is the only route to it.
 
 ## Standing pages
 
@@ -61,8 +67,8 @@ as `<name>/index.html` and are listed in `PAGES` at the top of the build script.
 The directory matters. A root-level `about.html` would be scanned as a candidate
 note, found to have no `article:published_time`, and skipped with a warning on
 every single build; a subdirectory falls out of the scan without special-casing.
-Listing it in `PAGES` then gets its head, back-link and masthead maintained by
-the build exactly like a note's, so it can't rot through a rename.
+Listing it in `PAGES` then gets its head, nav and masthead maintained by the
+build exactly like a note's, so it can't rot through a rename.
 
 Anything that can drop a conforming file into the root joins the stream with
 correct neighbours. There is no registry and no ordering to agree on, so

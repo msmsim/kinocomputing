@@ -124,22 +124,26 @@ function renderAdjacent(noteTemplate, older, newer) {
   const nav = between(noteTemplate, '<nav class="adjacent">', "</nav>");
   if (!nav) throw new Error("_note.html has no <nav class=\"adjacent\"> block");
 
-  // Each if-section is replaced in place, markers included, by its rendered
-  // content or nothing. The newlines around it stay put either way, so a note
-  // with no neighbour on one side keeps the blank line the template implies.
-  const section = (html, name, values) => {
-    const block = between(html, `<!-- if:${name} -->`, `<!-- /if:${name} -->`);
-    if (!block) return html;
-    const rendered = values ? fill(block.inner, values).trim() : "";
-    return html.slice(0, block.start) + rendered + html.slice(block.end);
+  // Each if-section renders to its content or drops out entirely. Only the
+  // sections that survive are joined, so an end of the stream loses its link
+  // and the separator that would have led to it in one go.
+  const part = (name, values) => {
+    const block = between(nav.inner, `<!-- if:${name} -->`, `<!-- /if:${name} -->`);
+    if (!block || !values) return null;
+    return fill(block.inner, values).trim();
   };
 
-  let inner = section(nav.inner, "prev",
-                      older && { prev: older.slug, prev_path: older.path });
-  inner = section(inner, "next",
-                  newer && { next: newer.slug, next_path: newer.path });
+  const items = [
+    part("all", { index_path: INDEX_PATH }),
+    part("prev", older && { prev: older.slug, prev_path: older.path }),
+    part("next", newer && { next: newer.slug, next_path: newer.path }),
+  ].filter(Boolean);
 
-  return `<nav class="adjacent">${inner}</nav>`;
+  // The bar is markup rather than a generated ::before on the links: an
+  // underline set on an <a> is drawn through everything inside it, so a
+  // pseudo-element separator would come out underlined and inside the hit area.
+  const separator = '\n<span class="sep">|</span>\n';
+  return `<nav class="adjacent">\n${items.join(separator)}\n</nav>`;
 }
 
 /**
@@ -151,6 +155,18 @@ function replaceBlock(html, open, close, rendered) {
   const block = between(html, open, close);
   if (!block) return html;
   return html.slice(0, block.start) + rendered + html.slice(block.end);
+}
+
+/**
+ * Drops a block entirely, markers and trailing newline included. The top-left
+ * back link was superseded by "All" in the adjacent nav, and publishers still
+ * emitting one shouldn't leave it stranded at the top of the page.
+ */
+function removeBlock(html, open, close) {
+  const block = between(html, open, close);
+  if (!block) return html;
+  const end = html[block.end] === "\n" ? block.end + 1 : block.end;
+  return html.slice(0, block.start) + html.slice(end);
 }
 
 /**
@@ -276,9 +292,6 @@ const index = renderStream(streamTemplate, notes);
 const currentIndex = await readFile(indexPath, "utf8").catch(() => null);
 if (index !== currentIndex) writes.push([indexPath, index]);
 
-const backNav =
-  `<nav class="back"><a href="${INDEX_PATH}" target="_self">← ${SITE_NAME}</a></nav>`;
-
 notes.forEach((note, i) => {
   const html = pages.get(note.slug);
   auditHead(html, note.slug);
@@ -286,7 +299,7 @@ notes.forEach((note, i) => {
   let updated = normaliseHead(html, {
     title: note.slug, url: `${SITE_BASE}${note.path}`, type: "article",
   });
-  updated = replaceBlock(updated, '<nav class="back">', "</nav>", backNav);
+  updated = removeBlock(updated, '<nav class="back">', "</nav>");
   updated = replaceBlock(
     updated, '<nav class="adjacent">', "</nav>",
     renderAdjacent(noteTemplate, notes[i + 1] ?? null, notes[i - 1] ?? null)
@@ -312,7 +325,13 @@ for (const page of PAGES) {
   let updated = normaliseHead(html, {
     title: page.title, url: `${SITE_BASE}${page.path}`, type: "website",
   });
-  updated = replaceBlock(updated, '<nav class="back">', "</nav>", backNav);
+  updated = removeBlock(updated, '<nav class="back">', "</nav>");
+  // A standing page is not in the stream, so it has no neighbours — the same
+  // nav renders down to just the way back to the index.
+  updated = replaceBlock(
+    updated, '<nav class="adjacent">', "</nav>",
+    renderAdjacent(noteTemplate, null, null)
+  );
   updated = withMasthead(updated, noteMasthead);
 
   if (updated !== html) writes.push([file, updated]);

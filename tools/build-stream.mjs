@@ -157,12 +157,13 @@ function renderStream(template, notes) {
   // template's own newlines around the each-block would otherwise leave a blank
   // line between articles.
   const entries = notes.map((note) => fill(each.inner, {
-    // A note's title is its page's h1, but in the stream every note is one
-    // article among many, so it steps down a level and the page keeps a sane
-    // outline in both places.
+    // On its own page a note's title is the h1 and its subheadings hang under
+    // it. In the stream every note is one article among many, so the whole set
+    // steps down a level and the nesting survives. h6 has nowhere to go and
+    // stays put, which is the only case that flattens.
     content: note.content.replace(
-      /^<h1 class="title">([\s\S]*?)<\/h1>/,
-      (whole, inner) => `<h2 class="title">${inner}</h2>`
+      /<(\/?)h([1-5])\b/gi,
+      (whole, slash, level) => `<${slash}h${Number(level) + 1}`
     ),
     path: note.path,
     datetime_iso: note.iso,

@@ -17,6 +17,64 @@
 </head>
 <body>
 <article>
+<h2 class="title">World machines, not world models</h2>
+<p>The phrase “world model” has quietly become the thing everyone agrees is
+missing. It is doing a lot of work for a term whose commitments nobody states.
+I want to pull one distinction out of it, because I think the two halves point
+in genuinely different directions.</p>
+
+<h3>Two readings of the same phrase</h3>
+<p>A <em>world model</em>, in the sense the term usually carries, is a
+representation held apart from the world it represents. You build it, you keep
+it, you query it, you correct it against observation. It is a map, and its
+virtue is fidelity.</p>
+<p>A <em>world machine</em> is not held apart. It is a process whose dynamics
+are coupled to the dynamics it is about, closely enough that running the one
+tells you about the other. It is not a map. It is closer to a scale model in a
+wind tunnel, or a tidal predictor made of brass gears — an object whose
+behaviour stands in for the world’s behaviour because it is made to move the
+same way.</p>
+<blockquote>
+<p>A map is consulted. A wind tunnel is run. The difference is not fidelity, it
+is where the work happens.</p>
+</blockquote>
+<p>Both are legitimate. But almost all of the current effort goes into the
+first, and the first is the one that carries the representational overhead I
+keep running into.</p>
+
+<h3>Why the distinction has teeth</h3>
+<p>If your world model is a representation, then every use of it costs an
+inference: encode the situation, run the model, decode the answer, act. The
+model is inert between queries and the cost scales with how often you ask.</p>
+<p>If your world machine is coupled, the cost structure changes:</p>
+<ul>
+<li>There is no encode/decode boundary to pay for on every use.</li>
+<li>The dynamics run whether or not you are watching, so “inference” is closer
+to reading a dial than to executing a program.</li>
+<li>Fidelity is bounded by the coupling rather than by the parameter count,
+which is a very different scaling story.</li>
+</ul>
+<p>That last point is the one I keep turning over. Scaling a representation
+means more parameters and more energy per query. Improving a coupling means a
+better-matched substrate, which may cost nothing per query at all.</p>
+
+<h3>The obvious objection</h3>
+<p>Wind tunnels do not generalise. A brass tidal predictor computes tides and
+nothing else, and the history of analogue computing is largely a history of
+beautiful machines that did one thing until a general-purpose digital computer
+did it adequately and everything else besides.</p>
+<p>This is the strongest argument against the whole line of inquiry and I do
+not think it has been answered. The honest version of the thesis is narrower
+than the slogan: <em>some</em> computations are worth coupling rather than
+representing, the set is probably larger than the current split suggests, and
+the way to find out where the boundary sits is to build small things on both
+sides of it and see which ones stop being interesting first.</p>
+<p>Which is the whole point of the barbell. Theory at one end to say what would
+be surprising, experiments at the other end small enough that being wrong costs
+an afternoon.</p>
+<p class="stamp"><a href="/world-machines-not-world-models" target="_self"><time datetime="2026-08-16T18:05:00+01:00">16 Aug 2026, 18:05</time></a></p>
+</article>
+<article>
 <h2 class="title">Notes can have titles</h2>
 <p>A note that opens with a bolded line gets that line promoted to a heading,
 and the page is named by it rather than by the slug. A note that opens with
@@ -29,11 +87,68 @@ absent rather than dead. The oldest is the mirror of it.</p>
 <p class="stamp"><a href="/003-cobalt-wrens" target="_self"><time datetime="2026-08-16T11:05:00+01:00">16 Aug 2026, 11:05</time></a></p>
 </article>
 <article>
-<p>A share reads like any other note until the footer — the link to wherever it
-came from sits with the datestamp rather than in the prose.</p>
-<blockquote><p>The quoted bit, if there is one.</p></blockquote>
-<p class="source"><a href="https://example.com/">Where this came from ↗</a></p>
-<p class="stamp"><a href="/002-amber-lynx" target="_self"><time datetime="2026-08-15T18:40:00+01:00">15 Aug 2026, 18:40</time></a></p>
+<h2 class="title">The thermodynamic case for embodiment</h2>
+<p>The standard framing treats the energy cost of intelligence as an
+engineering inconvenience — a line item that Moore’s law, better cooling or a
+cleverer kernel will eventually flatten. I think that framing is wrong in a way
+that matters, because it treats a physical constraint as an economic one.</p>
+<p>A brain runs on roughly twenty watts. A frontier training run runs on
+something closer to a small town. The gap is not four or five orders of
+magnitude of sloppy engineering; it is a gap in <em>what kind of thing is doing
+the computing</em>.</p>
+
+<h3>Landauer is not the interesting bound</h3>
+<p>The usual move here is to invoke Landauer’s principle — the minimum energy
+to erase a bit — and observe that we are still many orders of magnitude above
+it. True, and not very useful. The bound describes irreversible logical
+operations in thermal equilibrium. It says nothing about the cost of the
+architecture that decides <em>which</em> bits are worth erasing.</p>
+<p>The interesting cost sits somewhere else entirely:</p>
+<ul>
+<li>Moving data, not transforming it. On current hardware the memory hop
+dominates the arithmetic by a wide margin, and the ratio is getting worse.</li>
+<li>Maintaining the abstraction that computation is substrate-independent —
+error correction, clock discipline, voltage margins. The digital abstraction is
+not free; it is continuously purchased.</li>
+<li>Representing the world separately from acting in it, so that every
+inference re-derives what the body could have simply <em>been</em>.</li>
+</ul>
+<p>Only the first of these is usually costed.</p>
+
+<h3>The substrate is doing work</h3>
+<p>The new-materialist reading, which is what pulled me into this, is that
+matter is not a passive stage on which computation is performed. It has
+tendencies. It settles, relaxes, oscillates and finds minima on its own, and it
+does so without being instructed.</p>
+<blockquote>
+<p>The question is not how to make matter compute, but which computations
+matter is already performing for free.</p>
+</blockquote>
+<p>A digital computer spends enormous effort suppressing exactly those
+tendencies in order to present a clean, discrete, substrate-independent
+surface. That suppression is the twenty-watt-versus-a-small-town gap, or a
+large part of it. We pay continuously to stop the material from doing what it
+would otherwise do, and then we pay again to simulate something similar in
+software.</p>
+<p>If that is right, then efficiency is not downstream of the paradigm. It
+<em>is</em> the paradigm. You do not get a thousandfold improvement by
+optimising a system whose principal cost is maintaining an abstraction — you get
+it by giving up the abstraction where you can afford to.</p>
+
+<h3>What would count as evidence</h3>
+<p>This is a thesis, not a result, and it should be possible to be wrong about
+it. Things that would move me:</p>
+<ul>
+<li>A purely digital system closing more than two orders of magnitude on
+biological energy-per-inference without a change of substrate.</li>
+<li>An analogue or thermodynamic device that wins on a toy problem and then
+fails to compose — efficiency that cannot be stacked is a curiosity.</li>
+<li>Evidence that the memory-movement cost is architectural rather than
+physical, and dissolves under a sufficiently different memory hierarchy.</li>
+</ul>
+<p>The tiny-experiments half of the barbell exists to produce exactly this kind
+of evidence, at a scale where being wrong is cheap.</p>
+<p class="stamp"><a href="/the-thermodynamic-case-for-embodiment" target="_self"><time datetime="2026-08-15T16:20:00+01:00">15 Aug 2026, 16:20</time></a></p>
 </article>
 <article>
 <p>A first note, to give the stream something to be. Replace it.</p>

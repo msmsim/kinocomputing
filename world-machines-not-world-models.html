@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>World machines, not world models | Kinocomputing</title>
+    <meta name="description" content="A world model is a representation you consult. A world machine is a process you are inside of.">
+    <meta property="og:title" content="World machines, not world models">
+    <meta property="og:description" content="A world model is a representation you consult. A world machine is a process you are inside of.">
+    <meta property="og:url" content="https://kinocomputing.com/world-machines-not-world-models">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-08-16T18:05:00+01:00">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://kinocomputing.com/world-machines-not-world-models">
+    <link rel="stylesheet" href="/note.css?v=0b5519bc">
+</head>
+<body>
+<main>
+<h1 class="title">World machines, not world models</h1>
+<p>The phrase “world model” has quietly become the thing everyone agrees is
+missing. It is doing a lot of work for a term whose commitments nobody states.
+I want to pull one distinction out of it, because I think the two halves point
+in genuinely different directions.</p>
+
+<h2>Two readings of the same phrase</h2>
+<p>A <em>world model</em>, in the sense the term usually carries, is a
+representation held apart from the world it represents. You build it, you keep
+it, you query it, you correct it against observation. It is a map, and its
+virtue is fidelity.</p>
+<p>A <em>world machine</em> is not held apart. It is a process whose dynamics
+are coupled to the dynamics it is about, closely enough that running the one
+tells you about the other. It is not a map. It is closer to a scale model in a
+wind tunnel, or a tidal predictor made of brass gears — an object whose
+behaviour stands in for the world’s behaviour because it is made to move the
+same way.</p>
+<blockquote>
+<p>A map is consulted. A wind tunnel is run. The difference is not fidelity, it
+is where the work happens.</p>
+</blockquote>
+<p>Both are legitimate. But almost all of the current effort goes into the
+first, and the first is the one that carries the representational overhead I
+keep running into.</p>
+
+<h2>Why the distinction has teeth</h2>
+<p>If your world model is a representation, then every use of it costs an
+inference: encode the situation, run the model, decode the answer, act. The
+model is inert between queries and the cost scales with how often you ask.</p>
+<p>If your world machine is coupled, the cost structure changes:</p>
+<ul>
+<li>There is no encode/decode boundary to pay for on every use.</li>
+<li>The dynamics run whether or not you are watching, so “inference” is closer
+to reading a dial than to executing a program.</li>
+<li>Fidelity is bounded by the coupling rather than by the parameter count,
+which is a very different scaling story.</li>
+</ul>
+<p>That last point is the one I keep turning over. Scaling a representation
+means more parameters and more energy per query. Improving a coupling means a
+better-matched substrate, which may cost nothing per query at all.</p>
+
+<h2>The obvious objection</h2>
+<p>Wind tunnels do not generalise. A brass tidal predictor computes tides and
+nothing else, and the history of analogue computing is largely a history of
+beautiful machines that did one thing until a general-purpose digital computer
+did it adequately and everything else besides.</p>
+<p>This is the strongest argument against the whole line of inquiry and I do
+not think it has been answered. The honest version of the thesis is narrower
+than the slogan: <em>some</em> computations are worth coupling rather than
+representing, the set is probably larger than the current split suggests, and
+the way to find out where the boundary sits is to build small things on both
+sides of it and see which ones stop being interesting first.</p>
+<p>Which is the whole point of the barbell. Theory at one end to say what would
+be surprising, experiments at the other end small enough that being wrong costs
+an afternoon.</p>
+</main>
+<footer class="notefoot">
+<p class="stamp"><a href="/world-machines-not-world-models" target="_self"><time datetime="2026-08-16T18:05:00+01:00">16 Aug 2026, 18:05</time></a></p>
+<nav class="adjacent">
+<a rel="home" href="/" target="_self">↑ Home</a>
+<span class="sep">|</span>
+<a rel="prev" href="/notes-can-have-titles" target="_self">← Previous</a>
+</nav>
+</footer>
+</body>
+</html>

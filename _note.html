@@ -20,11 +20,14 @@
 <main>
 {{content}}
 </main>
+<footer class="notefoot">
+<!-- if:stamp -->
 <p class="stamp"><a href="{{path}}" target="_self"><time datetime="{{datetime_iso}}">{{datetime}}</time></a></p>
+<!-- /if:stamp -->
 <nav class="adjacent">
-<!-- if:all -->
-<a rel="home" href="{{index_path}}" target="_self">↑ All</a>
-<!-- /if:all -->
+<!-- if:home -->
+<a rel="home" href="{{index_path}}" target="_self">↑ Home</a>
+<!-- /if:home -->
 <!-- if:prev -->
 <a rel="prev" href="{{prev_path}}" target="_self">← Previous</a>
 <!-- /if:prev -->
@@ -32,5 +35,6 @@
 <a rel="next" href="{{next_path}}" target="_self">→ Next</a>
 <!-- /if:next -->
 </nav>
+</footer>
 </body>
 </html>

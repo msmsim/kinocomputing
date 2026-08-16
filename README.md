@@ -16,14 +16,19 @@ carries everything the build needs:
 and anything prefixed `_`, sorts them newest-first, and writes:
 
 1. `index.html` — the stream, from the `<!-- each:entry -->` block in `_stream.html`
-2. the `<nav class="adjacent">` block in each note page, from `_note.html`
+2. the `<footer class="notefoot">` block in each note page, from `_note.html`
 3. the derivable `<head>` fields in each note page
 
-Navigation is one left-aligned run under the note — `↑ All | ← Previous |
-→ Next` — and it is the only navigation a page carries; there is no separate
-back link. Any of the three may be absent, so each separator is emitted with
-the link it leads to rather than assumed. A standing page has no neighbours and
-renders down to just `↑ All`.
+The footer is one line: datestamp left, navigation right. The nav is the only
+navigation a page carries — there is no separate back link — and reads
+`↑ Home | ← Previous | → Next`. Any of the three may be absent, so each
+separator is emitted with the link it leads to rather than assumed; a standing
+page has no neighbours and renders down to just `↑ Home`.
+
+The datestamp is rebuilt from `article:published_time` rather than left as the
+publisher wrote it, so a change of format or time zone reaches notes that
+already exist. The footer is torn down and re-emitted whole on each build, and a
+page still carrying the older loose-sibling layout is migrated in the process.
 
 ## Head metadata
 

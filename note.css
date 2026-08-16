@@ -135,18 +135,40 @@ p.source {
   font-size: 0.85em;
 }
 
-/* ALL / PREVIOUS / NEXT
+/* NOTE FOOTER
 
-   Left-aligned in one run, and the only navigation a note carries. Any of the
-   three may be absent — the ends of the stream have no neighbour on one side,
-   and a standing page has neither — so the separators are emitted with the
-   links they lead to rather than assumed. */
+   Datestamp left, navigation right, on one line. The nav is pushed over with an
+   auto margin rather than space-between so that it still sits right on a
+   standing page, where there is no stamp for it to be spaced apart from. */
+footer.notefoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6em 1.5em;
+  margin: 2em 0 1em;
+  font-size: 0.9em;
+}
+
+footer.notefoot .stamp {
+  margin: 0;
+  text-align: left;
+  font-size: inherit;
+}
+
+footer.notefoot .adjacent {
+  margin-left: auto;
+}
+
+/* HOME / PREVIOUS / NEXT
+
+   Any of the three may be absent — the ends of the stream have no neighbour on
+   one side, and a standing page has neither — so the separators are emitted
+   with the links they lead to rather than assumed. */
 nav.adjacent {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-end;
   gap: 0.6em;
-  margin: 2em 0 1em;
-  font-size: 0.9em;
 }
 
 nav.adjacent .sep {

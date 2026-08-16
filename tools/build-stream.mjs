@@ -109,50 +109,55 @@ function renderStream(template, notes) {
 }
 
 /**
- * Rebuilds one page's adjacent-nav block. The markup comes from _note.html's
- * if:prev / if:next sections rather than being hardcoded here, so the site
- * keeps deciding what those links look like.
+ * Rebuilds a page's whole footer: the datestamp on the left, the navigation on
+ * the right, on one line. The two used to be separate siblings, which meant no
+ * element contained both and nothing could lay them out as a row.
+ *
+ * All the markup comes from _note.html's if: sections rather than being
+ * hardcoded here, so the site keeps deciding what these look like. `note` is
+ * null for a standing page, which has no timestamp and so no stamp.
  */
-function renderAdjacent(noteTemplate, older, newer) {
-  const nav = between(noteTemplate, '<nav class="adjacent">', "</nav>");
-  if (!nav) throw new Error("_note.html has no <nav class=\"adjacent\"> block");
+function renderNotefoot(noteTemplate, note, older, newer) {
+  const foot = between(noteTemplate, '<footer class="notefoot">', "</footer>");
+  if (!foot) throw new Error('_note.html has no <footer class="notefoot"> block');
+  const nav = between(foot.inner, '<nav class="adjacent">', "</nav>");
+  if (!nav) throw new Error('_note.html has no <nav class="adjacent"> block');
 
   // Each if-section renders to its content or drops out entirely. Only the
   // sections that survive are joined, so an end of the stream loses its link
   // and the separator that would have led to it in one go.
-  const part = (name, values) => {
-    const block = between(nav.inner, `<!-- if:${name} -->`, `<!-- /if:${name} -->`);
+  const part = (source, name, values) => {
+    const block = between(source, `<!-- if:${name} -->`, `<!-- /if:${name} -->`);
     if (!block || !values) return null;
     return fill(block.inner, values).trim();
   };
 
   const items = [
-    part("all", { index_path: INDEX_PATH }),
-    part("prev", older && { prev: older.slug, prev_path: older.path }),
-    part("next", newer && { next: newer.slug, next_path: newer.path }),
+    part(nav.inner, "home", { index_path: INDEX_PATH }),
+    part(nav.inner, "prev", older && { prev: older.slug, prev_path: older.path }),
+    part(nav.inner, "next", newer && { next: newer.slug, next_path: newer.path }),
   ].filter(Boolean);
 
   // The bar is markup rather than a generated ::before on the links: an
   // underline set on an <a> is drawn through everything inside it, so a
   // pseudo-element separator would come out underlined and inside the hit area.
   const separator = '\n<span class="sep">|</span>\n';
-  return `<nav class="adjacent">\n${items.join(separator)}\n</nav>`;
-}
+  const navHtml = `<nav class="adjacent">\n${items.join(separator)}\n</nav>`;
 
-/**
- * Replaces one delimited block in place, leaving the rest of the page
- * byte-identical. Returns the page unchanged if the block isn't there, so a
- * note that predates a block simply doesn't get one rather than failing.
- */
-function replaceBlock(html, open, close, rendered) {
-  const block = between(html, open, close);
-  if (!block) return html;
-  return html.slice(0, block.start) + rendered + html.slice(block.end);
+  // Derived from published_time rather than left as the publisher wrote it, so
+  // a change of format or time zone reaches every note that already exists.
+  const stamp = part(foot.inner, "stamp", note && {
+    path: note.path,
+    datetime_iso: note.iso,
+    datetime: displayTime(note.iso),
+  });
+
+  return `<footer class="notefoot">\n${stamp ? `${stamp}\n` : ""}${navHtml}\n</footer>`;
 }
 
 /**
  * Drops a block entirely, markers and trailing newline included. The top-left
- * back link was superseded by "All" in the adjacent nav, and publishers still
+ * back link was superseded by "Home" in the note footer, and publishers still
  * emitting one shouldn't leave it stranded at the top of the page.
  */
 function removeBlock(html, open, close) {
@@ -160,6 +165,21 @@ function removeBlock(html, open, close) {
   if (!block) return html;
   const end = html[block.end] === "\n" ? block.end + 1 : block.end;
   return html.slice(0, block.start) + html.slice(end);
+}
+
+/**
+ * Puts the rebuilt footer back at the end of the body. The old footer and any
+ * loose stamp or nav left over from an earlier layout come out first, so the
+ * result is the same whether the page was last built by this version or not.
+ */
+function withNotefoot(html, rendered) {
+  let out = removeBlock(html, '<footer class="notefoot">', "</footer>");
+  out = removeBlock(out, '<p class="stamp">', "</p>");
+  out = removeBlock(out, '<nav class="adjacent">', "</nav>");
+
+  const end = out.lastIndexOf("</body>");
+  if (end === -1) return out;
+  return `${out.slice(0, end)}${rendered}\n${out.slice(end)}`;
 }
 
 /**
@@ -271,11 +291,10 @@ notes.forEach((note, i) => {
     title: note.slug, url: `${SITE_BASE}${note.path}`, type: "article",
   });
   updated = removeBlock(updated, '<nav class="back">', "</nav>");
-  updated = replaceBlock(
-    updated, '<nav class="adjacent">', "</nav>",
-    renderAdjacent(noteTemplate, notes[i + 1] ?? null, notes[i - 1] ?? null)
-  );
   updated = removeBlock(updated, '<footer class="masthead">', "</footer>");
+  updated = withNotefoot(updated, renderNotefoot(
+    noteTemplate, note, notes[i + 1] ?? null, notes[i - 1] ?? null
+  ));
 
   if (updated !== html) writes.push([join(NOTES_DIR, `${note.slug}.html`), updated]);
 });
@@ -297,13 +316,10 @@ for (const page of PAGES) {
     title: page.title, url: `${SITE_BASE}${page.path}`, type: "website",
   });
   updated = removeBlock(updated, '<nav class="back">', "</nav>");
-  // A standing page is not in the stream, so it has no neighbours — the same
-  // nav renders down to just the way back to the index.
-  updated = replaceBlock(
-    updated, '<nav class="adjacent">', "</nav>",
-    renderAdjacent(noteTemplate, null, null)
-  );
   updated = removeBlock(updated, '<footer class="masthead">', "</footer>");
+  // A standing page has no timestamp and no neighbours, so the same footer
+  // renders down to just the way back to the index.
+  updated = withNotefoot(updated, renderNotefoot(noteTemplate, null, null, null));
 
   if (updated !== html) writes.push([file, updated]);
 }

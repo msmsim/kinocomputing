@@ -31,12 +31,6 @@ const TIME_ZONE = "Europe/London";
 // note scan skips it for free.
 const REDIRECTS = "_redirects";
 
-// Hand-written pages that aren't notes. Kept in their own directory so the root
-// scan doesn't have to know about them, and listed here so their head and nav
-// are maintained by the build rather than left to rot.
-const PAGES = [
-  { file: join("about", "index.html"), path: "/about", title: "About" },
-];
 
 const check = process.argv.includes("--check");
 
@@ -405,7 +399,7 @@ const files = (await readdir(NOTES_DIR))
 const notes = [];
 // Anything in the root that isn't a note still owns its name, so a title can't
 // be slugified onto the path of a file the scan decided to leave alone.
-const reserved = new Set(["index", ...PAGES.map((page) => page.path.slice(1))]);
+const reserved = new Set(["index"]);
 
 for (const file of files) {
   const fileSlug = file.replace(/\.html$/, "");
@@ -498,30 +492,6 @@ notes.forEach((note, i) => {
   }
 });
 
-// Standing pages get the same head and nav treatment as a note. They have no
-// timestamp and no place in the stream, so they live in their own directory
-// rather than the root, which is also what keeps them out of the scan above
-// instead of being skipped with a warning on every build.
-for (const page of PAGES) {
-  const file = join(NOTES_DIR, page.file);
-  const html = await readFile(file, "utf8").catch(() => null);
-  if (html === null) {
-    console.warn(`skipped ${page.file}: not found`);
-    continue;
-  }
-  auditHead(html, page.file);
-
-  let updated = normaliseHead(html, {
-    title: page.title, url: `${SITE_BASE}${page.path}`, type: "website",
-  });
-  updated = removeBlock(updated, '<nav class="back">', "</nav>");
-  updated = removeBlock(updated, '<footer class="masthead">', "</footer>");
-  // A standing page has no timestamp and no neighbours, so the same footer
-  // renders down to just the way back to the index.
-  updated = withNotefoot(updated, renderNotefoot(noteTemplate, null, null, null));
-
-  if (updated !== html) writes.push([file, updated]);
-}
 
 /**
  * Records where a note used to live, so a URL that has ever been published

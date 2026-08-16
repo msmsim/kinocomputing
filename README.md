@@ -119,14 +119,15 @@ Nothing currently links to `/about`. It is reachable only by typing the URL.
 
 ## Standing pages
 
-Pages that aren't notes — currently just `/about` — live in their own directory
-as `<name>/index.html` and are listed in `PAGES` at the top of the build script.
+There aren't any. `/about` is a note like any other — the oldest one, so it sits
+at the foot of the stream — which is why it has a timestamp and neighbours. Its
+title is "About", so the slug it derives is `about` and the URL is unchanged.
 
-The directory matters. A root-level `about.html` would be scanned as a candidate
-note, found to have no `article:published_time`, and skipped with a warning on
-every single build; a subdirectory falls out of the scan without special-casing.
-Listing it in `PAGES` then gets its head, nav and masthead maintained by the
-build exactly like a note's, so it can't rot through a rename.
+If a page ever genuinely can't be a note, the pattern that worked was a
+`<name>/index.html` in its own directory, listed in a `PAGES` constant so the
+build maintained its head and nav. A root-level `about.html` without a timestamp
+would instead be scanned as a candidate note and skipped with a warning on every
+build. That machinery is in the git history rather than the tree.
 
 Anything that can drop a conforming file into the root joins the stream with
 correct neighbours. There is no registry and no ordering to agree on, so

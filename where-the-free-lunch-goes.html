@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>Where the free lunch goes | Kinocomputing</title>
+    <meta name="description" content="Reversible computing keeps being described as a free lunch. The bill arrives as time.">
+    <meta property="og:title" content="Where the free lunch goes">
+    <meta property="og:description" content="Reversible computing keeps being described as a free lunch. The bill arrives as time.">
+    <meta property="og:url" content="https://kinocomputing.com/where-the-free-lunch-goes">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-08-14T09:12:00+01:00">
+    <link rel="canonical" href="https://kinocomputing.com/where-the-free-lunch-goes">
+    <link rel="stylesheet" href="/note.css?v=88f5b034">
+    <meta name="twitter:card" content="summary">
+</head>
+<body>
+<main>
+<h1 class="title">Where the free lunch goes</h1>
+<p>Reversible computing has an unfair reputation as a free lunch. The pitch is
+irresistible: if no information is erased, no energy need be dissipated, and
+the Landauer floor simply does not apply. Every few years someone rediscovers
+this and concludes the energy problem is a matter of insufficient cleverness.</p>
+<p>The catch is that reversibility does not remove the cost. It converts it
+into a different currency, and the exchange rate is brutal.</p>
+<p>To approach the reversible limit you have to run the computation slowly
+enough that the system stays near equilibrium throughout. Dissipation falls
+roughly in proportion to how long you are willing to take. Halving the energy
+means roughly doubling the time. That is a real trade and sometimes a good one,
+but it is a trade, not a saving — and it is exactly the wrong trade for
+inference, where latency is most of the product.</p>
+<p>There is a second cost that gets discussed even less. A reversible
+computation cannot throw anything away, which means every intermediate result
+has to be kept until it can be uncomputed. The garbage does not vanish; it
+accumulates, and then has to be unwound. You have traded energy for time
+<em>and</em> for memory, and memory is where a large part of the energy was
+going in the first place.</p>
+<blockquote>
+<p>You can have it fast, you can have it cheap, or you can have it small.
+Reversibility does not repeal that; it lets you choose differently.</p>
+</blockquote>
+<p>None of which makes it uninteresting. It makes it a design space rather than
+an escape hatch. The question worth asking is not “can we compute without
+dissipating” but “which parts of this workload are latency-insensitive enough
+to be worth slowing down?”</p>
+<p>My suspicion is that the answer is: more than we think, but not the part
+everyone is looking at. Training is throughput-bound and could plausibly absorb
+a large slowdown in exchange for a large energy win. Inference is latency-bound
+and cannot. If reversibility lands anywhere it lands upstream, which is a much
+less glamorous claim than the one usually made for it.</p>
+</main>
+<footer class="notefoot">
+<p class="stamp"><a href="/where-the-free-lunch-goes" target="_self"><time datetime="2026-08-14T09:12:00+01:00">14 Aug 2026, 09:12</time></a></p>
+<nav class="adjacent">
+<a rel="home" href="/" target="_self">↑ Home</a>
+<span class="sep">|</span>
+<a rel="prev" href="/007-basalt-terns" target="_self">← Previous</a>
+<span class="sep">|</span>
+<a rel="next" href="/the-thermodynamic-case-for-embodiment" target="_self">→ Next</a>
+</nav>
+</footer>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>Notes on a mercury delay line | Kinocomputing</title>
+    <meta name="description" content="Delay line memory as a road not taken: when the storage medium and the computation were obviously the same kind of thing.">
+    <meta property="og:title" content="Notes on a mercury delay line">
+    <meta property="og:description" content="Delay line memory as a road not taken: when the storage medium and the computation were obviously the same kind of thing.">
+    <meta property="og:url" content="https://kinocomputing.com/notes-on-a-mercury-delay-line">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-08-16T11:05:00+01:00">
+    <link rel="canonical" href="https://kinocomputing.com/notes-on-a-mercury-delay-line">
+    <link rel="stylesheet" href="/note.css?v=88f5b034">
+    <meta name="twitter:card" content="summary">
+</head>
+<body>
+<main>
+<h1 class="title">Notes on a mercury delay line</h1>
+<p>I spent an evening reading about delay line memory and have not stopped
+thinking about it since. The early machines stored bits as acoustic pulses
+travelling down a tube of mercury: you injected a pressure wave at one end,
+it took about a millisecond to reach the other, and you caught it, amplified
+it, and injected it again. The data was not <em>at</em> an address. It was in
+flight, and you had to wait for it to come round.</p>
+<p>It is easy to read this as a primitive stage we grew out of. I think it is
+better read as a road not taken.</p>
+<p>What strikes me is the honesty of it. A delay line does not pretend that
+storage is free or instantaneous. The memory <em>is</em> a physical process
+with a period, and the machine is organised around that period — instructions
+were laid out so the next operand would arrive just as it was wanted. The
+programmer and the physics were negotiating directly, without an abstraction
+in between claiming the negotiation had been settled.</p>
+<p>Compare a modern memory hierarchy. Registers, three levels of cache, main
+memory, storage — each level exists to maintain the fiction that memory is
+uniform and fast, and each level costs silicon, power and enormous complexity
+to sustain that fiction. We did not remove the physics. We built five layers of
+machinery to stop having to look at it, and then spend a great deal of effort
+reasoning about cache behaviour anyway, because the fiction leaks.</p>
+<blockquote>
+<p>The delay line was slow and small and awkward. It was also the last time
+the storage medium and the computation were obviously the same kind of
+thing.</p>
+</blockquote>
+<p>I am not proposing we go back to mercury. The point is narrower: a delay
+line is a case where the substrate’s own dynamics <em>are</em> the mechanism,
+rather than something suppressed so a cleaner mechanism can be simulated on
+top. That is the same distinction I keep circling — between a system that
+represents and a system that is coupled — showing up in 1949 in a tube of
+metal.</p>
+<p>The modern analogue is not acoustic. It is anything with an intrinsic
+period or relaxation time that you organise a computation around instead of
+clocking against: oscillator networks, recurrent optical loops, thermal
+relaxation in a physical annealer. In each case you stop asking the substrate
+to hold still and start asking what it is already doing.</p>
+<p>Whether any of that composes into something general is exactly the open
+question, and I do not want to pretend otherwise. But the delay line is a
+useful reminder that the split between “the computer” and “the physics” is a
+design decision, taken quite recently, and not a law.</p>
+</main>
+<footer class="notefoot">
+<p class="stamp"><a href="/notes-on-a-mercury-delay-line" target="_self"><time datetime="2026-08-16T11:05:00+01:00">16 Aug 2026, 11:05</time></a></p>
+<nav class="adjacent">
+<a rel="home" href="/" target="_self">↑ Home</a>
+<span class="sep">|</span>
+<a rel="prev" href="/the-thermodynamic-case-for-embodiment" target="_self">← Previous</a>
+<span class="sep">|</span>
+<a rel="next" href="/the-cost-of-holding-still" target="_self">→ Next</a>
+</nav>
+</footer>
+</body>
+</html>

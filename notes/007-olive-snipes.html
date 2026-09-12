@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>007-olive-snipes | Kinocomputing</title>
+    <meta name="description" content="The NWP horseshoe">
+    <meta property="og:title" content="007-olive-snipes">
+    <meta property="og:description" content="The NWP horseshoe">
+    <meta property="og:url" content="https://kinocomputing.com/notes/007-olive-snipes">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-09-12T22:43:36+01:00">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://kinocomputing.com/notes/007-olive-snipes">
+    <link rel="stylesheet" href="/note.css">
+</head>
+<body>
+<main>
+<p><strong>The NWP horseshoe</strong></p>
+<p>Numerical weather prediction’s (<a href="https://en.wikipedia.org/wiki/Numerical_weather_prediction">NWP</a>) base paradigm is simple: weather is math, and math is <a href="https://en.wikipedia.org/wiki/P_versus_NP_problem">sufficiently solvable</a>. Just model phenomena on a grid using quantitative methods such as fluid mechanics and thermodynamics, then step forward in time from observed state. This observe-model-predict chain is the operative paradigm that powers everything else.</p>
+<p>The use of the term “paradigm” is deliberate here. It comes from the systems thinking of Donella Meadows, which, funnily enough, built off the back of the seminal <a href="https://en.wikipedia.org/wiki/The_Limits_to_Growth"><em>The Limits to Growth</em></a> text, which itself asserted that a finite system cannot grow infinitely. A paradigm is the point of a system with <a href="https://donellameadows.org/archives/leverage-points-places-to-intervene-in-a-system">the most leverage</a>; the joint which everything else about the system turns on.</p>
+<p>Atop the <em>weather = math</em> paradigm, a few different approaches have emerged, mostly combining traditional physics with modern computational methods. The UK’s Met Office recently dropped a useful taxonomy that shows <a href="https://metoffice.gov.uk/blog/2025/what-does-a-blend-of-ai-and-physics-mean-for-weather-and-climate-modelling">five ways these combine</a> to create NWP systems.</p>
+<ul>
+<li><strong>Independent-Physics-Based</strong>. Solve the governing equations directly on a grid, with no learned components anywhere.</li>
+<li><strong>Hybrid-Integrated-Machine-Learning</strong>. A trained model replaces or enhances one physics component from inside the dynamical model itself.</li>
+<li><strong>Hybrid-Composite-ML</strong>. Physics-based and ML-based models run separately and exchange state, typically a higher resolution regional model taking boundary conditions from a global one.</li>
+<li><strong>Augmented-ML</strong>. The underlying physics forecast runs untouched, and a separate learned model corrects or sharpens the output afterward.</li>
+<li><strong>Independent-ML-Based</strong>. A trained model maps the current atmospheric state directly to a future state, with no physics equations run at inference at all.</li>
+</ul>
+<p>The issue is that each of the Met Office’s penta-taxonomy kick in <em>after</em> forecasting went mechanistic. We can bolt two more paradigms onto the bottom.</p>
+<ul>
+<li><strong>Individual-Embodied</strong>. A single trained observer synthesises experienced meteorological phenomena  with hard-won expertise to make decisions, with minimal equations or datasets involved.</li>
+<li><strong>Collective-Semi-Embodied</strong>. Community-level weather wisdom, refined across generations into memorable, transmissible rules is passed down via professions and communities of practice.</li>
+</ul>
+<p>The interesting thing is that the <em>Individual-Embodied</em> brain and the <em>Independent-ML-Based</em> machine are doing the same thing: storing <a href="https://commoncog.com/the-tacit-knowledge-series/">deep tacit knowledge</a> somewhere uninspectable. Physics, on the other hand, sits out in the open, with legible, inspectable causality. Which means that the paradigms don’t form a line. They form a horseshoe.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Horseshoe_theory">horseshoe theory</a> of political science is typically credited to Jean-Pierre Faye. He noticed that Weimar-era communists and Nazis, supposed ideological opposites, were both working to torch the centrist factions. Faye’s claim is that when one bends the spectrum, the extremes end up closer to each other than to the middle. It’s a disputed theory but it does have a ring of truth in certain scenarios. Like NWP.</p>
+<p>Both ends of the NWP horseshoe store knowledge as patterns. Patterns only cover what’s already been seen. The result is that physics tends to outperform ML when weather conditions are <a href="https://www.science.org/doi/10.1126/sciadv.aec1433">complex and/or historically unprecedented</a>. Physics, sitting in the middle, doesn’t need precedent. It computes forward from observed state regardless of whether anything like <em>this</em> has happened before.</p>
+<p>Physics matters most within complex, unprecedented, extreme situations. By definition, these events cannot be pattern-matched by humans or machines. But, unfortunately, we’re going to see more and more complex, unprecedented, extreme situations than ever. So, based on the horseshoe, it is not necessarily human expertise or ML that we need to figure out how to aggressively scale, but physics models.</p>
+<p>The issue is that physics is horrifically costly at increasing scales. Halving grid spacing doubles resolution in each of three spatial dimensions, and the <a href="https://en.wikipedia.org/wiki/Courant%E2%80%93Friedrichs%E2%80%93Lewy_condition">CFL stability condition</a> forces a smaller time-step, leading to about 16x more compute for one doubling of resolution.</p>
+<p>Push from today’s ~10km global models toward 1km, storm-resolving forecasts, and the naive multiplier runs to something like <em>ten thousand times more compute</em>. And it gets way worse as the resolution increases.</p>
+<p>I am wondering: can we change that?</p>
+</main>
+<footer class="notefoot">
+
+<nav class="adjacent">
+
+
+
+</nav>
+</footer>
+</body>
+</html>

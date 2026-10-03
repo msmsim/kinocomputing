@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>015-ochre-cranes | Kinocomputing</title>
+    <meta name="description" content="Alternative paradigms">
+    <meta property="og:title" content="015-ochre-cranes">
+    <meta property="og:description" content="Alternative paradigms">
+    <meta property="og:url" content="https://kinocomputing.com/notes/015-ochre-cranes">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-10-03T08:22:57+01:00">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://kinocomputing.com/notes/015-ochre-cranes">
+    <link rel="stylesheet" href="/note.css">
+</head>
+<body>
+<main>
+<p><strong>Alternative paradigms</strong></p>
+<p>Given that the <a href="https://kinocomputing.com/about">target</a> of kinocomputing is alternative paradigms of computing and intelligence, I thought it sensible to do a round-up of what those alternatives actually are.</p>
+<p>Below are approximately twenty-five paradigms, sorted into five groups, each with a basic description, a snippet concerning their genesis, and a summary of their recent state. I begin with the incumbent stack that everything else is an alternative to. Entries then run roughly from <em>substrate</em> (what does the computing) to <em>theory</em> (what intelligence is taken to be). I close with a final section containing speculative frontiers.</p>
+<p>Across them all, two clusters emerge. The first is <strong>let physics compute</strong>: these are analog, photonic, thermodynamic, reversible and reservoir approaches. The second is <strong>let bodies compute</strong>: examples include wetware, organoids, basal cognition, embodiment and mortal computation. Things like world models and active inference are the theory layer that could run on either.</p>
+<p>The most common tradeoff for any given paradigm is exactness, copyability and immortality versus energy efficiency. Evolutionarily, this is the bet the brain already made. More recently as a society, we’ve been railroaded in the opposite direction with the onset of LLMs.</p>
+<p>——</p>
+<p><strong>I. The incumbent stack</strong></p>
+<p>——</p>
+<p><strong>Digital von Neumann computing</strong></p>
+<ul>
+<li>A stored-program machine: instructions and data share one memory and are shuttled to a separate processor, which executes exact, deterministic logic on bits. Every other entry on this list is defined against some part of this design.</li>
+<li><em>Genesis:</em> Turing’s universal machine (1936); von Neumann’s EDVAC report (1945); the transistor (Bell Labs, 1947); Moore’s law (1965).</li>
+<li><em>Latest:</em> the shrinking continues but the returns are thinning. TSMC’s A16 (1.6nm-class) process enters mass production in the second half of 2026, with AI chips as first customers, promising roughly 15–20% power reduction over the previous node. Dennard scaling (power density staying constant as transistors shrink) ended in the mid-2000s, which is why energy, not transistor count, is now the binding constraint.</li>
+</ul>
+<p><strong>GPUs and massively parallel acceleration</strong></p>
+<ul>
+<li>Thousands of simple cores running the same operation over large arrays of data, which is exactly the shape of neural-network matrix maths. The workhorse of the scaling era.</li>
+<li><em>Genesis:</em> Nvidia’s GeForce 256 (1999); CUDA opening GPUs to general computation (2006); AlexNet trained on two consumer GPUs (2012).</li>
+<li><em>Latest:</em> Nvidia’s Vera Rubin platform (288GB of HBM4 per GPU, paired with an 88-core Vera CPU) began first shipments in Q3 2026, with volume ramping in Q4. Nvidia reported record quarterly revenue of $81.6B in Q1 FY2027.</li>
+</ul>
+<p><strong>Domain-specific AI accelerators</strong></p>
+<ul>
+<li>Chips stripped down to the operations neural networks actually need (systolic arrays for matrix multiplication, low-precision arithmetic), trading generality for efficiency. Still digital, still von Neumann at heart.</li>
+<li><em>Genesis:</em> Google’s TPU v1, deployed internally in 2015; Cerebras’ wafer-scale engine (2019).</li>
+<li><em>Latest:</em> Google’s eighth-generation TPUs (Apr 2026) split for the first time into a training chip (TPU 8t) and an inference chip (TPU 8i), claiming twice the performance per watt of the previous generation, with general availability in the second half of 2026.</li>
+</ul>
+<p><strong>Symbolic AI</strong></p>
+<ul>
+<li>Intelligence as the manipulation of explicit symbols by rules: logic, search, knowledge bases. Dominant for AI’s first three decades.</li>
+<li><em>Genesis:</em> the Dartmouth workshop (1956); Newell &amp; Simon’s Logic Theorist (1956) and physical symbol system hypothesis (1976); expert systems in the 1980s.</li>
+<li><em>Latest:</em> no longer a rival paradigm so much as a component: solvers, theorem provers and code execution called by neural systems (e.g. DeepMind’s AlphaGeometry and AlphaProof, 2024).</li>
+</ul>
+<p><strong>Connectionism and deep learning</strong></p>
+<ul>
+<li>Intelligence as learned weights in networks of simple units, trained by gradient descent on data. The paradigm that won.</li>
+<li><em>Genesis:</em> McCulloch &amp; Pitts’ artificial neuron (1943); Rosenblatt’s perceptron (1958); backpropagation (Rumelhart, Hinton &amp; Williams, 1986); AlexNet (2012).</li>
+<li><em>Latest:</em> effectively synonymous with “AI” in 2026; the question is no longer whether it works but what it costs.</li>
+</ul>
+<p><strong>Transformers and the scaling hypothesis</strong></p>
+<ul>
+<li>One architecture (attention over sequences) plus the empirical finding that capability improves predictably with more data, parameters and compute.</li>
+<li><em>Genesis:</em> “Attention Is All You Need” (Vaswani et al., 2017); Sutton’s “The Bitter Lesson” (2019); scaling laws (Kaplan et al., 2020; Hoffmann et al.’s “Chinchilla”, 2022).</li>
+<li><em>Latest:</em> scaling has extended from training to inference (“reasoning” models that spend compute at test time), and the energy bill has followed. Global data-centre power demand is forecast to rise from 104GW in 2025 to 132GW in 2026, and to roughly 290GW by 2030, with generative AI the main driver.</li>
+</ul>
+<p>——</p>
+<p><strong>II. Let physics compute</strong></p>
+<p>——</p>
+<p><strong>Analog in-memory computing</strong></p>
+<ul>
+<li>Neural-network weights are stored as conductances in resistive memory (phase-change, RRAM, flash), so Ohm’s and Kirchhoff’s laws perform the matrix multiply where the data already sits. This removes the memory-to-processor shuttle that dominates energy cost in digital chips.</li>
+<li><em>Genesis:</em> Leon Chua’s memristor theory (1971); HP Labs’ physical memristor (2008); deeper lineage in pre-digital analog computers.</li>
+<li><em>Latest:</em> IBM’s 14nm phase-change inference chip packs 35M devices per chip, runs multi-chip, and reaches near-software accuracy (2026). SK hynix and TetraMem have shown a memristor-based AI system-on-chip. Noise and drift remain the core problem.</li>
+</ul>
+<p><strong>Photonic / optical computing</strong></p>
+<ul>
+<li>Light performs the linear algebra. Matrix operations produce near-zero heat at speed-of-light latency, but the approach is inherently analog and hard to integrate with electronics.</li>
+<li><em>Genesis:</em> optical computing research from the 1980s; Shen et al.’s coherent nanophotonic neural network (2017).</li>
+<li><em>Latest:</em> Neurophos closed a $110M Series A (Jan 2026) on metamaterial modulators. Q.ANT targeted first NPU Gen 2 shipments for H1 2026. SJTU/Tsinghua’s all-optical LightGen chip targets image generation. Photonics is winning first at the interconnect layer (Lightmatter Passage; Marvell’s acquisition of Celestial AI, Dec 2025), with photonic <em>compute</em> following.</li>
+</ul>
+<p><strong>Thermodynamic / probabilistic computing</strong></p>
+<ul>
+<li>Treats thermal noise as a resource rather than an enemy. Probabilistic bits sample directly from energy-based models, so generative AI-as-sampling becomes native physics.</li>
+<li><em>Genesis:</em> Boltzmann machines (Hinton &amp; Sejnowski, 1985); p-bits (Camsari, Datta et al., ~2017); the CCC “Thermodynamic Computing” workshop report (2019).</li>
+<li><em>Latest:</em> Extropic has X0 prototype silicon, an open-source library (THRML), a remote proto-cloud, and a production-scale chip (Z1) in development. It signed a $75M letter of intent with the US CHIPS R&amp;D Office (Jul 2026). A 2026 paper co-authored with MIT’s Isaac Chuang underpins its efficiency claims of up to 10,000× on certain workloads, not yet independently shown at scale. Normal Computing is the main competitor.</li>
+</ul>
+<p><strong>Reversible / adiabatic computing</strong></p>
+<ul>
+<li>Never erase information, and so avoid Landauer’s minimum heat cost per erased bit. Signal energy is recycled through on-chip resonators: “a pendulum, not a hammer.”</li>
+<li><em>Genesis:</em> Landauer’s principle (IBM, 1961); Bennett’s uncomputation (1973); MIT adiabatic chips under Tom Knight with Michael Frank (1990s).</li>
+<li><em>Latest:</em> Vaire Computing’s 22nm Ice River test chip used ~30% less energy than a conventional equivalent, and its resonator recovered more energy than it consumed. An AI-inference chip is targeted for 2027.</li>
+</ul>
+<p><strong>Quantum computing</strong></p>
+<ul>
+<li>Computes with superposition and entanglement. Not a general energy-efficiency play for AI, but a different complexity class for simulation, optimisation and some sampling problems.</li>
+<li><em>Genesis:</em> Feynman (1982); Deutsch (1985); Shor’s algorithm (1994).</li>
+<li><em>Latest:</em> the metric has shifted from physical to logical (error-corrected) qubits. Infleqtion entangled 30 logical qubits from 80 neutral atoms (Sep 2026). IBM and UChicago reported a 70-logical-qubit experiment (Jul 2026).</li>
+</ul>
+<p><strong>Physical reservoir computing</strong></p>
+<ul>
+<li>Any rich nonlinear dynamical system (water, spin waves, colloids, light) serves as a fixed “network,” and only a simple linear readout is trained. The most tiny-experiment-friendly paradigm on this list.</li>
+<li><em>Genesis:</em> Echo State Networks (Jaeger, 2001); Liquid State Machines (Maass, 2002); Fernando &amp; Sojakka’s “pattern recognition in a bucket” (2003).</li>
+<li><em>Latest:</em> reservoirs built from hundreds of coupled active colloidal oscillators (2026). Ensemble reservoir computing on spin-torque oscillators reached 99% on error detection (2026). RCbench offers a shared benchmarking framework for physical reservoirs.</li>
+</ul>
+<p><strong>Physical neural networks</strong></p>
+<ul>
+<li>Train arbitrary physical systems (mechanical, optical, electronic) as deep networks, using backprop through a digital twin (“physics-aware training”).</li>
+<li><em>Genesis:</em> Wright, McMahon et al., <em>Nature</em> (2022).</li>
+<li><em>Latest:</em> consolidating into a field, with recent work mapping training methods that avoid a digital twin altogether.</li>
+</ul>
+<p><strong>DNA / molecular computing</strong></p>
+<ul>
+<li>Computation by DNA strand-displacement reactions, offering enormous parallelism, tiny scale, and the possibility of computing inside the body.</li>
+<li><em>Genesis:</em> Adleman solved a Hamiltonian path problem in a test tube (1994).</li>
+<li><em>Latest:</em> KAIST built reset-free DNA circuits that integrate logic and memory in one molecular system, with components below 2nm (Apr 2026). Earlier work at SJTU produced programmable DNA gate arrays.</li>
+</ul>
+<p>——</p>
+<p><strong>III. Brain-inspired silicon</strong></p>
+<p>——</p>
+<p><strong>Neuromorphic / spiking computing</strong></p>
+<ul>
+<li>Event-driven “spiking” neurons with memory and compute co-located, so energy is spent only when something changes.</li>
+<li><em>Genesis:</em> Carver Mead at Caltech, late 1980s (<em>Analog VLSI and Neural Systems</em>, 1989); spiking networks as the “third generation” of neural nets (Maass, 1997).</li>
+<li><em>Latest:</em> Intel’s Hala Point (Loihi 2) remains the largest system, at 1.15B neurons on a 2.6kW maximum (2024). SpiNNaker2 will power the THOR open-access hub, and BrainChip hit a production milestone in June 2026. The market is still small (~$125M in chips forecast for 2026), and the software ecosystem is the bottleneck.</li>
+</ul>
+<p><strong>Hyperdimensional computing / vector-symbolic architectures</strong></p>
+<ul>
+<li>Compute with very high-dimensional random vectors, using binding and bundling operations. Robust to noise, cheap, and a natural fit for noisy analog or in-memory hardware.</li>
+<li><em>Genesis:</em> Plate’s holographic reduced representations (1995); Kanerva (2009).</li>
+<li><em>Latest:</em> in-memory implementations on phase-change hardware (IBM, early 2020s). Increasingly used as the “symbolic glue” in neuro-symbolic systems.</li>
+</ul>
+<p>——</p>
+<p><strong>IV. Living substrates</strong></p>
+<p>——</p>
+<p><strong>Synthetic biological intelligence (wetware)</strong></p>
+<ul>
+<li>Cultured human neurons on multi-electrode arrays, trained through closed-loop stimulation.</li>
+<li><em>Genesis:</em> Steve Potter’s cultured-neuron “animats” (early 2000s); Cortical Labs’ DishBrain learning Pong (2022).</li>
+<li><em>Latest:</em> Cortical Labs’ CL1 (~$35k) is commercially available, with a cloud platform and a public programming API. Its Melbourne biological data-centre prototype is operational, and a Singapore site is planned with DayOne (Apr 2026).</li>
+</ul>
+<p><strong>Organoid intelligence</strong></p>
+<ul>
+<li>3D brain organoids as bioprocessors.</li>
+<li><em>Genesis:</em> Smirnova, Hartung et al.’s manifesto in <em>Frontiers in Science</em> (2023).</li>
+<li><em>Latest:</em> FinalSpark rents remote access to its organoid Neuroplatform (around $500/month). Keeping organoids alive (~100 days) is the main constraint. Johns Hopkins continues an organoid-intelligence programme.</li>
+</ul>
+<p><strong>Basal cognition / diverse intelligence</strong></p>
+<ul>
+<li>Cells, tissues and brainless organisms as genuine problem-solvers, with bioelectric networks acting as the “cognitive glue” that scales cell goals into body goals. The closest scientific cousin of new materialism.</li>
+<li><em>Genesis:</em> Pamela Lyon coined “basal cognition” (2018); Levin &amp; Dennett, “Cognition all the way down” (2020); xenobots (Kriegman, Blackiston, Levin, Bongard, 2020).</li>
+<li><em>Latest:</em> Levin’s TAME framework and “cognitive light cone.” Anthrobots self-assemble from human tracheal cells and help repair neural tissue. Other work shows classical sorting algorithms displaying competencies nobody programmed.</li>
+</ul>
+<p><strong>Slime-mould and chemical computing</strong></p>
+<ul>
+<li><em>Physarum</em> solving mazes and designing efficient transport networks; reaction-diffusion and Belousov–Zhabotinsky computers.</li>
+<li><em>Genesis:</em> Nakagaki’s maze-solving slime mould (2000); Tero et al.‘s Tokyo rail network (2010); Adamatzky’s Unconventional Computing Lab.</li>
+<li><em>Latest:</em> mostly fungal and mycelial electronics as sensing and computing media.</li>
+</ul>
+<p>——</p>
+<p><strong>V. Paradigms of intelligence</strong></p>
+<p>——</p>
+<p><strong>World models / JEPA</strong></p>
+<ul>
+<li>Predict the future in an abstract representation space rather than generating every token or pixel. The aim is to learn cause and effect from video and interaction rather than text.</li>
+<li><em>Genesis:</em> Kenneth Craik’s mental models (<em>The Nature of Explanation</em>, 1943); Ha &amp; Schmidhuber’s “World Models” (2018); LeCun’s JEPA position paper (2022).</li>
+<li><em>Latest:</em> LeCun’s AMI Labs raised a $1.03B seed in March 2026. It is Paris-headquartered, has pledged open research, and its first project is a video world model. Fei-Fei Li’s World Labs is the other major bet.</li>
+</ul>
+<p><strong>Active inference / free-energy principle</strong></p>
+<ul>
+<li>Perception and action as one process, with an agent minimising surprise (variational free energy) about its world. Derived from physics and neuroscience rather than benchmarks.</li>
+<li><em>Genesis:</em> Karl Friston’s free-energy work (~2005–2010).</li>
+<li><em>Latest:</em> VERSES has commercialised active inference as Genius. This includes an AXIOM “digital brain” model, a robotics architecture that works without pre-training (2025), and enterprise licensing deals through 2026.</li>
+</ul>
+<p><strong>Liquid / continuous-time networks</strong></p>
+<ul>
+<li>Neurons as differential equations with adaptive time constants, inspired by <em>C. elegans</em>. Small, adaptive and efficient.</li>
+<li><em>Genesis:</em> Hasani et al.’s Liquid Time-Constant Networks (MIT CSAIL, 2020).</li>
+<li><em>Latest:</em> Liquid AI’s LFM2.5-2.6B (Aug 2026) runs agent workloads on a laptop CPU in under 2.5GB. The production LFM architecture is a hybrid descended from this line, not pure LTC.</li>
+</ul>
+<p><strong>Embodied cognition / morphological computation</strong></p>
+<ul>
+<li>The body and environment do part of the computing; intelligence is enacted, not just represented.</li>
+<li><em>Genesis:</em> Brooks, “Intelligence without representation” (1991); Varela, Thompson &amp; Rosch, <em>The Embodied Mind</em> (1991); Pfeifer &amp; Bongard, <em>How the Body Shapes the Way We Think</em> (2006).</li>
+<li><em>Latest:</em> soft robotics and “physical AI.” Robot foundation models are its industrial cousin, though much less embodied in spirit.</li>
+</ul>
+<p><strong>Mortal computation</strong></p>
+<ul>
+<li>Abandon the separation of hardware and software. Knowledge lives in the idiosyncratic analog substrate and dies with it, trading copyability (“immortality”) for huge energy savings.</li>
+<li><em>Genesis:</em> Hinton’s Forward-Forward paper (2022); Ororbia &amp; Friston’s “Mortal Computation” (2023).</li>
+<li><em>Latest:</em> a conceptual bridge between analog hardware, local learning rules and active inference, rather than a hardware programme.</li>
+</ul>
+<p><strong>Neural cellular automata / self-organising systems</strong></p>
+<ul>
+<li>Local learned update rules that grow and repair global form, treating morphogenesis as computation.</li>
+<li><em>Genesis:</em> von Neumann’s self-reproducing automata (1940s); Mordvintsev et al., “Growing Neural Cellular Automata” (<em>Distill</em>, 2020).</li>
+<li><em>Latest:</em> used for abstract reasoning tasks and as computational models of Levin-style morphogenesis.</li>
+</ul>
+<p>——</p>
+<p><strong>VI. Speculative frontiers</strong></p>
+<p>——</p>
+<p><strong>Superconducting / cryogenic logic</strong></p>
+<ul>
+<li>Circuits cooled to a few kelvin so that current flows with zero resistance, switching via quantum flux pulses rather than charged transistors. Very fast and very frugal per operation, but you have to pay for the fridge.</li>
+<li><em>Genesis:</em> Josephson’s prediction of the Josephson effect (1962); IBM’s Josephson computer programme (1970s–83); rapid single flux quantum logic (Likharev &amp; Semenov, 1991).</li>
+<li><em>Latest:</em> Snowcap Compute, backed by former Intel CEO Pat Gelsinger, claims 25× better performance per watt than today’s best chips even after cooling costs, using niobium titanium nitride. Its first basic chip is due by the end of 2026, with full systems later.</li>
+</ul>
+<p><strong>Spintronic and magnonic computing</strong></p>
+<ul>
+<li>Compute with the spin of electrons, or with spin waves (magnons) rippling through magnetic materials, instead of moving charge. Non-volatile, low-heat, and naturally wave-like and analog.</li>
+<li><em>Genesis:</em> giant magnetoresistance (Fert and Grünberg, independently, 1988); the field of magnonics in the 2000s.</li>
+<li><em>Latest:</em> spin-based memory (MRAM) is already commercial; spin logic remains mostly at lab stage. The most active frontier is spin waves and spin-torque oscillators as physical reservoirs (see section II).</li>
+</ul>
+<p><strong>Memcomputing</strong></p>
+<ul>
+<li>Computing <em>with</em> memory rather than merely in it: networks of elements that store and process information in the same place, evolving as a dynamical system that “falls” towards solutions of hard problems.</li>
+<li><em>Genesis:</em> Di Ventra and Pershin’s “The parallel approach” (<em>Nature Physics</em>, 2013); Traversa and Di Ventra’s universal memcomputing machines (2015).</li>
+<li><em>Latest:</em> mostly emulated on ordinary digital hardware for optimisation problems. Its claims of efficiency on very hard problems remain debated.</li>
+</ul>
+<p><strong>Whole-brain emulation</strong></p>
+<ul>
+<li>Scan a specific brain at synaptic resolution, reconstruct its wiring (the connectome), and run it on another substrate: copying a mind rather than training one.</li>
+<li><em>Genesis:</em> the <em>C. elegans</em> connectome (White et al., 1986); Sandberg and Bostrom’s <em>Whole Brain Emulation: A Roadmap</em> (2008); the complete adult fruit-fly connectome (2023–24).</li>
+<li><em>Latest:</em> Eon Systems connected the fly connectome to a physics-simulated body and showed walking, grooming and feeding driven by the emulated brain (Mar 2026). A full mouse connectome, roughly 500 times larger, is reckoned a decade or more away; human scale is further still.</li>
+</ul>
+<p><strong>Quantum theories of mind</strong></p>
+<ul>
+<li>The proposal that biological cognition depends on quantum processes, and so cannot be captured by any classical computer, digital or analog. If true, it would undercut most of this list.</li>
+<li><em>Genesis:</em> Penrose’s <em>The Emperor’s New Mind</em> (1989); Penrose and Hameroff’s Orchestrated Objective Reduction</li>
+</ul>
+</main>
+<footer class="notefoot">
+
+<nav class="adjacent">
+
+
+
+</nav>
+</footer>
+</body>
+</html>

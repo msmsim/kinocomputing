@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>006-jade-shrews | Kinocomputing</title>
+    <meta name="description" content="Thermodynamic Computing Doesn’t Shortcut Numerical Weather Prediction Yet">
+    <meta property="og:title" content="006-jade-shrews">
+    <meta property="og:description" content="Thermodynamic Computing Doesn’t Shortcut Numerical Weather Prediction Yet">
+    <meta property="og:url" content="https://kinocomputing.com/notes/006-jade-shrews">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-10-18T14:32:47+01:00">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://kinocomputing.com/notes/006-jade-shrews">
+    <link rel="stylesheet" href="/note.css">
+</head>
+<body>
+<main>
+<p><strong>Thermodynamic Computing Doesn’t Shortcut Numerical Weather Prediction Yet</strong></p>
+<p>Can thermodynamic computing make weather prediction quicker and cheaper? That was the question behind this piece of work, which builds on <a href="https://www.kinocomputing.com/the-nwp-horseshoe">The NWP Horseshoe</a>. This is the short version of what I did and what I found.</p>
+<p><strong>The short answer.</strong> Thermodynamic computing can add value across numerical weather prediction (NWP), but not where weather prediction’s biggest cost lies. Bolted onto today’s systems, the gain is capped at tens of percent at best. Redesigning NWP methods around the hardware is different. My simulations suggest that could plausibly deliver order-of-magnitude gains, and ensemble nowcasting, the forecasting of the next few hours from radar, is the strongest candidate.</p>
+<p><strong>What thermodynamic computing is.</strong> A conventional chip spends energy suppressing noise. A thermodynamic chip uses it. It is built from parts that fluctuate randomly, with couplings that shape how they fluctuate. Left alone, the system settles into a predictable statistical state, and if the couplings are programmed well, that state is the answer. Several companies are building such hardware:</p>
+<ul>
+<li><a href="https://extropic.ai/writing/thermodynamic-computing-from-zero-to-one">Extropic</a> builds probabilistic-bit sampling chips and has proposed a <a href="https://arxiv.org/html/2510.23972v2">denoising architecture</a> for generative models.</li>
+<li><a href="https://normalcomputing.com/blog/normal-computing-announces-tape-out-of-worlds-first-thermodynamic-computing-chip">Normal Computing</a> builds analog chips that do <a href="https://arxiv.org/pdf/2312.04836">Gaussian sampling and linear algebra</a> by letting coupled circuits settle.</li>
+<li><a href="https://www.flucta.ai/">Flucta</a>, co-founded by one of the inventors of the probabilistic bit, is taking a full-stack route that starts on GPUs.</li>
+</ul>
+<p>These devices are good at a narrow set of jobs: drawing random samples, Gaussian inference (including solving linear systems) and the step-by-step “denoising” behind diffusion models. They are no better than a GPU at ordinary deterministic arithmetic, which is what most of a weather model is.</p>
+<p><strong>How I tested it.</strong> I took each approach on the NWP horseshoe and broke it down into its <em>primitives</em>. A primitive is the small operation that, repeated millions of times, makes up the forecast. I scored each one on whether the hardware can do it and whether doing it faster would matter. The most promising ones I then tested in simulation, modelling the chip’s physics exactly with the same kind of maths used in Normal Computing’s <a href="https://normalcomputing.com/blog/thermox-the-first-thermodynamic-computing-simulator">thermox</a> simulator. Where I could, I used real data:</p>
+<ul>
+<li>ECMWF ensemble forecasts from <a href="https://sites.research.google/weatherbench">WeatherBench 2</a>;</li>
+<li>Radar rainfall from five national networks, published with the open-source nowcasting library <a href="https://pysteps.readthedocs.io/en/stable/auto_examples/plot_steps_nowcast.html">pysteps</a>: Finland, Switzerland, the Netherlands, Belgium and Australia, seven events in all.</li>
+</ul>
+<p>For nowcasting, my benchmark was STEPS, the ensemble method used operationally by several national weather services. Belgium’s version, for example, <a href="https://www.meteo.be/en/research/topic-2">runs 48 members every five minutes</a>.</p>
+<p><strong>Finding 1: there is value across the approaches, but only in the uncertainty layer.</strong> No single approach on the horseshoe is a natural fit. The fit runs <em>across</em> them, wherever an approach handles uncertainty:</p>
+<ul>
+<li><em>Data assimilation</em> (combining observations with a forecast to estimate the current state). In an ensemble Kalman filter, a standard way of doing this, the small local calculations matched an ordinary digital solution after about 30 settling times of the chip, needing only about 6 bits of precision. The chip’s own noise could even stand in for the “inflation” such filters normally need tuning.</li>
+<li><em>Post-processing</em> (statistically correcting a model’s output). On real ECMWF ensemble temperature forecasts, a chip-based calibration matched the digital result to within 0.3%.</li>
+<li><em>Stochastic physics and correlated noise fields.</em> These work when posed scale by scale, and fail when posed on a fine grid all at once.</li>
+<li><em>Probabilistic machine learning and nowcasting.</em> See below.</li>
+</ul>
+<p>The most useful lesson was that “native” is not enough. What decides whether the chip helps is how well conditioned the problem is <em>as posed to the chip</em>. Posed one way, a task settled in a few dozen time steps; posed another, the same task needed hundreds of millions.</p>
+<p><strong>Finding 2: none of this touches the core constraint.</strong> The expensive part of weather prediction is the physics core, which steps the equations of motion forward on a grid. Going from 10 km to 1 km resolution costs roughly 10,000 times more compute, and nearly all of it is deterministic, high-precision grid arithmetic. Thermodynamic hardware has nothing to offer there. I also tested whether the chip could help the core indirectly, by giving a rough first answer to the large linear system that physics models solve every time step. The chip’s settling did help, cutting iterations about six-fold, but its thermal noise wiped out the gain unless the chip was run far above its noise floor. At that point it is no longer a thermodynamic computer.</p>
+<p><strong>Finding 3: dropped into today’s systems, the gain is capped at tens of percent.</strong> Speeding up one part of a pipeline only saves that part’s share of the total, and most uncertainty-handling steps are a modest share. At ECMWF, ensemble forecasting and data assimilation together dominate the <a href="https://www.ecmwf.int/sites/default/files/elibrary/2018/17996-advancing-data-assimilation-global-nwp-ecmwf-perspective.pdf">compute budget</a>. But the parts a thermodynamic chip could take over within them, the statistical and linear-algebra steps, are a much smaller slice. The physics runs those steps sit inside are the bulk. Nowcasting is the clearest test:</p>
+<ul>
+<li>On real radar, the chip’s noise was a like-for-like replacement for STEPS’s own: same accuracy, same reliability, out to an hour ahead.</li>
+<li>But generating that noise is only about 19% of a STEPS run. The rest is moving the rain field forward, splitting it into scales and correcting its intensity distribution. Even with the chip taking over related steps, a drop-in saves roughly 19–45%.</li>
+</ul>
+<p>The state of the art has also moved against one obvious opportunity. Global AI forecasters such as <a href="https://arxiv.org/pdf/2312.15796">GenCast</a> made their ensembles by diffusion, a slow, many-step denoising process that thermodynamic hardware is built to accelerate. The leading systems since, <a href="https://blog.google/technology/google-deepmind/weathernext-2/">WeatherNext 2</a> and <a href="https://arxiv.org/abs/2609.03582">3</a>, ECMWF’s <a href="https://www.ecmwf.int/sites/default/files/elibrary/102025/81687-aifs-ens-becomes-operational.pdf">AIFS ENS</a> and NVIDIA’s <a href="https://arxiv.org/html/2507.12144v2">FourCastNet 3</a>, generate ensemble members in a single cheap pass. Diffusion survives mainly at kilometre scale, in systems like <a href="https://arxiv.org/html/2408.10958v1">StormCast</a>, which is where that particular opportunity remains.</p>
+<p><strong>Finding 4: redesigning NWP for the hardware could bring order-of-magnitude gains, especially in nowcasting.</strong> If bolting the chip on is capped, the alternative is to change the method so the chip does most of the work. I built a “chip-native” nowcaster on that principle:</p>
+<ul>
+<li>Compute the deterministic part of the forecast <em>once</em>, rather than once per ensemble member;</li>
+<li>Draw every member’s random perturbations from the chip, scale by scale;</li>
+<li>Let each scale evolve over time with the right memory, using a simple two-step rule (an AR(2) process) that STEPS also uses.</li>
+</ul>
+<p>It took several rounds to get right, and some early results did not survive. A heavy-rain advantage that looked significant on Finnish data disappeared across other countries. Two fixes closed most of the remaining gap: band-limiting the chip’s noise to each scale, and giving each scale its two-step memory. Tested on 86 real nowcasts from five networks:</p>
+<ul>
+<li><strong>Skill:</strong> it matched STEPS on the probability of heavy rain out to an hour ahead, and on general rain probability out to 30 minutes, while running four times as many ensemble members.</li>
+<li><strong>Cost:</strong> in an optimised implementation, its digital work per ensemble member was about 18 times lower than STEPS.</li>
+<li><strong>With an oscillator chip:</strong> a chip built from oscillating circuits, like Normal Computing’s original design, can also run the two-step time evolution itself. In my tests that kept the same skill and took the saving to about 33 times.</li>
+</ul>
+<p>Two honest qualifications matter for anyone thinking about this commercially:</p>
+<ul>
+<li><strong>Credit for the gain is shared.</strong> About four times of that saving comes from the redesign itself, which would also work on ordinary computers. The chip’s own contribution is the remaining factor of roughly four to eight.</li>
+<li><strong>The real competitor is AI, not STEPS.</strong> Deep-learning nowcasters such as <a href="https://arxiv.org/pdf/2104.00954">DGMR</a> already produce an ensemble member in about a tenth of a second on a GPU. My energy model suggests the chip-native design could be a few times more efficient still: using published chip specifications (<a href="https://iconnect007.com/article/151033/extropic-signs-75m-loi-with-us-commerce-department/151030/smt">Extropic’s</a> and <a href="https://arxiv.org/abs/2304.05949v3">magnetic probabilistic bits</a>), the chip’s own energy is negligible. But that is a model, not a measurement.</li>
+</ul>
+<p>Why this matters: the demand in nowcasting is for many more members than are run today. Probabilities of extreme rain are tail estimates, and tails need large ensembles. A <a href="https://www.metsoc.jp/jmsj/GA/JMSJ2025-033.pdf">Japan Meteorological Agency study</a> of a severe flood, using a forecast-model ensemble rather than a nowcast, found that 1,000 members captured both the risk and the timing of record flooding, which 21 members could not. Cheap, calibrated ensemble members at radar update rates are exactly what a chip-native nowcaster would provide.</p>
+<p><strong>What I haven’t shown.</strong> Everything here is simulation and modelling:</p>
+<ul>
+<li>There was no real thermodynamic chip;</li>
+<li>There was no power-metered comparison against an optimised GPU nowcaster;</li>
+<li>The radar comparison rests on seven rain events, with summer convective storms under-represented;</li>
+<li>Running the time evolution on an oscillator chip would need hardware that lets each scale’s damping and frequency be tuned.</li>
+</ul>
+<p>Those are the next tests. Some of the hardware may not be long in coming: Extropic expects early access to its first production chip in 2027.</p>
+<p><strong>The bottom line.</strong> Thermodynamic computing is not a shortcut through weather prediction’s central cost: the high-resolution physics stays digital. Added to existing systems, it is worth tens of percent at best. But NWP is full of uncertainty handling, and if methods are rebuilt so that the hardware does the sampling and the time evolution, order-of-magnitude savings look plausible. They come with STEPS-level skill and many more ensemble members. Ensemble nowcasting is the place to start: regional, run every few minutes, and hungry for exactly the large, cheap ensembles this hardware is built to produce.</p>
+</main>
+<footer class="notefoot">
+
+<nav class="adjacent">
+
+
+
+</nav>
+</footer>
+</body>
+</html>

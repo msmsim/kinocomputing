@@ -18,6 +18,9 @@ and anything prefixed `_`, sorts them newest-first, and writes `dist/`:
 1. `index.html` — the stream, from the `<!-- each:entry -->` block in `_stream.html`, each note summarised to its title and opening block
 2. one page per note, its `<footer class="notefoot">` built from `_note.html` and its derivable `<head>` fields filled in
 3. `_redirects`, and the assets — `note.css`, the share card
+4. the [blyg](docs/blyg.md) surface — `blyg.json`, `feed.xml`, `items/` —
+   copied from `blyg/`, plus each note's version markers and discovery links,
+   frozen pages for pinned versions, and tombstones for withdrawn notes
 
 Nothing under `notes/` is ever written to. The build only reads it, so a note
 stays exactly as its publisher wrote it however many times the site is built,
@@ -229,7 +232,10 @@ Consequences worth knowing:
   this build promotes to a title. Bold first lines work from the phone.
 - Deleting a note in motes removes `notes/<slug>.html` by its original name, so
   a retitled note is still taken down correctly; the build never renames the
-  file it addresses.
+  file it addresses. On the blyg that delete is a withdrawal: a tombstone stays
+  at the address, and pinned versions stay up.
+- The vault can be marked as a blyg in motes. `_note.html` opts in to its pin
+  and change-note requests, which the Action reads (docs/blyg.md).
 
 ## Publishing by hand
 
@@ -240,9 +246,12 @@ line is published at a path made from that line instead.
 ```
 node tools/build-stream.mjs          # rebuild
 node tools/build-stream.mjs --check  # exit 1 if anything is stale, write nothing
+npm test                             # unit tests and the blyg oracles
 ```
 
-You do not need to run the build before pushing — Cloudflare runs it per-deploy.
+You do not need to run the build before pushing — Cloudflare runs it per-deploy,
+and the Action keeps the blyg state. Don't run `--state` and commit its output
+by hand on a branch: ids it assigns are permanent once they reach main.
 
 ## Deployment
 
@@ -254,5 +263,14 @@ Cloudflare Pages, built from a fresh checkout on every push:
 | Build command    | `node tools/build-stream.mjs` |
 | Output directory | `dist`                       |
 
-`dist/` is generated and git-ignored — nothing is committed back. The repo holds
-sources; the deploy holds pages, and only the deploy is ever current.
+`dist/` is generated and git-ignored. The repo holds sources; the deploy holds
+pages, and only the deploy is ever current.
+
+The one exception is `blyg/`, the blyg's ids, version history and pins, which
+can't be derived from the pages. The **Build blyg state** workflow
+(`.github/workflows/stream.yml`) is its only writer: on each push to main it
+runs `node tools/build-stream.mjs --state` and commits `blyg/` back, and that
+commit deploys the surface. A publish therefore deploys twice, the second time
+with the blyg caught up. **Send mentions** (`mentions.yml`) announces stubs of
+other blygs by Webmention; it is a dry run until the repository variable
+`MENTIONS_LIVE` is `true`. See [docs/blyg.md](docs/blyg.md).

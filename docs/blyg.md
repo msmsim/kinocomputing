@@ -36,9 +36,10 @@ spec section it comes from (`docs/protocol-v0.3.md` in `blygger-spec`) or
 - P5. `content_hash` is `sha256:` + hex SHA-256 of `content_md`. Every URL in
   `content_html` is absolute. `updated` is the last changelog entry's `at`.
   Every protocol time is UTC `…Z` (§4, §5.1, §5.2).
-- P6. A note whose body won't convert to markdown gets no id while new, and
-  while registered keeps its last good version, document and feed entries
-  until it converts again (msn).
+- P6. A note whose body won't convert to markdown gets no id while new. While
+  registered it keeps its last good version and document, and its feed entries
+  drop out, until it converts again (msn's behaviour: the feed carries only
+  content the registry has a version for).
 
 **Pins and change notes** (motes' blyg vault features)
 
@@ -82,8 +83,11 @@ spec section it comes from (`docs/protocol-v0.3.md` in `blygger-spec`) or
 
 **Stubs and mentions** (dormant until something publishes a stub here)
 
-- P18. A new note whose trailing `<p class="source">` links a blyg item is a
-  thread carrying `stub_of`, decided once at registration (§10.6, msn).
+- P18. A new note whose trailing `<p class="source">` links another blyg's
+  item — the link resolving, over the network at registration, to that
+  origin's own live item document — is a thread carrying `stub_of`. Decided
+  once, at registration; a note registered as a fragment stays one, and a
+  link that doesn't resolve leaves a fragment (§10.6, msn).
 - P19. Stubs of other origins are announced by Webmention after deploy, with
   §15.2's retry schedule, dry-run until switched on (§15, msn).
 

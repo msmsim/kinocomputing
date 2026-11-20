@@ -77,13 +77,24 @@ export class Model {
       item.withdrawn = true;
       item.body = "";
     }
+    this.published = this.computeFeed();
     return true;
   }
 
-  /** The feed's entries (P15): every event, a withdrawn item's last only, newest first, 50 at most. */
+  /** The feed as the last Action wrote it. */
   feed() {
+    return this.published ?? [];
+  }
+
+  /**
+   * The feed's entries (P15): every event, a withdrawn item's last only,
+   * newest first, 50 at most. A live note whose page no longer converts has
+   * none (P6). Taken when the Action runs, from the pages as they were then.
+   */
+  computeFeed() {
     const events = [];
     for (const [file, item] of this.items) {
+      if (!item.withdrawn && this.disk.get(file)?.convertible === false) continue;
       const shown = item.withdrawn ? item.changelog.slice(-1) : item.changelog;
       for (const event of shown) events.push({ file, version: event.version, at: event.at, note: event.note, withdrawn: item.withdrawn });
     }

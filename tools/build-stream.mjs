@@ -6,18 +6,28 @@
 // Anything that can drop a conforming .html file into it — a publisher, a
 // receiver, a hand-written file — joins the stream with correct neighbours.
 //
-// This runs as the Cloudflare Pages build command, against a fresh checkout, on
-// every deploy. Nothing is committed back, so the copies in git keep whatever
-// adjacent nav they were last written with; only the deployed output is
-// guaranteed current. That is the whole reason there is no workflow here.
+// The one thing that can't be derived is each note's Blygger identity and
+// version history (docs/blyg.md). That lives in blyg/, with the protocol
+// surface built from it, and has exactly one writer: this build run with
+// --state, by the Action on main, which commits blyg/ back. Every other run —
+// Cloudflare's, on every deploy — only reads it.
 //
-//   node tools/build-stream.mjs [--check]
+//   node tools/build-stream.mjs [--check]          pages into dist/
+//   node tools/build-stream.mjs --state [--check]  registry and surface into blyg/
 //
 // --check exits 1 if anything would change, without writing.
+// --allow-mass-withdrawal lets --state withdraw more than MAX_WITHDRAWALS notes.
+// BLYG_NOW (an ISO time) stands in for the clock, for tests.
 
-import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
+import { access, mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
+import {
+  updateRegistry, serializeRegistry, buildSurfaces, buildPins, withHeadLinks, latestTime,
+  renderVersions, withVersions, renderWithdrawn, renderPinnedVersions, withPinnedVersions,
+  asksForPin, withoutPinRequest, changeNoteOf, withoutChangeNote, pinnedPath,
+} from "./blyg.mjs";
+import { stubTarget, resolveStub } from "./stub.mjs";
 
 // Notes are published into a folder of their own and served from the site root:
 // a note written as notes/001-teal-voles.html is served at /001-teal-voles, and
@@ -54,8 +64,32 @@ const OG_IMAGE = "kinocomputing-basic-og.jpg";
 const OG_IMAGE_ALT =
   "Kinocomputing — alternative paradigms of computing and intelligence";
 
+// The blyg. Its origin is the site root, so the surface (blyg.json, feed.xml,
+// items/) is served beside the notes. blyg/ holds that surface as committed,
+// plus files prefixed _ — the registry, the mentions log — which are state,
+// not surface, and are never deployed.
+const STATE_DIR = "blyg";
+const REGISTRY = join(STATE_DIR, "_registry.json");
+const BLYG = {
+  origin: `${SITE_BASE}/`,
+  title: SITE_NAME,
+  description: "Researching alternative paradigms of computing and intelligence.",
+  author: { name: "Matt", url: "https://www.msweet.net/" },
+  generator: "kinocomputing-build/0.1",
+  generatorUrl: "https://github.com/msmsim/kinocomputing",
+};
+// Paths the surface owns, which no note may be published at.
+const SURFACE_NAMES = ["blyg", "feed", "items"];
+
+// Withdrawal is read off a page's absence, so a bad checkout or a slip of
+// `git rm` would withdraw whatever it took with it — permanently, as far as
+// the version numbers go. More than this many at once stops the build instead.
+const MAX_WITHDRAWALS = 3;
 
 const check = process.argv.includes("--check");
+const stateMode = process.argv.includes("--state");
+const massWithdrawal = process.argv.includes("--allow-mass-withdrawal");
+const now = process.env.BLYG_NOW ? new Date(process.env.BLYG_NOW) : new Date();
 
 /** "3 Aug 2026, 22:49" — the format already on every published page. */
 function displayTime(iso) {
@@ -158,6 +192,13 @@ function parseNote(fileSlug, html) {
     html,
     // The stream shows the note body verbatim; the template supplies the stamp.
     content,
+    // The body as its publisher wrote it, before the title is promoted: this,
+    // not anything the build does to it, is the blyg item's content.
+    source: main.inner.trim(),
+    pin: asksForPin(html),
+    changeNote: changeNoteOf(html),
+    // Which write of the page this is, so a request in it is read only once.
+    seen: createHash("sha256").update(html).digest("hex").slice(0, 16),
   };
 }
 
@@ -308,8 +349,8 @@ function renderStream(template, notes) {
       (whole, slash, level) => `<${slash}h${Number(level) + 1}`
     ),
     path: note.path,
-    datetime_iso: note.iso,
-    datetime: displayTime(note.iso),
+    datetime_iso: note.time,
+    datetime: displayTime(note.time),
     slug: note.slug,
   }).trim()).join("\n");
 
@@ -375,8 +416,8 @@ function renderNotefoot(noteTemplate, note, older, newer) {
   // a change of format or time zone reaches every note that already exists.
   const stamp = part(foot.inner, "stamp", note && {
     path: note.path,
-    datetime_iso: note.iso,
-    datetime: displayTime(note.iso),
+    datetime_iso: note.time,
+    datetime: displayTime(note.time),
   });
 
   return `<footer class="notefoot">\n${stamp ? `${stamp}\n` : ""}${navHtml}\n</footer>`;
@@ -599,17 +640,40 @@ function auditHead(html, slug) {
   }
 }
 
+/** Every file under dir, as relative /-separated path → bytes. Empty if dir is absent. */
+async function readTree(dir) {
+  const out = new Map();
+  const walk = async (rel) => {
+    for (const entry of await readdir(join(dir, rel), { withFileTypes: true }).catch(() => [])) {
+      const path = rel ? `${rel}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) await walk(path);
+      else out.set(path, await readFile(join(dir, path)));
+    }
+  };
+  await walk("");
+  return out;
+}
+
+const exists = (path) => access(path).then(() => true, () => false);
+
 const files = (await readdir(SOURCE_DIR))
   .filter((name) => name.endsWith(".html"))
   .filter((name) => name !== "index.html" && !name.startsWith("_"));
 
+const registryText = await readFile(REGISTRY, "utf8").catch(() => null);
+const registry = { items: registryText ? JSON.parse(registryText).items ?? {} : {} };
+
 const notes = [];
 // Anything in the source folder that isn't a note still owns its name, so a
 // title can't be slugified onto the path of a file the scan left alone.
-const reserved = new Set(["index", ...ASSETS]);
+const reserved = new Set(["index", ...ASSETS, ...SURFACE_NAMES]);
+// Every name with a file at it, note or not: what tells a withdrawn note (no
+// file) from one that has merely stopped parsing.
+const present = new Set();
 
 for (const file of files) {
   const fileSlug = file.replace(/\.html$/, "");
+  present.add(fileSlug);
   const html = await readFile(join(SOURCE_DIR, file), "utf8");
   const note = parseNote(fileSlug, html);
   if (!note) {
@@ -618,6 +682,16 @@ for (const file of files) {
     continue;
   }
   notes.push(note);
+}
+
+// A withdrawn note's address is its tombstone's, and a pinned version's frozen
+// page is that version's, for good: no title may take either.
+for (const [fileSlug, entry] of Object.entries(registry.items)) {
+  if (!entry.page) continue;
+  if (entry.withdrawn && !present.has(fileSlug)) reserved.add(entry.page);
+  for (const event of entry.changelog) {
+    if (event.pinned) reserved.add(pinnedPath(entry.page, event.version));
+  }
 }
 
 /**
@@ -648,9 +722,92 @@ for (const pass of [(note) => !note.title, (note) => note.title]) {
   }
 }
 
-// Newest first, as the stream reads. Ties break on slug so the order is total
-// and a rerun can't shuffle two notes published in the same second.
-notes.sort((a, b) => new Date(b.iso) - new Date(a.iso) || b.slug.localeCompare(a.slug));
+// The notes as the blyg sees them: keyed by source file, which never changes,
+// with the body as written and the page it is published at.
+const blygNotes = notes.map((note) => ({
+  slug: note.fileSlug,
+  iso: note.iso,
+  content: note.source,
+  pin: note.pin,
+  changeNote: note.changeNote,
+  seen: note.seen,
+  page: note.slug,
+}));
+
+if (stateMode) {
+  // A Subset share of a blyg item is a stub of it (§10.6). Whether a note is
+  // one is decided when it is first registered and kept in the registry, so
+  // only a note the registry hasn't seen is resolved — the one network step in
+  // the build, and never repeated. A target that doesn't resolve leaves a fragment.
+  for (const note of blygNotes) {
+    if (registry.items[note.slug]) continue;
+    const target = stubTarget(note.content);
+    if (!target) continue;
+    try {
+      note.stub = await resolveStub(target);
+    } catch (error) {
+      console.log(`blyg: ${note.slug} is not a stub: ${error.message}`);
+    }
+  }
+
+  const { registry: next, events } = updateRegistry(registry, blygNotes, { now, present });
+  const registered = events.filter((event) => event.type === "new").length;
+  if (registered) console.log(`blyg: registered ${registered} note(s)`);
+  for (const event of events) {
+    if (event.type === "version") console.log(`blyg: ${event.slug} is now v${event.version}`);
+    if (event.type === "stub") console.log(`blyg: ${event.slug} is a stub of ${event.origin} ${event.id}`);
+    if (event.type === "pinned") console.log(`blyg: pinned ${event.slug} v${event.version}`);
+    if (event.type === "unconverted") console.warn(`blyg: left out ${event.slug}: ${event.reason}`);
+    if (event.type === "withdrawn") console.log(`blyg: withdrew ${event.slug} as v${event.version}`);
+    if (event.type === "missing") console.warn(`blyg: ${event.slug} is registered but its page is not a note`);
+  }
+  const withdrawals = events.filter((event) => event.type === "withdrawn").length;
+  if (withdrawals > MAX_WITHDRAWALS && !massWithdrawal) {
+    console.error(`blyg: ${withdrawals} registered notes have no page. Withdrawing is permanent, `
+      + "so nothing was written. If they were all meant, rerun with --allow-mass-withdrawal.");
+    process.exit(1);
+  }
+
+  const writes = [];
+  const serialized = serializeRegistry(next);
+  if (serialized !== registryText) writes.push([REGISTRY, serialized]);
+
+  // A document for a note that won't convert isn't produced, which leaves the
+  // last good one in blyg/ — nothing here is ever deleted (§4: 200 forever).
+  for (const [file, content] of buildSurfaces(next, blygNotes, BLYG)) {
+    const path = join(STATE_DIR, file);
+    const current = await readFile(path, "utf8").catch(() => null);
+    if (content !== current) writes.push([path, content]);
+  }
+  // A pin is a promise about exact bytes, so its document is written once:
+  // one that already exists is never touched again.
+  for (const pin of buildPins(next, blygNotes, BLYG)) {
+    const path = join(STATE_DIR, pin.file);
+    if (!await exists(path)) writes.push([path, pin.content]);
+  }
+
+  if (writes.length === 0) {
+    console.log(`blyg: ${notes.length} notes, already up to date`);
+    process.exit(0);
+  }
+  if (check) {
+    console.error(`blyg: ${writes.length} file(s) would change:`);
+    for (const [path] of writes) console.error(`  ${path}`);
+    process.exit(1);
+  }
+  for (const [path, content] of writes) {
+    await mkdir(dirname(path), { recursive: true });
+    await writeFile(path, content);
+  }
+  console.log(`blyg: ${notes.length} notes, wrote ${writes.length} file(s) to ${STATE_DIR}/`);
+  process.exit(0);
+}
+
+// Newest first, as the stream reads, by when each note last changed: an edited
+// note returns to the top. Ties break on slug so the order is total and a
+// rerun can't shuffle two notes published in the same second.
+for (const note of notes) note.time = latestTime(registry, { slug: note.fileSlug, iso: note.iso });
+notes.sort((a, b) => new Date(b.time) - new Date(a.time) || b.slug.localeCompare(a.slug));
 
 // Beside the notes, which is where motes looks for them too.
 const streamTemplate = await readFile(join(SOURCE_DIR, "_stream.html"), "utf8");
@@ -685,6 +842,12 @@ const image = card && {
 // notes exactly as their publisher wrote them.
 const site = new Map(assets);
 
+// The blyg surface, exactly as the Action committed it. The _-prefixed files
+// beside it are state, not surface.
+for (const [path, content] of await readTree(STATE_DIR)) {
+  if (!path.split("/").some((part) => part.startsWith("_"))) site.set(path, content);
+}
+
 site.set("index.html", withAnalytics(renderStream(streamTemplate, notes)));
 
 notes.forEach((note, i) => {
@@ -704,6 +867,13 @@ notes.forEach((note, i) => {
   updated = withNotefoot(updated, renderNotefoot(
     noteTemplate, note, notes[i + 1] ?? null, notes[i - 1] ?? null
   ));
+  // A pin or change-note request is for the Action; once it has been read it
+  // means nothing to anyone, so it never ships.
+  updated = withoutChangeNote(withoutPinRequest(updated));
+  const entry = registry.items[note.fileSlug];
+  if (entry) {
+    updated = withVersions(withHeadLinks(updated, INDEX_PATH, entry.id), renderVersions(entry, note.path));
+  }
   updated = withAnalytics(updated);
 
   // Audited after the rewrites, so it reports what actually ships rather than
@@ -713,29 +883,125 @@ notes.forEach((note, i) => {
   site.set(`${note.slug}.html`, updated);
 });
 
+/** The note template with every optional section and the publication time taken out. */
+const bareTemplate = (template) => template
+  .replace(/<!-- if:(\w+) -->[\s\S]*?<!-- \/if:\1 -->\n?/g, "")
+  .replace(/^[ \t]*<meta property="article:published_time"[^>]*>\n/m, "");
+
+/**
+ * The frozen page for one pinned version (§8.4): the pin document's content,
+ * verbatim, in the site's note chrome. It is canonical to the live note, links
+ * its own JSON twin, and carries no published_time, so nothing reads it as a
+ * note. Its prev/next are the live note's, so a reader can carry on through
+ * the stream from an old version as from the live one.
+ */
+function renderPinned(entry, page, pin, older, newer) {
+  const livePath = `${INDEX_PATH}${page}`;
+  const path = pinnedPath(livePath, pin.version);
+  const { title } = readTitle(pin.content_html);
+  let html = fill(bareTemplate(noteTemplate), {
+    slug: page, description: "", url: `${SITE_BASE}${livePath}`, path, index_path: INDEX_PATH,
+    content: pin.content_html, datetime_iso: pin.at, datetime: displayTime(pin.at),
+  });
+  html = normaliseHead(html, {
+    title: `${title ? asText(title) : page} (v${pin.version})`, url: `${SITE_BASE}${livePath}`, type: "article",
+  });
+  html = withDescription(html, describe({ title, content: pin.content_html }));
+  html = withNotefoot(html, renderNotefoot(noteTemplate, { path, time: pin.at }, older, newer));
+  html = withPinnedVersions(html, renderPinnedVersions(entry, livePath, pin.version));
+  html = withHeadLinks(html, INDEX_PATH, entry.id).replace(
+    `${INDEX_PATH}items/${entry.id}.json"`, `${INDEX_PATH}items/${entry.id}/v${pin.version}.json"`
+  );
+  return withAnalytics(html);
+}
+
+/**
+ * What stands at a withdrawn note's address (§5.8, §9): a page saying it was
+ * withdrawn, when, and which versions stay pinned. Nothing of what it said.
+ */
+function renderTombstone(entry, page) {
+  const livePath = `${INDEX_PATH}${page}`;
+  const at = entry.changelog.at(-1).at;
+  let html = fill(bareTemplate(noteTemplate), {
+    slug: page, description: "This note has been withdrawn.", url: `${SITE_BASE}${livePath}`,
+    path: livePath, index_path: INDEX_PATH,
+    content: '<p class="withdrawn">This note has been withdrawn.</p>',
+    datetime_iso: at, datetime: displayTime(at),
+  });
+  html = normaliseHead(html, { title: "Withdrawn", url: `${SITE_BASE}${livePath}`, type: "article" });
+  html = withNotefoot(html, renderNotefoot(noteTemplate, { path: livePath, time: at }, null, null));
+  html = withVersions(withHeadLinks(html, INDEX_PATH, entry.id), renderWithdrawn(entry, livePath));
+  return withAnalytics(html);
+}
+
+const position = new Map(notes.map((note, i) => [note.fileSlug, i]));
+for (const [fileSlug, entry] of Object.entries(registry.items)) {
+  const page = entry.page ?? fileSlug;
+  const i = position.get(fileSlug);
+  for (const event of entry.changelog) {
+    if (!event.pinned) continue;
+    const source = site.get(`items/${entry.id}/v${event.version}.json`);
+    if (!source) {
+      console.warn(`blyg: ${fileSlug} v${event.version} is pinned but has no pin document`);
+      continue;
+    }
+    const name = `${pinnedPath(page, event.version)}.html`;
+    if (site.has(name)) {
+      console.warn(`blyg: ${name} is taken, so ${fileSlug} v${event.version} has no frozen page`);
+      continue;
+    }
+    site.set(name, renderPinned(entry, page, JSON.parse(source),
+      i === undefined ? null : notes[i + 1] ?? null,
+      i === undefined ? null : notes[i - 1] ?? null));
+  }
+  if (entry.withdrawn && !present.has(fileSlug)) {
+    if (site.has(`${page}.html`)) console.warn(`blyg: ${page} is taken, so ${fileSlug} has no tombstone`);
+    else site.set(`${page}.html`, renderTombstone(entry, page));
+  }
+}
+
 /**
  * Keeps every URL a note has ever been reachable at pointing at the note.
  *
- * Two are derived. A note is published under its title, but its file is named
- * by whatever motes generated, so `/042-teal-otters` has to reach a retitled
- * note. And motes writes internal links as `/<source folder>/<file name>`,
- * because it addresses a repo path and a URL path with one setting — those
- * arrive in the note body, which the build passes through untouched, so they
- * are met with a redirect rather than a rewrite.
+ * A note is published under its title, but its file is named by whatever
+ * motes generated, so `/042-teal-otters` has to reach a retitled note. motes
+ * writes internal links as `/<source folder>/<file name>`, because it
+ * addresses a repo path and a URL path with one setting — those arrive in the
+ * note body, which the build passes through untouched, so they are met with a
+ * redirect rather than a rewrite. And a page the blyg has published an item at
+ * is a promise (§5.8): when a retitle moves the note, or a withdrawal leaves
+ * only its tombstone, the old address follows it, frozen versions included.
  *
- * Both are re-derived on every build: the source filenames never change, so
- * unlike a build that renames in place, nothing here has to be remembered
- * between runs. A `_redirects` at the repo root is folded in for anything the
- * build can't know about — a URL from a previous site, say.
+ * A `_redirects` at the repo root is folded in for anything the build can't
+ * know about — a URL from a previous site, say. A path that something is
+ * actually served at is never redirected.
  */
 async function renderRedirects() {
   const seed = await readFile(REDIRECTS, "utf8").catch(() => "");
   const lines = new Set(seed.split("\n").map((line) => line.trim()).filter(Boolean));
+  const served = (path) => site.has(`${path.slice(INDEX_PATH.length)}.html`);
+  const add = (from, to) => {
+    if (from !== to && !served(from)) lines.add(`${from} ${to} 301`);
+  };
 
   for (const note of notes) {
-    lines.add(`${INDEX_PATH}${SOURCE_DIR}/${note.fileSlug} ${note.path} 301`);
-    if (note.slug !== note.fileSlug) {
-      lines.add(`${INDEX_PATH}${note.fileSlug} ${note.path} 301`);
+    add(`${INDEX_PATH}${SOURCE_DIR}/${note.fileSlug}`, note.path);
+    add(`${INDEX_PATH}${note.fileSlug}`, note.path);
+  }
+  for (const [fileSlug, entry] of Object.entries(registry.items)) {
+    const page = entry.page ?? fileSlug;
+    const live = notes.find((note) => note.fileSlug === fileSlug);
+    const target = live ? live.path : `${INDEX_PATH}${page}`;
+    if (!live && !served(target)) continue;
+    add(`${INDEX_PATH}${SOURCE_DIR}/${fileSlug}`, target);
+    add(`${INDEX_PATH}${fileSlug}`, target);
+    for (const old of [...(entry.moved_from ?? []), page]) {
+      add(`${INDEX_PATH}${old}`, target);
+      for (const event of entry.changelog) {
+        if (event.pinned && old !== page) {
+          add(pinnedPath(`${INDEX_PATH}${old}`, event.version), pinnedPath(`${INDEX_PATH}${page}`, event.version));
+        }
+      }
     }
   }
   return `${[...lines].sort().join("\n")}\n`;
@@ -745,10 +1011,7 @@ site.set(REDIRECTS, await renderRedirects());
 
 // What the deploy folder holds now, so a page dropped from the site is noticed
 // as a change and doesn't linger from an earlier build.
-const existing = new Map();
-for (const name of await readdir(OUT_DIR).catch(() => [])) {
-  existing.set(name, await readFile(join(OUT_DIR, name)).catch(() => null));
-}
+const existing = await readTree(OUT_DIR);
 
 // A file absent from the deploy reads as undefined here, not as empty content.
 const same = (a, b) =>
@@ -772,7 +1035,9 @@ if (check) {
 // Rebuilt from empty rather than patched, so the folder can only ever hold what
 // this run produced — the same guarantee the fresh checkout gives in CI.
 await rm(OUT_DIR, { recursive: true, force: true });
-await mkdir(OUT_DIR, { recursive: true });
-for (const [name, content] of site) await writeFile(join(OUT_DIR, name), content);
+for (const [name, content] of site) {
+  await mkdir(dirname(join(OUT_DIR, name)), { recursive: true });
+  await writeFile(join(OUT_DIR, name), content);
+}
 
 console.log(`${notes.length} notes, wrote ${site.size} file(s) to ${OUT_DIR}/`);

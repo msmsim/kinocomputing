@@ -115,15 +115,20 @@
     "017-onyx-crabs": {
       "id": "1yq9a2k2444azshy4mwdk5xrsn",
       "created": "2026-11-20T20:11:45Z",
-      "hash": "sha256:9ceca8d3f618d4b8ecbb52765149cfe7fc7d5af4fe4416e125950b80bad4d27f",
+      "hash": "sha256:77945a112da979ac2394e465f1866f9f412e493e0670c07a3892ca9dda5ba818",
       "changelog": [
         {
           "version": 1,
           "at": "2026-11-20T20:11:45Z",
           "note": null
+        },
+        {
+          "version": 2,
+          "at": "2026-11-20T20:14:00Z",
+          "note": "turned the three treatments into a bulleted list, no wording changed"
         }
       ],
-      "seen": "c2b2cb3b298b49a6",
+      "seen": "9693ae0cff66fa7a",
       "page": "welcome-to-oncology"
     },
     "about": {

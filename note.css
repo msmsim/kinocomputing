@@ -35,6 +35,19 @@ header.masthead {
   margin: 0 0 2em;
 }
 
+/* The name and subtitle take half the column, so the subtitle sets as a
+   short block under the name rather than a line across the page. A phone has
+   no half to spare: there they take the full width. */
+header.masthead .titles {
+  flex: 0 1 50%;
+}
+
+@media (max-width: 40em) {
+  header.masthead .titles {
+    flex-basis: 100%;
+  }
+}
+
 header.masthead .site-title {
   margin: 0 0 0.2em;
 }

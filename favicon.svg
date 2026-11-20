@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- □◇, "always eventually": liveness in temporal logic. Drawn as shapes, not
+       glyphs, so it looks the same whatever fonts the viewer has. -->
+  <rect width="32" height="32" rx="6" fill="#cbdff7"/>
+  <g fill="none" stroke="#1a1a1a" stroke-width="2.2">
+    <rect x="3.6" y="11.4" width="9.2" height="9.2"/>
+    <path d="M22.6 10.2 L28.4 16 L22.6 21.8 L16.8 16 Z" stroke-linejoin="round"/>
+  </g>
+</svg>

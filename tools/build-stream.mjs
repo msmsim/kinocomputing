@@ -51,7 +51,7 @@ const REDIRECTS = "_redirects";
 
 // Copied into the deploy as they are. Everything else at the repo root — the
 // build, the README — is tooling, and stays out of the site.
-const ASSETS = ["note.css"];
+const ASSETS = ["note.css", "favicon.svg"];
 
 // GoatCounter. Pageview counts only — no cookies and no cross-site identifiers,
 // which is what keeps the site free of a consent banner. Set to "" to take the
@@ -369,6 +369,7 @@ function renderStream(template, notes) {
     index_url: `${SITE_BASE}${INDEX_PATH}`,
     count: String(notes.length),
     stylesheet,
+    favicon,
     // The same card the notes get, rendered from the same fields, so the front
     // page can't end up sharing differently from everything on it.
     twitter_card: image ? "summary_large_image" : "summary",
@@ -586,6 +587,8 @@ const headFields = ({ title, url, type }) => [
     tag: `<link rel="canonical" href="${url}">` },
   { find: /<link rel="stylesheet" href="[^"]*">/,
     tag: `<link rel="stylesheet" href="${stylesheet}">` },
+  { find: /<link rel="icon"[^>]*>/,
+    tag: `<link rel="icon" type="image/svg+xml" href="${favicon}">` },
   ...imageFields(),
 ];
 
@@ -822,6 +825,11 @@ for (const name of ASSETS) assets.set(name, await readFile(name));
 
 const stylesheet = `/note.css?v=${createHash("sha256")
   .update(assets.get("note.css")).digest("hex").slice(0, 8)}`;
+
+// The icon, □◇ ("always eventually", liveness), fingerprinted for the same
+// reason: browsers hold on to a favicon longer than to anything else.
+const favicon = `/favicon.svg?v=${createHash("sha256")
+  .update(assets.get("favicon.svg")).digest("hex").slice(0, 8)}`;
 
 // The card, fingerprinted for the same reason and one more: the social
 // scrapers cache by URL for days, so a redrawn card at an unchanged URL keeps

@@ -701,7 +701,7 @@ const registry = { items: registryText ? JSON.parse(registryText).items ?? {} : 
 const notes = [];
 // Anything in the source folder that isn't a note still owns its name, so a
 // title can't be slugified onto the path of a file the scan left alone.
-const reserved = new Set(["index", ...ASSETS, ...SURFACE_NAMES]);
+const reserved = new Set(["index", "404", ...ASSETS, ...SURFACE_NAMES]);
 // Every name with a file at it, note or not: what tells a withdrawn note (no
 // file) from one that has merely stopped parsing.
 const present = new Set();
@@ -975,6 +975,28 @@ function renderTombstone(entry, page) {
   html = withVersions(withHeadLinks(html, INDEX_PATH, entry.id), renderWithdrawn(entry, livePath));
   return withAnalytics(withSiteFoot(html));
 }
+
+/**
+ * What Cloudflare serves, with a 404, for any address the site doesn't have.
+ * Without it Pages falls back to the stream, so every mistyped URL — and every
+ * convention-path request like /favicon.ico used to be — came back as the home
+ * page with a 200. No canonical, not indexed, and the way home is the footer's.
+ */
+function renderNotFound() {
+  let html = fill(bareTemplate(noteTemplate), {
+    slug: "Not found", description: "There is nothing at this address.", url: "", path: INDEX_PATH,
+    index_path: INDEX_PATH, content: "<p>There is nothing at this address.</p>",
+    datetime_iso: "", datetime: "",
+  });
+  html = normaliseHead(html, { title: "Not found", url: SITE_BASE, type: "website" })
+    .replace(/^[ \t]*<link rel="canonical"[^>]*>\n/m, "")
+    .replace(/^[ \t]*<meta property="og:url"[^>]*>\n/m, "")
+    .replace("</head>", '    <meta name="robots" content="noindex">\n</head>');
+  html = withNotefoot(html, renderNotefoot(noteTemplate, null, null, null));
+  return withAnalytics(withSiteFoot(html));
+}
+
+site.set("404.html", renderNotFound());
 
 const position = new Map(notes.map((note, i) => [note.fileSlug, i]));
 for (const [fileSlug, entry] of Object.entries(registry.items)) {

@@ -65,3 +65,24 @@ test("icons: .ico and touch icon at the conventional addresses, all three linked
     site.dispose();
   }
 });
+
+test("a 404 page: Cloudflare serves it, with a 404 status, for any address the site doesn't have", () => {
+  const site = makeSite();
+  try {
+    // A note can't take the name, even by its title.
+    site.publish("003-rust-crabs", { body: "<p><strong>404</strong></p>\n<p>A note about the number.</p>", iso: "2026-11-01T10:00:00Z" });
+    site.action("2026-11-01T10:01:00Z");
+    const tree = site.deploy();
+    const page = tree.get("404.html");
+    assert.ok(page, "no dist/404.html");
+    assert.match(page, /<title>Not found \| Kinocomputing<\/title>/);
+    assert.match(page, /<meta name="robots" content="noindex">/);
+    assert.ok(!page.includes("article:published_time"), "404 page reads as a note");
+    assert.ok(!page.includes('rel="canonical"'), "404 page claims a canonical address");
+    assert.ok(page.includes('<a rel="home" href="/" target="_self">'), "404 page has no way home");
+    assert.ok(tree.has("404-2.html") && tree.get("404-2.html").includes("A note about the number."),
+      "the note titled 404 should be published beside it, at 404-2");
+  } finally {
+    site.dispose();
+  }
+});

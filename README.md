@@ -278,6 +278,10 @@ Cloudflare Pages, built from a fresh checkout on every push:
 | Build command    | `node tools/build-stream.mjs` |
 | Output directory | `dist`                       |
 
+The build also writes `404.html`, which Pages serves with a 404 for any address
+the site doesn't have. Without it Pages falls back to the stream with a 200, so
+a mistyped URL silently showed the home page. No note can take the name.
+
 `dist/` is generated and git-ignored. The repo holds sources; the deploy holds
 pages, and only the deploy is ever current.
 

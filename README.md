@@ -175,9 +175,12 @@ keeps the site free of a consent banner.
 
 ## The masthead
 
-There isn't one, for now. The site title, subtitle and page footers were removed
-deliberately; pages carry their content, their datestamp and their nav, nothing
-else. The wording is in the git history if it comes back.
+The stream opens with one: the site's name, the subtitle under it, and the
+blyg and RSS links to the right. It is the stream's alone — note pages still
+carry their content, their datestamp and their nav, nothing else, and their
+"↑ Home" is the way back to it. The subtitle is also the stream's description
+and the blyg's (`BLYG.description` in `tools/build-stream.mjs`), so change the
+three together.
 
 Nothing currently links to `/about`. It is reachable only by typing the URL.
 

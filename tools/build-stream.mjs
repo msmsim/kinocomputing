@@ -73,7 +73,7 @@ const REGISTRY = join(STATE_DIR, "_registry.json");
 const BLYG = {
   origin: `${SITE_BASE}/`,
   title: SITE_NAME,
-  description: "Researching alternative paradigms of computing and intelligence.",
+  description: "Automated independent research into alternative paradigms of computing and intelligence.",
   author: { name: "Matthew McDowell-Sweet", url: "https://www.msweet.net/" },
   generator: "kinocomputing-build/0.1",
   generatorUrl: "https://github.com/msmsim/kinocomputing",

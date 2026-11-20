@@ -61,6 +61,16 @@ header.masthead .site-title {
   margin: 0 0 0.2em;
 }
 
+/* The site's mark, □◇ — "always eventually", liveness in temporal logic —
+   ahead of the name, in the name's colour, the height of its capitals. The
+   favicon is the same drawing on a tile. */
+header.masthead .site-title .mark {
+  height: 0.72em;
+  width: auto;
+  margin-right: 0.35em;
+  vertical-align: -0.02em;
+}
+
 header.masthead .subtitle {
   margin: 0;
   color: #555;

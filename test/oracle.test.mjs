@@ -195,6 +195,12 @@ const EXAMPLES = {
     pub("003-rust-crabs", 0), ACTION, DEPLOY, pub("003-rust-crabs", 4, { pin: true }), ACTION, DEPLOY,
     pub("003-rust-crabs", 1), ACTION, DEPLOY,
   ],
+  "a machine-written note, then a human edit, then the machine again (P20)": [
+    pub("004-sage-kites", 0, { generated: "claude-haiku-5-5", pin: true }), ACTION, DEPLOY,
+    pub("004-sage-kites", 1), ACTION, DEPLOY,
+    pub("004-sage-kites", 2, { generated: "claude-sonnet-5-5" }), ACTION, DEPLOY,
+    { type: "remove", file: "004-sage-kites" }, ACTION, DEPLOY,
+  ],
   "an edit that keeps the page time is timed by the Action (P4)": [
     pub("005-jade-owls", 0), ACTION, pub("005-jade-owls", 1, { keepTime: true, offset: true }), ACTION, DEPLOY,
   ],

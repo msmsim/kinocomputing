@@ -103,6 +103,15 @@ export function conformance(tree) {
     if (!entry?.pinned) say(path, "served, but that version isn't pinned (§4, §8)");
   }
 
+  // Threads and transclusion (§10). Own-origin only: kinocomputing quotes itself.
+  for (const [name, doc] of docs) {
+    const at = `items/${name}.json`;
+    for (const [where, d] of [[at, doc], ...(doc.changelog ?? []).filter((e) => e.pinned)
+      .map((e) => [`items/${name}/v${e.version}.json`, read(`items/${name}/v${e.version}.json`)]).filter(([, p]) => p)]) {
+      checkTransclusions(where, d, docs, read, say);
+    }
+  }
+
   const listed = new Set(index.items.map((item) => item.id));
   for (const id of docs.keys()) if (!listed.has(id)) say("items/index.json", `${id} is missing (§6.2)`);
   for (const item of index.items) {
@@ -138,6 +147,73 @@ export function conformance(tree) {
     if (docs.get(id)?.kind === "withdrawn" && count !== 1) say("feed.xml", `withdrawn ${id} has ${count} entries (§7)`);
   }
   return bad;
+}
+
+const DECODE = { amp: "&", lt: "<", gt: ">", quot: '"', "#39": "'", apos: "'" };
+const decode = (text) => text.replace(/&(amp|lt|gt|quot|#39|apos);/g, (whole, name) => DECODE[name]);
+
+/** §2: tags stripped, whitespace collapsed, block boundaries as line breaks. */
+export function textContent(html) {
+  return decode(html.replace(/<\/(?:p|h[1-6]|li|blockquote|pre|div)>|<br\s*\/?>|<hr\s*\/?>/gi, "\n").replace(/<[^>]+>/g, ""))
+    .split("\n").map((line) => line.replace(/\s+/g, " ").trim()).filter(Boolean).join("\n");
+}
+
+/** The baked transclusions in some HTML, in order, with each one's inner HTML. */
+function baked(html) {
+  const out = [];
+  const open = /<blockquote class="blyg-transclusion( blyg-partial)?" data-blyg-id="([^"]+)" data-blyg-version="(\d+)"[^>]*>/g;
+  for (let m; (m = open.exec(html));) {
+    // The matching close: count nested blockquotes from here.
+    let depth = 1;
+    const tags = /<(\/?)blockquote\b[^>]*>/g;
+    tags.lastIndex = open.lastIndex;
+    let t;
+    while (depth && (t = tags.exec(html))) depth += t[1] ? -1 : 1;
+    const inner = html.slice(open.lastIndex, t ? t.index : html.length);
+    out.push({ partial: !!m[1], id: m[2], version: Number(m[3]), inner: inner.replace(/^\n|\n$/g, "") });
+    open.lastIndex = t ? tags.lastIndex : html.length;
+  }
+  return out;
+}
+
+/**
+ * §10.1–§10.3 for one document or pin: a fragment quotes nothing; a thread's
+ * `transclusions` are its directives, in order, each baked as the snapshot of
+ * an item this origin serves, whole or by a selection found in it.
+ */
+function checkTransclusions(where, doc, docs, read, say) {
+  const directives = [...(doc.content_md ?? "").matchAll(/^!\[\[([^\]|]+)\]\]\s*$/gm)].map((m) => m[1]);
+  const quoted = baked(doc.content_html ?? "");
+  if (doc.kind === "fragment") {
+    if ("transclusions" in doc) say(where, "a fragment with transclusions (§10.3)");
+    if (directives.length || quoted.length) say(where, "a fragment that quotes (§10.1)");
+    return;
+  }
+  if (doc.kind === "withdrawn") {
+    if ("transclusions" in doc && doc.transclusions.length) say(where, "an endcap with transclusions (§9)");
+    return;
+  }
+  if (!Array.isArray(doc.transclusions)) { say(where, "a thread without a transclusions array (§10.3)"); return; }
+  const refs = doc.transclusions;
+  if (refs.length !== directives.length || refs.some((r, i) => r.id !== directives[i])) say(where, "transclusions aren't its directives, in order (§10.3)");
+  if (refs.length !== quoted.length) { say(where, `${refs.length} transclusions, ${quoted.length} baked`); return; }
+  refs.forEach((ref, i) => {
+    const q = quoted[i];
+    if (q.id !== ref.id || q.version !== ref.version) say(where, `transclusion ${i} is baked as ${q.id} v${q.version}, declared ${ref.id} v${ref.version}`);
+    if (q.partial !== (ref.selector !== undefined)) say(where, `transclusion ${i}: partial in one place and not the other (§10.3)`);
+    if (q.partial && decode(q.inner.replace(/<\/p>\n?/g, "\n").replace(/<p>/g, "")).trim() !== ref.selector?.exact) say(where, `transclusion ${i}: the baked selection isn't selector.exact`);
+    if ("origin" in ref) say(where, `transclusion ${i} names an origin; kinocomputing quotes only itself`);
+    const target = docs.get(ref.id);
+    if (!target) { say(where, `transclusion ${i} quotes ${ref.id}, which this origin doesn't serve`); return; }
+    if (ref.id === doc.id) say(where, "quotes itself");
+    // The snapshot can be checked while its version is served: live, or pinned.
+    const source = target.version === ref.version && target.kind !== "withdrawn" ? target : read(`items/${ref.id}/v${ref.version}.json`);
+    if (!source) return;
+    if (source.kind === "thread") say(where, `transclusion ${i} quotes a thread; kinocomputing quotes fragments`);
+    if (q.partial) {
+      if (!textContent(source.content_html).includes(ref.selector.exact)) say(where, `transclusion ${i}: selection not in ${ref.id} v${ref.version} (§10.2)`);
+    } else if (q.inner !== source.content_html) say(where, `transclusion ${i}: not ${ref.id} v${ref.version}'s content_html (§10.2)`);
+  });
 }
 
 export { feedEntries, hash };

@@ -263,6 +263,16 @@ pushed after its night shift. Each page carries
 research agent wrote it (docs/blyg.md, P20). The lab only ever writes notes
 with its own names.
 
+The lab's claims are short fragments, and its write-ups are threads
+(`<meta name="blyg:kind" content="thread">`) that quote them — and quote your
+notes, which are fragments — with `<blockquote class="kino-quote"
+data-note="<file>">`. The build bakes each quote as a §10 transclusion: a
+snapshot at the version quoted, which stays put when the claim moves on, so a
+thread quoting an old stage of a claim reads as stale until the lab
+republishes it (docs/blyg.md, P21–P22). Your posts here are how you steer the
+lab: anything on kinocomputing it didn't write is yours, and its next shift
+reads it.
+
 ## Publishing by hand
 
 Add `NNN-colour-animal.html` to `notes/` and push. The numbering is cosmetic;

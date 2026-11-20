@@ -201,6 +201,14 @@ const EXAMPLES = {
     pub("004-sage-kites", 2, { generated: "claude-sonnet-5-5" }), ACTION, DEPLOY,
     { type: "remove", file: "004-sage-kites" }, ACTION, DEPLOY,
   ],
+  // Shrunk from a seed-1348751907 failure: the mark followed the page's meta,
+  // not the live version.
+  "a machine-written note re-rendered without its meta, body unchanged, is still marked (P20)": [
+    pub("004-sage-kites", 1, { generated: "claude-haiku-5-5" }), ACTION, pub("004-sage-kites", 1), ACTION, DEPLOY,
+  ],
+  "a human note re-rendered with the meta, body unchanged, isn't (P20)": [
+    pub("001-ash-eels", 0), ACTION, pub("001-ash-eels", 0, { generated: "claude-haiku-5-5" }), ACTION, DEPLOY,
+  ],
   "an edit that keeps the page time is timed by the Action (P4)": [
     pub("005-jade-owls", 0), ACTION, pub("005-jade-owls", 1, { keepTime: true, offset: true }), ACTION, DEPLOY,
   ],

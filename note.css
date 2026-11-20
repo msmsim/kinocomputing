@@ -197,6 +197,26 @@ blockquote {
   color: #555;
 }
 
+/* A quoted note (P22): its own words, so upright, set off as a card. */
+blockquote.blyg-transclusion,
+blockquote.quote-pending {
+  font-style: normal;
+  color: inherit;
+  background: #f3f8fe;
+  padding: 0.25em 1em;
+}
+
+blockquote.blyg-partial {
+  font-style: italic;
+}
+
+.quoted-from {
+  font-size: 0.8em;
+  font-style: normal;
+  text-align: right;
+  margin-top: 0.25em;
+}
+
 /* CODE */
 code {
   font-family: "SF Mono", Monaco, "Cascadia Code", monospace;

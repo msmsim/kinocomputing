@@ -67,8 +67,15 @@ const fence = (text, min) => {
  * links, images, emphasis, strikethrough, inline code, line breaks — and
  * throws on anything else, so an unfamiliar page is reported rather than
  * hashed into a version from a wrong reconstruction.
+ *
+ * A quote of another note (`<blockquote class="kino-quote" data-note="…">`,
+ * P22) becomes a §10.1 directive, `![[id]]`, followed by its selection as a
+ * blockquote when it quotes part of the note. `quote` maps the quoted note's
+ * file slug to its item id, and throws when it can't be quoted; without it a
+ * quote can't be converted. No note written before quotes existed has one, so
+ * nothing frozen moves.
  */
-export function htmlToMarkdown(html) {
+export function htmlToMarkdown(html, { quote = null } = {}) {
   const tokens = tokenize(html);
   let at = 0;
 
@@ -173,6 +180,27 @@ export function htmlToMarkdown(html) {
       if (token.name === "p") {
         out.push(lines(inline("p")).join("\n"));
         expectClose("p");
+      } else if (token.name === "blockquote" && QUOTE_CLASS.test(token.attrs)) {
+        const slug = token.attrs.match(/\sdata-note="([^"]+)"/)?.[1];
+        if (!slug) throw new Error("a quote without data-note");
+        // The selection is plain text, one <p> per line; nothing else.
+        const selection = [];
+        for (;;) {
+          skipSpace();
+          const next = tokens[at];
+          if (next?.type === "close" && next.name === "blockquote") break;
+          if (next?.type !== "open" || next.name !== "p") throw new Error(`a quote of ${slug} holds something other than plain paragraphs`);
+          at += 1;
+          const text = tokens[at]?.type === "text" ? decodeEntities(tokens[at++].text) : "";
+          expectClose("p");
+          const line = text.replace(/\s+/g, " ").trim();
+          if (!line) throw new Error(`a quote of ${slug} has an empty line`);
+          selection.push(line);
+        }
+        expectClose("blockquote");
+        if (!quote) throw new Error(`quotes ${slug}, and quotes need resolving`);
+        const id = quote(decodeEntities(slug));
+        out.push([`![[${id}]]`, ...selection.map((line) => `> ${escapeLineStart(escapeInline(line))}`)].join("\n"));
       } else if (token.name === "blockquote") {
         const quoted = blocks("blockquote").join("\n\n");
         expectClose("blockquote");
@@ -218,6 +246,64 @@ export function htmlToMarkdown(html) {
   };
 
   return blocks(null).join("\n\n");
+}
+
+const QUOTE_CLASS = /\sclass="kino-quote"/;
+const QUOTE_BLOCK = /<blockquote\b[^>]*\sclass="kino-quote"[^>]*>[\s\S]*?<\/blockquote>/g;
+
+/**
+ * The quotes in a note body, in order: the quoted note's file slug and the
+ * selection's lines (none for a whole quote). Only well-formed quotes are
+ * listed; htmlToMarkdown is what refuses a malformed one.
+ */
+export function quotesIn(html) {
+  return [...html.matchAll(QUOTE_BLOCK)].map(([block]) => ({
+    slug: decodeEntities(block.match(/\sdata-note="([^"]+)"/)?.[1] ?? ""),
+    lines: [...block.matchAll(/<p>([\s\S]*?)<\/p>/g)].map((m) => decodeEntities(m[1]).replace(/\s+/g, " ").trim()),
+  }));
+}
+
+/**
+ * §2's text content: tags stripped, whitespace collapsed, block boundaries
+ * kept as line breaks. What a partial quote's selection must be found in.
+ */
+export function textContent(html) {
+  const decoded = html
+    .replace(/<\/(?:p|h[1-6]|li|blockquote|pre|div)>|<br\s*\/?>|<hr\s*\/?>/gi, "\n")
+    .replace(/<[^>]+>/g, "")
+    .replace(/&(#x[0-9a-fA-F]+|#\d+|\w+);/g, (whole) => {
+      try {
+        return decodeEntities(whole);
+      } catch {
+        return whole;
+      }
+    });
+  return decoded.split("\n").map((line) => line.replace(/\s+/g, " ").trim()).filter(Boolean).join("\n");
+}
+
+const escapeText = (text) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+/**
+ * A resolved quote as it is baked into content_html (§10.2): the target's
+ * snapshot whole, or the selection's lines, escaped, one paragraph each.
+ */
+export function bakeQuote(quote) {
+  const attrs = `data-blyg-id="${quote.id}" data-blyg-version="${quote.version}"`;
+  return quote.exact === undefined
+    ? `<blockquote class="blyg-transclusion" ${attrs}>\n${quote.html}\n</blockquote>`
+    : `<blockquote class="blyg-transclusion blyg-partial" ${attrs}>\n${quote.exact.split("\n").map((line) => `<p>${escapeText(line)}</p>`).join("\n")}\n</blockquote>`;
+}
+
+/**
+ * A note body with each quote replaced by its baked snapshot, or null when the
+ * body's quotes aren't the ones resolved (a page edited since the registry
+ * last made a version of it). `bake` may decorate each baked quote.
+ */
+export function withQuotes(html, quotes, bake = bakeQuote) {
+  const found = quotesIn(html);
+  if (found.length !== quotes.length || found.some((q, i) => q.slug !== quotes[i].slug)) return null;
+  let i = 0;
+  return html.replace(QUOTE_BLOCK, () => bake(quotes[i++]));
 }
 
 /** §5.1: "sha256:" + hex(SHA-256(content_md as UTF-8)). */
@@ -290,22 +376,54 @@ export const toUtc = (time) => new Date(time).toISOString().replace(/\.\d{3}Z$/,
  * when one is made, dropped when a version is made without it, and never kept
  * on a withdrawal endcap.
  */
-export function updateRegistry(registry, notes, { now, makeId = newId, present = new Set() }) {
+export function updateRegistry(registry, notes, { now, makeId = newId, present = new Set(), site = null }) {
   const items = structuredClone(registry.items ?? {});
   const events = [];
   const seen = new Set();
+  const bySlug = new Map(notes.map((note) => [note.slug, note]));
 
-  for (const note of notes) {
+  // A note that quotes is registered after every note that doesn't, so a
+  // thread can quote a fragment published in the same act (§7: thread last).
+  const quotes = (note) => (quotesIn(note.content).length ? 1 : 0);
+  const ordered = [...notes].sort((a, b) => quotes(a) - quotes(b));
+
+  for (const note of ordered) {
     seen.add(note.slug);
+    const entry = items[note.slug];
+    // Kind is the item's for life (§5.3): a stub is a thread, a page may ask to
+    // be one when first registered, and everything else is a fragment.
+    const kind = entry ? baseKind(entry) : note.stub || note.kind === "thread" ? "thread" : "fragment";
+    if (entry && note.kind && note.kind !== kind) events.push({ type: "kind-kept", slug: note.slug, kind });
+
+    // Quotes resolve against what is live now: a registered fragment whose page
+    // still says what its latest version says (P22).
+    const resolved = [];
+    const resolve = (slug) => {
+      const target = items[slug];
+      const targetNote = bySlug.get(slug);
+      if (!target || target.withdrawn) throw new Error(`quotes ${slug}, which isn't published`);
+      if (baseKind(target) !== "fragment") throw new Error(`quotes ${slug}, a thread; only fragments are quoted here`);
+      const live = targetNote && site && liveContent({ items }, targetNote, site);
+      if (!live) throw new Error(`quotes ${slug}, whose page isn't its live version`);
+      resolved.push({ slug, id: target.id, version: target.changelog.at(-1).version, html: live.html });
+      return target.id;
+    };
     let hash;
     try {
-      hash = contentHash(htmlToMarkdown(note.content));
+      const quoted = quotesIn(note.content);
+      if (quoted.length && kind !== "thread") throw new Error("a fragment can't quote (§10.1); a quoting note is a thread");
+      hash = contentHash(htmlToMarkdown(note.content, { quote: resolve }));
+      quoted.forEach((q, i) => {
+        if (!q.lines.length) return;
+        const exact = q.lines.join("\n");
+        if (!textContent(resolved[i].html).includes(exact)) throw new Error(`quotes ${q.slug} with a selection that isn't in it (§10.2)`);
+        resolved[i].exact = exact;
+      });
     } catch (error) {
       events.push({ type: "unconverted", slug: note.slug, reason: error.message });
       continue;
     }
 
-    const entry = items[note.slug];
     const fresh = note.seen === undefined || entry?.seen !== note.seen;
     if (!entry) {
       const created = toUtc(note.iso);
@@ -313,7 +431,10 @@ export function updateRegistry(registry, notes, { now, makeId = newId, present =
         id: makeId(),
         created,
         hash,
+        // Recorded only where it can't be derived: a stub is always a thread.
+        ...(kind === "thread" && !note.stub ? { kind } : {}),
         ...(note.stub ? { stub_of: note.stub } : {}),
+        ...(resolved.length ? { quotes: resolved } : {}),
         ...(note.generated ? { generated: { model: note.generated, at: created } } : {}),
         changelog: [{ version: 1, at: created, note: null }],
       };
@@ -325,6 +446,9 @@ export function updateRegistry(registry, notes, { now, makeId = newId, present =
       const at = paged > last.at ? paged : toUtc(now);
       entry.hash = hash;
       delete entry.withdrawn;
+      // A new version of a thread re-resolves every quote (§10.2 republish).
+      if (resolved.length) entry.quotes = resolved;
+      else delete entry.quotes;
       if (note.generated) entry.generated = { model: note.generated, at };
       else delete entry.generated;
       entry.changelog.push({
@@ -367,6 +491,7 @@ export function updateRegistry(registry, notes, { now, makeId = newId, present =
     entry.hash = WITHDRAWN_HASH;
     entry.withdrawn = true;
     delete entry.generated;
+    delete entry.quotes;
     events.push({ type: "withdrawn", slug, version });
   }
 
@@ -389,16 +514,24 @@ const generatedMembers = (entry) => (entry.generated
   : {});
 
 /** A stub is a thread (§10.6); every other note is a fragment. */
-const kindOf = (entry) => (entry.withdrawn ? "withdrawn" : entry.stub_of ? "thread" : "fragment");
+/** The kind an item was born with (§5.3): recorded, or a stub's, or a fragment. */
+export const baseKind = (entry) => entry.kind ?? (entry.stub_of ? "thread" : "fragment");
+
+const kindOf = (entry) => (entry.withdrawn ? "withdrawn" : baseKind(entry));
 
 /**
  * The thread-only members of a document (§10.3, §10.6): threads always carry
- * transclusions — empty here, since a stub's body quotes by blockquote, not
- * directive — and a live or pinned stub carries its stub_of. An endcap keeps
- * the empty array and drops the reference, which is what stops it verifying.
+ * transclusions — one reference per quote, in order, with the selection for a
+ * partial one — and a live or pinned stub carries its stub_of. An endcap keeps
+ * an empty array and drops the reference, which is what stops it verifying.
  */
-const threadMembers = (entry, { endcap = false } = {}) => (entry.stub_of
-  ? { transclusions: [], ...(endcap ? {} : { stub_of: entry.stub_of }) }
+const threadMembers = (entry, { endcap = false } = {}) => (baseKind(entry) === "thread"
+  ? {
+    transclusions: endcap ? [] : (entry.quotes ?? []).map((q) => ({
+      id: q.id, version: q.version, ...(q.exact !== undefined ? { selector: { exact: q.exact } } : {}),
+    })),
+    ...(entry.stub_of && !endcap ? { stub_of: entry.stub_of } : {}),
+  }
   : {});
 
 const BLYG_NS = "https://blygger.org/ns/0.1";
@@ -509,12 +642,20 @@ function liveContent(registry, note, site) {
   if (!entry) return null;
   let markdown;
   try {
-    markdown = htmlToMarkdown(note.content);
+    // Ids never change, so the quotes resolve to what they did when the version was made.
+    markdown = htmlToMarkdown(note.content, { quote: (slug) => {
+      if (!registry.items[slug]) throw new Error(`quotes ${slug}, which isn't registered`);
+      return registry.items[slug].id;
+    } });
   } catch {
     return null;
   }
   if (contentHash(markdown) !== entry.hash) return null;
-  const html = absolutize(note.content, new URL(entry.page ?? note.slug, site.origin).href);
+  // A quote shows the snapshot taken when the version was made (§10.2), not
+  // what its source says now.
+  const baked = entry.quotes?.length ? withQuotes(note.content, entry.quotes) : note.content;
+  if (baked === null) return null;
+  const html = absolutize(baked, new URL(entry.page ?? note.slug, site.origin).href);
   // A machine-written version's HTML says so in the wire's own token (§5.7).
   return { entry, markdown, html: entry.generated ? `<div class="blyg-tk-gen">\n${html}\n</div>` : html };
 }

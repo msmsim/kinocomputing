@@ -26,6 +26,7 @@ import {
   updateRegistry, serializeRegistry, buildSurfaces, buildPins, withHeadLinks, latestTime,
   renderVersions, withVersions, renderWithdrawn, renderPinnedVersions, withPinnedVersions,
   asksForPin, withoutPinRequest, changeNoteOf, withoutChangeNote, pinnedPath,
+  withQuotes, bakeQuote, quotesIn,
 } from "./blyg.mjs";
 import { stubTarget, resolveStub } from "./stub.mjs";
 
@@ -213,6 +214,9 @@ function parseNote(fileSlug, html) {
     changeNote: changeNoteOf(html),
     // The model that wrote the page, when a machine did (§5.7, docs/blyg.md P20).
     generated: html.match(/<meta name="blyg:generated" content="([^"{}]+)"/)?.[1] ?? null,
+    // The kind a page asks to be born as (§5.3, docs/blyg.md P21): only "thread"
+    // means anything, and only when the note is first registered.
+    kind: html.match(/<meta name="blyg:kind" content="(thread|fragment)"/)?.[1] ?? null,
     // Which write of the page this is, so a request in it is read only once.
     seen: createHash("sha256").update(html).digest("hex").slice(0, 16),
   };
@@ -787,6 +791,7 @@ const blygNotes = notes.map((note) => ({
   seen: note.seen,
   page: note.slug,
   generated: note.generated,
+  kind: note.kind,
 }));
 
 if (stateMode) {
@@ -805,7 +810,7 @@ if (stateMode) {
     }
   }
 
-  const { registry: next, events } = updateRegistry(registry, blygNotes, { now, present });
+  const { registry: next, events } = updateRegistry(registry, blygNotes, { now, present, site: BLYG });
   const registered = events.filter((event) => event.type === "new").length;
   if (registered) console.log(`blyg: registered ${registered} note(s)`);
   for (const event of events) {
@@ -814,6 +819,7 @@ if (stateMode) {
     if (event.type === "pinned") console.log(`blyg: pinned ${event.slug} v${event.version}`);
     if (event.type === "unconverted") console.warn(`blyg: left out ${event.slug}: ${event.reason}`);
     if (event.type === "withdrawn") console.log(`blyg: withdrew ${event.slug} as v${event.version}`);
+    if (event.type === "kind-kept") console.warn(`blyg: ${event.slug} stays a ${event.kind}; an item's kind never changes`);
     if (event.type === "missing") console.warn(`blyg: ${event.slug} is registered but its page is not a note`);
   }
   const withdrawals = events.filter((event) => event.type === "withdrawn").length;
@@ -856,6 +862,39 @@ if (stateMode) {
   }
   console.log(`blyg: ${notes.length} notes, wrote ${writes.length} file(s) to ${STATE_DIR}/`);
   process.exit(0);
+}
+
+// The machine-written mark follows the live version, as the item document
+// does (P20): a page re-rendered without the meta, its body unchanged, is still
+// the machine's version, and one rendered with it over a human's unchanged body
+// isn't. Only a note the registry doesn't know yet goes by its page.
+for (const note of notes) {
+  const entry = registry.items[note.fileSlug];
+  if (entry) note.generated = entry.generated?.model ?? null;
+}
+
+// A thread shows its quotes as the registry baked them (P22), each with a
+// line back to what it quotes, at the quoted version when that version is
+// pinned. A quote the registry hasn't resolved — the page changed since the
+// Action last ran, or it quotes something that can't be quoted — shows as a
+// link to the note it names, and its selection if it has one.
+const quotedFrom = (slug, version) => {
+  const target = registry.items[slug];
+  if (!target?.page) return "";
+  const pinned = target.changelog.some((e) => e.version === version && e.pinned);
+  const href = `${INDEX_PATH}${pinned ? pinnedPath(target.page, version) : target.page}`;
+  return `\n<p class="quoted-from"><a href="${href}">${pinned ? `v${version}` : "quoted"}</a></p>`;
+};
+for (const note of notes) {
+  if (!quotesIn(note.content).length) continue;
+  const entry = registry.items[note.fileSlug];
+  const baked = entry?.quotes ? withQuotes(note.content, entry.quotes,
+    (q) => bakeQuote(q).replace(/\n<\/blockquote>$/, `${quotedFrom(q.slug, q.version)}\n</blockquote>`)) : null;
+  note.content = baked ?? note.content.replace(/<blockquote\b[^>]*\sclass="kino-quote"[^>]*>([\s\S]*?)<\/blockquote>/g, (block, inner) => {
+    const slug = block.match(/\sdata-note="([^"]+)"/)?.[1] ?? "";
+    const page = registry.items[slug]?.page ?? slug;
+    return `<blockquote class="quote-pending">${inner}<p class="quoted-from"><a href="${INDEX_PATH}${page}">${page}</a></p></blockquote>`;
+  });
 }
 
 // Newest first, as the stream reads, by when each note last changed: an edited

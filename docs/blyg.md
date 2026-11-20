@@ -94,7 +94,35 @@ spec section it comes from (`docs/protocol-v0.3.md` in `blygger-spec`) or
   `<div class="blyg-tk-gen">…</div>`, and the page and its stream entry say,
   visibly, that the research agent wrote it. A version made from a page
   without the meta carries none of this, and a withdrawal endcap never does
-  (§5.7). The disclosure is the publisher's own (§5.7 rule 6).
+  (§5.7). The disclosure is the publisher's own (§5.7 rule 6). The visible
+  line follows the live version, like the document: a page re-rendered with
+  its body unchanged keeps the mark its version has, whatever its meta says.
+
+**Threads and quotes** (where kinocomputing diverges from msn)
+
+- P21. An item's kind is fixed when its note is first registered (§5.3). A
+  page carrying `<meta name="blyg:kind" content="thread">` is born a thread;
+  a stub is a thread; anything else — every note motes writes — is a
+  fragment. A later page asking for the other kind is logged and ignored.
+  Withdrawal is the only change of kind, and a return restores the original.
+  A thread carries `transclusions` (empty when it quotes nothing); a fragment
+  never does.
+- P22. A thread quotes a note with `<blockquote class="kino-quote"
+  data-note="<file>">` — empty to quote it whole, or holding the selection as
+  plain paragraphs to quote part of it. Only a published fragment whose page
+  is its live version can be quoted; anything else (a thread, an unknown or
+  withdrawn note, a selection not found in the note's §2 text content, a
+  quote in a fragment) leaves the quoting note unregistered, with the reason
+  in the Action's log. A quote becomes a `![[id]]` directive in `content_md`
+  (the selection as a blockquote under it), a `blyg-transclusion` (or
+  `blyg-partial`) snapshot in `content_html`, and a `{ id, version }` entry —
+  with `selector.exact` for a selection — in `transclusions`, in order. The
+  snapshot is the quoted item's `content_html` when the thread's version was
+  made, and stays so when the source is edited or withdrawn; a new version of
+  the thread re-resolves every quote (§10.2, §10.4). Notes that quote are
+  registered after notes that don't, so a thread can quote a fragment
+  published in the same act. The page shows each snapshot with a link to
+  what it quotes, at the quoted version when that version is pinned.
 
 **Stubs and mentions** (dormant until something publishes a stub here)
 

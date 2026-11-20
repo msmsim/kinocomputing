@@ -141,7 +141,9 @@ function checkDeploy(tree, model, ctx, where) {
       const frozen = tree.get(`${item.page}-v${e.version}.html`);
       assert.ok(frozen, `${where}: frozen page ${item.page}-v${e.version} missing (P10)`);
       const pin = json(tree, `items/${id}/v${e.version}.json`);
-      assert.ok(frozen.includes(pin.content_html), `${where}: frozen page ${item.page}-v${e.version} isn't its pin's content (P10)`);
+      // P10: the pin's words verbatim, a leading bold line shown as the title.
+      const shown = pin.content_html.replace(/^<p><strong>([^<]*)<\/strong><\/p>/, '<h1 class="title">$1</h1>');
+      assert.ok(frozen.includes(shown), `${where}: frozen page ${item.page}-v${e.version} isn't its pin's content, titled (P10)`);
       assert.ok(frozen.includes(`<link rel="canonical" href="https://kinocomputing.com/${item.page}">`), `${where}: frozen page canonical (P10)`);
     }
     for (const old of (model.pages.get(file) ?? []).slice(0, -1)) {

@@ -54,8 +54,9 @@ spec section it comes from (`docs/protocol-v0.3.md` in `blygger-spec`) or
   and when the page makes no version, and never reused (§5.2, msn).
 - P10. The live page shows version markers only for what is promised forever:
   pinned versions and the live one (§8.4). Each pinned version has a frozen page
-  at `/<page>-v<n>` with its pinned content verbatim and a canonical link to the
-  live page.
+  at `/<page>-v<n>` with its pinned content and a canonical link to the live
+  page. The words are the pin's verbatim; a leading bold line is shown as the
+  title, as on every other page of the site.
 
 **Withdrawal**
 

@@ -897,8 +897,10 @@ const bareTemplate = (template) => template
   .replace(/^[ \t]*<meta property="article:published_time"[^>]*>\n/m, "");
 
 /**
- * The frozen page for one pinned version (§8.4): the pin document's content,
- * verbatim, in the site's note chrome. It is canonical to the live note, links
+ * The frozen page for one pinned version (§8.4): the pin document's content in
+ * the site's note chrome, its leading bold line promoted to the title exactly
+ * as on the live page — the words are the pin's, verbatim; the heading is
+ * presentation, as it is everywhere else on the site. It is canonical to the live note, links
  * its own JSON twin, and carries no published_time, so nothing reads it as a
  * note. Its prev/next are the live note's, so a reader can carry on through
  * the stream from an old version as from the live one.
@@ -906,15 +908,15 @@ const bareTemplate = (template) => template
 function renderPinned(entry, page, pin, older, newer) {
   const livePath = `${INDEX_PATH}${page}`;
   const path = pinnedPath(livePath, pin.version);
-  const { title } = readTitle(pin.content_html);
+  const { title, content } = readTitle(pin.content_html);
   let html = fill(bareTemplate(noteTemplate), {
     slug: page, description: "", url: `${SITE_BASE}${livePath}`, path, index_path: INDEX_PATH,
-    content: pin.content_html, datetime_iso: pin.at, datetime: displayTime(pin.at),
+    content, datetime_iso: pin.at, datetime: displayTime(pin.at),
   });
   html = normaliseHead(html, {
     title: `${title ? asText(title) : page} (v${pin.version})`, url: `${SITE_BASE}${livePath}`, type: "article",
   });
-  html = withDescription(html, describe({ title, content: pin.content_html }));
+  html = withDescription(html, describe({ title, content }));
   html = withNotefoot(html, renderNotefoot(noteTemplate, { path, time: pin.at }, older, newer));
   html = withPinnedVersions(html, renderPinnedVersions(entry, livePath, pin.version));
   html = withHeadLinks(html, INDEX_PATH, entry.id).replace(

@@ -23,9 +23,10 @@ body {
 /* MASTHEAD
 
    Stream page only. The site's name, with the subtitle under it, and the feed
-   links on the title's line to the right. The name is the page's h1, which is
-   why notes in the stream step their titles down to h2. On a narrow screen
-   the feed links drop under the subtitle and line up with it on the left. */
+   links stacked in the top right. The name is the page's h1, which is why
+   notes in the stream step their titles down to h2. The feed links come first
+   in the markup and stay top right at every width: stacked beside the name
+   where there is room, in a row above it on a phone. */
 header.masthead {
   display: flex;
   flex-wrap: wrap;
@@ -35,16 +36,24 @@ header.masthead {
   margin: 0 0 2em;
 }
 
-/* The name and subtitle take half the column, so the subtitle sets as a
-   short block under the name rather than a line across the page. A phone has
-   no half to spare: there they take the full width. */
+/* The name and subtitle take two thirds of the column, so the subtitle sets
+   as a short block under the name rather than a line across the page, and
+   the feed links have the last third. A phone has no third to spare: there
+   the name takes the full width. */
 header.masthead .titles {
-  flex: 0 1 50%;
+  flex: 0 1 66%;
+  order: -1;
 }
 
 @media (max-width: 40em) {
   header.masthead .titles {
     flex-basis: 100%;
+    order: 0;
+  }
+
+  header.masthead nav.feeds {
+    flex-basis: 100%;
+    flex-direction: row;
   }
 }
 
@@ -61,11 +70,15 @@ header.masthead .subtitle {
 
    The blyg and the RSS feed, each an icon followed by a bracketed link that
    explains it. Icons drop the prose underline. Sized with the datestamps: page
-   furniture, a step below the prose. On a narrow screen the two pairs stack. */
+   furniture, a step below the prose. Stacked and right-aligned in the
+   masthead; side by side on a phone. */
 nav.feeds {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  align-items: center;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-left: auto;
   gap: 0.25em 0.8em;
   margin-top: 0.3em;
   font-size: 0.9em;

@@ -5,7 +5,7 @@
 
 import { createHash } from "node:crypto";
 
-const ORIGIN = "https://kinocomputing.com/";
+export const ORIGIN = "https://www.kinocomputing.com/";
 const ID = /^[0-9abcdefghjkmnpqrstvwxyz]{26}$/;
 const UTC = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/;
 const KINDS = new Set(["fragment", "thread", "withdrawn"]);

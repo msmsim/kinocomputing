@@ -15,7 +15,7 @@ import { sendMentions } from "./mentions.mjs";
 const STATE_DIR = "blyg";
 const STATE_FILE = join(STATE_DIR, "_mentions.json");
 // The blyg's identity origin, as build-stream.mjs publishes it.
-const ORIGIN = "https://kinocomputing.com/";
+const ORIGIN = "https://www.kinocomputing.com/";
 const POLL_SECONDS = 30;
 
 const args = process.argv.slice(2);

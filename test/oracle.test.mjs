@@ -10,7 +10,7 @@ import assert from "node:assert/strict";
 import fc from "fast-check";
 import { makeSite, json } from "./twin.mjs";
 import { Model } from "./model.mjs";
-import { conformance, feedEntries } from "./conformance.mjs";
+import { conformance, feedEntries, ORIGIN } from "./conformance.mjs";
 import { FILES, bodyOf, opArbitrary, timeAt } from "./histories.mjs";
 
 const RUNS = Number(process.env.ORACLE_RUNS ?? 25);
@@ -144,7 +144,7 @@ function checkDeploy(tree, model, ctx, where) {
       // P10: the pin's words verbatim, a leading bold line shown as the title.
       const shown = pin.content_html.replace(/^<p><strong>([^<]*)<\/strong><\/p>/, '<h1 class="title">$1</h1>');
       assert.ok(frozen.includes(shown), `${where}: frozen page ${item.page}-v${e.version} isn't its pin's content, titled (P10)`);
-      assert.ok(frozen.includes(`<link rel="canonical" href="https://kinocomputing.com/${item.page}">`), `${where}: frozen page canonical (P10)`);
+      assert.ok(frozen.includes(`<link rel="canonical" href="${ORIGIN}${item.page}">`), `${where}: frozen page canonical (P10)`);
     }
     for (const old of (model.pages.get(file) ?? []).slice(0, -1)) {
       if (old === item.page) continue;

@@ -40,7 +40,11 @@ import { stubTarget, resolveStub } from "./stub.mjs";
 // the tooling, the README and the templates stay out of the site.
 const SOURCE_DIR = "notes";
 const OUT_DIR = "dist";
-const SITE_BASE = "https://kinocomputing.com";
+// The host the site is served from. The apex should 301 here (a Cloudflare
+// redirect rule: Pages' _redirects can't match on host). This is the blyg's
+// identity origin (§12.2), so it is the one every document, feed link and
+// canonical URL names; readers that fetched from the apex arrive here.
+const SITE_BASE = "https://www.kinocomputing.com";
 const SITE_NAME = "Kinocomputing";
 const INDEX_PATH = "/";
 const TIME_ZONE = "Europe/London";

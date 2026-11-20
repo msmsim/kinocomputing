@@ -6,7 +6,10 @@ versions of it, and motes can publish to it as a blyg vault.
 
 Target: protocol 0.3, emitted as `"blyg": "0.3"`, `level: 2`, at parity with msn
 (`../msn/_docs/blygger.md`), which this port transfuses. Origin:
-`https://kinocomputing.com/` — the surface sits at the site root.
+`https://www.kinocomputing.com/` — the surface sits at the site root. The apex,
+`kinocomputing.com`, should 301 to it: a reader's identity for a blyg is the
+address it fetched from (§12.2), so one host has to be the blyg, and it is the
+one every document, feed link and canonical URL names.
 
 ## Promises
 

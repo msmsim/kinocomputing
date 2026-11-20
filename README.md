@@ -1,6 +1,6 @@
 # kinocomputing
 
-A stream of notes and shares at [kinocomputing.com](https://kinocomputing.com).
+A stream of notes and shares at [kinocomputing.com](https://www.kinocomputing.com).
 
 ## How it works
 
@@ -222,7 +222,7 @@ settings:
 
 | setting | value |
 | ------- | ----- |
-| base url | `https://kinocomputing.com` |
+| base url | `https://www.kinocomputing.com` |
 | owner / repo | `msmsim` / `kinocomputing` |
 | notes folder | `notes` |
 

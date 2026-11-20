@@ -73,7 +73,12 @@ export function conformance(tree) {
     if (doc.updated !== log.at(-1)?.at) say(at, "updated is not the last changelog entry's at (§5.2)");
     if (!UTC.test(doc.created) || !UTC.test(doc.updated)) say(at, "created/updated not UTC (§4)");
     for (const url of relativeUrls(doc.content_html ?? "")) say(at, `relative URL ${url} in content_html (§5.2)`);
+    if (doc.generated !== undefined) {
+      if (!Array.isArray(doc.generated) || !doc.generated.every((g) => Array.isArray(g.sources))) say(at, "generated is not an array of entries with sources (§5.7)");
+      if (!(doc.content_html ?? "").includes('class="blyg-tk-gen"')) say(at, "generated, but no blyg-tk-gen span in content_html (§5.7)");
+    }
     if (doc.kind === "withdrawn") {
+      if ("generated" in doc) say(at, "withdrawn but carries generated (§5.7 rule 4)");
       if (doc.content_md !== "" || doc.content_html !== "") say(at, "withdrawn but not empty (§9)");
       if ((doc.media ?? []).length) say(at, "withdrawn with media (§9)");
       if (log.at(-1)?.pinned) say(at, "endcap is pinned (§8 rule 2)");

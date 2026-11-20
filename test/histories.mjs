@@ -23,6 +23,7 @@ export const opArbitrary = fc.oneof(
     type: fc.constant("publish"), file, variant: fc.integer({ min: 0, max: 4 }),
     pin: fc.boolean(), note: fc.option(fc.constantFrom("fixed a typo", "said \"more\" & better"), { nil: null }),
     keepTime: fc.boolean(), offset: fc.boolean(),
+    generated: fc.option(fc.constantFrom("claude-haiku-5-5", "claude-sonnet-5-5"), { nil: null, freq: 2 }),
   }) },
   { weight: 2, arbitrary: fc.record({ type: fc.constant("rerender"), file }) },
   { weight: 2, arbitrary: fc.record({ type: fc.constant("pinThis"), file }) },

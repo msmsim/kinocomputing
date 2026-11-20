@@ -134,6 +134,16 @@ footer.sitefoot p {
   margin-bottom: 0.25em;
 }
 
+/* MACHINE-WRITTEN
+
+   The research agent's notes say so under the body and in the stream: small,
+   grey, italic — a fact about the note, not part of it. */
+.generated-mark {
+  font-size: 0.85em;
+  font-style: italic;
+  color: #555;
+}
+
 /* HEADINGS */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;

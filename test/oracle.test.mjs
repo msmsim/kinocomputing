@@ -32,7 +32,7 @@ export function runHistory(ops, { tools = TOOLS } = {}) {
         const { body, convertible } = bodyOf(o.file, o.variant);
         const prior = model.disk.get(o.file);
         const iso = o.keepTime && prior ? prior.iso : timeAt(minute, o.offset);
-        const page = { body, convertible, iso, pin: o.pin, note: o.note, description: `d${minute}` };
+        const page = { body, convertible, iso, pin: o.pin, note: o.note, description: `d${minute}`, generated: o.generated ?? null };
         site.publish(o.file, page);
         model.publish(o.file, page);
         ctx.dirty = true;
@@ -90,6 +90,12 @@ function checkDeploy(tree, model, ctx, where) {
     idOf.set(file, doc.id);
 
     assert.equal(doc.kind, item.withdrawn ? "withdrawn" : "fragment", `${where}: ${file} kind`);
+    // P20: provenance follows the live version, never the endcap.
+    assert.deepEqual(doc.generated,
+      item.generated ? [{ sources: [], model: item.generated.model, at: item.generated.at }] : undefined,
+      `${where}: ${file} generated (P20)`);
+    assert.equal(doc.content_html.startsWith('<div class="blyg-tk-gen">'), !!item.generated,
+      `${where}: ${file} content_html ${item.generated ? "isn't" : "is"} wrapped as generated (P20)`);
     assert.deepEqual(
       doc.changelog.map((e) => ({ version: e.version, at: e.at, note: e.note, pinned: e.pinned ?? false })),
       item.changelog.map((e) => ({ version: e.version, at: e.at, note: e.note, pinned: e.pinned ?? false })),
@@ -133,6 +139,8 @@ function checkDeploy(tree, model, ctx, where) {
     if (item.withdrawn) {
       assert.ok(!page.includes("article:published_time"), `${where}: tombstone ${item.page} reads as a note (P11)`);
     } else {
+      assert.equal(page.includes('class="generated-mark"'), !!item.generated,
+        `${where}: ${item.page} ${item.generated ? "doesn't say" : "says"} it is machine-written (P20)`);
       assert.ok(page.includes(`href="/items/${id}.json"`), `${where}: ${item.page} has no JSON alternate (P16)`);
       assert.ok(page.includes('rel="blyg"'), `${where}: ${item.page} has no rel=blyg (P16)`);
     }

@@ -29,6 +29,12 @@ const MUTANTS = {
   "version-on-rerender": ["blyg.mjs", "} else if (entry.hash !== hash || entry.withdrawn) {", "} else if (entry.hash !== hash || entry.withdrawn || fresh) {"],
   "no-frozen-page": ["build-stream.mjs", "    site.set(name, renderPinned(entry, page, JSON.parse(source),", "    if (0) site.set(name, renderPinned(entry, page, JSON.parse(source),"],
   "frozen-title-not-promoted": ["build-stream.mjs", "    content, datetime_iso: pin.at, datetime: displayTime(pin.at),", "    content: pin.content_html, datetime_iso: pin.at, datetime: displayTime(pin.at),"],
+  "generated-not-wrapped": ["blyg.mjs", "html: entry.generated ? `<div class=\"blyg-tk-gen\">\\n${html}\\n</div>` : html };", "html };"],
+  // Not "generated-kept-on-endcap": an endcap's document is built without
+  // provenance whatever the registry holds, and a return records the version
+  // afresh, so keeping it is unobservable — an equivalent mutant.
+  "generated-sticks-across-versions": ["blyg.mjs", "      else delete entry.generated;\n", "\n"],
+  "no-generated-mark": ["build-stream.mjs", "  updated = withGeneratedMark(updated, note.generated);", ""],
   "requests-ship": ["build-stream.mjs", "updated = withoutChangeNote(withoutPinRequest(updated));", ""],
 };
 

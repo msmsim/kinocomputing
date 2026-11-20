@@ -248,7 +248,7 @@ export const toUtc = (time) => new Date(time).toISOString().replace(/\.\d{3}Z$/,
  * happened. The registry is the only record of ids and version history —
  * neither can be recovered from the pages — so entries are only ever added to.
  *
- *   { items: { [slug]: { id, created, hash, withdrawn?, stub_of?, seen?, page?, moved_from?,
+ *   { items: { [slug]: { id, created, hash, withdrawn?, stub_of?, seen?, page?, moved_from?, generated?,
  *                        changelog: [{ version, at, note, pinned? }] } } }
  *
  * A note is a new version when its markdown hash changes, not when its page
@@ -284,6 +284,11 @@ export const toUtc = (time) => new Date(time).toISOString().replace(/\.\d{3}Z$/,
  * `seen` every request is read, which is msn's behaviour (msn strips them).
  * A note may also carry `page`, where it is published, which the registry
  * follows; a page it moves away from is kept in `moved_from` for redirects.
+ *
+ * A note may carry `generated`, the model that wrote its page (§5.7). It is a
+ * property of the version the page makes: recorded with that version's time
+ * when one is made, dropped when a version is made without it, and never kept
+ * on a withdrawal endcap.
  */
 export function updateRegistry(registry, notes, { now, makeId = newId, present = new Set() }) {
   const items = structuredClone(registry.items ?? {});
@@ -309,6 +314,7 @@ export function updateRegistry(registry, notes, { now, makeId = newId, present =
         created,
         hash,
         ...(note.stub ? { stub_of: note.stub } : {}),
+        ...(note.generated ? { generated: { model: note.generated, at: created } } : {}),
         changelog: [{ version: 1, at: created, note: null }],
       };
       events.push({ type: "new", slug: note.slug });
@@ -316,11 +322,14 @@ export function updateRegistry(registry, notes, { now, makeId = newId, present =
     } else if (entry.hash !== hash || entry.withdrawn) {
       const last = entry.changelog.at(-1);
       const paged = toUtc(note.iso);
+      const at = paged > last.at ? paged : toUtc(now);
       entry.hash = hash;
       delete entry.withdrawn;
+      if (note.generated) entry.generated = { model: note.generated, at };
+      else delete entry.generated;
       entry.changelog.push({
         version: last.version + 1,
-        at: paged > last.at ? paged : toUtc(now),
+        at,
         // What the publisher said changed, if it said. A first version has
         // nothing to compare against, so a note arriving with one is dropped.
         note: (fresh && note.changeNote) || null,
@@ -357,6 +366,7 @@ export function updateRegistry(registry, notes, { now, makeId = newId, present =
     entry.changelog.push({ version, at: toUtc(now), note: null });
     entry.hash = WITHDRAWN_HASH;
     entry.withdrawn = true;
+    delete entry.generated;
     events.push({ type: "withdrawn", slug, version });
   }
 
@@ -372,6 +382,11 @@ export function serializeRegistry(registry) {
 }
 
 const json = (value) => `${JSON.stringify(value, null, 2)}\n`;
+
+/** The §5.7 disclosure for an entry's live version: the whole body, no sources declared. */
+const generatedMembers = (entry) => (entry.generated
+  ? { generated: [{ sources: [], model: entry.generated.model, at: entry.generated.at }] }
+  : {});
 
 /** A stub is a thread (§10.6); every other note is a fragment. */
 const kindOf = (entry) => (entry.withdrawn ? "withdrawn" : entry.stub_of ? "thread" : "fragment");
@@ -499,7 +514,9 @@ function liveContent(registry, note, site) {
     return null;
   }
   if (contentHash(markdown) !== entry.hash) return null;
-  return { entry, markdown, html: absolutize(note.content, new URL(entry.page ?? note.slug, site.origin).href) };
+  const html = absolutize(note.content, new URL(entry.page ?? note.slug, site.origin).href);
+  // A machine-written version's HTML says so in the wire's own token (§5.7).
+  return { entry, markdown, html: entry.generated ? `<div class="blyg-tk-gen">\n${html}\n</div>` : html };
 }
 
 /**
@@ -540,6 +557,7 @@ export function buildSurfaces(registry, notes, site) {
       content_hash: entry.hash,
       media: [],
       ...threadMembers(entry),
+      ...generatedMembers(entry),
       changelog: entry.changelog,
     }));
   }
@@ -638,6 +656,7 @@ export function buildPins(registry, notes, site) {
         content_html: html,
         content_hash: entry.hash,
         ...threadMembers(entry),
+        ...generatedMembers(entry),
       }),
     });
   }

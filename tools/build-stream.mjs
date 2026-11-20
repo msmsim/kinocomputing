@@ -211,6 +211,8 @@ function parseNote(fileSlug, html) {
     source: main.inner.trim(),
     pin: asksForPin(html),
     changeNote: changeNoteOf(html),
+    // The model that wrote the page, when a machine did (§5.7, docs/blyg.md P20).
+    generated: html.match(/<meta name="blyg:generated" content="([^"{}]+)"/)?.[1] ?? null,
     // Which write of the page this is, so a request in it is read only once.
     seen: createHash("sha256").update(html).digest("hex").slice(0, 16),
   };
@@ -341,6 +343,23 @@ function withDescription(html, derived) {
   return out;
 }
 
+/**
+ * The visible half of the §5.7 disclosure: one line saying a machine wrote
+ * this, and that the saying is ours. The other half is in the item's JSON.
+ */
+const generatedMark = (model) => `<p class="generated-mark">Written by the Kinocomputing research agent (${
+  model.replace(/[<>&"]/g, "")}), unreviewed. This disclosure is the publisher's own.</p>`;
+
+/** Puts the mark right after the note body, replacing any already there. */
+function withGeneratedMark(html, model) {
+  const out = html.replace(/[ \t]*<p class="generated-mark">.*?<\/p>\n?/g, "");
+  if (!model) return out;
+  const end = out.indexOf("</main>");
+  if (end === -1) return out;
+  const after = end + "</main>".length;
+  return `${out.slice(0, after)}\n${generatedMark(model)}${out.slice(after)}`;
+}
+
 /** Substitutes {{name}} placeholders. Values are pre-rendered HTML. */
 const fill = (template, values) =>
   template.replace(/\{\{(\w+)\}\}/g, (whole, name) =>
@@ -361,7 +380,7 @@ function renderStream(template, notes) {
     content: previewOf(note).replace(
       /<(\/?)h([1-5])\b/gi,
       (whole, slash, level) => `<${slash}h${Number(level) + 1}`
-    ),
+    ) + (note.generated ? `\n${generatedMark(note.generated)}` : ""),
     path: note.path,
     datetime_iso: note.time,
     datetime: displayTime(note.time),
@@ -767,6 +786,7 @@ const blygNotes = notes.map((note) => ({
   changeNote: note.changeNote,
   seen: note.seen,
   page: note.slug,
+  generated: note.generated,
 }));
 
 if (stateMode) {
@@ -910,6 +930,7 @@ notes.forEach((note, i) => {
   // A pin or change-note request is for the Action; once it has been read it
   // means nothing to anyone, so it never ships.
   updated = withoutChangeNote(withoutPinRequest(updated));
+  updated = withGeneratedMark(updated, note.generated);
   const entry = registry.items[note.fileSlug];
   if (entry) {
     updated = withVersions(withHeadLinks(updated, INDEX_PATH, entry.id), renderVersions(entry, note.path));
@@ -951,6 +972,7 @@ function renderPinned(entry, page, pin, older, newer) {
   html = withDescription(html, describe({ title, content }));
   html = withNotefoot(html, renderNotefoot(noteTemplate, { path, time: pin.at }, older, newer));
   html = withPinnedVersions(html, renderPinnedVersions(entry, livePath, pin.version));
+  html = withGeneratedMark(html, pin.generated?.[0]?.model);
   html = withHeadLinks(html, INDEX_PATH, entry.id).replace(
     `${INDEX_PATH}items/${entry.id}.json"`, `${INDEX_PATH}items/${entry.id}/v${pin.version}.json"`
   );

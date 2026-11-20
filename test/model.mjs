@@ -50,6 +50,7 @@ export class Model {
       let item = this.items.get(file);
       if (!item) {
         item = { version: 1, changelog: [{ version: 1, at: utc(page.iso), note: null }], body: page.body, withdrawn: false };
+        item.generated = page.generated ? { model: page.generated, at: utc(page.iso) } : null; // P20
         this.items.set(file, item);
       } else if (item.body !== page.body || item.withdrawn) {
         const last = item.changelog.at(-1);
@@ -62,6 +63,7 @@ export class Model {
         });
         item.body = page.body;
         item.withdrawn = false;
+        item.generated = page.generated ? { model: page.generated, at: item.changelog.at(-1).at } : null; // P20
       }
       if (page.pin && unseen) item.changelog.at(-1).pinned = true; // P7
       item.seen = page.write;
@@ -76,6 +78,7 @@ export class Model {
       item.changelog.push({ version: item.version, at: utc(now), note: null }); // P11
       item.withdrawn = true;
       item.body = "";
+      item.generated = null; // P20: an endcap never carries it
     }
     this.published = this.computeFeed();
     return true;

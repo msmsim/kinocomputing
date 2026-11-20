@@ -85,6 +85,17 @@ spec section it comes from (`docs/protocol-v0.3.md` in `blygger-spec`) or
 - P17. `page` is the note's published path. When a retitle moves it, the old
   path redirects to the new one (§5.8).
 
+**Machine-written notes** (the research agent's)
+
+- P20. A page carrying `<meta name="blyg:generated" content="<model>">` is
+  machine-written. The version it makes carries
+  `generated: [{ "sources": [], "model": "<model>", "at": <the version's time> }]`
+  in its item document and in any pin of it, its `content_html` is wrapped in
+  `<div class="blyg-tk-gen">…</div>`, and the page and its stream entry say,
+  visibly, that the research agent wrote it. A version made from a page
+  without the meta carries none of this, and a withdrawal endcap never does
+  (§5.7). The disclosure is the publisher's own (§5.7 rule 6).
+
 **Stubs and mentions** (dormant until something publishes a stub here)
 
 - P18. A new note whose trailing `<p class="source">` links another blyg's

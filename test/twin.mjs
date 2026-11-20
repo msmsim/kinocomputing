@@ -37,7 +37,7 @@ export class Site {
    * filled, with each if-section kept when motes has a value for it and
    * dropped when it doesn't. `pin` and `note` are the blyg vault's two extras.
    */
-  publish(file, { body, iso, pin = false, note = null, description = "" }) {
+  publish(file, { body, iso, pin = false, note = null, description = "", generated = null }) {
     const values = {
       slug: file,
       description: escapeAttr(description),
@@ -53,7 +53,9 @@ export class Site {
     const page = this.template
       .replace(/<!-- if:(\w+) -->([\s\S]*?)<!-- \/if:\1 -->\n?/g, (whole, name, inner) =>
         (Object.hasOwn(values, name) ? inner : ""))
-      .replace(/\{\{(\w+)\}\}/g, (whole, name) => (Object.hasOwn(values, name) ? values[name] : ""));
+      .replace(/\{\{(\w+)\}\}/g, (whole, name) => (Object.hasOwn(values, name) ? values[name] : ""))
+      // The research agent's pages say what wrote them (P20); motes' never do.
+      .replace("</head>", generated ? `    <meta name="blyg:generated" content="${generated}">\n</head>` : "</head>");
     writeFileSync(join(this.root, "notes", `${file}.html`), page);
   }
 

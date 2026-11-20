@@ -51,7 +51,7 @@ const REDIRECTS = "_redirects";
 
 // Copied into the deploy as they are. Everything else at the repo root — the
 // build, the README — is tooling, and stays out of the site.
-const ASSETS = ["note.css", "favicon.svg"];
+const ASSETS = ["note.css", "favicon.svg", "favicon.ico", "apple-touch-icon.png"];
 
 // GoatCounter. Pageview counts only — no cookies and no cross-site identifiers,
 // which is what keeps the site free of a consent banner. Set to "" to take the
@@ -78,6 +78,16 @@ const BLYG = {
   generator: "kinocomputing-build/0.1",
   generatorUrl: "https://github.com/msmsim/kinocomputing",
 };
+// The site footer, on every page: the site's name back to the stream, what it
+// is, and who writes it. Built from the same values as the blyg's manifest so
+// the two can't come to disagree.
+const SITE_FOOT = [
+  '<footer class="sitefoot">',
+  `<p><a href="${INDEX_PATH}" target="_self">${SITE_NAME}</a>. ${BLYG.description}</p>`,
+  `<p>By <a href="${BLYG.author.url}">${BLYG.author.name}</a>.</p>`,
+  "</footer>",
+].join("\n");
+
 // Paths the surface owns, which no note may be published at.
 const SURFACE_NAMES = ["blyg", "feed", "items"];
 
@@ -465,6 +475,17 @@ function withAnalytics(html) {
 }
 
 /**
+ * Puts the site footer last in the body, replacing any already there. It goes
+ * in ahead of the counter script, which withAnalytics then puts after it.
+ */
+function withSiteFoot(html) {
+  const out = removeBlock(html, '<footer class="sitefoot">', "</footer>");
+  const end = out.lastIndexOf("</body>");
+  if (end === -1) return out;
+  return `${out.slice(0, end)}${SITE_FOOT}\n${out.slice(end)}`;
+}
+
+/**
  * Puts the rebuilt footer back at the end of the body. The old footer and any
  * loose stamp or nav left over from an earlier layout come out first, so the
  * result is the same whether the page was last built by this version or not.
@@ -587,8 +608,15 @@ const headFields = ({ title, url, type }) => [
     tag: `<link rel="canonical" href="${url}">` },
   { find: /<link rel="stylesheet" href="[^"]*">/,
     tag: `<link rel="stylesheet" href="${stylesheet}">` },
-  { find: /<link rel="icon"[^>]*>/,
+  // Three icons: .ico at the conventional address for anything that asks for
+  // it there (Safari, feed readers, link previews), the SVG for browsers that
+  // take one, and a square PNG for phones' home screens.
+  { find: /<link rel="icon" href="\/favicon\.ico"[^>]*>/,
+    tag: '<link rel="icon" href="/favicon.ico" sizes="32x32">' },
+  { find: /<link rel="icon" type="image\/svg\+xml"[^>]*>/,
     tag: `<link rel="icon" type="image/svg+xml" href="${favicon}">` },
+  { find: /<link rel="apple-touch-icon"[^>]*>/,
+    tag: '<link rel="apple-touch-icon" href="/apple-touch-icon.png">' },
   ...imageFields(),
 ];
 
@@ -856,7 +884,7 @@ for (const [path, content] of await readTree(STATE_DIR)) {
   if (!path.split("/").some((part) => part.startsWith("_"))) site.set(path, content);
 }
 
-site.set("index.html", withAnalytics(renderStream(streamTemplate, notes)));
+site.set("index.html", withAnalytics(withSiteFoot(renderStream(streamTemplate, notes))));
 
 notes.forEach((note, i) => {
   const { html } = note;
@@ -882,7 +910,7 @@ notes.forEach((note, i) => {
   if (entry) {
     updated = withVersions(withHeadLinks(updated, INDEX_PATH, entry.id), renderVersions(entry, note.path));
   }
-  updated = withAnalytics(updated);
+  updated = withAnalytics(withSiteFoot(updated));
 
   // Audited after the rewrites, so it reports what actually ships rather than
   // what the publisher happened to hand over.
@@ -922,7 +950,7 @@ function renderPinned(entry, page, pin, older, newer) {
   html = withHeadLinks(html, INDEX_PATH, entry.id).replace(
     `${INDEX_PATH}items/${entry.id}.json"`, `${INDEX_PATH}items/${entry.id}/v${pin.version}.json"`
   );
-  return withAnalytics(html);
+  return withAnalytics(withSiteFoot(html));
 }
 
 /**
@@ -941,7 +969,7 @@ function renderTombstone(entry, page) {
   html = normaliseHead(html, { title: "Withdrawn", url: `${SITE_BASE}${livePath}`, type: "article" });
   html = withNotefoot(html, renderNotefoot(noteTemplate, { path: livePath, time: at }, null, null));
   html = withVersions(withHeadLinks(html, INDEX_PATH, entry.id), renderWithdrawn(entry, livePath));
-  return withAnalytics(html);
+  return withAnalytics(withSiteFoot(html));
 }
 
 const position = new Map(notes.map((note, i) => [note.fileSlug, i]));

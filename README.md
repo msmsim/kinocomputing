@@ -175,12 +175,24 @@ keeps the site free of a consent banner.
 
 ## The masthead
 
-The stream opens with one: the site's name, the subtitle under it, and the
-blyg and RSS links to the right. It is the stream's alone — note pages still
-carry their content, their datestamp and their nav, nothing else, and their
-"↑ Home" is the way back to it. The subtitle is also the stream's description
-and the blyg's (`BLYG.description` in `tools/build-stream.mjs`), so change the
-three together.
+The stream opens with one: □◇, the site's name, the subtitle under it, and
+the blyg and RSS links to the right. It is the stream's alone — note pages
+carry their content, their datestamp and their nav, and their "↑ Home" is the
+way back to it.
+
+Every page the build writes — the stream, notes, frozen versions, tombstones —
+ends with the site footer: the name linking home, the subtitle, and the author.
+It is built from the blyg's own values (`BLYG` in `tools/build-stream.mjs`), so
+the footer, the manifest and the feed can't disagree. The subtitle is also the
+stream's description in `_stream.html`; change the two together.
+
+## Icons
+
+`favicon.svg` is the mark, □◇ — "always eventually", liveness in temporal
+logic — on the site's colour. `favicon.ico` (32px) and `apple-touch-icon.png`
+(180px, square, since phones round it themselves) are rendered from it and
+committed; redraw the SVG and regenerate both. Every page links all three, and
+the two raster ones sit at the addresses anything asks for by default.
 
 Nothing currently links to `/about`. It is reachable only by typing the URL.
 

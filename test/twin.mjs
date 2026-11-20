@@ -11,7 +11,7 @@ import { join, relative } from "node:path";
 const REPO = new URL("..", import.meta.url).pathname;
 
 /** What a site needs to build: the tools, the templates, the assets. No notes, no state. */
-const SEED = ["tools", "notes/_note.html", "notes/_stream.html", "note.css", "favicon.svg", "kinocomputing-basic-og.jpg"];
+const SEED = ["tools", "notes/_note.html", "notes/_stream.html", "note.css", "favicon.svg", "favicon.ico", "apple-touch-icon.png", "kinocomputing-basic-og.jpg"];
 
 export function makeSite({ repo = REPO, tools = null } = {}) {
   const root = mkdtempSync(join(tmpdir(), "kino-twin-"));

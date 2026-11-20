@@ -20,6 +20,43 @@ body {
   padding: 0 1rem;
 }
 
+/* FEED LINKS
+
+   Stream page only, top right: the blyg and the RSS feed, each an icon
+   followed by a bracketed link that explains it. Icons drop the prose
+   underline. Sized with the datestamps: page furniture, a step below the
+   prose. On a narrow screen the two pairs stack. */
+nav.feeds {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.25em 0.8em;
+  margin: 0 0 0.75em;
+  font-size: 0.9em;
+}
+
+nav.feeds .pair {
+  display: flex;
+  align-items: center;
+}
+
+nav.feeds a {
+  line-height: 1;
+  padding: 0.25em 0;
+}
+
+nav.feeds a.feed {
+  display: flex;
+  padding: 0.25em 0.3em 0.25em 0;
+  text-decoration: none;
+}
+
+nav.feeds .what {
+  color: #555;
+  white-space: nowrap;
+}
+
 /* HEADINGS */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;

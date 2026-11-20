@@ -74,7 +74,7 @@ const BLYG = {
   origin: `${SITE_BASE}/`,
   title: SITE_NAME,
   description: "Researching alternative paradigms of computing and intelligence.",
-  author: { name: "Matt", url: "https://www.msweet.net/" },
+  author: { name: "Matthew McDowell-Sweet", url: "https://www.msweet.net/" },
   generator: "kinocomputing-build/0.1",
   generatorUrl: "https://github.com/msmsim/kinocomputing",
 };

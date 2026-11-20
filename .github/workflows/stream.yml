@@ -1,0 +1,69 @@
+name: Build blyg state
+
+# The blyg's ids, versions and pins can't be derived from the note pages, so
+# they live in blyg/, and this is its only writer: on every push to main that
+# could change them, it runs the build with --state and commits blyg/ back.
+# That commit is what Cloudflare then deploys the surface from (docs/blyg.md).
+#
+# Pushes made with GITHUB_TOKEN do not trigger workflows, so this cannot loop
+# on its own commit.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "notes/**.html"
+      - "tools/**"
+  workflow_dispatch:
+
+concurrency:
+  # Two notes published close together would otherwise race on the registry.
+  group: blyg-state
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  state:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      # Rebuilds against whatever is on main right now, not against the commit
+      # that triggered the run: a publish landing while this runs would
+      # otherwise leave the push rejected and the state a step behind. The
+      # state step reads notes/ and writes only blyg/, so restarting from the
+      # current head is always safe.
+      - name: Update and commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+
+            node tools/build-stream.mjs --state
+
+            if [ -z "$(git status --porcelain blyg)" ]; then
+              echo "already up to date"
+              exit 0
+            fi
+
+            git add blyg
+            git commit -m "blyg: record state"
+
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+
+            echo "push rejected on attempt $attempt; rebuilding against the new head"
+          done
+
+          echo "could not push after 3 attempts"
+          exit 1

@@ -20,6 +20,103 @@ body {
   padding: 0 1rem;
 }
 
+/* MASTHEAD
+
+   Stream page only. The site's name, with the subtitle under it, and the feed
+   links stacked in the top right. The name is the page's h1, which is why
+   notes in the stream step their titles down to h2. The feed links come first
+   in the markup and stay top right at every width: stacked beside the name
+   where there is room, in a row above it on a phone, aligned left with it. */
+header.masthead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5em 1em;
+  margin: 0 0 2em;
+}
+
+/* The name and subtitle take two thirds of the column, so the subtitle sets
+   as a short block under the name rather than a line across the page, and
+   the feed links have the last third. A phone has no third to spare: there
+   the name takes the full width. */
+header.masthead .titles {
+  flex: 0 1 66%;
+  order: -1;
+}
+
+@media (max-width: 40em) {
+  header.masthead .titles {
+    flex-basis: 100%;
+    order: 0;
+  }
+
+  header.masthead nav.feeds {
+    flex-basis: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-left: 0;
+  }
+}
+
+header.masthead .site-title {
+  margin: 0 0 0.2em;
+}
+
+/* The site's mark, □◇ — "always eventually", liveness in temporal logic —
+   ahead of the name, in the name's colour, the height of its capitals. The
+   favicon is the same drawing on a tile. */
+header.masthead .site-title .mark {
+  height: 0.72em;
+  width: auto;
+  margin-right: 0.35em;
+  vertical-align: -0.02em;
+}
+
+header.masthead .subtitle {
+  margin: 0;
+  color: #555;
+}
+
+/* FEED LINKS
+
+   The blyg and the RSS feed, each an icon followed by a bracketed link that
+   explains it. Icons drop the prose underline. Sized with the datestamps: page
+   furniture, a step below the prose. Stacked and right-aligned in the
+   masthead; side by side and left-aligned on a phone. */
+nav.feeds {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-left: auto;
+  gap: 0.25em 0.8em;
+  margin-top: 0.3em;
+  font-size: 0.9em;
+}
+
+nav.feeds .pair {
+  display: flex;
+  align-items: center;
+}
+
+nav.feeds a {
+  line-height: 1;
+  padding: 0.25em 0;
+}
+
+nav.feeds a.feed {
+  display: flex;
+  padding: 0.25em 0.3em 0.25em 0;
+  text-decoration: none;
+}
+
+nav.feeds .what {
+  color: #555;
+  white-space: nowrap;
+}
+
 /* HEADINGS */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;

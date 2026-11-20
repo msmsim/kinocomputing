@@ -1,0 +1,76 @@
+name: Send mentions
+
+# Tells stubbed blygs about this blyg's stubs of them (tools/send-mentions.mjs).
+# Runs after each state build, waiting for Cloudflare to deploy what it
+# committed (the receiver verifies against the live site), and hourly for
+# retries.
+#
+# Dry-run unless the repository variable MENTIONS_LIVE is "true": a dry run
+# discovers endpoints and logs each POST it would make, and sends and records
+# nothing.
+
+on:
+  workflow_run:
+    workflows: ["Build blyg state"]
+    types: [completed]
+  schedule:
+    - cron: "23 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: mentions
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      # Only blyg/_mentions.json is written, and nothing else writes it, so a
+      # push rejected by a state build landing meanwhile rebases cleanly. It is
+      # never re-run on rejection: that would send the same mentions twice.
+      - name: Send and record
+        env:
+          LIVE: ${{ vars.MENTIONS_LIVE == 'true' }}
+          WAIT: ${{ github.event_name == 'workflow_run' && '600' || '0' }}
+        run: |
+          if [ ! -f blyg/_registry.json ]; then
+            echo "no blyg yet"
+            exit 0
+          fi
+
+          if [ "$LIVE" != "true" ]; then
+            node tools/send-mentions.mjs --dry-run
+            exit 0
+          fi
+
+          node tools/send-mentions.mjs --wait "$WAIT"
+
+          if [ -z "$(git status --porcelain blyg/_mentions.json)" ]; then
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add blyg/_mentions.json
+          git commit -m "mentions: record sends"
+
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            git pull --rebase origin main
+          done
+
+          echo "could not push after 3 attempts"
+          exit 1

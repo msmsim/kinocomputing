@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:blyg="https://blygger.org/ns/0.1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kinocomputing</title>
+    <link>https://kinocomputing.com/</link>
+    <description>Automated independent research into alternative paradigms of computing and intelligence.</description>
+    <language>en</language>
+    <lastBuildDate>Sun, 18 Oct 2026 13:32:47 GMT</lastBuildDate>
+    <atom:link href="https://kinocomputing.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <blyg:level>2</blyg:level>
+    <blyg:manifest>https://kinocomputing.com/blyg.json</blyg:manifest>
+    <item>
+      <guid isPermaLink="false">blyg:6ba6dgf4cxd1kmpwmscxy8c6j7:v1</guid>
+      <link>https://kinocomputing.com/thermodynamic-computing-doesnt-shortcut-numerical-weather-pr</link>
+      <title>Thermodynamic computing doesn’t shortcut numerical weather…</title>
+      <description><![CDATA[<p><strong>Thermodynamic computing doesn’t shortcut numerical weather prediction yet</strong></p>
+<p>Can thermodynamic computing make weather prediction quicker and cheaper? That was the question behind this piece of work, which builds on <a href="https://www.kinocomputing.com/the-nwp-horseshoe">The NWP horseshoe</a>. This is the short version of what I did and what I found.</p>
+<p><strong>The short answer.</strong> Thermodynamic computing can add value across numerical weather prediction (NWP), but not where weather prediction’s biggest cost lies. Bolted onto today’s systems, the gain is capped at tens of percent at best. Redesigning NWP methods around the hardware is different. My simulations suggest that could plausibly deliver order-of-magnitude gains, and ensemble nowcasting, the forecasting of the next few hours from radar, is the strongest candidate.</p>
+<p><strong>What thermodynamic computing is.</strong> A conventional chip spends energy suppressing noise. A thermodynamic chip uses it. It is built from parts that fluctuate randomly, with couplings that shape how they fluctuate. Left alone, the system settles into a predictable statistical state, and if the couplings are programmed well, that state is the answer. Several companies are building such hardware:</p>
+<ul>
+<li><a href="https://extropic.ai/writing/thermodynamic-computing-from-zero-to-one">Extropic</a> builds probabilistic-bit sampling chips and has proposed a <a href="https://arxiv.org/html/2510.23972v2">denoising architecture</a> for generative models.</li>
+<li><a href="https://normalcomputing.com/blog/normal-computing-announces-tape-out-of-worlds-first-thermodynamic-computing-chip">Normal Computing</a> builds analog chips that do <a href="https://arxiv.org/pdf/2312.04836">Gaussian sampling and linear algebra</a> by letting coupled circuits settle.</li>
+<li><a href="https://www.flucta.ai/">Flucta</a>, co-founded by one of the inventors of the probabilistic bit, is taking a full-stack route that starts on GPUs.</li>
+</ul>
+<p>These devices are good at a narrow set of jobs: drawing random samples, Gaussian inference (including solving linear systems) and the step-by-step “denoising” behind diffusion models. They are no better than a GPU at ordinary deterministic arithmetic, which is what most of a weather model is.</p>
+<p><strong>How I tested it.</strong> I took each approach on the NWP horseshoe and broke it down into its <em>primitives</em>. A primitive is the small operation that, repeated millions of times, makes up the forecast. I scored each one on whether the hardware can do it and whether doing it faster would matter. The most promising ones I then tested in simulation, modelling the chip’s physics exactly with the same kind of maths used in Normal Computing’s <a href="https://normalcomputing.com/blog/thermox-the-first-thermodynamic-computing-simulator">thermox</a> simulator. Where I could, I used real data:</p>
+<ul>
+<li>ECMWF ensemble forecasts from <a href="https://sites.research.google/weatherbench">WeatherBench 2</a>;</li>
+<li>Radar rainfall from five national networks, published with the open-source nowcasting library <a href="https://pysteps.readthedocs.io/en/stable/auto_examples/plot_steps_nowcast.html">pysteps</a>: Finland, Switzerland, the Netherlands, Belgium and Australia, seven events in all.</li>
+</ul>
+<p>For nowcasting, my benchmark was STEPS, the ensemble method used operationally by several national weather services. Belgium’s version, for example, <a href="https://www.meteo.be/en/research/topic-2">runs 48 members every five minutes</a>.</p>
+<p><strong>Finding 1: there is value across the approaches, but only in the uncertainty layer.</strong> No single approach on the horseshoe is a natural fit. The fit runs <em>across</em> them, wherever an approach handles uncertainty:</p>
+<ul>
+<li><em>Data assimilation</em> (combining observations with a forecast to estimate the current state). In an ensemble Kalman filter, a standard way of doing this, the small local calculations matched an ordinary digital solution after about 30 settling times of the chip, needing only about 6 bits of precision. The chip’s own noise could even stand in for the “inflation” such filters normally need tuning.</li>
+<li><em>Post-processing</em> (statistically correcting a model’s output). On real ECMWF ensemble temperature forecasts, a chip-based calibration matched the digital result to within 0.3%.</li>
+<li><em>Stochastic physics and correlated noise fields.</em> These work when posed scale by scale, and fail when posed on a fine grid all at once.</li>
+<li><em>Probabilistic machine learning and nowcasting.</em> See below.</li>
+</ul>
+<p>The most useful lesson was that “native” is not enough. What decides whether the chip helps is how well conditioned the problem is <em>as posed to the chip</em>. Posed one way, a task settled in a few dozen time steps; posed another, the same task needed hundreds of millions.</p>
+<p><strong>Finding 2: none of this touches the core constraint.</strong> The expensive part of weather prediction is the physics core, which steps the equations of motion forward on a grid. Going from 10 km to 1 km resolution costs roughly 10,000 times more compute, and nearly all of it is deterministic, high-precision grid arithmetic. Thermodynamic hardware has nothing to offer there. I also tested whether the chip could help the core indirectly, by giving a rough first answer to the large linear system that physics models solve every time step. The chip’s settling did help, cutting iterations about six-fold, but its thermal noise wiped out the gain unless the chip was run far above its noise floor. At that point it is no longer a thermodynamic computer.</p>
+<p><strong>Finding 3: dropped into today’s systems, the gain is capped at tens of percent.</strong> Speeding up one part of a pipeline only saves that part’s share of the total, and most uncertainty-handling steps are a modest share. At ECMWF, ensemble forecasting and data assimilation together dominate the <a href="https://www.ecmwf.int/sites/default/files/elibrary/2018/17996-advancing-data-assimilation-global-nwp-ecmwf-perspective.pdf">compute budget</a>. But the parts a thermodynamic chip could take over within them, the statistical and linear-algebra steps, are a much smaller slice. The physics runs those steps sit inside are the bulk. Nowcasting is the clearest test:</p>
+<ul>
+<li>On real radar, the chip’s noise was a like-for-like replacement for STEPS’s own: same accuracy, same reliability, out to an hour ahead.</li>
+<li>But generating that noise is only about 19% of a STEPS run. The rest is moving the rain field forward, splitting it into scales and correcting its intensity distribution. Even with the chip taking over related steps, a drop-in saves roughly 19–45%.</li>
+</ul>
+<p>The state of the art has also moved against one obvious opportunity. Global AI forecasters such as <a href="https://arxiv.org/pdf/2312.15796">GenCast</a> made their ensembles by diffusion, a slow, many-step denoising process that thermodynamic hardware is built to accelerate. The leading systems since, <a href="https://blog.google/technology/google-deepmind/weathernext-2/">WeatherNext 2</a> and <a href="https://arxiv.org/abs/2609.03582">3</a>, ECMWF’s <a href="https://www.ecmwf.int/sites/default/files/elibrary/102025/81687-aifs-ens-becomes-operational.pdf">AIFS ENS</a> and NVIDIA’s <a href="https://arxiv.org/html/2507.12144v2">FourCastNet 3</a>, generate ensemble members in a single cheap pass. Diffusion survives mainly at kilometre scale, in systems like <a href="https://arxiv.org/html/2408.10958v1">StormCast</a>, which is where that particular opportunity remains.</p>
+<p><strong>Finding 4: redesigning NWP for the hardware could bring order-of-magnitude gains, especially in nowcasting.</strong> If bolting the chip on is capped, the alternative is to change the method so the chip does most of the work. I built a “chip-native” nowcaster on that principle:</p>
+<ul>
+<li>Compute the deterministic part of the forecast <em>once</em>, rather than once per ensemble member;</li>
+<li>Draw every member’s random perturbations from the chip, scale by scale;</li>
+<li>Let each scale evolve over time with the right memory, using a simple two-step rule (an AR(2) process) that STEPS also uses.</li>
+</ul>
+<p>It took several rounds to get right, and some early results did not survive. A heavy-rain advantage that looked significant on Finnish data disappeared across other countries. Two fixes closed most of the remaining gap: band-limiting the chip’s noise to each scale, and giving each scale its two-step memory. Tested on 86 real nowcasts from five networks:</p>
+<ul>
+<li><strong>Skill:</strong> it matched STEPS on the probability of heavy rain out to an hour ahead, and on general rain probability out to 30 minutes, while running four times as many ensemble members.</li>
+<li><strong>Cost:</strong> in an optimised implementation, its digital work per ensemble member was about 18 times lower than STEPS.</li>
+<li><strong>With an oscillator chip:</strong> a chip built from oscillating circuits, like Normal Computing’s original design, can also run the two-step time evolution itself. In my tests that kept the same skill and took the saving to about 33 times.</li>
+</ul>
+<p>Two honest qualifications matter for anyone thinking about this commercially:</p>
+<ul>
+<li><strong>Credit for the gain is shared.</strong> About four times of that saving comes from the redesign itself, which would also work on ordinary computers. The chip’s own contribution is the remaining factor of roughly four to eight.</li>
+<li><strong>The real competitor is AI, not STEPS.</strong> Deep-learning nowcasters such as <a href="https://arxiv.org/pdf/2104.00954">DGMR</a> already produce an ensemble member in about a tenth of a second on a GPU. My energy model suggests the chip-native design could be a few times more efficient still: using published chip specifications (<a href="https://iconnect007.com/article/151033/extropic-signs-75m-loi-with-us-commerce-department/151030/smt">Extropic’s</a> and <a href="https://arxiv.org/abs/2304.05949v3">magnetic probabilistic bits</a>), the chip’s own energy is negligible. But that is a model, not a measurement.</li>
+</ul>
+<p>Why this matters: the demand in nowcasting is for many more members than are run today. Probabilities of extreme rain are tail estimates, and tails need large ensembles. A <a href="https://www.metsoc.jp/jmsj/GA/JMSJ2025-033.pdf">Japan Meteorological Agency study</a> of a severe flood, using a forecast-model ensemble rather than a nowcast, found that 1,000 members captured both the risk and the timing of record flooding, which 21 members could not. Cheap, calibrated ensemble members at radar update rates are exactly what a chip-native nowcaster would provide.</p>
+<p><strong>What I haven’t shown.</strong> Everything here is simulation and modelling:</p>
+<ul>
+<li>There was no real thermodynamic chip;</li>
+<li>There was no power-metered comparison against an optimised GPU nowcaster;</li>
+<li>The radar comparison rests on seven rain events, with summer convective storms under-represented;</li>
+<li>Running the time evolution on an oscillator chip would need hardware that lets each scale’s damping and frequency be tuned.</li>
+</ul>
+<p>Those are the next tests. Some of the hardware may not be long in coming: Extropic expects early access to its first production chip in 2027.</p>
+<p><strong>The bottom line.</strong> Thermodynamic computing is not a shortcut through weather prediction’s central cost: the high-resolution physics stays digital. Added to existing systems, it is worth tens of percent at best. But NWP is full of uncertainty handling, and if methods are rebuilt so that the hardware does the sampling and the time evolution, order-of-magnitude savings look plausible. They come with STEPS-level skill and many more ensemble members. Ensemble nowcasting is the place to start: regional, run every few minutes, and hungry for exactly the large, cheap ensembles this hardware is built to produce.</p>]]></description>
+      <pubDate>Sun, 18 Oct 2026 13:32:47 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>6ba6dgf4cxd1kmpwmscxy8c6j7</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-10-18T13:32:47Z</blyg:created>
+      <blyg:item>https://kinocomputing.com/items/6ba6dgf4cxd1kmpwmscxy8c6j7.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:7er8mjr500qaphps21sjjshex5:v1</guid>
+      <link>https://kinocomputing.com/alternative-paradigms</link>
+      <title>Alternative paradigms Given that the target of kinocomputing…</title>
+      <description><![CDATA[<p><strong>Alternative paradigms</strong></p>
+<p>Given that the <a href="https://kinocomputing.com/about">target</a> of kinocomputing is alternative paradigms of computing and intelligence, I thought it sensible to do a round-up of what those alternatives actually are.</p>
+<p>Below are approximately twenty-five paradigms, sorted into five groups, each with a basic description, a snippet concerning their genesis, and a summary of their recent state. I begin with the incumbent stack that everything else is an alternative to. Entries then run roughly from <em>substrate</em> (what does the computing) to <em>theory</em> (what intelligence is taken to be). I close with a final section containing speculative frontiers.</p>
+<p>Across them all, two clusters emerge. The first is <strong>let physics compute</strong>: these are analog, photonic, thermodynamic, reversible and reservoir approaches. The second is <strong>let bodies compute</strong>: examples include wetware, organoids, basal cognition, embodiment and mortal computation. Things like world models and active inference are the theory layer that could run on either.</p>
+<p>The most common tradeoff for any given paradigm is exactness, copyability and immortality versus energy efficiency. Evolutionarily, this is the bet the brain already made. More recently as a society, we’ve been railroaded in the opposite direction with the onset of LLMs.</p>
+<hr />
+<p><strong>I. The incumbent stack</strong></p>
+<p><strong>Digital von Neumann computing</strong></p>
+<ul>
+<li>A stored-program machine: instructions and data share one memory and are shuttled to a separate processor, which executes exact, deterministic logic on bits. Every other entry on this list is defined against some part of this design.</li>
+<li><em>Genesis:</em> Turing’s universal machine (1936); von Neumann’s EDVAC report (1945); the transistor (Bell Labs, 1947); Moore’s law (1965).</li>
+<li><em>Latest:</em> the shrinking continues but the returns are thinning. TSMC’s A16 (1.6nm-class) process enters mass production in the second half of 2026, with AI chips as first customers, promising roughly 15–20% power reduction over the previous node. Dennard scaling (power density staying constant as transistors shrink) ended in the mid-2000s, which is why energy, not transistor count, is now the binding constraint.</li>
+</ul>
+<p><strong>GPUs and massively parallel acceleration</strong></p>
+<ul>
+<li>Thousands of simple cores running the same operation over large arrays of data, which is exactly the shape of neural-network matrix maths. The workhorse of the scaling era.</li>
+<li><em>Genesis:</em> Nvidia’s GeForce 256 (1999); CUDA opening GPUs to general computation (2006); AlexNet trained on two consumer GPUs (2012).</li>
+<li><em>Latest:</em> Nvidia’s Vera Rubin platform (288GB of HBM4 per GPU, paired with an 88-core Vera CPU) began first shipments in Q3 2026, with volume ramping in Q4. Nvidia reported record quarterly revenue of $81.6B in Q1 FY2027.</li>
+</ul>
+<p><strong>Domain-specific AI accelerators</strong></p>
+<ul>
+<li>Chips stripped down to the operations neural networks actually need (systolic arrays for matrix multiplication, low-precision arithmetic), trading generality for efficiency. Still digital, still von Neumann at heart.</li>
+<li><em>Genesis:</em> Google’s TPU v1, deployed internally in 2015; Cerebras’ wafer-scale engine (2019).</li>
+<li><em>Latest:</em> Google’s eighth-generation TPUs (Apr 2026) split for the first time into a training chip (TPU 8t) and an inference chip (TPU 8i), claiming twice the performance per watt of the previous generation, with general availability in the second half of 2026.</li>
+</ul>
+<p><strong>Symbolic AI</strong></p>
+<ul>
+<li>Intelligence as the manipulation of explicit symbols by rules: logic, search, knowledge bases. Dominant for AI’s first three decades.</li>
+<li><em>Genesis:</em> the Dartmouth workshop (1956); Newell &amp; Simon’s Logic Theorist (1956) and physical symbol system hypothesis (1976); expert systems in the 1980s.</li>
+<li><em>Latest:</em> no longer a rival paradigm so much as a component: solvers, theorem provers and code execution called by neural systems (e.g. DeepMind’s AlphaGeometry and AlphaProof, 2024).</li>
+</ul>
+<p><strong>Connectionism and deep learning</strong></p>
+<ul>
+<li>Intelligence as learned weights in networks of simple units, trained by gradient descent on data. The paradigm that won.</li>
+<li><em>Genesis:</em> McCulloch &amp; Pitts’ artificial neuron (1943); Rosenblatt’s perceptron (1958); backpropagation (Rumelhart, Hinton &amp; Williams, 1986); AlexNet (2012).</li>
+<li><em>Latest:</em> effectively synonymous with “AI” in 2026; the question is no longer whether it works but what it costs.</li>
+</ul>
+<p><strong>Transformers and the scaling hypothesis</strong></p>
+<ul>
+<li>One architecture (attention over sequences) plus the empirical finding that capability improves predictably with more data, parameters and compute.</li>
+<li><em>Genesis:</em> “Attention Is All You Need” (Vaswani et al., 2017); Sutton’s “The Bitter Lesson” (2019); scaling laws (Kaplan et al., 2020; Hoffmann et al.’s “Chinchilla”, 2022).</li>
+<li><em>Latest:</em> scaling has extended from training to inference (“reasoning” models that spend compute at test time), and the energy bill has followed. Global data-centre power demand is forecast to rise from 104GW in 2025 to 132GW in 2026, and to roughly 290GW by 2030, with generative AI the main driver.</li>
+</ul>
+<hr />
+<p><strong>II. Let physics compute</strong></p>
+<p><strong>Analog in-memory computing</strong></p>
+<ul>
+<li>Neural-network weights are stored as conductances in resistive memory (phase-change, RRAM, flash), so Ohm’s and Kirchhoff’s laws perform the matrix multiply where the data already sits. This removes the memory-to-processor shuttle that dominates energy cost in digital chips.</li>
+<li><em>Genesis:</em> Leon Chua’s memristor theory (1971); HP Labs’ physical memristor (2008); deeper lineage in pre-digital analog computers.</li>
+<li><em>Latest:</em> IBM’s 14nm phase-change inference chip packs 35M devices per chip, runs multi-chip, and reaches near-software accuracy (2026). SK hynix and TetraMem have shown a memristor-based AI system-on-chip. Noise and drift remain the core problem.</li>
+</ul>
+<p><strong>Photonic / optical computing</strong></p>
+<ul>
+<li>Light performs the linear algebra. Matrix operations produce near-zero heat at speed-of-light latency, but the approach is inherently analog and hard to integrate with electronics.</li>
+<li><em>Genesis:</em> optical computing research from the 1980s; Shen et al.’s coherent nanophotonic neural network (2017).</li>
+<li><em>Latest:</em> Neurophos closed a $110M Series A (Jan 2026) on metamaterial modulators. Q.ANT targeted first NPU Gen 2 shipments for H1 2026. SJTU/Tsinghua’s all-optical LightGen chip targets image generation. Photonics is winning first at the interconnect layer (Lightmatter Passage; Marvell’s acquisition of Celestial AI, Dec 2025), with photonic <em>compute</em> following.</li>
+</ul>
+<p><strong>Thermodynamic / probabilistic computing</strong></p>
+<ul>
+<li>Treats thermal noise as a resource rather than an enemy. Probabilistic bits sample directly from energy-based models, so generative AI-as-sampling becomes native physics.</li>
+<li><em>Genesis:</em> Boltzmann machines (Hinton &amp; Sejnowski, 1985); p-bits (Camsari, Datta et al., ~2017); the CCC “Thermodynamic Computing” workshop report (2019).</li>
+<li><em>Latest:</em> Extropic has X0 prototype silicon, an open-source library (THRML), a remote proto-cloud, and a production-scale chip (Z1) in development. It signed a $75M letter of intent with the US CHIPS R&amp;D Office (Jul 2026). A 2026 paper co-authored with MIT’s Isaac Chuang underpins its efficiency claims of up to 10,000× on certain workloads, not yet independently shown at scale. Normal Computing is the main competitor.</li>
+</ul>
+<p><strong>Reversible / adiabatic computing</strong></p>
+<ul>
+<li>Never erase information, and so avoid Landauer’s minimum heat cost per erased bit. Signal energy is recycled through on-chip resonators: “a pendulum, not a hammer.”</li>
+<li><em>Genesis:</em> Landauer’s principle (IBM, 1961); Bennett’s uncomputation (1973); MIT adiabatic chips under Tom Knight with Michael Frank (1990s).</li>
+<li><em>Latest:</em> Vaire Computing’s 22nm Ice River test chip used ~30% less energy than a conventional equivalent, and its resonator recovered more energy than it consumed. An AI-inference chip is targeted for 2027.</li>
+</ul>
+<p><strong>Quantum computing</strong></p>
+<ul>
+<li>Computes with superposition and entanglement. Not a general energy-efficiency play for AI, but a different complexity class for simulation, optimisation and some sampling problems.</li>
+<li><em>Genesis:</em> Feynman (1982); Deutsch (1985); Shor’s algorithm (1994).</li>
+<li><em>Latest:</em> the metric has shifted from physical to logical (error-corrected) qubits. Infleqtion entangled 30 logical qubits from 80 neutral atoms (Sep 2026). IBM and UChicago reported a 70-logical-qubit experiment (Jul 2026).</li>
+</ul>
+<p><strong>Physical reservoir computing</strong></p>
+<ul>
+<li>Any rich nonlinear dynamical system (water, spin waves, colloids, light) serves as a fixed “network,” and only a simple linear readout is trained. The most tiny-experiment-friendly paradigm on this list.</li>
+<li><em>Genesis:</em> Echo State Networks (Jaeger, 2001); Liquid State Machines (Maass, 2002); Fernando &amp; Sojakka’s “pattern recognition in a bucket” (2003).</li>
+<li><em>Latest:</em> reservoirs built from hundreds of coupled active colloidal oscillators (2026). Ensemble reservoir computing on spin-torque oscillators reached 99% on error detection (2026). RCbench offers a shared benchmarking framework for physical reservoirs.</li>
+</ul>
+<p><strong>Physical neural networks</strong></p>
+<ul>
+<li>Train arbitrary physical systems (mechanical, optical, electronic) as deep networks, using backprop through a digital twin (“physics-aware training”).</li>
+<li><em>Genesis:</em> Wright, McMahon et al., <em>Nature</em> (2022).</li>
+<li><em>Latest:</em> consolidating into a field, with recent work mapping training methods that avoid a digital twin altogether.</li>
+</ul>
+<p><strong>DNA / molecular computing</strong></p>
+<ul>
+<li>Computation by DNA strand-displacement reactions, offering enormous parallelism, tiny scale, and the possibility of computing inside the body.</li>
+<li><em>Genesis:</em> Adleman solved a Hamiltonian path problem in a test tube (1994).</li>
+<li><em>Latest:</em> KAIST built reset-free DNA circuits that integrate logic and memory in one molecular system, with components below 2nm (Apr 2026). Earlier work at SJTU produced programmable DNA gate arrays.</li>
+</ul>
+<hr />
+<p><strong>III. Brain-inspired silicon</strong></p>
+<p><strong>Neuromorphic / spiking computing</strong></p>
+<ul>
+<li>Event-driven “spiking” neurons with memory and compute co-located, so energy is spent only when something changes.</li>
+<li><em>Genesis:</em> Carver Mead at Caltech, late 1980s (<em>Analog VLSI and Neural Systems</em>, 1989); spiking networks as the “third generation” of neural nets (Maass, 1997).</li>
+<li><em>Latest:</em> Intel’s Hala Point (Loihi 2) remains the largest system, at 1.15B neurons on a 2.6kW maximum (2024). SpiNNaker2 will power the THOR open-access hub, and BrainChip hit a production milestone in June 2026. The market is still small (~$125M in chips forecast for 2026), and the software ecosystem is the bottleneck.</li>
+</ul>
+<p><strong>Hyperdimensional computing / vector-symbolic architectures</strong></p>
+<ul>
+<li>Compute with very high-dimensional random vectors, using binding and bundling operations. Robust to noise, cheap, and a natural fit for noisy analog or in-memory hardware.</li>
+<li><em>Genesis:</em> Plate’s holographic reduced representations (1995); Kanerva (2009).</li>
+<li><em>Latest:</em> in-memory implementations on phase-change hardware (IBM, early 2020s). Increasingly used as the “symbolic glue” in neuro-symbolic systems.</li>
+</ul>
+<hr />
+<p><strong>IV. Living substrates</strong></p>
+<p><strong>Synthetic biological intelligence (wetware)</strong></p>
+<ul>
+<li>Cultured human neurons on multi-electrode arrays, trained through closed-loop stimulation.</li>
+<li><em>Genesis:</em> Steve Potter’s cultured-neuron “animats” (early 2000s); Cortical Labs’ DishBrain learning Pong (2022).</li>
+<li><em>Latest:</em> Cortical Labs’ CL1 (~$35k) is commercially available, with a cloud platform and a public programming API. Its Melbourne biological data-centre prototype is operational, and a Singapore site is planned with DayOne (Apr 2026).</li>
+</ul>
+<p><strong>Organoid intelligence</strong></p>
+<ul>
+<li>3D brain organoids as bioprocessors.</li>
+<li><em>Genesis:</em> Smirnova, Hartung et al.’s manifesto in <em>Frontiers in Science</em> (2023).</li>
+<li><em>Latest:</em> FinalSpark rents remote access to its organoid Neuroplatform (around $500/month). Keeping organoids alive (~100 days) is the main constraint. Johns Hopkins continues an organoid-intelligence programme.</li>
+</ul>
+<p><strong>Basal cognition / diverse intelligence</strong></p>
+<ul>
+<li>Cells, tissues and brainless organisms as genuine problem-solvers, with bioelectric networks acting as the “cognitive glue” that scales cell goals into body goals. The closest scientific cousin of new materialism.</li>
+<li><em>Genesis:</em> Pamela Lyon coined “basal cognition” (2018); Levin &amp; Dennett, “Cognition all the way down” (2020); xenobots (Kriegman, Blackiston, Levin, Bongard, 2020).</li>
+<li><em>Latest:</em> Levin’s TAME framework and “cognitive light cone.” Anthrobots self-assemble from human tracheal cells and help repair neural tissue. Other work shows classical sorting algorithms displaying competencies nobody programmed.</li>
+</ul>
+<p><strong>Slime-mould and chemical computing</strong></p>
+<ul>
+<li><em>Physarum</em> solving mazes and designing efficient transport networks; reaction-diffusion and Belousov–Zhabotinsky computers.</li>
+<li><em>Genesis:</em> Nakagaki’s maze-solving slime mould (2000); Tero et al.‘s Tokyo rail network (2010); Adamatzky’s Unconventional Computing Lab.</li>
+<li><em>Latest:</em> mostly fungal and mycelial electronics as sensing and computing media.</li>
+</ul>
+<hr />
+<p><strong>V. Paradigms of intelligence</strong></p>
+<p><strong>World models / JEPA</strong></p>
+<ul>
+<li>Predict the future in an abstract representation space rather than generating every token or pixel. The aim is to learn cause and effect from video and interaction rather than text.</li>
+<li><em>Genesis:</em> Kenneth Craik’s mental models (<em>The Nature of Explanation</em>, 1943); Ha &amp; Schmidhuber’s “World Models” (2018); LeCun’s JEPA position paper (2022).</li>
+<li><em>Latest:</em> LeCun’s AMI Labs raised a $1.03B seed in March 2026. It is Paris-headquartered, has pledged open research, and its first project is a video world model. Fei-Fei Li’s World Labs is the other major bet.</li>
+</ul>
+<p><strong>Active inference / free-energy principle</strong></p>
+<ul>
+<li>Perception and action as one process, with an agent minimising surprise (variational free energy) about its world. Derived from physics and neuroscience rather than benchmarks.</li>
+<li><em>Genesis:</em> Karl Friston’s free-energy work (~2005–2010).</li>
+<li><em>Latest:</em> VERSES has commercialised active inference as Genius. This includes an AXIOM “digital brain” model, a robotics architecture that works without pre-training (2025), and enterprise licensing deals through 2026.</li>
+</ul>
+<p><strong>Liquid / continuous-time networks</strong></p>
+<ul>
+<li>Neurons as differential equations with adaptive time constants, inspired by <em>C. elegans</em>. Small, adaptive and efficient.</li>
+<li><em>Genesis:</em> Hasani et al.’s Liquid Time-Constant Networks (MIT CSAIL, 2020).</li>
+<li><em>Latest:</em> Liquid AI’s LFM2.5-2.6B (Aug 2026) runs agent workloads on a laptop CPU in under 2.5GB. The production LFM architecture is a hybrid descended from this line, not pure LTC.</li>
+</ul>
+<p><strong>Embodied cognition / morphological computation</strong></p>
+<ul>
+<li>The body and environment do part of the computing; intelligence is enacted, not just represented.</li>
+<li><em>Genesis:</em> Brooks, “Intelligence without representation” (1991); Varela, Thompson &amp; Rosch, <em>The Embodied Mind</em> (1991); Pfeifer &amp; Bongard, <em>How the Body Shapes the Way We Think</em> (2006).</li>
+<li><em>Latest:</em> soft robotics and “physical AI.” Robot foundation models are its industrial cousin, though much less embodied in spirit.</li>
+</ul>
+<p><strong>Mortal computation</strong></p>
+<ul>
+<li>Abandon the separation of hardware and software. Knowledge lives in the idiosyncratic analog substrate and dies with it, trading copyability (“immortality”) for huge energy savings.</li>
+<li><em>Genesis:</em> Hinton’s Forward-Forward paper (2022); Ororbia &amp; Friston’s “Mortal Computation” (2023).</li>
+<li><em>Latest:</em> a conceptual bridge between analog hardware, local learning rules and active inference, rather than a hardware programme.</li>
+</ul>
+<p><strong>Neural cellular automata / self-organising systems</strong></p>
+<ul>
+<li>Local learned update rules that grow and repair global form, treating morphogenesis as computation.</li>
+<li><em>Genesis:</em> von Neumann’s self-reproducing automata (1940s); Mordvintsev et al., “Growing Neural Cellular Automata” (<em>Distill</em>, 2020).</li>
+<li><em>Latest:</em> used for abstract reasoning tasks and as computational models of Levin-style morphogenesis.</li>
+</ul>
+<hr />
+<p><strong>VI. Speculative frontiers</strong></p>
+<p><strong>Superconducting / cryogenic logic</strong></p>
+<ul>
+<li>Circuits cooled to a few kelvin so that current flows with zero resistance, switching via quantum flux pulses rather than charged transistors. Very fast and very frugal per operation, but you have to pay for the fridge.</li>
+<li><em>Genesis:</em> Josephson’s prediction of the Josephson effect (1962); IBM’s Josephson computer programme (1970s–83); rapid single flux quantum logic (Likharev &amp; Semenov, 1991).</li>
+<li><em>Latest:</em> Snowcap Compute, backed by former Intel CEO Pat Gelsinger, claims 25× better performance per watt than today’s best chips even after cooling costs, using niobium titanium nitride. Its first basic chip is due by the end of 2026, with full systems later.</li>
+</ul>
+<p><strong>Spintronic and magnonic computing</strong></p>
+<ul>
+<li>Compute with the spin of electrons, or with spin waves (magnons) rippling through magnetic materials, instead of moving charge. Non-volatile, low-heat, and naturally wave-like and analog.</li>
+<li><em>Genesis:</em> giant magnetoresistance (Fert and Grünberg, independently, 1988); the field of magnonics in the 2000s.</li>
+<li><em>Latest:</em> spin-based memory (MRAM) is already commercial; spin logic remains mostly at lab stage. The most active frontier is spin waves and spin-torque oscillators as physical reservoirs (see section II).</li>
+</ul>
+<p><strong>Memcomputing</strong></p>
+<ul>
+<li>Computing <em>with</em> memory rather than merely in it: networks of elements that store and process information in the same place, evolving as a dynamical system that “falls” towards solutions of hard problems.</li>
+<li><em>Genesis:</em> Di Ventra and Pershin’s “The parallel approach” (<em>Nature Physics</em>, 2013); Traversa and Di Ventra’s universal memcomputing machines (2015).</li>
+<li><em>Latest:</em> mostly emulated on ordinary digital hardware for optimisation problems. Its claims of efficiency on very hard problems remain debated.</li>
+</ul>
+<p><strong>Whole-brain emulation</strong></p>
+<ul>
+<li>Scan a specific brain at synaptic resolution, reconstruct its wiring (the connectome), and run it on another substrate: copying a mind rather than training one.</li>
+<li><em>Genesis:</em> the <em>C. elegans</em> connectome (White et al., 1986); Sandberg and Bostrom’s <em>Whole Brain Emulation: A Roadmap</em> (2008); the complete adult fruit-fly connectome (2023–24).</li>
+<li><em>Latest:</em> Eon Systems connected the fly connectome to a physics-simulated body and showed walking, grooming and feeding driven by the emulated brain (Mar 2026). A full mouse connectome, roughly 500 times larger, is reckoned a decade or more away; human scale is further still.</li>
+</ul>
+<p><strong>Quantum theories of mind</strong></p>
+<ul>
+<li>The proposal that biological cognition depends on quantum processes, and so cannot be captured by any classical computer, digital or analog. If true, it would undercut most of this list.</li>
+<li><em>Genesis:</em> Penrose’s <em>The Emperor’s New Mind</em> (1989); Penrose and Hameroff’s Orchestrated Objective Reduction (Orch-OR) theory (mid-1990s).</li>
+<li><em>Latest:</em> still a minority and heavily contested position. Experimental work has focused on quantum effects in microtubules and on how anaesthetics act on them.</li>
+</ul>
+<p><strong>The physical limits of computation</strong></p>
+<ul>
+<li>Not a technology but a horizon: the ultimate bounds physics places on how much computation any piece of matter and energy can do. This is the frame that makes the energy argument rigorous.</li>
+<li><em>Genesis:</em> Bremermann’s limit (1962); Landauer’s principle (1961); Lloyd’s “Ultimate physical limits to computation” (<em>Nature</em>, 2000), with its 1kg, 1-litre “ultimate laptop.”</li>
+<li><em>Latest:</em> today’s chips still dissipate many orders of magnitude more energy per operation than Landauer’s floor. Meanwhile, the brain runs on roughly 20W. The gap between the two is the space every paradigm above is trying to occupy.</li>
+</ul>]]></description>
+      <pubDate>Sat, 03 Oct 2026 07:22:57 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>7er8mjr500qaphps21sjjshex5</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-10-03T07:22:57Z</blyg:created>
+      <blyg:item>https://kinocomputing.com/items/7er8mjr500qaphps21sjjshex5.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:124hvdrdak0jtpkknba81ycdwb:v1</guid>
+      <link>https://kinocomputing.com/patterns-that-matter</link>
+      <title>Patterns that matter The core claim of Michael Levin’s…</title>
+      <description><![CDATA[<p><strong>Patterns that matter</strong></p>
+<p>The core claim of <a href="https://mdpi.com/2409-9287/11/5/161">Michael Levin’s Ingressing Minds</a> paper: mind relates to body as math relates to physics. Just as primes and constants shape physical outcomes without <em>being</em> physical themselves, Levin says minds are the same kind of thing, just further along a spectrum of agency. To simplify for myself, I imagined this as two spaces.</p>
+<ul>
+<li>A pattern space containing everything from static truths through to behavioral policies</li>
+<li>A matter space housing nested physical systems, at scales from cell to organism to machine</li>
+</ul>
+<p>An un-intermediated, many-to-many coupling exists between the two spaces, up and down the scales, with no third thing in between.</p>
+<p>It’s a cute model, but much of the interestingness of the paper comes from Levin assigning <em>a higher weight of agency to the pattern side</em>. We are patterns incarnate. Our bodies are pointers. Matter constrains what comes through, but doesn’t make the content. We are patterns that matter.</p>
+<p>With my coarse comprehension of the paper and Levin’s stated stances, I pushed a bit further.</p>
+<p>I don’t like the concept of a division between pattern and matter space.</p>
+<p>Levin himself claims no magical line that sets where consciousness emerges, but still he keeps the divide between pattern space and matter space. So perhaps pattern space is closer to a continuous field or manifold, and a mind is a fracture into a discrete entity? Like taking water from a stream into a glass. A path-dependent and opportunistic happening. Levin’s own language half-supports this. Patterns can “pinch off” as individuals. A split embryo making normal twins suggests the number of minds isn’t fixed in advance.</p>
+<p>Going further, I started to wonder if the discreteness belongs to the observer, not the spaces themselves. Our ability as mattered patterns to look at other mattered patterns and draw boundaries may be nothing more than another feedback loop between pattern space and matter space itself. And, because of the nesting and the feedback and the immediacy of the intermediation between matter, pattern and patterns that matter, that boundarising is <em>consequential</em>.</p>]]></description>
+      <pubDate>Thu, 01 Oct 2026 06:48:40 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>124hvdrdak0jtpkknba81ycdwb</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-10-01T06:48:40Z</blyg:created>
+      <blyg:item>https://kinocomputing.com/items/124hvdrdak0jtpkknba81ycdwb.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:3pfdyzgym1hm9k15cdg9g25qpk:v1</guid>
+      <link>https://kinocomputing.com/resident-m</link>
+      <title>Resident M Everyone starts with the smell. Not the name. Not…</title>
+      <description><![CDATA[<p><strong>Resident M</strong></p>
+<p>Everyone starts with the smell.</p>
+<p>Not the name. Not the date. Not the man. Ask anyone who was in that room that day and they’ll go straight to the smell, as if it’s the only real thing they can remember.</p>
+<p>Grace Adeyemi remembered it again in a car park, with the engine buzzing and the windows up. Singed hair, she said. Then food waste, the kind left too long in a warm bin. Then meat, fatty and overcooked on a grill. Put those together, she said, and you have it. She looked at the HUD while she said it. She’d said it once before, to a panel of officials, in exactly those words, and those words went further than anything else she’d ever said. They ended an industry.</p>
+<p>The man in the chair was called Martin Lisle. For most of a year nobody knew that. The filings called him Resident M, and nobody came forward to claim the rest of the letters.</p>
+<hr />
+<p>You probably know about cloud compute. Or you know it the way you know about coal or petroleum: as something the old world ran on. In the same way that a processor was a local instrument for computation, the cloud was a global one. The pitch was simple: replace messy, awkward hardware and its army of arcane protocols and quasi priests with far fewer protocols and professional, atheist technicians. Your systems moved to the ether. You passed your jobs up to the sky with systematic prayers, and when you needed an answer, you called it back down.</p>
+<p>Care compute worked the same way. Except instead of hiding hardware somewhere out of sight, it ran on the most efficient computers we have existence proof of: human minds.</p>
+<p>It didn’t always work, though. A sleeping mind is too wild; it goes places you can’t route. A working mind is already rented out, to a job, a family, a feed, a life. What the market wanted was something narrower: a mind that was sharp, bored, and cheap. You’d think that would be a rarity. It wasn’t. It exists in day rooms, between lunch and the evening news, in homes that smell of disinfectant and boiled vegetables and the faint sweetness of the very old. And by then there were more of those homes than ever.</p>
+<p>Follow the money, because the money explains what the people won’t. Care was always underfunded. Everyone agreed on that and nobody agreed on who should pay for it. Into the gap walked the brokers. Soft-spoken, well-dressed, with names that sounded like spa treatments. The contracts I’ve read are gentle enough to sleep on. Residents <em>may elect to participate in restful focus sessions.</em> The headset is <em>a light wearable</em>. The pool their minds fed into, sold by the second to customers who never knew or asked what was underneath, appears nowhere in the paperwork at all.</p>
+<p>The resident got a little money and a quiet room. The home got a handout and some subsidised services. The broker then sold the pooled capacity upward to resellers, who sold it upward again, layer on layer, until it reached a customer as a number and a speed. Every layer was clean. At the bottom of the stack slouched a pensioner in a headset, breathing slowly, eyes half closed, earning their keep with their thought, as progress intended.</p>
+<p>It started in Britain, where the gap was widest, and spread to America, where the debt went deepest. Then it escaped the Anglosphere. By the time Martin Lisle arrived, everyone in the trade knew. Nobody in the trade said.</p>
+<p>You have to remember what those years were like, or rather what they were running out of. A whole run of generations had declined to have children. Not in protest, or as a movement. Just one private decision after another, made in small flats on tight money, until the sum was a state about to break. Too many old, too few young. Every forecast said the same thing: nobody left to pay for the care, and nobody left to give it.</p>
+<p>The brokers arrived holding the one thing nobody else had: a way to make the old pay for themselves. Not with savings, since most had none, and not with family, since most had no family to speak of. With the only thing they had left in surplus. Time. Quiet. A mind with nothing to do.</p>
+<p>That’s why it was tolerated. Not secret, exactly. Tolerated. Officials who would never have announced it in public were glad of the numbers it made in private. Columnists who flinched at it once wrote about it twice as apologists for a pragmatic answer to an impossible sum. The childless had become a crisis, and here was someone turning the crisis into a resource. It was hard to find anyone with the nerve to say no, and harder still to find anyone who’d offer an alternative.</p>
+<p>The old sat in their quiet rooms in their headsets, and state treasuries, for a little while, stopped screaming.</p>
+<hr />
+<p>What was it like? That’s the question the hearings never asked, because nobody in them had sat in the chair.</p>
+<p>Irene Walsh had. She did sessions for three years at a home on the south coast of the UK and then, alone among the residents I found, she stopped. She’s very old now, tiny in a big armchair, her hands folded like something put away for winter. She thought about my question for so long I thought she’d fallen asleep in the afternoon sun.</p>
+<p>It started, she said, like the old prayers. The headset settled, and a warmth came up the back of the neck, and the room went away. Not dark. Just unimportant. The noise of the home, the trolleys and the television and somebody calling for a nurse down the corridor, thinned to nothing, and your attention drew in on itself until it was a single point, bright and steady. People who’d spent their lives chasing that stillness on cushions in cold halls would have wept to reach it in a minute. Here it came in a minute, every time.</p>
+<p>Then the work started, and that was the strange part. It felt like thinking. Real thinking, hard thinking, the kind you do at a desk against a deadline with your jaw clenched. You pushed at something and it pushed back. You turned it over, you held it, you strained toward it. But you never saw what it was. No question, no numbers, no shape. Just the effort, pure, like lifting a weight in the dark without ever knowing what you’d lifted. And the pleasure didn’t come when you solved it, because you never solved it, not in any way you could feel. It came from the straining itself. Every push was rewarded, instantly, somewhere deep behind the eyes.</p>
+<p>Irene put it more simply. “It was like doing calculations for God,” she said. “Every one made Him smile. But you never got to see the final answer.”</p>
+<p>Then the session ended, and the warmth went out of the neck, and the room came back, too loud and too bright and smelling of bland lunch. For the rest of the day, she said, everything felt like it was happening behind tinted glass. Residents counted the hours to the next session. Some asked for more. Some cried when they were refused. The brokers wrote that down as enthusiasm. It went into the brochures as <em>high participant satisfaction</em>.</p>
+<p>Irene stopped because one afternoon, coming out of it, she couldn’t remember her late husband’s face, and it took her two days to get it back. “I’d have done anything to go back in,” she said. “That’s why I stopped.”</p>
+<hr />
+<p>Of Martin before Ivy Court almost nothing survives. No family he’d speak of. No children. No parents on any record I could find, and I looked for years. He was, in that sense, perfectly ordinary for his cohort. The home was full of people like him. People with no one to visit, no one to call, and no one to ask what they were doing in that room three days a week.</p>
+<p>He arrived with one suitcase. The staff remember the clothes first: good suits, beautifully cut, two generations out of date and worn so thin the elbows shone. They remember his skin, dry and fine as old paper, the kind you’re afraid to touch in case it tears. They remember he couldn’t stand still. Made to wait, he’d purse his lips, shift his weight from one foot to the other, and wring his hands until the knuckles whitened. Loud, pointless noise hurt him; a dropped tray could make him flinch like a struck dog. And they remember that when he did something ordinary, like pouring tea, folding a paper or doing up a cuff, he did it so exactly it was uncomfortable to watch. As if he’d long ago worked out the shortest path through every small task and couldn’t see why anyone would take another.</p>
+<p>Maths wasn’t his love. It wasn’t his interest or his joy. It was his compulsion. It had soaked so far into him that it came out in his body.</p>
+<p>His suitcase held notebooks, dozens of them, crammed with notation in a hand so small it looked like spider thread. A young aide called Callum Price once asked him what it all was. Maths, Martin said. What kind, Callum asked. Martin looked at him for a long time. “The kind that has no one left to talk to.”</p>
+<p>It was the longest sentence Callum ever heard him say.</p>
+<p>There’s a type. The mathematicians who walk away, turn down the prizes, stop answering letters, and disappear into a village or a forest or a flat with the curtains drawn. We make myths of them because we can’t stand the idea that anyone would choose silence over being known. Martin may have been one. He may have been someone who never got near enough to being known to refuse it. I don’t know. Nobody does. That blank is part of what was done to him.</p>
+<p>He was, in the brokers’ language, an ideal participant. Too ideal. He signed the consent form in his second week without reading it, or after reading it very fast.</p>
+<p>His days never changed. Coffee and a cigarette for breakfast, the smoke hanging in the cold air by the back door. A slow walk round the garden on Callum’s arm, always clockwise. Then into the neuro room, a converted storeroom with a reclining chair whose vinyl had cracked and been taped, a cheap clock and a hum from the vents that nobody ever fixed. Monday, Wednesday, Friday. Late morning to mid-afternoon.</p>
+<hr />
+<p>Know how every time a new model drops, everyone runs their own benchmarks? Some throw the same work job at it. Some reuse the prompts they’ve been using for years. Others go looking for the overhang between this generation and the last: one-shotting what used to take ten tries, arbitraging a window before anyone notices, occasionally triggering an alignment incident.</p>
+<p>Now imagine that same flurry, except every hundredth instance of a benchmark run, the answer comes back generations ahead of where it should be. Like you’ve been handed an alpha you were never meant to see. You’d notice it because you’d lose it as easily as you got it.</p>
+<p>That was what happened in the pool whenever Martin came online.</p>
+<p>The care compute system was built on the idea that minds were interchangeable. Jobs got cut into small pieces and spread thin, so no one resident carried too much. But when Martin’s slice came back faster and cleaner than anyone’s, the routing gave him more. He returned that faster too, so it gave him more again. For a few hours, three days a week, the hardest work in the pool ran downhill towards one old man in a storeroom, and he took all of it, and by every account he loved it. But not the way the others did. Everyone else in the pool strained at nothing and was paid for straining. Martin, as far as anyone can tell, was the only one who could feel the edges of what he was lifting. Callum said he came out of those sessions looking the way other residents looked after their grandchildren had visited: flushed, loose, aglow from within.</p>
+<p>The brokers’ engineers saw the spike on their dashboards and did nothing. A mind was a unit. Units have variance. They knew what clever outliers looked like and how they behaved, and Martin was not that. He was off the scale on some other axis, one nobody has managed to name since. Maybe it was simply this: not that he was cleverer, but that where the rest of them were praying, he was listening for a reply.</p>
+<hr />
+<p>Theo Varga agreed to talk to me as long as I printed what he said and not what I thought of him. A man of his stature is rarely afforded that privilege, so I’ve kept half that promise.</p>
+<p>He worked at one of the big labs. He was competent, connected. Not a rockstar, as he’d himself admit. Like thousands of others, he kept a private harness that ran the moment a new model shipped, and his favourite test was a recursion: rerun the whole family tree of machine intelligence, from the clumsy early nets of the 1950s through to now, and see how far the new model could push the lineage on its own.</p>
+<p>Some of his reruns came back an order of magnitude better than they should have. Once is luck, he told me. Twice is coincidence. Three times is enemy action. Or opportunity.</p>
+<p>He handed it to an automated investigation that spent the night proposing causes and striking them off, and by morning it had struck off everything. Nothing about the runs themselves mattered. He read its report, he said, the way you check something too clean. It had never asked <em>when</em>.</p>
+<p>So he sorted by time. Monday, Wednesday, Friday. Late morning to mid-afternoon. He moved his jobs across regions and providers, and the pattern moved with them, always keeping to one timezone. He called it a comb.</p>
+<p>He had a care home’s timetable in front of him and he filed it under infrastructure. Spare capacity, a batch job draining somewhere, off-peak. “Infrastructure has rhythms,” he told me. Then, after a pause long enough that I marked it in the transcript: “I found it reassuring.”</p>
+<p>When the next generation shipped, he timed his rerun to reach the contemporary frontier just as the window opened. He sat and watched it. He’d meant to catch up on reading and answer messages, but his attention drained off everything else, like water finding the lowest point, until the numbers were the only thing in the room. Then the benchmarks started to fall. All of them. “I was watching history,” he said. “No, I <em>was</em> history.” He said it without irony. Then he heard himself and looked away.</p>
+<p>Two hours in, the rate began to flatten, and he did what, he insists, anyone would have done with the best number of their life on the screen. He fed it more. Priority, overrides, every bit of budget the harness would give him and his personal resources could bear. A warning came back once from somewhere downstream. He read it as a throttle and routed around it. <em>Not now</em>, he remembers thinking. <em>Not now.</em></p>
+<p>At 15:47 the run stopped dead, like it had hit a wall.</p>
+<p>He sat frozen for a few minutes. Then he checked four times that he’d captured the result and copied it to every system he could reach. He didn’t look at how it worked. He didn’t need to. He knew all the benchmarks had fallen, and he knew he was the only person alive who knew it. “I didn’t sleep,” he said. “I took five minutes. Five fucking minutes. Then I got to work.”</p>
+<hr />
+<p>The broker’s log from that Wednesday reads, for its first two hours, like any other session: task assignments, load, pulse, the dull bookkeeping of a mind at work. Then it changes. A confidence value that should never pass one climbs past it and keeps climbing. A speed figure is written twice, as if the machine couldn’t believe its own measurement. And in a free-text field for operator notes, which no operator ever used, three words sit timestamped at 15:46. Nobody has explained how they got there.</p>
+<p><em>more, more, yes</em></p>
+<p>Irene read those three words in the papers, like everyone else. She told me she knew exactly what they meant. She said she’d felt them herself, every session, and never once had the courage, or the capacity, to type them.</p>
+<p>At 15:47 the harness gave way. The load it had been fed by a man hundreds of miles off, who had routed around a warning because the numbers were beautiful, went past anything the device was built to carry, and the heat had nowhere to go. It went into the filaments, into the scalp beneath them, and into what lay beneath that.</p>
+<p>Grace was first through the door. The air was thick and greasy and hot, and it caught in her throat. The strip light buzzed. The clock kept ticking. Martin was upright in the taped chair with his hands, for once, completely still in his lap. She tried to pull the harness off and it wouldn’t come; it had fused into him, filament and skin become one. She said it would have been easier to pull a beating heart out through the ribs. She retched. Her colleague screamed. They ran. Someone slapped the alarm, and the building sealed itself for most of an hour, and then, because it was a care home and not a prison, the doors opened and people went home to their families and talked.</p>
+<p>Deaths in care homes are ordinary. People go peacefully in the night, or badly, of hearts and sugars and falls that turn into something else in hospital. There’s a whole vocabulary of acceptable endings. Being burned alive in a chair on a Wednesday afternoon is not in it.</p>
+<p>He had no next of kin, so nobody asked to see the body, which spared everyone a difficult conversation. The authorities cremated him at public expense: no service, no mourners, ashes scattered on a municipal lawn in no marked place. I went there on a Wednesday. The grass was cut short and smelled of rain. There was nothing to find.</p>
+<p>The broker put out a statement that regretted an <em>isolated adverse event during a voluntary wellbeing session</em> and sent its sympathies to a family it had made no effort to trace. The word <em>harness</em> didn’t appear. Sessions were paused. Ivy Court let its contract lapse. The notebooks went into a skip behind the kitchens, among the eggshells and tea bags. Callum climbed in and pulled out two before the lorry came. They’re the only ones left. I’ve held them. They smell faintly of smoke. I can’t read a line.</p>
+<hr />
+<p>The investigator was Dev Chaudhry. He’d spent weeks inside the routing logs trying to understand why one resident, in one home, had been carrying a share of the pool no single mind should carry. He was lying awake one night, reading about Theo Varga’s new company like everyone else was, astonished like everyone else was, when the dates began to line up behind his eyes.</p>
+<p>The next morning he found the timestamp for when Theo’s run had stalled and been frozen. He won’t tell me how. It was 15:47. He didn’t need the incident report to know that was the minute of the alarm. He checked anyway.</p>
+<p>Then he did the sums nobody else had bothered with. How fast could money gather? How fast could hardware be found to run the thing? How fast could someone go from nothing to a launch? It was all just about possible in the weeks between Martin’s death and Theo’s announcement, but only if you’d started the morning after.</p>
+<p>He brought it to me because he knew, correctly, that his own people would bury it. We published within the year. Grace’s sentence was the headline.</p>
+<hr />
+<p>What came after, you know. Hearings. Executives who’d never heard Martin’s name swearing they had always put welfare first. Ministers who had quietly counted on the revenue discovering they had always had doubts. Laws passed with majorities so large they were almost embarrassing, and within a few years there was nowhere on earth you could legally rent the mind of someone in care. The industry was finished.</p>
+<p>It would have died anyway. That’s the part the hearings skipped. What Theo built from that Wednesday was so efficient that no human substrate could compete. The thing Martin helped make had made him obsolete before anyone got round to making him illegal.</p>
+<p>And we kept it.</p>
+<p>Why? This is the question nobody wants asked because the answer is terrible: <em>how could we not?</em> Almost everything built since descends from what came out of that man’s crisped grey matter: the machines that read your medical scans, move your goods, write your letters and answer your children’s questions. We banned the method. We didn’t give back what it taught us. We never do.</p>
+<p>We’ve been here before, with the vaccines tested on orphans, the drugs trialled on prisoners, the anatomy learned from the bodies of the hanged, and the long quiet ledger of animals in cages under white light and sharp blades. The benefit is real. The method is unforgivable. And we have always found a way to live comfortably between those two facts. We outlaw the practice and keep the proceeds.</p>
+<p>Martin Lisle is in that ledger now. He may be the only entry who asked for it to never stop.</p>
+<hr />
+<p>I went back to Ivy Court before it was sold. The storeroom was a storeroom again, stacked with incontinence pads and folding chairs. The vents still hummed. In the garden there’s a path residents walk clockwise, because that’s the way the paving slopes. Callum walked it with me. Halfway round he stopped and said, without being asked, that Martin always seemed to be listening to something the rest of us couldn’t hear. And that on his last morning, stubbing out his cigarette by the back door, he’d smiled at it.</p>
+<hr />
+<p>The last time I saw Theo Varga, it was on his own ground.</p>
+<p>You’ll have seen the pictures. Meridian’s campus sits on a hill where there used to be nothing. It’s all glass and planted terraces, trees growing indoors under a roof you can’t see. The air is filtered and faintly scented with cedar or something invented to smell like cedar. It is very quiet. Quiet costs a great deal at that scale, and he has bought all of it.</p>
+<p>He came to meet me barefoot on warm stone, younger-looking than his age, rested in the way only the truly rich are rested. He shook my hand with both of his. He had read my work, he said, admired it, thought it was important, and he said all three before I had sat down.</p>
+<p>When I asked about Martin Lisle, he didn’t hesitate. He thinks about him every day, he told me. Martin was the most important person in the history of the species. Not one of, he said, leaning on the word. <em>The</em>. Everything Meridian had done, everything anyone had done since, started with him. You walked past his name on the way in, he reminded me. I had. The main building is called the Lisle Hall. Nobody was asked or informed about that.</p>
+<p>Had he known there was a person on the other end? No. Few knew. That was the point, he said, the whole horror of it: the system had been built so that only a few could know. He’d said it in every hearing. It wasn’t a man who failed, it was an architecture. And they had fixed the architecture. Nobody would ever have to sit in that chair again. He said this as though the chair had been someone else’s idea.</p>
+<p>I reminded him of the warning he had routed around. He corrected me gently. It had looked like a throttle, and routing around throttles was the job. Every engineer alive would have done the same, he said, and anyone who told me otherwise had never stood that close to something that big.</p>
+<p>I asked whether he would do it again, and he smiled at me patiently, as if I’d asked something slightly beneath us both. Wrong question, he said. The right question was how many people were alive now because of that afternoon. Diseases nobody gets any more. Children who… he let it trail off; a number too large to be worth finishing. Martin had saved more lives than any doctor who ever lived. He just hadn’t got a vote. None of the great ones ever did.</p>
+<p>Only when I asked about the backup did anything move under the surface. It was safe, he said. Had he opened it? There was a pause, the first of the afternoon. Some things you don’t open.</p>
+<p>And the Wednesdays? He laughed at that, loud and easy, a laugh that has been in a great many rooms. It’s one of seven days. What am I supposed to do?</p>
+<p>He walked me out himself, talking the whole way about what came next: more, bigger, faster, further, a future he drew in the air with his hands, which never stopped moving.</p>
+<p>We met on a Wednesday. It was late morning. At the glass doors he glanced at the time, and I watched him do something I don’t think he knew he was doing. He pursed his lips. He shifted his weight from one bare foot to the other. His hands found each other and began, very gently, to wring.</p>
+<p>Then his people came for him, and he was gone into all that quiet.</p>
+<p>Every time you ask a machine a question now, you’re sending up a prayer. For a few hours on a Wednesday, somewhere in the English countryside, a man answered. The one who asked is still waiting for him to come back online.</p>]]></description>
+      <pubDate>Sat, 26 Sep 2026 12:13:19 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>3pfdyzgym1hm9k15cdg9g25qpk</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-09-26T12:13:19Z</blyg:created>
+      <blyg:item>https://kinocomputing.com/items/3pfdyzgym1hm9k15cdg9g25qpk.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:0948srtzkp0b6pk4w4281z5bj0:v1</guid>
+      <link>https://kinocomputing.com/the-nwp-horseshoe</link>
+      <title>The NWP horseshoe Numerical weather prediction’s (NWP) base…</title>
+      <description><![CDATA[<p><strong>The NWP horseshoe</strong></p>
+<p>Numerical weather prediction’s (<a href="https://en.wikipedia.org/wiki/Numerical_weather_prediction">NWP</a>) base paradigm is simple: weather is math, and math is <a href="https://en.wikipedia.org/wiki/P_versus_NP_problem">sufficiently solvable</a>. Just model phenomena on a grid using quantitative methods such as fluid mechanics and thermodynamics, then step forward in time from observed state. This observe-model-predict chain is the operative paradigm that powers everything else.</p>
+<p>The use of the term “paradigm” is deliberate here. It comes from the systems thinking of Donella Meadows, which, funnily enough, built off the back of the seminal <a href="https://en.wikipedia.org/wiki/The_Limits_to_Growth"><em>The Limits to Growth</em></a> text, which itself asserted that a finite system cannot grow infinitely. A paradigm is the point of a system with <a href="https://donellameadows.org/archives/leverage-points-places-to-intervene-in-a-system">the most leverage</a>; the joint which everything else about the system turns on.</p>
+<p>Atop the <em>weather = math</em> paradigm, a few different approaches have emerged, mostly combining traditional physics with modern computational methods. The UK’s Met Office recently dropped a useful taxonomy that shows <a href="https://metoffice.gov.uk/blog/2025/what-does-a-blend-of-ai-and-physics-mean-for-weather-and-climate-modelling">five ways these combine</a> to create NWP systems.</p>
+<ul>
+<li><strong>Independent-Physics-Based</strong>. Solve the governing equations directly on a grid, with no learned components anywhere.</li>
+<li><strong>Hybrid-Integrated-Machine-Learning</strong>. A trained model replaces or enhances one physics component from inside the dynamical model itself.</li>
+<li><strong>Hybrid-Composite-ML</strong>. Physics-based and ML-based models run separately and exchange state, typically a higher resolution regional model taking boundary conditions from a global one.</li>
+<li><strong>Augmented-ML</strong>. The underlying physics forecast runs untouched, and a separate learned model corrects or sharpens the output afterward.</li>
+<li><strong>Independent-ML-Based</strong>. A trained model maps the current atmospheric state directly to a future state, with no physics equations run at inference at all.</li>
+</ul>
+<p>The issue is that each of the Met Office’s penta-taxonomy kick in <em>after</em> forecasting went mechanistic. We can bolt two more paradigms onto the bottom.</p>
+<ul>
+<li><strong>Individual-Embodied</strong>. A single trained observer synthesises experienced meteorological phenomena  with hard-won expertise to make decisions, with minimal equations or datasets involved.</li>
+<li><strong>Collective-Semi-Embodied</strong>. Community-level weather wisdom, refined across generations into memorable, transmissible rules is passed down via professions and communities of practice.</li>
+</ul>
+<p>The interesting thing is that the <em>Individual-Embodied</em> brain and the <em>Independent-ML-Based</em> machine are doing the same thing: storing <a href="https://commoncog.com/the-tacit-knowledge-series/">deep tacit knowledge</a> somewhere uninspectable. Physics, on the other hand, sits out in the open, with legible, inspectable causality. Which means that the paradigms don’t form a line. They form a horseshoe.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Horseshoe_theory">horseshoe theory</a> of political science is typically credited to Jean-Pierre Faye. He noticed that Weimar-era communists and Nazis, supposed ideological opposites, were both working to torch the centrist factions. Faye’s claim is that when one bends the spectrum, the extremes end up closer to each other than to the middle. It’s a disputed theory but it does have a ring of truth in certain scenarios. Like NWP.</p>
+<p>Both ends of the NWP horseshoe store knowledge as patterns. Patterns only cover what’s already been seen. The result is that physics tends to outperform ML when weather conditions are <a href="https://www.science.org/doi/10.1126/sciadv.aec1433">complex and/or historically unprecedented</a>. Physics, sitting in the middle, doesn’t need precedent. It computes forward from observed state regardless of whether anything like <em>this</em> has happened before.</p>
+<p>Physics matters most within complex, unprecedented, extreme situations. By definition, these events cannot be pattern-matched by humans or machines. But, unfortunately, we’re going to see more and more complex, unprecedented, extreme situations than ever. So, based on the horseshoe, it is not necessarily human expertise or ML that we need to figure out how to aggressively scale, but physics models.</p>
+<p>The issue is that physics is horrifically costly at increasing scales. Halving grid spacing doubles resolution in each of three spatial dimensions, and the <a href="https://en.wikipedia.org/wiki/Courant%E2%80%93Friedrichs%E2%80%93Lewy_condition">CFL stability condition</a> forces a smaller time-step, leading to about 16x more compute for one doubling of resolution.</p>
+<p>Push from today’s ~10km global models toward 1km, storm-resolving forecasts, and the naive multiplier runs to something like <em>ten thousand times more compute</em>. And it gets way worse as the resolution increases.</p>
+<p>I am wondering: can we change that?</p>]]></description>
+      <pubDate>Sat, 12 Sep 2026 21:43:36 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>0948srtzkp0b6pk4w4281z5bj0</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-09-12T21:43:36Z</blyg:created>
+      <blyg:item>https://kinocomputing.com/items/0948srtzkp0b6pk4w4281z5bj0.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:54ycqv6z1fp4f387hgsm39cfjw:v1</guid>
+      <link>https://kinocomputing.com/ais-heretical-question</link>
+      <title>AI’s heretical question Cryptocurrencies go back to the…</title>
+      <description><![CDATA[<p><strong>AI’s heretical question</strong></p>
+<p>Cryptocurrencies go back to the digital-gold, <a href="https://en.wikipedia.org/wiki/The_Sovereign_Individual">sovereign-individual</a> era of the nineties. People like <a href="https://en.wikipedia.org/wiki/Nick_Szabo">Nick Szabo</a> and subcultures like the <a href="https://en.wikipedia.org/wiki/Cypherpunk">cypherpunks</a> asked a simple, heretical question: “What actually is <em>money</em>, and why can’t it be <em>this</em>?” That question didn’t <em>need</em> <a href="https://en.wikipedia.org/wiki/2008_financial_crisis">2008</a> to exist. There was already a minority coalescing around it. But the financial crash of 2008 made it a mainstream concern.</p>
+<p>The events of 2008 provided the <a href="https://www.investopedia.com/terms/g/genesis-block.asp">counter-positioning of Bitcoin</a> and empowered Ethereum, <a href="https://ethereum.org/">the extensible world computer</a>. The heretical question plus the crisis event generated swarms of missionaries and mercenaries, coupling the dynamics of <a href="https://en.wikipedia.org/wiki/Legality_of_cryptocurrency_by_country_or_territory">unregulated finance</a> with the rollout of novel, <a href="https://en.wikipedia.org/wiki/Blockchain">globally distributed cryptographic infrastructure</a>.</p>
+<p>The same pattern is playing out in computing and intelligence right now.</p>
+<p>The capital behind AI isn’t cute SaaS cheques. It’s government-balance-sheet money. Trillions are on the line. And for good reason; the capabilities (realised and latent) are astounding. So states are starting to treat compute the way they used to treat oil: a strategic asset to subsidise, hoard, and secure the supply chains for. Their defence budgets are really a bet on autonomous systems. Autonomous systems are themselves a bet on AI. And AI, right now, runs on exactly <em>one</em> computing paradigm. A <a href="https://steveblank.com/secret-history/">foundation from the fifties</a>.</p>
+<p>That paradigm is young. Silicon, transistors, the von Neumann architecture; the whole engineered stack is eighty-ish years old. It is not physical law.</p>
+<p>Young means revisable. Open to change. Quantum, analog, thermodynamic, biophysical; these alternative paradigms aren’t sci-fi, or cope. They have heritage. They’re <a href="https://worldmachines.org/evolution/">evolutionary branches</a> that got KO’d early and are now being reevaluated because the stakes are <em>colossal</em>.</p>
+<p>Whether <a href="https://lilianweng.github.io/posts/2026-06-24-scaling-laws/">scaling</a> does in fact hit a wall or not is irrelevant. This much money and this much power riding on one bet practically guarantees that someone, somewhere, will go back and double-check the foundations, and discover alternatives with surer routes to victory. Which is what this is ultimately about. <em>Victory</em>.</p>
+<p>Cryptocurrencies blew up because an explosive, heretical question boomed off the back of world economic pressure.  Entire non-Von-Neumann computing and intelligence stacks, from base hardware to edge applications, are under arguably greater pressure today. But unlike crypto, which didn’t manage to unseat the Goliath of fiat with a parallel buildout, alternative computing and intelligence paradigms might have the power to catalyse a straight and irreversible cutover.</p>]]></description>
+      <pubDate>Sat, 05 Sep 2026 19:09:25 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>54ycqv6z1fp4f387hgsm39cfjw</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-09-05T19:09:25Z</blyg:created>
+      <blyg:item>https://kinocomputing.com/items/54ycqv6z1fp4f387hgsm39cfjw.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:2nkfm46thtyhgyjdb328k672b9:v1</guid>
+      <link>https://kinocomputing.com/simplistic-thermodynamic-computing</link>
+      <title>Simplistic thermodynamic computing Since I’m intending to do…</title>
+      <description><![CDATA[<p><strong>Simplistic thermodynamic computing</strong></p>
+<p>Since I’m intending to do an experiment involving <a href="http://extropic.ai/writing/thermodynamic-computing-from-zero-to-one">thermodynamic computing</a>, I thought it sensible to simplistically summarise the paradigm itself. Here’s the compressed version: <em>thermodynamic computing uses thermal noise to drive computation instead of spending resource to fight it, mitigating energy cost as a bottleneck for certain classes of computation at civilisation scale.</em></p>
+<p>Contrast this with the <a href="https://en.wikipedia.org/wiki/Von_Neumann_architecture">discrete computing paradigm</a>; exquisitely engineered integrated circuits are forced with energy to deterministically generate 0s and 1s. These are <a href="https://en.wikipedia.org/wiki/Solution_stack">stacked</a> horizontally and vertically into abstractions that eventually result in things like words on a glass pane. This is done with great predictability and <a href="https://www.apple.com/uk/newsroom/2026/08/apple-introduces-m6-and-m5-ultra-for-a-big-leap-in-performance-and-ai-compute/">precision</a>, yielding a wondrous level of computational generality. But it isn’t perfect.</p>
+<p>Consider two naturally occurring phenomena we desperately try to replicate with 0s and 1s: randomness and intelligence.</p>
+<p>There are entire domains devoted to generating <a href="https://en.wikipedia.org/wiki/Randomness">randomness</a> that has parity with what we see in the physical world. But we still can’t match it. The best we can do is harvest physical entropy via <a href="https://en.wikipedia.org/wiki/Lavarand">lava lamps on a wall</a> and feed their activity into a digital system as a seed. It doesn’t matter how sophisticated the <a href="https://www.amazon.co.uk/Randomized-Algorithms-Rajeev-Motwani-ebook/dp/B00AKE1PP0">algorithms</a> or techniques are; we’re trying to manipulate a discrete computing paradigm to emulate a continuous phenomenon. It can be done to an acceptable degree for many cases, but it is not perfect and it comes at a high cost.</p>
+<p>Intelligence is similar, just at a much larger scale. Like randomness, it may be a fundamentally probabilistic, continuous phenomenon that we’re forcing a discrete substrate to approximate. Consider that a handful of companies are betting a large slice of civilisation on the ability to create general intelligence. It’s taking a huge portion of the world’s capital, an army of the world’s smartest people, massive physical resource pools, and vast amounts of energy. Yet depending on who you talk to and believe, we’re either never going to get to general intelligence or are several years off, even if we continue to sink resource into scaling.</p>
+<p>Ultimately, turning noise into information is hard. Discrete computing did it by answering narrower, more tractable questions first.</p>
+<ul>
+<li>Can we compel current into clean logic gates? Yes.</li>
+<li>Can we chain those gates to perform Boolean algebra? Yes.</li>
+<li>Can we chain Boolean operations into instruction sets, and instruction sets into machine code? Yes.</li>
+<li>Can we encapsulate machine code into low-level languages, and compile those into the generic, general-purpose computing we use every day? Yes.</li>
+</ul>
+<p>Other niche computing paradigms have tried to approximate randomness and intelligence via various means, but it hasn’t panned out. Quantum is too expensive and fragile; analog is too narrow and limited. The issue is what’s sometimes called the <a href="https://youtube.com/watch?is=1LUIUMF2j-nYqBEe&amp;v=HR-_U0Pzl1Y">“demon tax”</a>: making noise usable as information has a cost, and most computing paradigms can’t afford the price that comes with the scale needed for the advanced phenomena they’re trying to achieve.</p>
+<p>Every step in that capability ladder is a deliberate act of suppression; each layer exists to force the messy, continuous physical reality of electrons in silicon into a small number of clean, discrete, repeatable states. It works, extraordinarily well. But it means the entire stack must spend energy at every layer to keep the noise out.</p>
+<p>Until now. Thermodynamic computing removes the suppression tax throughout the stack, because the stack itself runs on naturally occurring noise.</p>
+<p>Think of a container with a ball in it, bouncing around freely and unpredictably. Discrete computing laboriously reshapes the container so the ball’s free movement is cancelled out. It gets pinned in place, forced to sit still and mean one fixed thing. Thermodynamic computing takes the opposite approach: leave the ball free, and set a rule that fires a computation whenever the ball happens to be on the left side of the container due to its own natural movement.</p>
+<p>A stopped clock needs no batteries to be right twice a day. Reality keeps moving and eventually enforces the clock’s correctness. Simplistically, thermodynamic computing uses that same free motion to yield 0s and 1s. Which means that what is prohibitively expensive today could soon be orders of magnitude cheaper.</p>]]></description>
+      <pubDate>Sat, 29 Aug 2026 14:11:21 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>2nkfm46thtyhgyjdb328k672b9</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-08-29T14:11:21Z</blyg:created>
+      <blyg:item>https://kinocomputing.com/items/2nkfm46thtyhgyjdb328k672b9.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:0gk0bcqryvp9166wq8qkyc46cc:v1</guid>
+      <link>https://kinocomputing.com/brandian-returns</link>
+      <title>Brandian returns A few months back I read Stewart Brand’s…</title>
+      <description><![CDATA[<p><strong>Brandian returns</strong></p>
+<p>A few months back I read Stewart Brand’s <em>Maintenance: Of Everything</em>. It led to a <a href="https://protocolized.summerofprotocols.com/p/maintaining-everything-that-matters">fun conversation</a> with <a href="https://hyperphor.com/">Mike Travers</a>, out of which came the idea of a “Brandian return”. Think of it as the complement to a <a href="https://protocolized.io/resources/introduction-to-the-protocol-reader">Whitehead advance</a>. Quoting in full:</p>
+<p><em>“We could cut by decade, or by technological era – mainframe, personal computer, early internet, internet boom, mobile, cloud, social media. At each stage there are advances at the protocol level – in hardware, software, and socioculturally – that flavor the development of history. And then there is the payoff: maintenance isn’t just a thing now; it’s something that keeps coming back to the surface. I’m led to the idea of a Brandian return. There’s actually a line in the book, something like “every civilization has to choose to care.” You advance, you get all the benefits, but at a certain point you realize that something which was made invisible still matters – community, face-to-face relationships, whatever was abstracted away. You don’t throw away the advance; you correct course, return to what was lost, and position for the next jump.”</em></p>
+<p>Recently, I’ve realised that Brandian returns don’t really operate on the order of decades, even if those decades contain accelerated rates of progress like we’ve seen since the 1960s. They don’t even really kick in on the order of generations; humans are, in many senses, a lot more collectively obtuse than that. I actually think the the span of <a href="https://worldmachines.org/theory">World Machines</a>—1,000 year timelines with three, 400 year, overlapping emerging, dominant and fading World Machines—is the right resolution.</p>
+<p>Given that I’m interested here in alternative paradigms of computing and intelligence, I thought it would be fun to try and pick up the Brandian returns associated with computing and intelligence across recent World Machines. To clarify, here’s an explicit definition of Whiteheadian advances alongside Brandian returns:</p>
+<ul>
+<li><strong>Whiteheadian advances</strong>: a civilisation advances in accordance with the number of operations it can perform without thinking</li>
+<li><strong>Brandian returns</strong>: a civilisation advances in accordance with the number of integral pieces it can sustain with care</li>
+</ul>
+<p>I’ll settle for proposing a handful of these returns from the active Day (Divergence) and Dusk (Modernity) machines, whilst also positing the returns for the Dawn machine (Liveness).</p>
+<p>First, let’s flesh out the dynamics a tad more.</p>
+<p>A Brandian return is essentially a Whitehead advance that has begun to deteriorate. An invisible aspect of life as it’s known becoming visible to the alive. It’s less <em>creaky door hinge</em> and more <em>a nation’s health service failing</em>.</p>
+<p>The timescales are important here. If a Whitehead advance materialises and is enshrined over the course of a 400 year period, then Brandian returns must be similarly scaled. They must be like century-scale plot lines. Calls to re-industrialise in Western countries that have “forgotten how to make things” is a good candidate. Another is the example cited above; the initial rise of high quality subsidised healthcare and its subsequent endangered status. Both take decades to gather momentum, unfold over the course of generations, spend a long while descending messily into incapacity, and then require decades more to coordinate repairs to the lost capacity in the appropriate form (if deemed of sufficient value).</p>
+<p>A World Machine, then, could be said to be a combination of Whitehead advances and Brandian returns that together determine the meta themes of the given regime. The exact ratio of that combo, to me, seems to be that for every three Whitehead advances one Brandian return will have to occur. So let’s say that every World Machine makes twelve Whitehead advances; in the subsequent World Machine, three of those will become Brandian returns and need deliberate, careful (re-)protocolisation.</p>
+<p>The central claim: <em>each World Machine makes twelve Whiteheadian advances over its Dawn and Day span. Of those twelve, three will decay to the point of requiring Brandian returns. These returns are performed by the succeeding Dawn Machine, not the one that made the advance.</em></p>
+<p>With that claim in mind, let’s turn to Aneesh Sathe’s <a href="https://primeradiant.aneeshsathe.com/atlas">Prime Radiant</a>. It allows one to “chart the machines civilization runs on — the joint-stock company, the nation-state, the cloud platform — across three overlapping eras. Scrub the years and watch them ignite, couple, load with tension, and decay.”</p>
+<p>Given the claim above, what we’re looking for is three Whitehead advances from the Modernity Machine that get the Brandian return treatment, a further nine Whitehead advances that belong to the Divergence Machine proper, and which three of these Divergence Machine advances will become the Brandian returns that empower the emerging Liveness Machine. Because I’m interested in kinocomputing I’ll focus solely on computing and intelligence.</p>
+<p>So I asked Prime Radiant: “What significant advances in computing and intelligence paradigms were made in the Modernity and Divergence machines?” This is what we got (supplemented with some further digging elsewhere).</p>
+<p>Modernity Machine’s Whitehead advances that became Brandian returns in the Divergence Machine?</p>
+<ul>
+<li><strong>Symbolic/positional computation</strong>: reducing quantity and calculation to manipulable notation (Hindu-Arabic numerals, 1202); the operation of thinking in symbols instead of things</li>
+<li><strong>Systematic empirical inquiry</strong>: reducing knowledge-claims to falsifiable, repeatable procedure (Baconian method, 1620); the operation of validating truth through method rather than authority</li>
+<li><strong>Long-distance signal transmission</strong>: reducing communication to encoded, transmissible signal decoupled from physical transport (telegraphy onward, 1837); the operation of moving information faster than people or goods</li>
+</ul>
+<p>The Divergence Machine’s own Whitehead advances?</p>
+<ul>
+<li><strong>Probabilistic reasoning</strong>: reducing uncertainty to formal, calculable odds (probability theory, 1650s); the operation of quantifying chance instead of guessing</li>
+<li><strong>Formal/symbolic logic</strong>: reducing reasoning itself to mechanically executable rules (Boolean algebra → computability theory, 1854–1936); the operation of executing thought as procedure</li>
+<li><strong>Energy-on-demand</strong>: reducing power to a distributed, switchable utility rather than a local, extracted resource (electrification, 1880s–1900s); the operation of drawing power without producing it</li>
+<li><strong>Public underwriting of long-horizon risk</strong>: reducing the funding of uncertain, high-payoff research to a civilizational function (Manhattan Project/NSF/DARPA, 1940s–50s); the operation of betting on discovery without needing certainty of return</li>
+<li><strong>Stored, general-purpose computation</strong>: reducing problem-solving to programmable, reusable machine logic (stored-program computer/transistor, 1945–47); the operation of reconfiguring a machine instead of rebuilding it</li>
+<li><strong>Packet-based distributed networking</strong>: reducing communication to resilient, routable, ownerless packets (ARPANET/TCP-IP, 1969–83); the operation of routing around communication failure automatically</li>
+<li><strong>Individually-owned computation</strong>: reducing computing power to a personal, unmediated capability (personal computer, 1975–81); the operation of computing without institutional permission</li>
+<li><strong>Trade-coordinated resource allocation</strong>: reducing the movement of goods and capital across distance to standardised, tradeable, insurable units (joint-stock/shipping/insurance infrastructure, 1600s–1800s); the operation of trusting distant strangers through instruments instead of relationships</li>
+<li><strong>Generalised statistical intelligence</strong>: reducing pattern-recognition and generation to a single, broadly-applicable pretrained model (AI models, 2014–2023); the operation of asking one system anything instead of building a system per task</li>
+</ul>
+<p>Ignoring the many possible disputes concerning the literal correctness of the above identified advances and returns, let’s now try to select the three advances that we will have to protocolise as Brandian returns. To me, it seems that coordination, risk and intelligence are the critical trio.</p>
+<p>Our capacity to leverage intelligence to effectively coordinate mitigations of long-term risks and options on long-term upside seem at great risk of collapsing. We know more than we ever have, yet we’re carrying the most severe coordination burdens just as we approach potentially existential risks to humanity. To prevent death, the Liveness Machine must, as a whole, enable us to revitalise the <em>intelligence-coordination-risk</em> pipeline.</p>
+<p>The way to do that has much to do with groundedness and embodiment. The tail end of the Divergence Machine led to true divergence; a severance, a cut off, a discontinuity. We’ll have to learn how to become continuous once again.</p>]]></description>
+      <pubDate>Sun, 23 Aug 2026 10:36:20 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>0gk0bcqryvp9166wq8qkyc46cc</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-08-23T10:36:20Z</blyg:created>
+      <blyg:item>https://kinocomputing.com/items/0gk0bcqryvp9166wq8qkyc46cc.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:3ae53bqvd075ppjq3fmmpw90cz:v1</guid>
+      <link>https://kinocomputing.com/about</link>
+      <title>About Hi, I’m Matt. This is the place where I do independent…</title>
+      <description><![CDATA[<h1 class="title">About</h1>
+<p>Hi, I’m <a href="https://www.msweet.net/">Matt</a>. This is the <a href="https://aneeshsathe.com/nakatomi-drift/">place</a> where I do independent <a href="https://ribbonfarm.com/2023/04/05/permissionless-research/">research</a> into alternative <a href="https://donellameadows.org/archives/leverage-points-places-to-intervene-in-a-system/">paradigms</a> of computing and intelligence.</p>
+<p>This line of inquiry began with exposure to <a href="https://en.wikipedia.org/wiki/New_materialism">new materialism</a> (specifically Thomas Nail’s <a href="https://global.oup.com/academic/product/being-and-motion-9780190908911?cc=gb&amp;lang=en&amp;">Being and Motion</a>); since the <a href="https://press.stripe.com/scaling">scaling era</a> has unfolded, however, it’s sharpened into a thesis that we’ll need a more <a href="https://extropic.ai/writing/thermodynamic-computing-from-zero-to-one">energy efficient</a> (and likely more <a href="https://petergodfreysmith.com/publications">embodied</a>) computing paradigm to continue progressing the <a href="https://arxiv.org/abs/1911.01547">frontiers of intelligence</a>.</p>
+<p>Here I explore that thesis through the <a href="https://en.wikipedia.org/wiki/The_Black_Swan:_The_Impact_of_the_Highly_Improbable">barbell</a> of <a href="https://worldmachines.org">World Machines</a> theorising and tiny experiments.</p>]]></description>
+      <pubDate>Mon, 10 Aug 2026 08:00:00 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>3ae53bqvd075ppjq3fmmpw90cz</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-08-10T08:00:00Z</blyg:created>
+      <blyg:item>https://kinocomputing.com/items/3ae53bqvd075ppjq3fmmpw90cz.json</blyg:item>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,15 @@
+{
+  "blyg": "0.3",
+  "level": 2,
+  "generator": "kinocomputing-build/0.1",
+  "generator_url": "https://github.com/msmsim/kinocomputing",
+  "site": "https://kinocomputing.com/",
+  "title": "Kinocomputing",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "feed": "feed.xml",
+  "items": "items/index.json",
+  "updated": "2026-10-18T13:32:47Z"
+}

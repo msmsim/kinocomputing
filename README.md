@@ -252,6 +252,17 @@ Consequences worth knowing:
 - The vault can be marked as a blyg in motes. `_note.html` opts in to its pin
   and change-note requests, which the Action reads (docs/blyg.md).
 
+## Publishing from the lab
+
+The [Kinocomputing lab](https://github.com/msmsim/kinocomputing-lab), an
+automated research agent, publishes here too: notes named `lab-YYYY-MM-DD-…`,
+pushed after its night shift. Each page carries
+`<meta name="blyg:generated" content="<model>">`, which the build turns into
+§5.7 provenance on the blyg item, the `blyg-tk-gen` wrapper in its
+`content_html`, and a visible line on the page and in the stream saying the
+research agent wrote it (docs/blyg.md, P20). The lab only ever writes notes
+with its own names.
+
 ## Publishing by hand
 
 Add `NNN-colour-animal.html` to `notes/` and push. The numbering is cosmetic;

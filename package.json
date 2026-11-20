@@ -1,0 +1,13 @@
+{
+  "name": "kinocomputing",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build-stream.mjs",
+    "state": "node tools/build-stream.mjs --state",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "fast-check": "^4.3.0"
+  }
+}

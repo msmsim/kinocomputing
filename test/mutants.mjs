@@ -18,7 +18,7 @@ const MUTANTS = {
   "feed-keeps-withdrawn-history": ["blyg.mjs", "(item.withdrawn ? item.entry.changelog.slice(-1) : item.entry.changelog)", "(item.entry.changelog)"],
   "change-note-dropped": ["blyg.mjs", "note: (fresh && note.changeNote) || null,", "note: null,"],
   "no-tombstone": ["build-stream.mjs", "else site.set(`${page}.html`, renderTombstone(entry, page));", "else {}"],
-  "relative-urls-kept": ["blyg.mjs", 'const html = note.content.replace(/(href|src)="\\/(?!\\/)/g, `$1="${host}/`);', "const html = note.content;"],
+  "relative-urls-kept": ["blyg.mjs", "    if (/^[a-z][a-z0-9+.-]*:/i.test(url)) return whole;", "    return whole;"],
   "no-retitle-redirect": ["build-stream.mjs", "for (const old of [...(entry.moved_from ?? []), page]) {", "for (const old of [page]) {"],
   "no-head-links": ["build-stream.mjs", "updated = withVersions(withHeadLinks(updated, INDEX_PATH, entry.id), renderVersions(entry, note.path));", "updated = withVersions(updated, renderVersions(entry, note.path));"],
   "hash-of-html": ["blyg.mjs", "hash = contentHash(htmlToMarkdown(note.content));", "hash = contentHash(note.content);"],

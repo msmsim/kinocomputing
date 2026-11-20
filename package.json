@@ -5,7 +5,8 @@
   "scripts": {
     "build": "node tools/build-stream.mjs",
     "state": "node tools/build-stream.mjs --state",
-    "test": "node --test"
+    "test": "node --test test/*.test.mjs tools/*.test.mjs",
+    "mutants": "node test/mutants.mjs"
   },
   "devDependencies": {
     "fast-check": "^4.3.0"

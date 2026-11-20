@@ -465,6 +465,26 @@ function renderFeed(published, site) {
 }
 
 /**
+ * HTML with every href and src made absolute (§5.2, decision #53): the same
+ * bytes travel as the feed description, into importers' stores and into other
+ * origins' threads, none of which has a page to resolve against. Relative
+ * URLs — root-relative, path-relative, fragment- or query-only — resolve
+ * against `base`, the item's own page. Absolute ones, mailto: and the like are
+ * left exactly as written.
+ */
+export function absolutize(html, base) {
+  return html.replace(/(\s(?:href|src))="([^"]*)"/g, (whole, attr, url) => {
+    if (/^[a-z][a-z0-9+.-]*:/i.test(url)) return whole;
+    try {
+      const resolved = new URL(url.replace(/&amp;/g, "&"), base).href;
+      return `${attr}="${resolved.replace(/&/g, "&amp;").replace(/"/g, "&quot;")}"`;
+    } catch {
+      return whole;
+    }
+  });
+}
+
+/**
  * A note's content as its registry entry's latest version, or null when the
  * two don't match: the note isn't registered, or it failed to convert and so
  * no version was recorded for what the page now says.
@@ -479,10 +499,7 @@ function liveContent(registry, note, site) {
     return null;
   }
   if (contentHash(markdown) !== entry.hash) return null;
-  // Travels to other origins, so root-relative links are made absolute.
-  const host = new URL(site.origin).origin;
-  const html = note.content.replace(/(href|src)="\/(?!\/)/g, `$1="${host}/`);
-  return { entry, markdown, html };
+  return { entry, markdown, html: absolutize(note.content, new URL(entry.page ?? note.slug, site.origin).href) };
 }
 
 /**

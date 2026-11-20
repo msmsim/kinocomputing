@@ -842,3 +842,14 @@ test("the live version's change note follows its number in the footer, escaped",
     "/notes/a", 2);
   assert.match(before, /<strong>v2<\/strong><\/a> <em class="change-note">— n<\/em>/);
 });
+
+test("absolutize resolves every relative href and src against the item's page, and leaves the rest", async () => {
+  const { absolutize } = await import("./blyg.mjs");
+  const base = "https://kinocomputing.com/some-note";
+  assert.equal(
+    absolutize('<p><a href="/notes/001-a">a</a> <a href="#x">b</a> <a href="about?q=1&amp;r=2">c</a> <img src="img.png" alt=""></p>', base),
+    '<p><a href="https://kinocomputing.com/notes/001-a">a</a> <a href="https://kinocomputing.com/some-note#x">b</a> '
+      + '<a href="https://kinocomputing.com/about?q=1&amp;r=2">c</a> <img src="https://kinocomputing.com/img.png" alt=""></p>');
+  const left = '<p><a href="https://example.com/x">x</a> <a href="mailto:a@b.c">m</a> <a href="//cdn.example/y">y</a></p>';
+  assert.equal(absolutize(left, base), left.replace("//cdn.example/y", "https://cdn.example/y"));
+});

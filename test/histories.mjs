@@ -9,7 +9,7 @@ export const FILES = ["001-ash-eels", "002-teal-larks", "003-rust-crabs", "004-s
 export function bodyOf(file, variant) {
   switch (variant) {
     case 0: return { body: `<p>${file} first.</p>`, convertible: true };
-    case 1: return { body: `<p>${file} second, <a href="/notes/${FILES[0]}">linked</a> &amp; <em>so on</em>.</p>`, convertible: true };
+    case 1: return { body: `<p>${file} second, <a href="/notes/${FILES[0]}">linked</a>, <a href="#more">below</a> and <a href="about">about</a> &amp; <em>so on</em>.</p>`, convertible: true };
     case 2: return { body: `<p><strong>Title ${file}</strong></p>\n<p>Titled.</p>`, convertible: true };
     case 3: return { body: `<p><strong>Other ${file}</strong></p>\n<ul>\n<li>one</li>\n<li>two</li>\n</ul>`, convertible: true };
     default: return { body: `<table><tr><td>${file}</td></tr></table>`, convertible: false };

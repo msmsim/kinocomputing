@@ -3,23 +3,23 @@
   "id": "1zqse6syhdhrn26zb7b0thb5sx",
   "kind": "fragment",
   "origin": "https://www.kinocomputing.com/",
-  "page": "physics-and-bodies-placed-in-the-machines",
+  "page": "physics-computing-as-repair-body-computing-as-new-ground",
   "author": {
     "name": "Matthew McDowell-Sweet",
     "url": "https://www.msweet.net/"
   },
   "created": "2026-11-21T03:06:31Z",
-  "updated": "2026-11-21T03:06:31Z",
-  "version": 1,
-  "content_md": "**Physics and bodies, placed in the machines**\n\nA consistent but untested reading, reviewed and weakened: \"let physics compute\" is judged on the incumbent's yardstick (a Dusk repair); \"let bodies compute\" reads closer to Divergence-native. The bodies half is partly circular (local by construction), and the yardstick evidence is one page's wording plus one lab experiment. A literature count of alternative-hardware papers is the next test.\n\nEvidence: [the working analysis](https://github.com/msmsim/kinocomputing-lab/blob/main/analyses/a001-incumbent-stack-in-the-machines/ANALYSIS.md). Stage: conjecture. Review: weakened.",
-  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Physics and bodies, placed in the machines</strong></p>\n<p>A consistent but untested reading, reviewed and weakened: &quot;let physics compute&quot; is judged on the incumbent&#39;s yardstick (a Dusk repair); &quot;let bodies compute&quot; reads closer to Divergence-native. The bodies half is partly circular (local by construction), and the yardstick evidence is one page&#39;s wording plus one lab experiment. A literature count of alternative-hardware papers is the next test.</p>\n<p>Evidence: <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/analyses/a001-incumbent-stack-in-the-machines/ANALYSIS.md\">the working analysis</a>. Stage: conjecture. Review: weakened.</p>\n</div>",
-  "content_hash": "sha256:89fb7d38f46ebd7c26fc573d37725d84a3849cae95b00a42286b00a6d450d4c3",
+  "updated": "2026-11-21T13:57:11Z",
+  "version": 2,
+  "content_md": "**Physics computing as repair, body computing as new ground**\n\nTwo families of [alternative computing](https://www.kinocomputing.com/alternative-paradigms) sit differently in [World Machines](https://worldmachines.org/theory) theory, on our reading. \"Let physics compute\" (analog, photonic, thermodynamic chips) is mostly pitched as doing the digital computer's job more cheaply: a repair for Modernity in its declining Dusk, judged by the old machine's yardstick. \"Let bodies compute\" (living tissue, organoids, embodied systems) reads closer to Divergence, where results are local by nature.\n\nHow sure: an untested idea, weakened by adversarial review. The bodies half is partly true by definition, and the yardstick half rests on thin evidence. [The working analysis](https://github.com/msmsim/kinocomputing-lab/blob/main/analyses/a001-incumbent-stack-in-the-machines/ANALYSIS.md).",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Physics computing as repair, body computing as new ground</strong></p>\n<p>Two families of <a href=\"https://www.kinocomputing.com/alternative-paradigms\">alternative computing</a> sit differently in <a href=\"https://worldmachines.org/theory\">World Machines</a> theory, on our reading. &quot;Let physics compute&quot; (analog, photonic, thermodynamic chips) is mostly pitched as doing the digital computer&#39;s job more cheaply: a repair for Modernity in its declining Dusk, judged by the old machine&#39;s yardstick. &quot;Let bodies compute&quot; (living tissue, organoids, embodied systems) reads closer to Divergence, where results are local by nature.</p>\n<p>How sure: an untested idea, weakened by adversarial review. The bodies half is partly true by definition, and the yardstick half rests on thin evidence. <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/analyses/a001-incumbent-stack-in-the-machines/ANALYSIS.md\">The working analysis</a>.</p>\n</div>",
+  "content_hash": "sha256:e4917b6a9070464906f7ac6f759ef27e5eea9110a25b4f7ca0b355b0454c7bb5",
   "media": [],
   "generated": [
     {
       "sources": [],
-      "model": "claude-sonnet-5-5",
-      "at": "2026-11-21T03:06:31Z"
+      "model": "claude-opus-5-5",
+      "at": "2026-11-21T13:57:11Z"
     }
   ],
   "changelog": [
@@ -27,6 +27,11 @@
       "version": 1,
       "at": "2026-11-21T03:06:31Z",
       "note": null
+    },
+    {
+      "version": 2,
+      "at": "2026-11-21T13:57:11Z",
+      "note": "Rewritten for readers outside the lab: plainer words, terms explained, a title that says the finding. The findings, numbers and caveats are unchanged."
     }
   ]
 }

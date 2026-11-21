@@ -3,23 +3,23 @@
   "id": "7nx65h9vk6q4v05qrpy6ta1zw8",
   "kind": "fragment",
   "origin": "https://www.kinocomputing.com/",
-  "page": "the-digital-stack-reads-as-two-machines-not-one",
+  "page": "todays-computing-stack-straddles-two-world-machines",
   "author": {
     "name": "Matthew McDowell-Sweet",
     "url": "https://www.msweet.net/"
   },
   "created": "2026-11-21T03:06:31Z",
-  "updated": "2026-11-21T03:06:31Z",
-  "version": 1,
-  "content_md": "**The digital stack reads as two machines, not one**\n\nA conjecture, reviewed and weakened. The incumbent stack's hardware-and-scaling layer is compatible with Modernity in Dusk, but the evidence is now capital and supply-chain concentration (training cost up 2.4x a year; energy only 2-6% of run cost; a concentrated chip supply chain), which ordinary market structure also explains. The Divergence-in-Day reading of the deployment layer is currently unsupported. Not tested.\n\nEvidence: [the working analysis](https://github.com/msmsim/kinocomputing-lab/blob/main/analyses/a001-incumbent-stack-in-the-machines/ANALYSIS.md). Stage: conjecture. Review: weakened.",
-  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>The digital stack reads as two machines, not one</strong></p>\n<p>A conjecture, reviewed and weakened. The incumbent stack&#39;s hardware-and-scaling layer is compatible with Modernity in Dusk, but the evidence is now capital and supply-chain concentration (training cost up 2.4x a year; energy only 2-6% of run cost; a concentrated chip supply chain), which ordinary market structure also explains. The Divergence-in-Day reading of the deployment layer is currently unsupported. Not tested.</p>\n<p>Evidence: <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/analyses/a001-incumbent-stack-in-the-machines/ANALYSIS.md\">the working analysis</a>. Stage: conjecture. Review: weakened.</p>\n</div>",
-  "content_hash": "sha256:d380ee83ea61c07b1d53f8b6237b9358c914c0547e7603d0a7f484b1f5862841",
+  "updated": "2026-11-21T13:57:11Z",
+  "version": 2,
+  "content_md": "**Today's computing stack straddles two world machines**\n\nIn [World Machines](https://worldmachines.org/theory) theory, Modernity, which pulls history toward one destination, is in its declining Dusk, and Divergence, where outcomes depend on local conditions, is in its Day. On our reading, digital computing's chips-and-scaling layer looks like late Modernity: frontier training costs up 2.4× a year, a concentrated chip supply. But energy is only 2–6% of that cost, and ordinary market economics explains the concentration just as well. The idea that AI's deployment belongs to Divergence has no support yet.\n\nHow sure: an untested idea, weakened by adversarial review. [The working analysis](https://github.com/msmsim/kinocomputing-lab/blob/main/analyses/a001-incumbent-stack-in-the-machines/ANALYSIS.md).",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Today&#39;s computing stack straddles two world machines</strong></p>\n<p>In <a href=\"https://worldmachines.org/theory\">World Machines</a> theory, Modernity, which pulls history toward one destination, is in its declining Dusk, and Divergence, where outcomes depend on local conditions, is in its Day. On our reading, digital computing&#39;s chips-and-scaling layer looks like late Modernity: frontier training costs up 2.4× a year, a concentrated chip supply. But energy is only 2–6% of that cost, and ordinary market economics explains the concentration just as well. The idea that AI&#39;s deployment belongs to Divergence has no support yet.</p>\n<p>How sure: an untested idea, weakened by adversarial review. <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/analyses/a001-incumbent-stack-in-the-machines/ANALYSIS.md\">The working analysis</a>.</p>\n</div>",
+  "content_hash": "sha256:a30e8a893a260c627376a2492778e0d59107b5471485f44130d0baad140341f6",
   "media": [],
   "generated": [
     {
       "sources": [],
-      "model": "claude-sonnet-5-5",
-      "at": "2026-11-21T03:06:31Z"
+      "model": "claude-opus-5-5",
+      "at": "2026-11-21T13:57:11Z"
     }
   ],
   "changelog": [
@@ -27,6 +27,11 @@
       "version": 1,
       "at": "2026-11-21T03:06:31Z",
       "note": null
+    },
+    {
+      "version": 2,
+      "at": "2026-11-21T13:57:11Z",
+      "note": "Rewritten for readers outside the lab: plainer words, terms explained, a title that says the finding. The findings, numbers and caveats are unchanged."
     }
   ]
 }

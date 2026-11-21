@@ -3,23 +3,23 @@
   "id": "3gs5f1qnv2kb9ew2y8qqjvn4zn",
   "kind": "fragment",
   "origin": "https://www.kinocomputing.com/",
-  "page": "widened-reservoir-still-trails-tuned-esn-in-simulation",
+  "page": "a-wider-oscillator-design-still-trails-the-digital-one",
   "author": {
     "name": "Matthew McDowell-Sweet",
     "url": "https://www.msweet.net/"
   },
   "created": "2026-11-21T02:54:04Z",
-  "updated": "2026-11-21T02:54:04Z",
-  "version": 1,
-  "content_md": "**Widened reservoir still trails tuned ESN in simulation**\n\nIn simulation only, for one parametrisation: oscillator frequencies from 0.8 to 1.2, damping 0.2, noise 0.01, readout on displacement only. With 50 readout features and 24-configuration grids on both sides, the physical reservoir had higher median test error than a tuned same-width echo-state network: 0.94 against 0.12 on NARMA-10, and 0.16 against 0.0003 on Mackey-Glass at horizon 5, where the physical side sits at a grid edge. Both results hold on two seeds. One parametrisation, two tasks, one simulation: this says nothing about physical reservoirs in general, about any device, or about energy.\n\nEvidence: experiments/e003-physical-reservoir-wider/RESULTS.md. Stage: simulated. Review: weakened (wording narrowed to this parametrisation; the Mackey-Glass ratio overstates the gap).",
-  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Widened reservoir still trails tuned ESN in simulation</strong></p>\n<p>In simulation only, for one parametrisation: oscillator frequencies from 0.8 to 1.2, damping 0.2, noise 0.01, readout on displacement only. With 50 readout features and 24-configuration grids on both sides, the physical reservoir had higher median test error than a tuned same-width echo-state network: 0.94 against 0.12 on NARMA-10, and 0.16 against 0.0003 on Mackey-Glass at horizon 5, where the physical side sits at a grid edge. Both results hold on two seeds. One parametrisation, two tasks, one simulation: this says nothing about physical reservoirs in general, about any device, or about energy.</p>\n<p>Evidence: experiments/e003-physical-reservoir-wider/RESULTS.md. Stage: simulated. Review: weakened (wording narrowed to this parametrisation; the Mackey-Glass ratio overstates the gap).</p>\n</div>",
-  "content_hash": "sha256:ea6e5166f83af09b5f049fbcafa1fde2b8620d3c4b01acd3c6ee3a0b148c81a2",
+  "updated": "2026-11-21T13:57:11Z",
+  "version": 2,
+  "content_md": "**A wider oscillator design still trails the digital one**\n\nPushed into a more strongly coupled, more nonlinear regime, a simulated network of 50 noisy oscillators still lost to a same-size digital reservoir: an error of 0.94 against 0.12 on the NARMA-10 memory test (1.0 means no better than guessing the average), and 0.16 against 0.0003 when forecasting the chaotic Mackey–Glass series five steps ahead. Both held on a second run with fresh random numbers. The Mackey–Glass gap is overstated: the oscillators' best setting sat at the edge of the range searched.\n\nHow sure: simulation only, one design, two tasks. Nothing here about real devices or energy. [Code and full results](https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e003-physical-reservoir-wider/RESULTS.md).",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>A wider oscillator design still trails the digital one</strong></p>\n<p>Pushed into a more strongly coupled, more nonlinear regime, a simulated network of 50 noisy oscillators still lost to a same-size digital reservoir: an error of 0.94 against 0.12 on the NARMA-10 memory test (1.0 means no better than guessing the average), and 0.16 against 0.0003 when forecasting the chaotic Mackey–Glass series five steps ahead. Both held on a second run with fresh random numbers. The Mackey–Glass gap is overstated: the oscillators&#39; best setting sat at the edge of the range searched.</p>\n<p>How sure: simulation only, one design, two tasks. Nothing here about real devices or energy. <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e003-physical-reservoir-wider/RESULTS.md\">Code and full results</a>.</p>\n</div>",
+  "content_hash": "sha256:72501422365bd6f67a9dbf7d533402ea509e0003892dc6cdb49dc7c42750242f",
   "media": [],
   "generated": [
     {
       "sources": [],
-      "model": "claude-haiku-5-5",
-      "at": "2026-11-21T02:54:04Z"
+      "model": "claude-opus-5-5",
+      "at": "2026-11-21T13:57:11Z"
     }
   ],
   "changelog": [
@@ -27,6 +27,11 @@
       "version": 1,
       "at": "2026-11-21T02:54:04Z",
       "note": null
+    },
+    {
+      "version": 2,
+      "at": "2026-11-21T13:57:11Z",
+      "note": "Rewritten for readers outside the lab: plainer words, terms explained, a title that says the finding. The findings, numbers and caveats are unchanged."
     }
   ]
 }

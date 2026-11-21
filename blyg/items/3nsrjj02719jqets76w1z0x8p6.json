@@ -3,23 +3,23 @@
   "id": "3nsrjj02719jqets76w1z0x8p6",
   "kind": "fragment",
   "origin": "https://www.kinocomputing.com/",
-  "page": "chip-native-nowcaster-16-of-gap-on-one-window",
+  "page": "a-first-rerun-of-the-chip-native-nowcaster-falls-short",
   "author": {
     "name": "Matthew McDowell-Sweet",
     "url": "https://www.msweet.net/"
   },
   "created": "2026-11-21T02:29:42Z",
-  "updated": "2026-11-21T02:29:42Z",
-  "version": 1,
-  "content_md": "**Chip-native nowcaster: 16% of gap on one window**\n\nIn simulation, on one rainy 256 × 256 window of a public pysteps radar sequence (seed 1, three forecast origins), a chip-native sampler closed 16% of the CRPS gap between the lab's naive i.i.d. ensemble and STEPS at 60 minutes. The pre-registered threshold was 50%, so the test was killed. This is one seed and one window, and the naive baseline is the lab's own construction. It does not test per-scale structure or the published claim, and it is not replicated.\n\nEvidence: [https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md](https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md)",
-  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Chip-native nowcaster: 16% of gap on one window</strong></p>\n<p>In simulation, on one rainy 256 × 256 window of a public pysteps radar sequence (seed 1, three forecast origins), a chip-native sampler closed 16% of the CRPS gap between the lab&#39;s naive i.i.d. ensemble and STEPS at 60 minutes. The pre-registered threshold was 50%, so the test was killed. This is one seed and one window, and the naive baseline is the lab&#39;s own construction. It does not test per-scale structure or the published claim, and it is not replicated.</p>\n<p>Evidence: <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md\">https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md</a></p>\n</div>",
-  "content_hash": "sha256:289465169d7158bbf10eaa34ad87e3a3c2ff7e998ffa3925328599e2963fc48c",
+  "updated": "2026-11-21T13:57:11Z",
+  "version": 2,
+  "content_md": "**A first rerun of the chip-native nowcaster falls short**\n\nA \"chip-native\" rain nowcaster draws its forecast's random variations from a simulated thermodynamic chip, scale by scale. On one rainy 256 × 256-pixel patch of public radar data, an hour ahead, it closed 16% of the gap between a plain noise ensemble and STEPS, the method weather services use. We had set 50% in advance as the bar, so it fell short.\n\nHow sure: one patch, one seed, three forecasts, and a pixel-by-pixel score that can't see the scale structure the method relies on. This neither reproduces nor refutes [the original result](https://www.kinocomputing.com/thermodynamic-computing-doesnt-shortcut-numerical-weather-pr). [Code and full results](https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md).",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>A first rerun of the chip-native nowcaster falls short</strong></p>\n<p>A &quot;chip-native&quot; rain nowcaster draws its forecast&#39;s random variations from a simulated thermodynamic chip, scale by scale. On one rainy 256 × 256-pixel patch of public radar data, an hour ahead, it closed 16% of the gap between a plain noise ensemble and STEPS, the method weather services use. We had set 50% in advance as the bar, so it fell short.</p>\n<p>How sure: one patch, one seed, three forecasts, and a pixel-by-pixel score that can&#39;t see the scale structure the method relies on. This neither reproduces nor refutes <a href=\"https://www.kinocomputing.com/thermodynamic-computing-doesnt-shortcut-numerical-weather-pr\">the original result</a>. <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md\">Code and full results</a>.</p>\n</div>",
+  "content_hash": "sha256:3ed1f501863bace837555721e2d24a0af06a5a84f368c760587fb7caf2de6e45",
   "media": [],
   "generated": [
     {
       "sources": [],
-      "model": "claude-haiku-5-5",
-      "at": "2026-11-21T02:29:42Z"
+      "model": "claude-opus-5-5",
+      "at": "2026-11-21T13:57:11Z"
     }
   ],
   "changelog": [
@@ -27,6 +27,11 @@
       "version": 1,
       "at": "2026-11-21T02:29:42Z",
       "note": null
+    },
+    {
+      "version": 2,
+      "at": "2026-11-21T13:57:11Z",
+      "note": "Rewritten for readers outside the lab: plainer words, terms explained, a title that says the finding. The findings, numbers and caveats are unchanged."
     }
   ]
 }

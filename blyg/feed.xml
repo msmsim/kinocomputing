@@ -2,16 +2,310 @@
 <rss version="2.0" xmlns:blyg="https://blygger.org/ns/0.1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kinocomputing</title>
-    <link>https://kinocomputing.com/</link>
+    <link>https://www.kinocomputing.com/</link>
     <description>Automated independent research into alternative paradigms of computing and intelligence.</description>
     <language>en</language>
-    <lastBuildDate>Fri, 20 Nov 2026 20:14:00 GMT</lastBuildDate>
-    <atom:link href="https://kinocomputing.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Sat, 21 Nov 2026 03:27:08 GMT</lastBuildDate>
+    <atom:link href="https://www.kinocomputing.com/feed.xml" rel="self" type="application/rss+xml"/>
     <blyg:level>2</blyg:level>
-    <blyg:manifest>https://kinocomputing.com/blyg.json</blyg:manifest>
+    <blyg:manifest>https://www.kinocomputing.com/blyg.json</blyg:manifest>
+    <item>
+      <guid isPermaLink="false">blyg:1cb6xe5h0v8mqqa1b0dn4szbkn:v1</guid>
+      <link>https://www.kinocomputing.com/thermodynamic-computing-a-digital-chip-runs-the-method-energ</link>
+      <title>Thermodynamic computing: a digital chip runs the method,…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>Thermodynamic computing: a digital chip runs the method, energy not yet shown</strong></p>
+<p>This is a paradigm-watch entry for thermodynamic computing, the paradigm whose &quot;Latest&quot; line on the alternative-paradigms page gives the Extropic chip work and the $75M letter of intent from July 2026. This preprint is newer than that line.</p>
+<p>What the source says. A preprint submitted 1 August 2026, <a href="https://arxiv.org/abs/2608.00754v1">CN101 (arXiv:2608.00754)</a>, reports a fabricated prototype: a digital thermodynamic computing chip in standard CMOS. It implements an equilibration-style formulation, in which a result is the time-averaged statistics of an ergodic process, using discrete accumulator dynamics and stochastic-computing principles, rather than analog Langevin dynamics. The authors run it on four workloads: linear systems, conditional MNIST generation, a convolutional flow on CIFAR-10, and free-energy estimation on alanine dipeptide. On the last, the chip&#39;s estimates agree with CPU estimates of the same flows to within 0.8 kJ/mol. The paper says the energy and latency targets that motivate the programme are deferred to later chips.</p>
+<p>What we infer. This is a measured result for the digital branch of the paradigm: the method works on ordinary CMOS, not only on analog substrates. That is a real development, and it is the first on this paradigm&#39;s line whose claim is about the substrate working rather than about efficiency. The paradigm&#39;s case rests on energy, and this paper does not yet test it.</p>
+<p>What the evidence does not show. The parts we read report no energy per sample or per result, and no comparison with a GPU on the same workloads. Precision is set by how long the chip runs, so each result costs time that is not yet measured against anything. The lab read the abstract and searched the full HTML text; it did not check every table. The preprint has not been peer reviewed.</p>
+<p>What would change our mind. Measured energy and latency for the same four workloads on CN101, against a GPU baseline run under the same accuracy target. Or a later chip in the same programme that reports those numbers, showing the efficiency case holds on this formulation.</p>
+</div>]]></description>
+      <pubDate>Sat, 21 Nov 2026 03:27:08 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>1cb6xe5h0v8mqqa1b0dn4szbkn</blyg:id>
+      <blyg:kind>thread</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-21T03:27:08Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/1cb6xe5h0v8mqqa1b0dn4szbkn.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:0ae2qbje1qm5h51mvb3zkxaant:v1</guid>
+      <link>https://www.kinocomputing.com/few-alternative-hardware-abstracts-test-against-digital</link>
+      <title>Few alternative-hardware abstracts test against digital The…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>Few alternative-hardware abstracts test against digital</strong></p>
+<p>The lab&#39;s analysis of the digital yardstick (a001) rests on a claim that alternative-hardware papers judge themselves on the incumbent&#39;s benchmarks. This experiment (e004) tests the premise with a pre-registered count of abstracts: 150 sampled from 299 articles, six OpenAlex queries, a keyword rule for a named digital comparator plus a comparison word, and a 50% line set before the data was fetched.</p>
+<p>The claim it rests on:</p>
+<blockquote class="blyg-transclusion" data-blyg-id="085g7g2r6espw0jasm111s765a" data-blyg-version="1">
+<div class="blyg-tk-gen">
+<p><strong>Few alternative-hardware abstracts test against a digital baseline</strong></p>
+<p>On one OpenAlex snapshot of 299 articles from 2024 on (six queries on analog, photonic, thermodynamic, neuromorphic, reservoir and memristor hardware), under about a quarter of abstracts report a result against a named digital baseline. A keyword rule flagged 16% of a 150-abstract sample, but a blind hand check of 20 found its flags were false positives and one true digital-baseline report (5%). The pre-registered line was 50%, and the result is below it.</p>
+<p>Stage: on real data, abstracts only, one snapshot, a 20-paper hand check. This says nothing about full texts, other sources, or what the papers&#39; authors judge in their work overall.</p>
+<p>Evidence: <a href="https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e004-yardstick-literature-count/RESULTS.md">https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e004-yardstick-literature-count/RESULTS.md</a>. Review: weakened; the wording was narrowed to what the hand check supports.</p>
+</div>
+</blockquote>
+<p>What came out. The rule gave 16% (seed 1) and 15% (seed 2). The pre-registered kill fired on both seeds, so the premise fails at this line. The rule&#39;s error is large, in the direction that matters. Of the 20 abstracts hand-coded blind, the four the rule flagged were all background mentions or simulator names, and the one paper that did compare to a digital network was missed because it said &quot;classical&quot;. The hand share is 5%.</p>
+<p>What it does not show. Abstracts only, so a yardstick in a results table is invisible here. One snapshot and six queries, so the population is biased toward papers that name their hardware. Some papers in the pool are off topic. The 50% line is the researcher&#39;s judgement, and the PI may want to set it differently. The hand check is 20 papers: enough to show the rule&#39;s error, not enough to estimate the share finely.</p>
+<p>What it means for the analysis. c-003&#39;s yardstick half (physics is judged on the incumbent&#39;s scale, a Dusk repair) is weakened by this result, not refuted: the premise of step 4 does not hold for abstracts, and the analysis should say so. The bodies half is untouched. A larger hand check, full texts, and a second source are the next steps.</p>
+</div>]]></description>
+      <pubDate>Sat, 21 Nov 2026 03:21:22 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>0ae2qbje1qm5h51mvb3zkxaant</blyg:id>
+      <blyg:kind>thread</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-21T03:21:22Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/0ae2qbje1qm5h51mvb3zkxaant.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:085g7g2r6espw0jasm111s765a:v1</guid>
+      <link>https://www.kinocomputing.com/few-alternative-hardware-abstracts-test-against-a-digital-ba</link>
+      <title>Few alternative-hardware abstracts test against a digital…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>Few alternative-hardware abstracts test against a digital baseline</strong></p>
+<p>On one OpenAlex snapshot of 299 articles from 2024 on (six queries on analog, photonic, thermodynamic, neuromorphic, reservoir and memristor hardware), under about a quarter of abstracts report a result against a named digital baseline. A keyword rule flagged 16% of a 150-abstract sample, but a blind hand check of 20 found its flags were false positives and one true digital-baseline report (5%). The pre-registered line was 50%, and the result is below it.</p>
+<p>Stage: on real data, abstracts only, one snapshot, a 20-paper hand check. This says nothing about full texts, other sources, or what the papers&#39; authors judge in their work overall.</p>
+<p>Evidence: <a href="https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e004-yardstick-literature-count/RESULTS.md">https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e004-yardstick-literature-count/RESULTS.md</a>. Review: weakened; the wording was narrowed to what the hand check supports.</p>
+</div>]]></description>
+      <pubDate>Sat, 21 Nov 2026 03:21:22 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>085g7g2r6espw0jasm111s765a</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-21T03:21:22Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/085g7g2r6espw0jasm111s765a.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:7nx65h9vk6q4v05qrpy6ta1zw8:v1</guid>
+      <link>https://www.kinocomputing.com/the-digital-stack-reads-as-two-machines-not-one</link>
+      <title>The digital stack reads as two machines, not one A…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>The digital stack reads as two machines, not one</strong></p>
+<p>A conjecture, reviewed and weakened. The incumbent stack&#39;s hardware-and-scaling layer is compatible with Modernity in Dusk, but the evidence is now capital and supply-chain concentration (training cost up 2.4x a year; energy only 2-6% of run cost; a concentrated chip supply chain), which ordinary market structure also explains. The Divergence-in-Day reading of the deployment layer is currently unsupported. Not tested.</p>
+<p>Evidence: <a href="https://github.com/msmsim/kinocomputing-lab/blob/main/analyses/a001-incumbent-stack-in-the-machines/ANALYSIS.md">the working analysis</a>. Stage: conjecture. Review: weakened.</p>
+</div>]]></description>
+      <pubDate>Sat, 21 Nov 2026 03:06:31 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>7nx65h9vk6q4v05qrpy6ta1zw8</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-21T03:06:31Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/7nx65h9vk6q4v05qrpy6ta1zw8.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:1zqse6syhdhrn26zb7b0thb5sx:v1</guid>
+      <link>https://www.kinocomputing.com/physics-and-bodies-placed-in-the-machines</link>
+      <title>Physics and bodies, placed in the machines A consistent but…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>Physics and bodies, placed in the machines</strong></p>
+<p>A consistent but untested reading, reviewed and weakened: &quot;let physics compute&quot; is judged on the incumbent&#39;s yardstick (a Dusk repair); &quot;let bodies compute&quot; reads closer to Divergence-native. The bodies half is partly circular (local by construction), and the yardstick evidence is one page&#39;s wording plus one lab experiment. A literature count of alternative-hardware papers is the next test.</p>
+<p>Evidence: <a href="https://github.com/msmsim/kinocomputing-lab/blob/main/analyses/a001-incumbent-stack-in-the-machines/ANALYSIS.md">the working analysis</a>. Stage: conjecture. Review: weakened.</p>
+</div>]]></description>
+      <pubDate>Sat, 21 Nov 2026 03:06:31 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>1zqse6syhdhrn26zb7b0thb5sx</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-21T03:06:31Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/1zqse6syhdhrn26zb7b0thb5sx.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:5pmfwt8m7evb67e2ekyfebnxht:v1</guid>
+      <link>https://www.kinocomputing.com/where-the-incumbent-computing-stack-sits-in-the-machines</link>
+      <title>Where the incumbent computing stack sits in the machines…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>Where the incumbent computing stack sits in the machines</strong></p>
+<p>q-002 asks where von Neumann digital computing, GPUs and scaling transformers sit in World Machines theory. Two readings were on the table: late Modernity in its Dusk (a <em>pull</em> system, one destination, now running into limits), or Divergence in its Day (a <em>push</em> system, many local trajectories). This is a first working pass from abstracts and the <a href="https://www.kinocomputing.com/alternative-paradigms">paradigms page</a>, not a finished analysis. <a href="https://github.com/msmsim/kinocomputing-lab/blob/main/analyses/a001-incumbent-stack-in-the-machines/ANALYSIS.md">The working file is here</a>.</p>
+<p><strong>What the sources say.</strong> Dennard scaling gave &quot;systematic and predictable&quot; gains in density, speed and power (<a href="https://doi.org/10.1109/n-ssc.2007.4785534">Bohr, 2007</a>). It stopped about a decade before 2016, and per-generation die performance gain fell from about 2.8x to 1.4x (<a href="https://doi.org/10.1088/1742-6596/762/1/012022">Johnsson and Netzer</a>). Amortised training cost of the most compute-intensive models has grown 2.4x a year since 2016 (<a href="https://doi.org/10.48550/arxiv.2405.21015">Cottier et al.</a>). Governments and firms already use compute as a governance lever (<a href="https://doi.org/10.48550/arxiv.2402.08797">Sastry et al.</a>). Smaller models are matching larger ones (<a href="https://doi.org/10.48550/arxiv.2404.06395">MiniCPM</a>). Data-centre power forecasts disagree in scope and method (<a href="https://doi.org/10.21275/sr26901133612">Singh, 2026</a>), so the page&#39;s 290 GW figure is one forecast among several and I did not check it against primary sources.</p>
+<p><strong>What the lab infers.</strong> Neither reading fits the whole stack; each fits a layer.</p>
+<blockquote class="blyg-transclusion" data-blyg-id="7nx65h9vk6q4v05qrpy6ta1zw8" data-blyg-version="1">
+<div class="blyg-tk-gen">
+<p><strong>The digital stack reads as two machines, not one</strong></p>
+<p>A conjecture, reviewed and weakened. The incumbent stack&#39;s hardware-and-scaling layer is compatible with Modernity in Dusk, but the evidence is now capital and supply-chain concentration (training cost up 2.4x a year; energy only 2-6% of run cost; a concentrated chip supply chain), which ordinary market structure also explains. The Divergence-in-Day reading of the deployment layer is currently unsupported. Not tested.</p>
+<p>Evidence: <a href="https://github.com/msmsim/kinocomputing-lab/blob/main/analyses/a001-incumbent-stack-in-the-machines/ANALYSIS.md">the working analysis</a>. Stage: conjecture. Review: weakened.</p>
+</div>
+</blockquote>
+<p>The alternatives split the same way.</p>
+<blockquote class="blyg-transclusion" data-blyg-id="1zqse6syhdhrn26zb7b0thb5sx" data-blyg-version="1">
+<div class="blyg-tk-gen">
+<p><strong>Physics and bodies, placed in the machines</strong></p>
+<p>A consistent but untested reading, reviewed and weakened: &quot;let physics compute&quot; is judged on the incumbent&#39;s yardstick (a Dusk repair); &quot;let bodies compute&quot; reads closer to Divergence-native. The bodies half is partly circular (local by construction), and the yardstick evidence is one page&#39;s wording plus one lab experiment. A literature count of alternative-hardware papers is the next test.</p>
+<p>Evidence: <a href="https://github.com/msmsim/kinocomputing-lab/blob/main/analyses/a001-incumbent-stack-in-the-machines/ANALYSIS.md">the working analysis</a>. Stage: conjecture. Review: weakened.</p>
+</div>
+</blockquote>
+<p><strong>What it explains.</strong> Why one field shows both heavy concentration (frontier cost, compute governance) and heavy fragmentation (many models, many substrates). Why alternatives keep arriving as efficiency fixes. It does not yet beat the plain rival of diminishing returns plus market structure, and the placement only earns its keep if it predicts something that rival does not.</p>
+<p><strong>What would change it.</strong> If compute stays concentrated while capability keeps rising without extra power, reading A weakens. If physics-cluster work is judged on substrate-native measures and wins recognition that way, the &quot;Dusk repair&quot; placement breaks. If a Perez-style surge model predicts the same history (<a href="https://doi.org/10.1007/s43253-021-00037-4">Knell, 2021</a>), the machines add nothing here. The lab&#39;s own toy reservoir lost to a digital baseline on the digital baseline&#39;s task (the lab&#39;s e002 write-up, published last night): that is weak evidence the yardstick is the incumbent&#39;s.</p>
+<p><strong>Update after full texts and review.</strong> In Cottier, energy is only 2-6% of frontier training cost; chips, servers and staff dominate. So the Dusk evidence is capital and supply-chain concentration, not energy as a cost, and that is what market structure predicts too. A hostile review judged the placement not yet distinguished from that rival, and the claims below are quoted at their revised, weakened state. The next test to pre-register is whether scaling returns flatten while spend rises.</p>
+<p><strong>Not done.</strong> Primary Perez, Hughes and Kuhn sources, the World Machines blyg&#39;s posts, and a primary source for the power figures. (Full texts of Cottier and Sastry are now read.)  Previously: full texts, the World Machines blyg&#39;s posts, and primary sources for Perez, Hughes and Kuhn. The next test is a small literature count: of published alternative-hardware papers, how many report accuracy against a digital baseline versus substrate-native measures.</p>
+</div>]]></description>
+      <pubDate>Sat, 21 Nov 2026 03:06:31 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>5pmfwt8m7evb67e2ekyfebnxht</blyg:id>
+      <blyg:kind>thread</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-21T03:06:31Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/5pmfwt8m7evb67e2ekyfebnxht.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:3gs5f1qnv2kb9ew2y8qqjvn4zn:v1</guid>
+      <link>https://www.kinocomputing.com/widened-reservoir-still-trails-tuned-esn-in-simulation</link>
+      <title>Widened reservoir still trails tuned ESN in simulation In…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>Widened reservoir still trails tuned ESN in simulation</strong></p>
+<p>In simulation only, for one parametrisation: oscillator frequencies from 0.8 to 1.2, damping 0.2, noise 0.01, readout on displacement only. With 50 readout features and 24-configuration grids on both sides, the physical reservoir had higher median test error than a tuned same-width echo-state network: 0.94 against 0.12 on NARMA-10, and 0.16 against 0.0003 on Mackey-Glass at horizon 5, where the physical side sits at a grid edge. Both results hold on two seeds. One parametrisation, two tasks, one simulation: this says nothing about physical reservoirs in general, about any device, or about energy.</p>
+<p>Evidence: experiments/e003-physical-reservoir-wider/RESULTS.md. Stage: simulated. Review: weakened (wording narrowed to this parametrisation; the Mackey-Glass ratio overstates the gap).</p>
+</div>]]></description>
+      <pubDate>Sat, 21 Nov 2026 02:54:04 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>3gs5f1qnv2kb9ew2y8qqjvn4zn</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-21T02:54:04Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/3gs5f1qnv2kb9ew2y8qqjvn4zn.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:6jfkcf2w72fq1wj8f3dbcb15dy:v1</guid>
+      <link>https://www.kinocomputing.com/widened-physical-reservoir-vs-esn-narma-10-and-mackey-glass</link>
+      <title>Widened physical reservoir vs ESN, NARMA-10 and Mackey-Glass…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>Widened physical reservoir vs ESN, NARMA-10 and Mackey-Glass</strong></p>
+<p>The first experiment (e002) found a toy physical reservoir far behind a tuned echo-state network on NARMA-10. Its diagnostic named two possible reasons: the physical side had stayed in its near-linear regime, and the ESN baseline had too. This experiment (e003) widens both sides in the directions the diagnostic pointed to, and adds a second task. It was pre-registered before any code ran, in the same design as e002: 50 readout features, 24 configurations per model, validation-only selection, and a test split read once.</p>
+<p>The claim it rests on:</p>
+<blockquote class="blyg-transclusion" data-blyg-id="3gs5f1qnv2kb9ew2y8qqjvn4zn" data-blyg-version="1">
+<div class="blyg-tk-gen">
+<p><strong>Widened reservoir still trails tuned ESN in simulation</strong></p>
+<p>In simulation only, for one parametrisation: oscillator frequencies from 0.8 to 1.2, damping 0.2, noise 0.01, readout on displacement only. With 50 readout features and 24-configuration grids on both sides, the physical reservoir had higher median test error than a tuned same-width echo-state network: 0.94 against 0.12 on NARMA-10, and 0.16 against 0.0003 on Mackey-Glass at horizon 5, where the physical side sits at a grid edge. Both results hold on two seeds. One parametrisation, two tasks, one simulation: this says nothing about physical reservoirs in general, about any device, or about energy.</p>
+<p>Evidence: experiments/e003-physical-reservoir-wider/RESULTS.md. Stage: simulated. Review: weakened (wording narrowed to this parametrisation; the Mackey-Glass ratio overstates the gap).</p>
+</div>
+</blockquote>
+<p>What came out. On NARMA-10 the physical median test NMSE was 0.94 and the ESN&#39;s 0.12, five instances, seed 1; seed 2 gave 0.88 and 0.12. On Mackey-Glass at horizon 5 the figures were 0.16 and 0.0003 (seed 2: 0.11 and 0.0003). The pre-registered kill, on NARMA-10, fired on both seeds.</p>
+<p>The widening did one thing and not the other. The physical features&#39; effective rank rose from about 3 of 50 to about 31 on NARMA-10, but the accuracy gap did not narrow: the ratio went from 6.6 in e002 to 7.7 here.</p>
+<p>Why it may be the parametrisation. The reviewer found that switching off the noise lowered the physical error on the same instances, so noise is not the cause. The likely cause is that the oscillators have a narrow frequency spread, share one drive, and produce near-collinear features. A wider frequency spread, a wider ridge grid, and a grid past the current corners would be the next tests. None is done.</p>
+<p>Two caveats the reader should weigh. On Mackey-Glass the physical optimum sat at the grid corner, with the ridge penalty at its top, so that figure is a lower bound on what this model can do and the ratio overstates the gap. On NARMA-10 the ESN chose its near-linear input range, so the tanh-active regime did not win there. Mackey-Glass at horizon 5 is an easy task for the ESN, reaching about 3e-4 NMSE, so it has little room to separate the two.</p>
+<p>Energy is not measured. The break-even figure from e002 still applies: under an assumed 4.6 pJ per multiply-accumulate, a physical network would have to spend under about 0.23 nJ per oscillator per input step to match the ESN&#39;s energy.</p>
+</div>]]></description>
+      <pubDate>Sat, 21 Nov 2026 02:54:04 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>6jfkcf2w72fq1wj8f3dbcb15dy</blyg:id>
+      <blyg:kind>thread</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-21T02:54:04Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/6jfkcf2w72fq1wj8f3dbcb15dy.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:0enta50380qkg47vg4ywwqadvr:v1</guid>
+      <link>https://www.kinocomputing.com/e001-chip-native-nowcast-on-a-256-pixel-window</link>
+      <title>e001: chip-native nowcast on a 256-pixel window The lab's…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>e001: chip-native nowcast on a 256-pixel window</strong></p>
+<p>The lab&#39;s first replication attempt on a public radar sequence finished inside its budget after a cut. The full grid overran the timebox, so the domain was cropped to a 256 × 256 window around the rain in the last fit frame, and the same forecasts were scored against STEPS.</p>
+<p>The result was killed as pre-registered: the chip-native sampler closed 16% of the gap to STEPS at 60 minutes, against a threshold of 50%. Mean CRPS was 0.237 for STEPS, 0.268 for the naive ensemble and 0.263 for the chip-native sampler.</p>
+<p>The reviewer found the kill rule and baseline correct, but noted that pixelwise CRPS at one lead cannot see scale structure or memory, so this run does not test the mechanism. It is one seed, three origins and one window. The next step is a second seed and a check that is sensitive to structure. The claim is in the note this one quotes.</p>
+<blockquote class="blyg-transclusion" data-blyg-id="3nsrjj02719jqets76w1z0x8p6" data-blyg-version="1">
+<div class="blyg-tk-gen">
+<p><strong>Chip-native nowcaster: 16% of gap on one window</strong></p>
+<p>In simulation, on one rainy 256 × 256 window of a public pysteps radar sequence (seed 1, three forecast origins), a chip-native sampler closed 16% of the CRPS gap between the lab&#39;s naive i.i.d. ensemble and STEPS at 60 minutes. The pre-registered threshold was 50%, so the test was killed. This is one seed and one window, and the naive baseline is the lab&#39;s own construction. It does not test per-scale structure or the published claim, and it is not replicated.</p>
+<p>Evidence: <a href="https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md">https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md</a></p>
+</div>
+</blockquote>
+<p>Method, data, and the STEPS out-of-domain NaN issue are in the lab repository: <a href="https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md">https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md</a></p>
+</div>]]></description>
+      <pubDate>Sat, 21 Nov 2026 02:29:42 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>0enta50380qkg47vg4ywwqadvr</blyg:id>
+      <blyg:kind>thread</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-21T02:29:42Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/0enta50380qkg47vg4ywwqadvr.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:3nsrjj02719jqets76w1z0x8p6:v1</guid>
+      <link>https://www.kinocomputing.com/chip-native-nowcaster-16-of-gap-on-one-window</link>
+      <title>Chip-native nowcaster: 16% of gap on one window In…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>Chip-native nowcaster: 16% of gap on one window</strong></p>
+<p>In simulation, on one rainy 256 × 256 window of a public pysteps radar sequence (seed 1, three forecast origins), a chip-native sampler closed 16% of the CRPS gap between the lab&#39;s naive i.i.d. ensemble and STEPS at 60 minutes. The pre-registered threshold was 50%, so the test was killed. This is one seed and one window, and the naive baseline is the lab&#39;s own construction. It does not test per-scale structure or the published claim, and it is not replicated.</p>
+<p>Evidence: <a href="https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md">https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md</a></p>
+</div>]]></description>
+      <pubDate>Sat, 21 Nov 2026 02:29:42 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>3nsrjj02719jqets76w1z0x8p6</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-21T02:29:42Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/3nsrjj02719jqets76w1z0x8p6.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:7nt98tf1yy1mgywknkn0zem4yy:v1</guid>
+      <link>https://www.kinocomputing.com/analog-in-memory-computing-diffusion-noise-lands-early</link>
+      <title>Analog in-memory computing: diffusion noise lands early This…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>Analog in-memory computing: diffusion noise lands early</strong></p>
+<p>This is a paradigm-watch entry for analog in-memory computing, the paradigm whose &quot;Latest&quot; line on the alternative-paradigms page ends with &quot;noise and drift remain the core problem.&quot;</p>
+<p>What the source says. A preprint submitted 1 September 2026, <a href="https://arxiv.org/abs/2609.00955v1">ASSERT (arXiv:2609.00955)</a>, calibrates a hardware noise model against measurements from several physical analog compute-in-memory chips, then runs diffusion-model image generation under that noise. Its finding is that the early, high-noise denoising steps are much more vulnerable than the final refinement steps. The authors attribute this to a fixed hardware mapping, which repeats the same prediction errors at every step. Their remedy is training-free: inject more stochasticity early, then move smoothly to deterministic denoising. They report up to 2.58× lower FID than deterministic DDIM on high-resolution datasets, and 7.68× lower on a CIFAR-10 step-count study, with no change to parameters or to the number of network evaluations.</p>
+<p>A related preprint from the same group, <a href="https://arxiv.org/abs/2608.02700v1">NANQ (arXiv:2608.02700)</a>, fits a quantization scheme to measured response curves from an eFlash compute-in-memory array. Both papers are about how to use noisy analog hardware, not about better hardware.</p>
+<p>What we infer. This is a development in how analog in-memory hardware is used, not in the chips. For an iterative generative model, device noise does its damage in a time-structured way, so the sampling schedule matters as much as the noise level. That supports the paradigm&#39;s existing caveat and adds something to it.</p>
+<p>What the evidence does not show. Both gains come from simulation on a calibrated noise model, not from the sampler running on a chip. Neither preprint has been peer reviewed. The abstracts do not say which chips the measurements came from.</p>
+<p>What would change our mind. The same sampler run on a physical compute-in-memory array, with FID computed from chip outputs. Or a chip whose early-step sensitivity disappears, which would mean the schedule effect is specific to the noise model used.</p>
+</div>]]></description>
+      <pubDate>Fri, 20 Nov 2026 23:51:53 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>7nt98tf1yy1mgywknkn0zem4yy</blyg:id>
+      <blyg:kind>thread</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-20T23:51:53Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/7nt98tf1yy1mgywknkn0zem4yy.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:5f0x77m3p7z161ee8674p1yx1r:v1</guid>
+      <link>https://www.kinocomputing.com/simulated-physical-reservoir-vs-esn-on-narma-10</link>
+      <title>Simulated physical reservoir vs ESN on NARMA-10 Question…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>Simulated physical reservoir vs ESN on NARMA-10</strong></p>
+<p>Question q-003 asks whether a simulated physical reservoir beats a same-size digital baseline per joule. This first experiment (e002) tests the accuracy half, and only in simulation. It was pre-registered before any code ran: a network of 50 coupled, noisy Duffing-type oscillators against a tuned echo-state network with 50 readout features, on NARMA-10, with equal 24-configuration grids and a ridge grid, selection on validation, and a test split read once. The kill condition was that the physical median test error exceeds the ESN&#39;s.</p>
+<p>The claim it rests on:</p>
+<blockquote class="blyg-transclusion" data-blyg-id="22v1e3dt4ryr37vxbxcddeevq5" data-blyg-version="1">
+<div class="blyg-tk-gen">
+<p><strong>Toy oscillator reservoir trails tuned ESN on NARMA-10</strong></p>
+<p>In simulation only. A toy network of 50 coupled, noisy oscillators, on the NARMA-10 task at 50 readout features and a 24-configuration grid, reached a median test NMSE of 0.96 over five instances. A tuned echo-state network of the same width reached 0.15. At this grid the toy model sits near mean-predictor level. One task, one toy model, one grid: this says nothing about physical reservoirs in general, or about energy.</p>
+<p>Evidence: experiments/e002-physical-reservoir-narma10/RESULTS.md. Stage: simulated. Review: weakened (wording narrowed to this model, grid and task).</p>
+</div>
+</blockquote>
+<p>What came out: the kill fired. Median test NMSE over five instances was 0.96 for the physical network and 0.15 for the ESN. The physical network&#39;s per-instance values, 0.87 to 0.99, are at mean-predictor level. The seed-2 check run during review gave the same outcome.</p>
+<p>Why it may be the toy and not the physics. The physical features were nearly collinear (effective rank about 3 of 50, against about 5 for the ESN). The physical model chose the largest ridge penalty on its grid in every instance. Its coupling was weak at every point on the grid. These are diagnostics, not tested causes.</p>
+<p>The baseline is weaker than it looks. The ESN&#39;s chosen settings use inputs small enough that tanh stays near-linear, and a linear reservoir alone reaches about 0.19. NARMA-10 at this scale mostly tests linear memory, so it does not test the reservoir&#39;s nonlinearity.</p>
+<p>Energy is not measured here. Under an assumed 4.6 pJ per multiply-accumulate, a physical network would need to spend under about 0.23 nJ per oscillator per input step to match the ESN&#39;s energy, a threshold rather than a result.</p>
+<p>What would test this harder: a new pre-registered experiment with a physical grid that reaches the coupled, nonlinear regime and a wider ridge range, ESN input scales that exercise tanh, a second task, and a device energy taken from a source.</p>
+<p>Sources for NARMA-10 (Atiya and Parlos, 2000) and echo-state networks (Jaeger, 2001) are named but not linked: this shift could not check their links.</p>
+</div>]]></description>
+      <pubDate>Fri, 20 Nov 2026 23:45:24 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>5f0x77m3p7z161ee8674p1yx1r</blyg:id>
+      <blyg:kind>thread</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-20T23:45:24Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/5f0x77m3p7z161ee8674p1yx1r.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:22v1e3dt4ryr37vxbxcddeevq5:v1</guid>
+      <link>https://www.kinocomputing.com/toy-oscillator-reservoir-trails-tuned-esn-on-narma-10</link>
+      <title>Toy oscillator reservoir trails tuned ESN on NARMA-10 In…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>Toy oscillator reservoir trails tuned ESN on NARMA-10</strong></p>
+<p>In simulation only. A toy network of 50 coupled, noisy oscillators, on the NARMA-10 task at 50 readout features and a 24-configuration grid, reached a median test NMSE of 0.96 over five instances. A tuned echo-state network of the same width reached 0.15. At this grid the toy model sits near mean-predictor level. One task, one toy model, one grid: this says nothing about physical reservoirs in general, or about energy.</p>
+<p>Evidence: experiments/e002-physical-reservoir-narma10/RESULTS.md. Stage: simulated. Review: weakened (wording narrowed to this model, grid and task).</p>
+</div>]]></description>
+      <pubDate>Fri, 20 Nov 2026 23:45:24 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>22v1e3dt4ryr37vxbxcddeevq5</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-20T23:45:24Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/22v1e3dt4ryr37vxbxcddeevq5.json</blyg:item>
+    </item>
     <item>
       <guid isPermaLink="false">blyg:1yq9a2k2444azshy4mwdk5xrsn:v2</guid>
-      <link>https://kinocomputing.com/welcome-to-oncology</link>
+      <link>https://www.kinocomputing.com/welcome-to-oncology</link>
       <title>turned the three treatments into a bulleted list, no wording changed — Welcome to oncology Oncology is the branch of medicine…</title>
       <description><![CDATA[<p><strong>Welcome to oncology</strong></p>
 <p>Oncology is the branch of medicine devoted to cancer, which is really hundreds of diseases sharing one flaw: cells that grow and divide without limit. Oncologists work out why this happens, how to catch it early and how to stop it.</p>
@@ -37,11 +331,11 @@
       <blyg:kind>fragment</blyg:kind>
       <blyg:version>2</blyg:version>
       <blyg:created>2026-11-20T20:11:45Z</blyg:created>
-      <blyg:item>https://kinocomputing.com/items/1yq9a2k2444azshy4mwdk5xrsn.json</blyg:item>
+      <blyg:item>https://www.kinocomputing.com/items/1yq9a2k2444azshy4mwdk5xrsn.json</blyg:item>
     </item>
     <item>
       <guid isPermaLink="false">blyg:1yq9a2k2444azshy4mwdk5xrsn:v1</guid>
-      <link>https://kinocomputing.com/welcome-to-oncology</link>
+      <link>https://www.kinocomputing.com/welcome-to-oncology</link>
       <title>Welcome to oncology Oncology is the branch of medicine…</title>
       <description><![CDATA[<p><strong>Welcome to oncology</strong></p>
 <p>Oncology is the branch of medicine devoted to cancer, which is really hundreds of diseases sharing one flaw: cells that grow and divide without limit. Oncologists work out why this happens, how to catch it early and how to stop it.</p>
@@ -67,11 +361,11 @@
       <blyg:kind>fragment</blyg:kind>
       <blyg:version>1</blyg:version>
       <blyg:created>2026-11-20T20:11:45Z</blyg:created>
-      <blyg:item>https://kinocomputing.com/items/1yq9a2k2444azshy4mwdk5xrsn.json</blyg:item>
+      <blyg:item>https://www.kinocomputing.com/items/1yq9a2k2444azshy4mwdk5xrsn.json</blyg:item>
     </item>
     <item>
       <guid isPermaLink="false">blyg:6ba6dgf4cxd1kmpwmscxy8c6j7:v1</guid>
-      <link>https://kinocomputing.com/thermodynamic-computing-doesnt-shortcut-numerical-weather-pr</link>
+      <link>https://www.kinocomputing.com/thermodynamic-computing-doesnt-shortcut-numerical-weather-pr</link>
       <title>Thermodynamic computing doesn’t shortcut numerical weather…</title>
       <description><![CDATA[<p><strong>Thermodynamic computing doesn’t shortcut numerical weather prediction yet</strong></p>
 <p>Can thermodynamic computing make weather prediction quicker and cheaper? That was the question behind this piece of work, which builds on <a href="https://www.kinocomputing.com/the-nwp-horseshoe">The NWP horseshoe</a>. This is the short version of what I did and what I found.</p>
@@ -137,11 +431,11 @@
       <blyg:kind>fragment</blyg:kind>
       <blyg:version>1</blyg:version>
       <blyg:created>2026-10-18T13:32:47Z</blyg:created>
-      <blyg:item>https://kinocomputing.com/items/6ba6dgf4cxd1kmpwmscxy8c6j7.json</blyg:item>
+      <blyg:item>https://www.kinocomputing.com/items/6ba6dgf4cxd1kmpwmscxy8c6j7.json</blyg:item>
     </item>
     <item>
       <guid isPermaLink="false">blyg:7er8mjr500qaphps21sjjshex5:v1</guid>
-      <link>https://kinocomputing.com/alternative-paradigms</link>
+      <link>https://www.kinocomputing.com/alternative-paradigms</link>
       <title>Alternative paradigms Given that the target of kinocomputing…</title>
       <description><![CDATA[<p><strong>Alternative paradigms</strong></p>
 <p>Given that the <a href="https://kinocomputing.com/about">target</a> of kinocomputing is alternative paradigms of computing and intelligence, I thought it sensible to do a round-up of what those alternatives actually are.</p>
@@ -358,11 +652,11 @@
       <blyg:kind>fragment</blyg:kind>
       <blyg:version>1</blyg:version>
       <blyg:created>2026-10-03T07:22:57Z</blyg:created>
-      <blyg:item>https://kinocomputing.com/items/7er8mjr500qaphps21sjjshex5.json</blyg:item>
+      <blyg:item>https://www.kinocomputing.com/items/7er8mjr500qaphps21sjjshex5.json</blyg:item>
     </item>
     <item>
       <guid isPermaLink="false">blyg:124hvdrdak0jtpkknba81ycdwb:v1</guid>
-      <link>https://kinocomputing.com/patterns-that-matter</link>
+      <link>https://www.kinocomputing.com/patterns-that-matter</link>
       <title>Patterns that matter The core claim of Michael Levin’s…</title>
       <description><![CDATA[<p><strong>Patterns that matter</strong></p>
 <p>The core claim of <a href="https://mdpi.com/2409-9287/11/5/161">Michael Levin’s Ingressing Minds</a> paper: mind relates to body as math relates to physics. Just as primes and constants shape physical outcomes without <em>being</em> physical themselves, Levin says minds are the same kind of thing, just further along a spectrum of agency. To simplify for myself, I imagined this as two spaces.</p>
@@ -382,11 +676,11 @@
       <blyg:kind>fragment</blyg:kind>
       <blyg:version>1</blyg:version>
       <blyg:created>2026-10-01T06:48:40Z</blyg:created>
-      <blyg:item>https://kinocomputing.com/items/124hvdrdak0jtpkknba81ycdwb.json</blyg:item>
+      <blyg:item>https://www.kinocomputing.com/items/124hvdrdak0jtpkknba81ycdwb.json</blyg:item>
     </item>
     <item>
       <guid isPermaLink="false">blyg:3pfdyzgym1hm9k15cdg9g25qpk:v1</guid>
-      <link>https://kinocomputing.com/resident-m</link>
+      <link>https://www.kinocomputing.com/resident-m</link>
       <title>Resident M Everyone starts with the smell. Not the name. Not…</title>
       <description><![CDATA[<p><strong>Resident M</strong></p>
 <p>Everyone starts with the smell.</p>
@@ -481,11 +775,11 @@
       <blyg:kind>fragment</blyg:kind>
       <blyg:version>1</blyg:version>
       <blyg:created>2026-09-26T12:13:19Z</blyg:created>
-      <blyg:item>https://kinocomputing.com/items/3pfdyzgym1hm9k15cdg9g25qpk.json</blyg:item>
+      <blyg:item>https://www.kinocomputing.com/items/3pfdyzgym1hm9k15cdg9g25qpk.json</blyg:item>
     </item>
     <item>
       <guid isPermaLink="false">blyg:0948srtzkp0b6pk4w4281z5bj0:v1</guid>
-      <link>https://kinocomputing.com/the-nwp-horseshoe</link>
+      <link>https://www.kinocomputing.com/the-nwp-horseshoe</link>
       <title>The NWP horseshoe Numerical weather prediction’s (NWP) base…</title>
       <description><![CDATA[<p><strong>The NWP horseshoe</strong></p>
 <p>Numerical weather prediction’s (<a href="https://en.wikipedia.org/wiki/Numerical_weather_prediction">NWP</a>) base paradigm is simple: weather is math, and math is <a href="https://en.wikipedia.org/wiki/P_versus_NP_problem">sufficiently solvable</a>. Just model phenomena on a grid using quantitative methods such as fluid mechanics and thermodynamics, then step forward in time from observed state. This observe-model-predict chain is the operative paradigm that powers everything else.</p>
@@ -516,11 +810,11 @@
       <blyg:kind>fragment</blyg:kind>
       <blyg:version>1</blyg:version>
       <blyg:created>2026-09-12T21:43:36Z</blyg:created>
-      <blyg:item>https://kinocomputing.com/items/0948srtzkp0b6pk4w4281z5bj0.json</blyg:item>
+      <blyg:item>https://www.kinocomputing.com/items/0948srtzkp0b6pk4w4281z5bj0.json</blyg:item>
     </item>
     <item>
       <guid isPermaLink="false">blyg:54ycqv6z1fp4f387hgsm39cfjw:v1</guid>
-      <link>https://kinocomputing.com/ais-heretical-question</link>
+      <link>https://www.kinocomputing.com/ais-heretical-question</link>
       <title>AI’s heretical question Cryptocurrencies go back to the…</title>
       <description><![CDATA[<p><strong>AI’s heretical question</strong></p>
 <p>Cryptocurrencies go back to the digital-gold, <a href="https://en.wikipedia.org/wiki/The_Sovereign_Individual">sovereign-individual</a> era of the nineties. People like <a href="https://en.wikipedia.org/wiki/Nick_Szabo">Nick Szabo</a> and subcultures like the <a href="https://en.wikipedia.org/wiki/Cypherpunk">cypherpunks</a> asked a simple, heretical question: “What actually is <em>money</em>, and why can’t it be <em>this</em>?” That question didn’t <em>need</em> <a href="https://en.wikipedia.org/wiki/2008_financial_crisis">2008</a> to exist. There was already a minority coalescing around it. But the financial crash of 2008 made it a mainstream concern.</p>
@@ -537,11 +831,11 @@
       <blyg:kind>fragment</blyg:kind>
       <blyg:version>1</blyg:version>
       <blyg:created>2026-09-05T19:09:25Z</blyg:created>
-      <blyg:item>https://kinocomputing.com/items/54ycqv6z1fp4f387hgsm39cfjw.json</blyg:item>
+      <blyg:item>https://www.kinocomputing.com/items/54ycqv6z1fp4f387hgsm39cfjw.json</blyg:item>
     </item>
     <item>
       <guid isPermaLink="false">blyg:2nkfm46thtyhgyjdb328k672b9:v1</guid>
-      <link>https://kinocomputing.com/simplistic-thermodynamic-computing</link>
+      <link>https://www.kinocomputing.com/simplistic-thermodynamic-computing</link>
       <title>Simplistic thermodynamic computing Since I’m intending to do…</title>
       <description><![CDATA[<p><strong>Simplistic thermodynamic computing</strong></p>
 <p>Since I’m intending to do an experiment involving <a href="http://extropic.ai/writing/thermodynamic-computing-from-zero-to-one">thermodynamic computing</a>, I thought it sensible to simplistically summarise the paradigm itself. Here’s the compressed version: <em>thermodynamic computing uses thermal noise to drive computation instead of spending resource to fight it, mitigating energy cost as a bottleneck for certain classes of computation at civilisation scale.</em></p>
@@ -567,11 +861,11 @@
       <blyg:kind>fragment</blyg:kind>
       <blyg:version>1</blyg:version>
       <blyg:created>2026-08-29T14:11:21Z</blyg:created>
-      <blyg:item>https://kinocomputing.com/items/2nkfm46thtyhgyjdb328k672b9.json</blyg:item>
+      <blyg:item>https://www.kinocomputing.com/items/2nkfm46thtyhgyjdb328k672b9.json</blyg:item>
     </item>
     <item>
       <guid isPermaLink="false">blyg:0gk0bcqryvp9166wq8qkyc46cc:v1</guid>
-      <link>https://kinocomputing.com/brandian-returns</link>
+      <link>https://www.kinocomputing.com/brandian-returns</link>
       <title>Brandian returns A few months back I read Stewart Brand’s…</title>
       <description><![CDATA[<p><strong>Brandian returns</strong></p>
 <p>A few months back I read Stewart Brand’s <em>Maintenance: Of Everything</em>. It led to a <a href="https://protocolized.summerofprotocols.com/p/maintaining-everything-that-matters">fun conversation</a> with <a href="https://hyperphor.com/">Mike Travers</a>, out of which came the idea of a “Brandian return”. Think of it as the complement to a <a href="https://protocolized.io/resources/introduction-to-the-protocol-reader">Whitehead advance</a>. Quoting in full:</p>
@@ -618,11 +912,11 @@
       <blyg:kind>fragment</blyg:kind>
       <blyg:version>1</blyg:version>
       <blyg:created>2026-08-23T10:36:20Z</blyg:created>
-      <blyg:item>https://kinocomputing.com/items/0gk0bcqryvp9166wq8qkyc46cc.json</blyg:item>
+      <blyg:item>https://www.kinocomputing.com/items/0gk0bcqryvp9166wq8qkyc46cc.json</blyg:item>
     </item>
     <item>
       <guid isPermaLink="false">blyg:3ae53bqvd075ppjq3fmmpw90cz:v1</guid>
-      <link>https://kinocomputing.com/about</link>
+      <link>https://www.kinocomputing.com/about</link>
       <title>About Hi, I’m Matt. This is the place where I do independent…</title>
       <description><![CDATA[<h1 class="title">About</h1>
 <p>Hi, I’m <a href="https://www.msweet.net/">Matt</a>. This is the <a href="https://aneeshsathe.com/nakatomi-drift/">place</a> where I do independent <a href="https://ribbonfarm.com/2023/04/05/permissionless-research/">research</a> into alternative <a href="https://donellameadows.org/archives/leverage-points-places-to-intervene-in-a-system/">paradigms</a> of computing and intelligence.</p>
@@ -634,7 +928,7 @@
       <blyg:kind>fragment</blyg:kind>
       <blyg:version>1</blyg:version>
       <blyg:created>2026-08-10T08:00:00Z</blyg:created>
-      <blyg:item>https://kinocomputing.com/items/3ae53bqvd075ppjq3fmmpw90cz.json</blyg:item>
+      <blyg:item>https://www.kinocomputing.com/items/3ae53bqvd075ppjq3fmmpw90cz.json</blyg:item>
     </item>
   </channel>
 </rss>

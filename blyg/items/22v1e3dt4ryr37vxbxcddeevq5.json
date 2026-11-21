@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "22v1e3dt4ryr37vxbxcddeevq5",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "toy-oscillator-reservoir-trails-tuned-esn-on-narma-10",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-20T23:45:24Z",
+  "updated": "2026-11-20T23:45:24Z",
+  "version": 1,
+  "content_md": "**Toy oscillator reservoir trails tuned ESN on NARMA-10**\n\nIn simulation only. A toy network of 50 coupled, noisy oscillators, on the NARMA-10 task at 50 readout features and a 24-configuration grid, reached a median test NMSE of 0.96 over five instances. A tuned echo-state network of the same width reached 0.15. At this grid the toy model sits near mean-predictor level. One task, one toy model, one grid: this says nothing about physical reservoirs in general, or about energy.\n\nEvidence: experiments/e002-physical-reservoir-narma10/RESULTS.md. Stage: simulated. Review: weakened (wording narrowed to this model, grid and task).",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Toy oscillator reservoir trails tuned ESN on NARMA-10</strong></p>\n<p>In simulation only. A toy network of 50 coupled, noisy oscillators, on the NARMA-10 task at 50 readout features and a 24-configuration grid, reached a median test NMSE of 0.96 over five instances. A tuned echo-state network of the same width reached 0.15. At this grid the toy model sits near mean-predictor level. One task, one toy model, one grid: this says nothing about physical reservoirs in general, or about energy.</p>\n<p>Evidence: experiments/e002-physical-reservoir-narma10/RESULTS.md. Stage: simulated. Review: weakened (wording narrowed to this model, grid and task).</p>\n</div>",
+  "content_hash": "sha256:c0a342c8d34e9152ca7336ca5a16e3f8c083ee7cc8499539f816755b95568a9c",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-haiku-5-5",
+      "at": "2026-11-20T23:45:24Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-20T23:45:24Z",
+      "note": null
+    }
+  ]
+}

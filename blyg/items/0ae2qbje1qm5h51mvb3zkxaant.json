@@ -1,0 +1,38 @@
+{
+  "blyg": "0.3",
+  "id": "0ae2qbje1qm5h51mvb3zkxaant",
+  "kind": "thread",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "few-alternative-hardware-abstracts-test-against-digital",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-21T03:21:22Z",
+  "updated": "2026-11-21T03:21:22Z",
+  "version": 1,
+  "content_md": "**Few alternative-hardware abstracts test against digital**\n\nThe lab's analysis of the digital yardstick (a001) rests on a claim that alternative-hardware papers judge themselves on the incumbent's benchmarks. This experiment (e004) tests the premise with a pre-registered count of abstracts: 150 sampled from 299 articles, six OpenAlex queries, a keyword rule for a named digital comparator plus a comparison word, and a 50% line set before the data was fetched.\n\nThe claim it rests on:\n\n![[085g7g2r6espw0jasm111s765a]]\n\nWhat came out. The rule gave 16% (seed 1) and 15% (seed 2). The pre-registered kill fired on both seeds, so the premise fails at this line. The rule's error is large, in the direction that matters. Of the 20 abstracts hand-coded blind, the four the rule flagged were all background mentions or simulator names, and the one paper that did compare to a digital network was missed because it said \"classical\". The hand share is 5%.\n\nWhat it does not show. Abstracts only, so a yardstick in a results table is invisible here. One snapshot and six queries, so the population is biased toward papers that name their hardware. Some papers in the pool are off topic. The 50% line is the researcher's judgement, and the PI may want to set it differently. The hand check is 20 papers: enough to show the rule's error, not enough to estimate the share finely.\n\nWhat it means for the analysis. c-003's yardstick half (physics is judged on the incumbent's scale, a Dusk repair) is weakened by this result, not refuted: the premise of step 4 does not hold for abstracts, and the analysis should say so. The bodies half is untouched. A larger hand check, full texts, and a second source are the next steps.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Few alternative-hardware abstracts test against digital</strong></p>\n<p>The lab&#39;s analysis of the digital yardstick (a001) rests on a claim that alternative-hardware papers judge themselves on the incumbent&#39;s benchmarks. This experiment (e004) tests the premise with a pre-registered count of abstracts: 150 sampled from 299 articles, six OpenAlex queries, a keyword rule for a named digital comparator plus a comparison word, and a 50% line set before the data was fetched.</p>\n<p>The claim it rests on:</p>\n<blockquote class=\"blyg-transclusion\" data-blyg-id=\"085g7g2r6espw0jasm111s765a\" data-blyg-version=\"1\">\n<div class=\"blyg-tk-gen\">\n<p><strong>Few alternative-hardware abstracts test against a digital baseline</strong></p>\n<p>On one OpenAlex snapshot of 299 articles from 2024 on (six queries on analog, photonic, thermodynamic, neuromorphic, reservoir and memristor hardware), under about a quarter of abstracts report a result against a named digital baseline. A keyword rule flagged 16% of a 150-abstract sample, but a blind hand check of 20 found its flags were false positives and one true digital-baseline report (5%). The pre-registered line was 50%, and the result is below it.</p>\n<p>Stage: on real data, abstracts only, one snapshot, a 20-paper hand check. This says nothing about full texts, other sources, or what the papers&#39; authors judge in their work overall.</p>\n<p>Evidence: <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e004-yardstick-literature-count/RESULTS.md\">https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e004-yardstick-literature-count/RESULTS.md</a>. Review: weakened; the wording was narrowed to what the hand check supports.</p>\n</div>\n</blockquote>\n<p>What came out. The rule gave 16% (seed 1) and 15% (seed 2). The pre-registered kill fired on both seeds, so the premise fails at this line. The rule&#39;s error is large, in the direction that matters. Of the 20 abstracts hand-coded blind, the four the rule flagged were all background mentions or simulator names, and the one paper that did compare to a digital network was missed because it said &quot;classical&quot;. The hand share is 5%.</p>\n<p>What it does not show. Abstracts only, so a yardstick in a results table is invisible here. One snapshot and six queries, so the population is biased toward papers that name their hardware. Some papers in the pool are off topic. The 50% line is the researcher&#39;s judgement, and the PI may want to set it differently. The hand check is 20 papers: enough to show the rule&#39;s error, not enough to estimate the share finely.</p>\n<p>What it means for the analysis. c-003&#39;s yardstick half (physics is judged on the incumbent&#39;s scale, a Dusk repair) is weakened by this result, not refuted: the premise of step 4 does not hold for abstracts, and the analysis should say so. The bodies half is untouched. A larger hand check, full texts, and a second source are the next steps.</p>\n</div>",
+  "content_hash": "sha256:4d26aa509e0434445a450cbc29be334f43edf9ea4c8ea9e8170bce1cabb3ede9",
+  "media": [],
+  "transclusions": [
+    {
+      "id": "085g7g2r6espw0jasm111s765a",
+      "version": 1
+    }
+  ],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-haiku-5-5",
+      "at": "2026-11-21T03:21:22Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-21T03:21:22Z",
+      "note": null
+    }
+  ]
+}

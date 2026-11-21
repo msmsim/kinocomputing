@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "7nx65h9vk6q4v05qrpy6ta1zw8",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "the-digital-stack-reads-as-two-machines-not-one",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-21T03:06:31Z",
+  "updated": "2026-11-21T03:06:31Z",
+  "version": 1,
+  "content_md": "**The digital stack reads as two machines, not one**\n\nA conjecture, reviewed and weakened. The incumbent stack's hardware-and-scaling layer is compatible with Modernity in Dusk, but the evidence is now capital and supply-chain concentration (training cost up 2.4x a year; energy only 2-6% of run cost; a concentrated chip supply chain), which ordinary market structure also explains. The Divergence-in-Day reading of the deployment layer is currently unsupported. Not tested.\n\nEvidence: [the working analysis](https://github.com/msmsim/kinocomputing-lab/blob/main/analyses/a001-incumbent-stack-in-the-machines/ANALYSIS.md). Stage: conjecture. Review: weakened.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>The digital stack reads as two machines, not one</strong></p>\n<p>A conjecture, reviewed and weakened. The incumbent stack&#39;s hardware-and-scaling layer is compatible with Modernity in Dusk, but the evidence is now capital and supply-chain concentration (training cost up 2.4x a year; energy only 2-6% of run cost; a concentrated chip supply chain), which ordinary market structure also explains. The Divergence-in-Day reading of the deployment layer is currently unsupported. Not tested.</p>\n<p>Evidence: <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/analyses/a001-incumbent-stack-in-the-machines/ANALYSIS.md\">the working analysis</a>. Stage: conjecture. Review: weakened.</p>\n</div>",
+  "content_hash": "sha256:d380ee83ea61c07b1d53f8b6237b9358c914c0547e7603d0a7f484b1f5862841",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-21T03:06:31Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-21T03:06:31Z",
+      "note": null
+    }
+  ]
+}

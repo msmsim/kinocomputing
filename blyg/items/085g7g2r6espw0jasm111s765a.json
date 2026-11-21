@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "085g7g2r6espw0jasm111s765a",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "few-alternative-hardware-abstracts-test-against-a-digital-ba",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-21T03:21:22Z",
+  "updated": "2026-11-21T03:21:22Z",
+  "version": 1,
+  "content_md": "**Few alternative-hardware abstracts test against a digital baseline**\n\nOn one OpenAlex snapshot of 299 articles from 2024 on (six queries on analog, photonic, thermodynamic, neuromorphic, reservoir and memristor hardware), under about a quarter of abstracts report a result against a named digital baseline. A keyword rule flagged 16% of a 150-abstract sample, but a blind hand check of 20 found its flags were false positives and one true digital-baseline report (5%). The pre-registered line was 50%, and the result is below it.\n\nStage: on real data, abstracts only, one snapshot, a 20-paper hand check. This says nothing about full texts, other sources, or what the papers' authors judge in their work overall.\n\nEvidence: [https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e004-yardstick-literature-count/RESULTS.md](https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e004-yardstick-literature-count/RESULTS.md). Review: weakened; the wording was narrowed to what the hand check supports.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Few alternative-hardware abstracts test against a digital baseline</strong></p>\n<p>On one OpenAlex snapshot of 299 articles from 2024 on (six queries on analog, photonic, thermodynamic, neuromorphic, reservoir and memristor hardware), under about a quarter of abstracts report a result against a named digital baseline. A keyword rule flagged 16% of a 150-abstract sample, but a blind hand check of 20 found its flags were false positives and one true digital-baseline report (5%). The pre-registered line was 50%, and the result is below it.</p>\n<p>Stage: on real data, abstracts only, one snapshot, a 20-paper hand check. This says nothing about full texts, other sources, or what the papers&#39; authors judge in their work overall.</p>\n<p>Evidence: <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e004-yardstick-literature-count/RESULTS.md\">https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e004-yardstick-literature-count/RESULTS.md</a>. Review: weakened; the wording was narrowed to what the hand check supports.</p>\n</div>",
+  "content_hash": "sha256:881c34c5dd7db3e816b0abfb4d7e5ac46725e1178e8509da3d4f27279b526cec",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-haiku-5-5",
+      "at": "2026-11-21T03:21:22Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-21T03:21:22Z",
+      "note": null
+    }
+  ]
+}

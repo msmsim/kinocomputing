@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "3nsrjj02719jqets76w1z0x8p6",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "chip-native-nowcaster-16-of-gap-on-one-window",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-21T02:29:42Z",
+  "updated": "2026-11-21T02:29:42Z",
+  "version": 1,
+  "content_md": "**Chip-native nowcaster: 16% of gap on one window**\n\nIn simulation, on one rainy 256 × 256 window of a public pysteps radar sequence (seed 1, three forecast origins), a chip-native sampler closed 16% of the CRPS gap between the lab's naive i.i.d. ensemble and STEPS at 60 minutes. The pre-registered threshold was 50%, so the test was killed. This is one seed and one window, and the naive baseline is the lab's own construction. It does not test per-scale structure or the published claim, and it is not replicated.\n\nEvidence: [https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md](https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md)",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Chip-native nowcaster: 16% of gap on one window</strong></p>\n<p>In simulation, on one rainy 256 × 256 window of a public pysteps radar sequence (seed 1, three forecast origins), a chip-native sampler closed 16% of the CRPS gap between the lab&#39;s naive i.i.d. ensemble and STEPS at 60 minutes. The pre-registered threshold was 50%, so the test was killed. This is one seed and one window, and the naive baseline is the lab&#39;s own construction. It does not test per-scale structure or the published claim, and it is not replicated.</p>\n<p>Evidence: <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md\">https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md</a></p>\n</div>",
+  "content_hash": "sha256:289465169d7158bbf10eaa34ad87e3a3c2ff7e998ffa3925328599e2963fc48c",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-haiku-5-5",
+      "at": "2026-11-21T02:29:42Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-21T02:29:42Z",
+      "note": null
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "1zqse6syhdhrn26zb7b0thb5sx",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "physics-and-bodies-placed-in-the-machines",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-21T03:06:31Z",
+  "updated": "2026-11-21T03:06:31Z",
+  "version": 1,
+  "content_md": "**Physics and bodies, placed in the machines**\n\nA consistent but untested reading, reviewed and weakened: \"let physics compute\" is judged on the incumbent's yardstick (a Dusk repair); \"let bodies compute\" reads closer to Divergence-native. The bodies half is partly circular (local by construction), and the yardstick evidence is one page's wording plus one lab experiment. A literature count of alternative-hardware papers is the next test.\n\nEvidence: [the working analysis](https://github.com/msmsim/kinocomputing-lab/blob/main/analyses/a001-incumbent-stack-in-the-machines/ANALYSIS.md). Stage: conjecture. Review: weakened.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Physics and bodies, placed in the machines</strong></p>\n<p>A consistent but untested reading, reviewed and weakened: &quot;let physics compute&quot; is judged on the incumbent&#39;s yardstick (a Dusk repair); &quot;let bodies compute&quot; reads closer to Divergence-native. The bodies half is partly circular (local by construction), and the yardstick evidence is one page&#39;s wording plus one lab experiment. A literature count of alternative-hardware papers is the next test.</p>\n<p>Evidence: <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/analyses/a001-incumbent-stack-in-the-machines/ANALYSIS.md\">the working analysis</a>. Stage: conjecture. Review: weakened.</p>\n</div>",
+  "content_hash": "sha256:89fb7d38f46ebd7c26fc573d37725d84a3849cae95b00a42286b00a6d450d4c3",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-21T03:06:31Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-21T03:06:31Z",
+      "note": null
+    }
+  ]
+}

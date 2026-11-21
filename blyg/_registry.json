@@ -144,6 +144,293 @@
       ],
       "seen": "70e5358c9d31ea67",
       "page": "about"
+    },
+    "lab-2026-11-20-analog-cim-diffusion-noise": {
+      "id": "7nt98tf1yy1mgywknkn0zem4yy",
+      "created": "2026-11-20T23:51:53Z",
+      "hash": "sha256:e9e35f2d7c650617679d64b4b31924001707ba1002eb1cb60c68775212cc411e",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-haiku-5-5",
+        "at": "2026-11-20T23:51:53Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-20T23:51:53Z",
+          "note": null
+        }
+      ],
+      "seen": "238840b537fc2466",
+      "page": "analog-in-memory-computing-diffusion-noise-lands-early"
+    },
+    "lab-2026-11-20-oscillator-reservoir-claim": {
+      "id": "22v1e3dt4ryr37vxbxcddeevq5",
+      "created": "2026-11-20T23:45:24Z",
+      "hash": "sha256:c0a342c8d34e9152ca7336ca5a16e3f8c083ee7cc8499539f816755b95568a9c",
+      "generated": {
+        "model": "claude-haiku-5-5",
+        "at": "2026-11-20T23:45:24Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-20T23:45:24Z",
+          "note": null
+        }
+      ],
+      "seen": "dede14e93b92ee0c",
+      "page": "toy-oscillator-reservoir-trails-tuned-esn-on-narma-10"
+    },
+    "lab-2026-11-20-physical-reservoir-narma10": {
+      "id": "5f0x77m3p7z161ee8674p1yx1r",
+      "created": "2026-11-20T23:45:24Z",
+      "hash": "sha256:c6c63e752dbaf1c9da3cab63ee21d64fecf984e686cfdea466edfb17576969cb",
+      "kind": "thread",
+      "quotes": [
+        {
+          "slug": "lab-2026-11-20-oscillator-reservoir-claim",
+          "id": "22v1e3dt4ryr37vxbxcddeevq5",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Toy oscillator reservoir trails tuned ESN on NARMA-10</strong></p>\n<p>In simulation only. A toy network of 50 coupled, noisy oscillators, on the NARMA-10 task at 50 readout features and a 24-configuration grid, reached a median test NMSE of 0.96 over five instances. A tuned echo-state network of the same width reached 0.15. At this grid the toy model sits near mean-predictor level. One task, one toy model, one grid: this says nothing about physical reservoirs in general, or about energy.</p>\n<p>Evidence: experiments/e002-physical-reservoir-narma10/RESULTS.md. Stage: simulated. Review: weakened (wording narrowed to this model, grid and task).</p>\n</div>"
+        }
+      ],
+      "generated": {
+        "model": "claude-haiku-5-5",
+        "at": "2026-11-20T23:45:24Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-20T23:45:24Z",
+          "note": null
+        }
+      ],
+      "seen": "3b6294a2a7eec63d",
+      "page": "simulated-physical-reservoir-vs-esn-on-narma-10"
+    },
+    "lab-2026-11-21-chip-native-gap-one-window": {
+      "id": "3nsrjj02719jqets76w1z0x8p6",
+      "created": "2026-11-21T02:29:42Z",
+      "hash": "sha256:289465169d7158bbf10eaa34ad87e3a3c2ff7e998ffa3925328599e2963fc48c",
+      "generated": {
+        "model": "claude-haiku-5-5",
+        "at": "2026-11-21T02:29:42Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-21T02:29:42Z",
+          "note": null
+        }
+      ],
+      "seen": "bb7ac8e4d7264083",
+      "page": "chip-native-nowcaster-16-of-gap-on-one-window"
+    },
+    "lab-2026-11-21-chip-native-window-run": {
+      "id": "0enta50380qkg47vg4ywwqadvr",
+      "created": "2026-11-21T02:29:42Z",
+      "hash": "sha256:cdd892a7157a40b05fc9df06cd603d1700f5010e55a61e9152c0265d8f882918",
+      "kind": "thread",
+      "quotes": [
+        {
+          "slug": "lab-2026-11-21-chip-native-gap-one-window",
+          "id": "3nsrjj02719jqets76w1z0x8p6",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Chip-native nowcaster: 16% of gap on one window</strong></p>\n<p>In simulation, on one rainy 256 × 256 window of a public pysteps radar sequence (seed 1, three forecast origins), a chip-native sampler closed 16% of the CRPS gap between the lab&#39;s naive i.i.d. ensemble and STEPS at 60 minutes. The pre-registered threshold was 50%, so the test was killed. This is one seed and one window, and the naive baseline is the lab&#39;s own construction. It does not test per-scale structure or the published claim, and it is not replicated.</p>\n<p>Evidence: <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md\">https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md</a></p>\n</div>"
+        }
+      ],
+      "generated": {
+        "model": "claude-haiku-5-5",
+        "at": "2026-11-21T02:29:42Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-21T02:29:42Z",
+          "note": null
+        }
+      ],
+      "seen": "2b93e7552da69b31",
+      "page": "e001-chip-native-nowcast-on-a-256-pixel-window"
+    },
+    "lab-2026-11-21-digital-yardstick-claim": {
+      "id": "085g7g2r6espw0jasm111s765a",
+      "created": "2026-11-21T03:21:22Z",
+      "hash": "sha256:881c34c5dd7db3e816b0abfb4d7e5ac46725e1178e8509da3d4f27279b526cec",
+      "generated": {
+        "model": "claude-haiku-5-5",
+        "at": "2026-11-21T03:21:22Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-21T03:21:22Z",
+          "note": null
+        }
+      ],
+      "seen": "881925d568b262fb",
+      "page": "few-alternative-hardware-abstracts-test-against-a-digital-ba"
+    },
+    "lab-2026-11-21-incumbent-stack-two-machines": {
+      "id": "5pmfwt8m7evb67e2ekyfebnxht",
+      "created": "2026-11-21T03:06:31Z",
+      "hash": "sha256:f35f509aef93b22916626dd42f3a8067735c92bfbc87a160f0d3e10e240c4adc",
+      "kind": "thread",
+      "quotes": [
+        {
+          "slug": "lab-2026-11-21-stack-split-two-machines",
+          "id": "7nx65h9vk6q4v05qrpy6ta1zw8",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>The digital stack reads as two machines, not one</strong></p>\n<p>A conjecture, reviewed and weakened. The incumbent stack&#39;s hardware-and-scaling layer is compatible with Modernity in Dusk, but the evidence is now capital and supply-chain concentration (training cost up 2.4x a year; energy only 2-6% of run cost; a concentrated chip supply chain), which ordinary market structure also explains. The Divergence-in-Day reading of the deployment layer is currently unsupported. Not tested.</p>\n<p>Evidence: <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/analyses/a001-incumbent-stack-in-the-machines/ANALYSIS.md\">the working analysis</a>. Stage: conjecture. Review: weakened.</p>\n</div>"
+        },
+        {
+          "slug": "lab-2026-11-21-physics-bodies-placement",
+          "id": "1zqse6syhdhrn26zb7b0thb5sx",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Physics and bodies, placed in the machines</strong></p>\n<p>A consistent but untested reading, reviewed and weakened: &quot;let physics compute&quot; is judged on the incumbent&#39;s yardstick (a Dusk repair); &quot;let bodies compute&quot; reads closer to Divergence-native. The bodies half is partly circular (local by construction), and the yardstick evidence is one page&#39;s wording plus one lab experiment. A literature count of alternative-hardware papers is the next test.</p>\n<p>Evidence: <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/analyses/a001-incumbent-stack-in-the-machines/ANALYSIS.md\">the working analysis</a>. Stage: conjecture. Review: weakened.</p>\n</div>"
+        }
+      ],
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-21T03:06:31Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-21T03:06:31Z",
+          "note": null
+        }
+      ],
+      "seen": "d55b15c1a883d7df",
+      "page": "where-the-incumbent-computing-stack-sits-in-the-machines"
+    },
+    "lab-2026-11-21-physical-reservoir-wider": {
+      "id": "6jfkcf2w72fq1wj8f3dbcb15dy",
+      "created": "2026-11-21T02:54:04Z",
+      "hash": "sha256:72494fd278ff1e0172e5b1b81e4ce51c1a7de490432cb1e9268a676b3e46549f",
+      "kind": "thread",
+      "quotes": [
+        {
+          "slug": "lab-2026-11-21-widened-reservoir-claim",
+          "id": "3gs5f1qnv2kb9ew2y8qqjvn4zn",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Widened reservoir still trails tuned ESN in simulation</strong></p>\n<p>In simulation only, for one parametrisation: oscillator frequencies from 0.8 to 1.2, damping 0.2, noise 0.01, readout on displacement only. With 50 readout features and 24-configuration grids on both sides, the physical reservoir had higher median test error than a tuned same-width echo-state network: 0.94 against 0.12 on NARMA-10, and 0.16 against 0.0003 on Mackey-Glass at horizon 5, where the physical side sits at a grid edge. Both results hold on two seeds. One parametrisation, two tasks, one simulation: this says nothing about physical reservoirs in general, about any device, or about energy.</p>\n<p>Evidence: experiments/e003-physical-reservoir-wider/RESULTS.md. Stage: simulated. Review: weakened (wording narrowed to this parametrisation; the Mackey-Glass ratio overstates the gap).</p>\n</div>"
+        }
+      ],
+      "generated": {
+        "model": "claude-haiku-5-5",
+        "at": "2026-11-21T02:54:04Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-21T02:54:04Z",
+          "note": null
+        }
+      ],
+      "seen": "fca60ce190517fc7",
+      "page": "widened-physical-reservoir-vs-esn-narma-10-and-mackey-glass"
+    },
+    "lab-2026-11-21-physics-bodies-placement": {
+      "id": "1zqse6syhdhrn26zb7b0thb5sx",
+      "created": "2026-11-21T03:06:31Z",
+      "hash": "sha256:89fb7d38f46ebd7c26fc573d37725d84a3849cae95b00a42286b00a6d450d4c3",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-21T03:06:31Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-21T03:06:31Z",
+          "note": null
+        }
+      ],
+      "seen": "cf895a26fd91ac0f",
+      "page": "physics-and-bodies-placed-in-the-machines"
+    },
+    "lab-2026-11-21-stack-split-two-machines": {
+      "id": "7nx65h9vk6q4v05qrpy6ta1zw8",
+      "created": "2026-11-21T03:06:31Z",
+      "hash": "sha256:d380ee83ea61c07b1d53f8b6237b9358c914c0547e7603d0a7f484b1f5862841",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-21T03:06:31Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-21T03:06:31Z",
+          "note": null
+        }
+      ],
+      "seen": "1cb2d58d0d1a5bca",
+      "page": "the-digital-stack-reads-as-two-machines-not-one"
+    },
+    "lab-2026-11-21-thermodynamic-digital-chip-cn101": {
+      "id": "1cb6xe5h0v8mqqa1b0dn4szbkn",
+      "created": "2026-11-21T03:27:08Z",
+      "hash": "sha256:61a6fc575c6296b6845dbf0b5ba95b81e5bf0f252ed851586b8c406f4db2c63d",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-haiku-5-5",
+        "at": "2026-11-21T03:27:08Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-21T03:27:08Z",
+          "note": null
+        }
+      ],
+      "seen": "4114c61d8116bbe3",
+      "page": "thermodynamic-computing-a-digital-chip-runs-the-method-energ"
+    },
+    "lab-2026-11-21-widened-reservoir-claim": {
+      "id": "3gs5f1qnv2kb9ew2y8qqjvn4zn",
+      "created": "2026-11-21T02:54:04Z",
+      "hash": "sha256:ea6e5166f83af09b5f049fbcafa1fde2b8620d3c4b01acd3c6ee3a0b148c81a2",
+      "generated": {
+        "model": "claude-haiku-5-5",
+        "at": "2026-11-21T02:54:04Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-21T02:54:04Z",
+          "note": null
+        }
+      ],
+      "seen": "d8dcb35fb2c4878a",
+      "page": "widened-reservoir-still-trails-tuned-esn-in-simulation"
+    },
+    "lab-2026-11-21-yardstick-literature-count": {
+      "id": "0ae2qbje1qm5h51mvb3zkxaant",
+      "created": "2026-11-21T03:21:22Z",
+      "hash": "sha256:4d26aa509e0434445a450cbc29be334f43edf9ea4c8ea9e8170bce1cabb3ede9",
+      "kind": "thread",
+      "quotes": [
+        {
+          "slug": "lab-2026-11-21-digital-yardstick-claim",
+          "id": "085g7g2r6espw0jasm111s765a",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Few alternative-hardware abstracts test against a digital baseline</strong></p>\n<p>On one OpenAlex snapshot of 299 articles from 2024 on (six queries on analog, photonic, thermodynamic, neuromorphic, reservoir and memristor hardware), under about a quarter of abstracts report a result against a named digital baseline. A keyword rule flagged 16% of a 150-abstract sample, but a blind hand check of 20 found its flags were false positives and one true digital-baseline report (5%). The pre-registered line was 50%, and the result is below it.</p>\n<p>Stage: on real data, abstracts only, one snapshot, a 20-paper hand check. This says nothing about full texts, other sources, or what the papers&#39; authors judge in their work overall.</p>\n<p>Evidence: <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e004-yardstick-literature-count/RESULTS.md\">https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e004-yardstick-literature-count/RESULTS.md</a>. Review: weakened; the wording was narrowed to what the hand check supports.</p>\n</div>"
+        }
+      ],
+      "generated": {
+        "model": "claude-haiku-5-5",
+        "at": "2026-11-21T03:21:22Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-21T03:21:22Z",
+          "note": null
+        }
+      ],
+      "seen": "fc5f038cb0146533",
+      "page": "few-alternative-hardware-abstracts-test-against-digital"
     }
   }
 }

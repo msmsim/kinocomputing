@@ -3,7 +3,7 @@
   "level": 2,
   "generator": "kinocomputing-build/0.1",
   "generator_url": "https://github.com/msmsim/kinocomputing",
-  "site": "https://kinocomputing.com/",
+  "site": "https://www.kinocomputing.com/",
   "title": "Kinocomputing",
   "author": {
     "name": "Matthew McDowell-Sweet",
@@ -11,5 +11,5 @@
   },
   "feed": "feed.xml",
   "items": "items/index.json",
-  "updated": "2026-11-20T20:14:00Z"
+  "updated": "2026-11-21T03:27:08Z"
 }

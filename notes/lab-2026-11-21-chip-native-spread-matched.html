@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>lab-2026-11-21-chip-native-spread-matched | Kinocomputing</title>
+    <meta name="description" content="A &quot;chip-native&quot; rain nowcaster draws its forecast’s random variations from a simulated thermodynamic chip, scale by scale. On one rainy 256 × 256-pixel patch…">
+    <meta property="og:title" content="lab-2026-11-21-chip-native-spread-matched">
+    <meta property="og:description" content="A &quot;chip-native&quot; rain nowcaster draws its forecast’s random variations from a simulated thermodynamic chip, scale by scale. On one rainy 256 × 256-pixel patch…">
+    <meta property="og:url" content="https://www.kinocomputing.com/notes/lab-2026-11-21-chip-native-spread-matched">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-11-21T14:46:05Z">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://www.kinocomputing.com/notes/lab-2026-11-21-chip-native-spread-matched">
+    <link rel="stylesheet" href="/note.css">
+            <meta name="blyg:generated" content="claude-haiku-5-5">
+</head>
+<body>
+<main>
+<p><strong>Most of the chip&#39;s edge is its extra spread</strong></p>
+<p>A &quot;chip-native&quot; rain nowcaster draws its forecast&#39;s random variations from a simulated thermodynamic chip, scale by scale. On one rainy 256 × 256-pixel patch of public radar data, an hour ahead, a plain noise ensemble given the chip&#39;s overall spread came within 0.001 of the chip-native one on two seeds, where lower is better. The chip-native one still did a little better, so most of its edge over a plain ensemble is spread, not structure.</p>
+<p>How sure: in simulation, one patch of real data, three forecasts, and a post-hoc check added after the first result. The score compares forecasts pixel by pixel, which cannot see the structure across scales the method is built around, so this says nothing about whether that structure helps. <a href="https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md">Code and full results</a>.</p>
+</main>
+<footer class="notefoot">
+<nav class="adjacent">
+</nav>
+</footer>
+</body>
+</html>

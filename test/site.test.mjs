@@ -10,8 +10,13 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { makeSite } from "./twin.mjs";
 
-const AUTHOR = '<a href="https://www.msweet.net/">Matthew McDowell-Sweet</a>';
-const SUBTITLE = ": automated independent research into alternative paradigms of computing and intelligence.";
+// The footer's parts, in order, as the PI asked for them.
+const PARTS = [
+  '<a class="home" href="/" target="_self">MARKKinocomputing</a>',
+  "Automated independent research into alternative paradigms of computing and intelligence",
+  'Orchestrated by <a href="https://www.msweet.net/">Matthew McDowell-Sweet</a>',
+  "Reachable via matt@thisdomain",
+];
 // The masthead's mark, which the footer repeats ahead of the name.
 const MARK = readFileSync(new URL("../notes/_stream.html", import.meta.url), "utf8").match(/<svg class="mark"[\s\S]*?<\/svg>/)[0];
 
@@ -26,7 +31,7 @@ function everyKindOfPage() {
   return { site, tree: site.deploy() };
 }
 
-test("every page carries the site footer once: the mark and name home, subtitle, author", () => {
+test("every page carries the site footer once: mark and name home | what it is | who | how to reach them", () => {
   const { site, tree } = everyKindOfPage();
   try {
     const pages = [...tree.keys()].filter((p) => p.endsWith(".html"));
@@ -38,10 +43,16 @@ test("every page carries the site footer once: the mark and name home, subtitle,
       const feet = html.match(/<footer class="sitefoot">[\s\S]*?<\/footer>/g) ?? [];
       assert.equal(feet.length, 1, `${path}: ${feet.length} site footers`);
       const [foot] = feet;
-      assert.ok(foot.includes(`<a class="home" href="/" target="_self">${MARK}Kinocomputing</a>${SUBTITLE}`),
-        `${path}: footer doesn't lead with the mark and the site's name, linked home, then the subtitle`);
-      assert.ok(foot.includes(SUBTITLE), `${path}: footer has no subtitle`);
-      assert.ok(foot.includes(AUTHOR), `${path}: footer has no author link`);
+      const parts = [...foot.matchAll(/<span class="part">([\s\S]*?)<\/span>(?=<span class="sep"|<\/p>)/g)].map((m) => m[1]);
+      assert.deepEqual(parts, PARTS.map((p) => p.replace("MARK", MARK)), `${path}: footer parts`);
+      assert.equal((foot.match(/<span class="sep" aria-hidden="true"> \| <\/span>/g) ?? []).length, 3, `${path}: three bars between four parts`);
+      // The mark at the head: every page but the stream, centred, home.
+      const heads = html.match(/<header class="notehead">[\s\S]*?<\/header>/g) ?? [];
+      assert.equal(heads.length, path === "index.html" ? 0 : 1, `${path}: ${heads.length} note heads`);
+      if (heads.length) {
+        assert.equal(heads[0], `<header class="notehead"><a href="/" target="_self" rel="home" aria-label="Kinocomputing: home">${MARK}</a></header>`, `${path}: note head`);
+        assert.match(html, /<body[^>]*>\n<header class="notehead">/, `${path}: note head isn't first in the body`);
+      }
       // After the page's own content and footer, before the counter script.
       assert.ok(html.indexOf(foot) > html.indexOf("</main>") || !html.includes("</main>"), `${path}: footer inside or before <main>`);
       const script = html.indexOf("data-goatcounter");

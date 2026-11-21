@@ -85,15 +85,34 @@ const BLYG = {
 };
 // The site's mark, □◇, as the masthead draws it (notes/_stream.html).
 const MARK_SVG = '<svg class="mark" viewBox="2 9.3 28 13.4" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3.6" y="11.4" width="9.2" height="9.2"/><path d="M22.6 10.2 L28.4 16 L22.6 21.8 L16.8 16 Z" stroke-linejoin="round"/></g></svg>';
-// The site footer, on every page: the site's name back to the stream, what it
-// is, and who writes it. Built from the same values as the blyg's manifest so
-// the two can't come to disagree.
+// The site footer, on every page, one line of parts: the mark and name back to
+// the stream, what the site is, who runs it, and how to reach them. Built from
+// the same values as the blyg's manifest so the two can't come to disagree.
+// The address is written the way the PI wants it, not as a mailto: link.
+const FOOT_SEP = '<span class="sep" aria-hidden="true"> | </span>';
 const SITE_FOOT = [
   '<footer class="sitefoot">',
-  `<p><a class="home" href="${INDEX_PATH}" target="_self">${MARK_SVG}${SITE_NAME}</a>: ${BLYG.description[0].toLowerCase()}${BLYG.description.slice(1)}</p>`,
-  `<p>By <a href="${BLYG.author.url}">${BLYG.author.name}</a>.</p>`,
+  `<p>${[
+    `<a class="home" href="${INDEX_PATH}" target="_self">${MARK_SVG}${SITE_NAME}</a>`,
+    BLYG.description.replace(/\.$/, ""),
+    `Orchestrated by <a href="${BLYG.author.url}">${BLYG.author.name}</a>`,
+    "Reachable via matt@thisdomain",
+  ].map((part) => `<span class="part">${part}</span>`).join(FOOT_SEP)}</p>`,
   "</footer>",
 ].join("\n");
+
+// At the head of every page but the stream (which has its masthead): the mark,
+// centred, back to the stream.
+const NOTE_HEAD = `<header class="notehead"><a href="${INDEX_PATH}" target="_self" rel="home" aria-label="${SITE_NAME}: home">${MARK_SVG}</a></header>`;
+
+/** Puts the mark at the head of the body, replacing any already there. */
+function withNoteHead(html) {
+  const out = removeBlock(html, '<header class="notehead">', "</header>");
+  const open = out.match(/<body[^>]*>\n?/);
+  if (!open) return out;
+  const at = open.index + open[0].length;
+  return `${out.slice(0, at)}${NOTE_HEAD}\n${out.slice(at)}`;
+}
 
 // Paths the surface owns, which no note may be published at.
 const SURFACE_NAMES = ["blyg", "feed", "items"];
@@ -955,7 +974,7 @@ notes.forEach((note, i) => {
   if (entry) {
     updated = withVersions(withHeadLinks(updated, INDEX_PATH, entry.id), renderVersions(entry, note.path));
   }
-  updated = withAnalytics(withSiteFoot(updated));
+  updated = withAnalytics(withSiteFoot(withNoteHead(updated)));
 
   // Audited after the rewrites, so it reports what actually ships rather than
   // what the publisher happened to hand over.
@@ -995,7 +1014,7 @@ function renderPinned(entry, page, pin, older, newer) {
   html = withHeadLinks(html, INDEX_PATH, entry.id).replace(
     `${INDEX_PATH}items/${entry.id}.json"`, `${INDEX_PATH}items/${entry.id}/v${pin.version}.json"`
   );
-  return withAnalytics(withSiteFoot(html));
+  return withAnalytics(withSiteFoot(withNoteHead(html)));
 }
 
 /**
@@ -1014,7 +1033,7 @@ function renderTombstone(entry, page) {
   html = normaliseHead(html, { title: "Withdrawn", url: `${SITE_BASE}${livePath}`, type: "article" });
   html = withNotefoot(html, renderNotefoot(noteTemplate, { path: livePath, time: at }, null, null));
   html = withVersions(withHeadLinks(html, INDEX_PATH, entry.id), renderWithdrawn(entry, livePath));
-  return withAnalytics(withSiteFoot(html));
+  return withAnalytics(withSiteFoot(withNoteHead(html)));
 }
 
 /**
@@ -1034,7 +1053,7 @@ function renderNotFound() {
     .replace(/^[ \t]*<meta property="og:url"[^>]*>\n/m, "")
     .replace("</head>", '    <meta name="robots" content="noindex">\n</head>');
   html = withNotefoot(html, renderNotefoot(noteTemplate, null, null, null));
-  return withAnalytics(withSiteFoot(html));
+  return withAnalytics(withSiteFoot(withNoteHead(html)));
 }
 
 site.set("404.html", renderNotFound());

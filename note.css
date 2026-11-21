@@ -121,11 +121,33 @@ nav.feeds .what {
   white-space: nowrap;
 }
 
+/* NOTE HEAD
+
+   Every page but the stream: the site's mark, centred, back to the stream. */
+header.notehead {
+  text-align: center;
+  margin: 0.5rem 0 1.5rem;
+}
+
+header.notehead a {
+  display: inline-block;
+  padding: 0.4rem;
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+header.notehead .mark {
+  display: block;
+  height: 1.6rem;
+  width: auto;
+}
+
 /* SITE FOOTER
 
-   Every page: the site's name back to the stream, the subtitle, the author.
-   Furniture, so set small and grey under a rule, well clear of the note and
-   its own footer above. */
+   Every page, one line of parts: the mark and name back to the stream, what
+   the site is, who runs it, how to reach them. Furniture, so set small and
+   grey under a rule, well clear of the note and its own footer above. On a
+   narrow screen each part takes a line of its own, without the bars. */
 footer.sitefoot {
   margin-top: 3em;
   padding-top: 1em;
@@ -136,6 +158,20 @@ footer.sitefoot {
 
 footer.sitefoot p {
   margin-bottom: 0.25em;
+}
+
+footer.sitefoot .sep {
+  color: #8fb4dc;
+}
+
+@media (max-width: 40em) {
+  footer.sitefoot .part {
+    display: block;
+  }
+
+  footer.sitefoot .sep {
+    display: none;
+  }
 }
 
 /* The mark ahead of the site's name, as in the masthead: in the link's

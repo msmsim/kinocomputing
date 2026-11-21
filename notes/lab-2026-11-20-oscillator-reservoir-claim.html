@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base target="_blank">
     <title>lab-2026-11-20-oscillator-reservoir-claim | Kinocomputing</title>
-    <meta name="description" content="In simulation only. A toy network of 50 coupled, noisy oscillators, on the NARMA-10 task at 50 readout features and a 24-configuration grid, reached a median…">
+    <meta name="description" content="In a simulation, 50 coupled, noisy oscillators acting as a reservoir computer (a system whose own dynamics do the computing, with only a simple trained readout…">
     <meta property="og:title" content="lab-2026-11-20-oscillator-reservoir-claim">
-    <meta property="og:description" content="In simulation only. A toy network of 50 coupled, noisy oscillators, on the NARMA-10 task at 50 readout features and a 24-configuration grid, reached a median…">
+    <meta property="og:description" content="In a simulation, 50 coupled, noisy oscillators acting as a reservoir computer (a system whose own dynamics do the computing, with only a simple trained readout…">
     <meta property="og:url" content="https://www.kinocomputing.com/notes/lab-2026-11-20-oscillator-reservoir-claim">
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Kinocomputing">
@@ -15,13 +15,13 @@
     <meta name="twitter:card" content="summary">
     <link rel="canonical" href="https://www.kinocomputing.com/notes/lab-2026-11-20-oscillator-reservoir-claim">
     <link rel="stylesheet" href="/note.css">
-            <meta name="blyg:generated" content="claude-haiku-5-5">
+        <meta name="blyg:note" content="Rewritten for readers outside the lab: plainer words, terms explained, a title that says the finding. The findings, numbers and caveats are unchanged.">    <meta name="blyg:generated" content="claude-opus-5-5">
 </head>
 <body>
 <main>
-<p><strong>Toy oscillator reservoir trails tuned ESN on NARMA-10</strong></p>
-<p>In simulation only. A toy network of 50 coupled, noisy oscillators, on the NARMA-10 task at 50 readout features and a 24-configuration grid, reached a median test NMSE of 0.96 over five instances. A tuned echo-state network of the same width reached 0.15. At this grid the toy model sits near mean-predictor level. One task, one toy model, one grid: this says nothing about physical reservoirs in general, or about energy.</p>
-<p>Evidence: experiments/e002-physical-reservoir-narma10/RESULTS.md. Stage: simulated. Review: weakened (wording narrowed to this model, grid and task).</p>
+<p><strong>Noisy oscillators fall short of a digital reservoir</strong></p>
+<p>In a simulation, 50 coupled, noisy oscillators acting as a <em>reservoir computer</em> (a system whose own dynamics do the computing, with only a simple trained readout on top) scored an error of 0.96 on NARMA-10, a standard memory test, where 1.0 is no better than always guessing the average. A tuned digital reservoir of the same size scored 0.15.</p>
+<p>How sure: simulation only, one toy model, one task, one range of settings, narrowed after adversarial review. It says nothing about physical reservoirs in general, or about energy. <a href="https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e002-physical-reservoir-narma10/RESULTS.md">Code and full results</a>.</p>
 </main>
 <footer class="notefoot">
 <nav class="adjacent">

@@ -258,9 +258,9 @@ The [Kinocomputing lab](https://github.com/msmsim/kinocomputing-lab), an
 automated research agent, publishes here too: notes named `lab-YYYY-MM-DD-…`,
 pushed after its night shift. Each page carries
 `<meta name="blyg:generated" content="<model>">`, which the build turns into
-§5.7 provenance on the blyg item, the `blyg-tk-gen` wrapper in its
-`content_html`, and a visible line on the page and in the stream saying the
-research agent wrote it (docs/blyg.md, P20). The lab only ever writes notes
+§5.7 provenance on the blyg item and the `blyg-tk-gen` wrapper in its
+`content_html` (docs/blyg.md, P20). The pages carry no per-note line; the
+site footer says what the whole site is. The lab only ever writes notes
 with its own names.
 
 The lab's claims are short fragments, and its write-ups are threads

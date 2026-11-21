@@ -5,8 +5,12 @@
    like is decided here. Edit this file to restyle the whole site at once; no
    republishing needed. */
 
+/* The page colour is set on html as well as body: a browser paints the area
+   past the page's ends (overscroll, the bars around it on a phone) from html,
+   and left to itself that is white. */
 html {
   scrollbar-gutter: stable both-edges;
+  background: #cbdff7;
 }
 
 body {
@@ -134,14 +138,13 @@ footer.sitefoot p {
   margin-bottom: 0.25em;
 }
 
-/* MACHINE-WRITTEN
-
-   The research agent's notes say so under the body and in the stream: small,
-   grey, italic — a fact about the note, not part of it. */
-.generated-mark {
-  font-size: 0.85em;
-  font-style: italic;
-  color: #555;
+/* The mark ahead of the site's name, as in the masthead: in the link's
+   colour, the height of its capitals. */
+footer.sitefoot .mark {
+  height: 0.72em;
+  width: auto;
+  margin-right: 0.3em;
+  vertical-align: -0.02em;
 }
 
 /* HEADINGS */

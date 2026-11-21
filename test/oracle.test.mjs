@@ -139,8 +139,7 @@ function checkDeploy(tree, model, ctx, where) {
     if (item.withdrawn) {
       assert.ok(!page.includes("article:published_time"), `${where}: tombstone ${item.page} reads as a note (P11)`);
     } else {
-      assert.equal(page.includes('class="generated-mark"'), !!item.generated,
-        `${where}: ${item.page} ${item.generated ? "doesn't say" : "says"} it is machine-written (P20)`);
+      assert.ok(!page.includes('class="generated-mark"'), `${where}: ${item.page} carries a visible machine-written line (P20)`);
       assert.ok(page.includes(`href="/items/${id}.json"`), `${where}: ${item.page} has no JSON alternate (P16)`);
       assert.ok(page.includes('rel="blyg"'), `${where}: ${item.page} has no rel=blyg (P16)`);
     }

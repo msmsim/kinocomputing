@@ -91,12 +91,11 @@ spec section it comes from (`docs/protocol-v0.3.md` in `blygger-spec`) or
   machine-written. The version it makes carries
   `generated: [{ "sources": [], "model": "<model>", "at": <the version's time> }]`
   in its item document and in any pin of it, its `content_html` is wrapped in
-  `<div class="blyg-tk-gen">…</div>`, and the page and its stream entry say,
-  visibly, that the research agent wrote it. A version made from a page
-  without the meta carries none of this, and a withdrawal endcap never does
-  (§5.7). The disclosure is the publisher's own (§5.7 rule 6). The visible
-  line follows the live version, like the document: a page re-rendered with
-  its body unchanged keeps the mark its version has, whatever its meta says.
+  `<div class="blyg-tk-gen">…</div>`. A version made from a page without
+  the meta carries none of this, and a withdrawal endcap never does (§5.7).
+  The disclosure is the publisher's own (§5.7 rule 6). The pages themselves
+  carry no per-note line: the site footer says what the site is, automated
+  research, on every page.
 
 **Threads and quotes** (where kinocomputing diverges from msn)
 

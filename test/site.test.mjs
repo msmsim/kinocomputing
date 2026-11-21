@@ -6,11 +6,14 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { makeSite } from "./twin.mjs";
 
 const AUTHOR = '<a href="https://www.msweet.net/">Matthew McDowell-Sweet</a>';
-const SUBTITLE = "Automated independent research into alternative paradigms of computing and intelligence.";
+const SUBTITLE = ": automated independent research into alternative paradigms of computing and intelligence.";
+// The masthead's mark, which the footer repeats ahead of the name.
+const MARK = readFileSync(new URL("../notes/_stream.html", import.meta.url), "utf8").match(/<svg class="mark"[\s\S]*?<\/svg>/)[0];
 
 function everyKindOfPage() {
   const site = makeSite();
@@ -23,7 +26,7 @@ function everyKindOfPage() {
   return { site, tree: site.deploy() };
 }
 
-test("every page carries the site footer once: name home, subtitle, author", () => {
+test("every page carries the site footer once: the mark and name home, subtitle, author", () => {
   const { site, tree } = everyKindOfPage();
   try {
     const pages = [...tree.keys()].filter((p) => p.endsWith(".html"));
@@ -35,7 +38,8 @@ test("every page carries the site footer once: name home, subtitle, author", () 
       const feet = html.match(/<footer class="sitefoot">[\s\S]*?<\/footer>/g) ?? [];
       assert.equal(feet.length, 1, `${path}: ${feet.length} site footers`);
       const [foot] = feet;
-      assert.ok(foot.includes('<a href="/" target="_self">Kinocomputing</a>'), `${path}: footer doesn't name the site, linked home`);
+      assert.ok(foot.includes(`<a class="home" href="/" target="_self">${MARK}Kinocomputing</a>${SUBTITLE}`),
+        `${path}: footer doesn't lead with the mark and the site's name, linked home, then the subtitle`);
       assert.ok(foot.includes(SUBTITLE), `${path}: footer has no subtitle`);
       assert.ok(foot.includes(AUTHOR), `${path}: footer has no author link`);
       // After the page's own content and footer, before the counter script.
@@ -60,10 +64,36 @@ test("icons: .ico and touch icon at the conventional addresses, all three linked
       assert.match(head, /<link rel="icon" type="image\/svg\+xml" href="\/favicon\.svg\?v=[0-9a-f]{8}">/, `${path}: no svg link`);
       assert.match(head, /<link rel="apple-touch-icon" href="\/apple-touch-icon\.png">/, `${path}: no touch icon link`);
       assert.equal((head.match(/rel="icon"/g) ?? []).length, 2, `${path}: icon links duplicated`);
+      // The browser's own bars take the page colour, not white.
+      assert.equal((head.match(/<meta name="theme-color" content="#cbdff7">/g) ?? []).length, 1, `${path}: no single theme-color`);
     }
   } finally {
     site.dispose();
   }
+});
+
+test("a title's apostrophes close up in its address, however they are written", () => {
+  const site = makeSite();
+  try {
+    const t = (m) => `2026-11-01T10:${String(m).padStart(2, "0")}:00Z`;
+    site.publish("001-ash-eels", { body: "<p><strong>Don&#39;t panic</strong></p>\n<p>Body.</p>", iso: t(1) });
+    site.publish("002-teal-larks", { body: "<p><strong>Didn’t stop</strong></p>\n<p>Body.</p>", iso: t(2) });
+    site.publish("003-red-owls", { body: "<p><strong>It&apos;s rock &amp; roll</strong></p>\n<p>Body.</p>", iso: t(3) });
+    site.action(t(4));
+    const tree = site.deploy();
+    for (const page of ["dont-panic", "didnt-stop", "its-rock-roll"]) {
+      assert.ok(tree.has(`${page}.html`), `no ${page}.html among ${[...tree.keys()].filter((p) => p.endsWith(".html")).join(", ")}`);
+    }
+  } finally {
+    site.dispose();
+  }
+});
+
+test("the page colour reaches past the page's ends: html is painted, and the theme colour matches", () => {
+  const css = readFileSync(new URL("../note.css", import.meta.url), "utf8");
+  const colour = (sel) => css.match(new RegExp(`^${sel} \\{[^}]*?background: (#[0-9a-f]{6})`, "m"))?.[1];
+  assert.equal(colour("html"), "#cbdff7", "html has no background of its own, so the page's ends show white");
+  assert.equal(colour("body"), colour("html"), "html and body disagree on the page colour");
 });
 
 test("a 404 page: Cloudflare serves it, with a 404 status, for any address the site doesn't have", () => {

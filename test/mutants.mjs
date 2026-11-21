@@ -34,8 +34,6 @@ const MUTANTS = {
   // provenance whatever the registry holds, and a return records the version
   // afresh, so keeping it is unobservable — an equivalent mutant.
   "generated-sticks-across-versions": ["blyg.mjs", "      else delete entry.generated;\n", "\n"],
-  "mark-follows-the-page": ["build-stream.mjs", "  if (entry) note.generated = entry.generated?.model ?? null;\n", "\n"],
-  "no-generated-mark": ["build-stream.mjs", "  updated = withGeneratedMark(updated, note.generated);", ""],
   "requests-ship": ["build-stream.mjs", "updated = withoutChangeNote(withoutPinRequest(updated));", ""],
   // Threads and quotes (P21, P22): killed by threads.test.mjs and conformance.
   "quotes-not-baked": ["blyg.mjs", "const baked = entry.quotes?.length ? withQuotes(note.content, entry.quotes) : note.content;", "const baked = note.content;"],

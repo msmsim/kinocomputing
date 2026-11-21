@@ -83,12 +83,14 @@ const BLYG = {
   generator: "kinocomputing-build/0.1",
   generatorUrl: "https://github.com/msmsim/kinocomputing",
 };
+// The site's mark, □◇, as the masthead draws it (notes/_stream.html).
+const MARK_SVG = '<svg class="mark" viewBox="2 9.3 28 13.4" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3.6" y="11.4" width="9.2" height="9.2"/><path d="M22.6 10.2 L28.4 16 L22.6 21.8 L16.8 16 Z" stroke-linejoin="round"/></g></svg>';
 // The site footer, on every page: the site's name back to the stream, what it
 // is, and who writes it. Built from the same values as the blyg's manifest so
 // the two can't come to disagree.
 const SITE_FOOT = [
   '<footer class="sitefoot">',
-  `<p><a href="${INDEX_PATH}" target="_self">${SITE_NAME}</a>. ${BLYG.description}</p>`,
+  `<p><a class="home" href="${INDEX_PATH}" target="_self">${MARK_SVG}${SITE_NAME}</a>: ${BLYG.description[0].toLowerCase()}${BLYG.description.slice(1)}</p>`,
   `<p>By <a href="${BLYG.author.url}">${BLYG.author.name}</a>.</p>`,
   "</footer>",
 ].join("\n");
@@ -171,6 +173,9 @@ const asText = (html) => stripTags(html).replace(/"/g, "&quot;");
  * treats as having no title at all.
  */
 const slugify = (title) => stripTags(title)
+  // An apostrophe may arrive escaped (markdown renderers write &#39;), and
+  // must close up like a typed one rather than become a space.
+  .replace(/&(?:#39|#x27|apos|rsquo|lsquo);/gi, "'")
   .replace(/&[a-z]+;|&#\d+;/gi, " ")
   .replace(/['’]/g, "")
   .toLowerCase()
@@ -347,23 +352,6 @@ function withDescription(html, derived) {
   return out;
 }
 
-/**
- * The visible half of the §5.7 disclosure: one line saying a machine wrote
- * this, and that the saying is ours. The other half is in the item's JSON.
- */
-const generatedMark = (model) => `<p class="generated-mark">Written by the Kinocomputing research agent (${
-  model.replace(/[<>&"]/g, "")}), unreviewed. This disclosure is the publisher's own.</p>`;
-
-/** Puts the mark right after the note body, replacing any already there. */
-function withGeneratedMark(html, model) {
-  const out = html.replace(/[ \t]*<p class="generated-mark">.*?<\/p>\n?/g, "");
-  if (!model) return out;
-  const end = out.indexOf("</main>");
-  if (end === -1) return out;
-  const after = end + "</main>".length;
-  return `${out.slice(0, after)}\n${generatedMark(model)}${out.slice(after)}`;
-}
-
 /** Substitutes {{name}} placeholders. Values are pre-rendered HTML. */
 const fill = (template, values) =>
   template.replace(/\{\{(\w+)\}\}/g, (whole, name) =>
@@ -384,7 +372,7 @@ function renderStream(template, notes) {
     content: previewOf(note).replace(
       /<(\/?)h([1-5])\b/gi,
       (whole, slash, level) => `<${slash}h${Number(level) + 1}`
-    ) + (note.generated ? `\n${generatedMark(note.generated)}` : ""),
+    ),
     path: note.path,
     datetime_iso: note.time,
     datetime: displayTime(note.time),
@@ -644,6 +632,9 @@ const headFields = ({ title, url, type }) => [
     tag: `<link rel="icon" type="image/svg+xml" href="${favicon}">` },
   { find: /<link rel="apple-touch-icon"[^>]*>/,
     tag: '<link rel="apple-touch-icon" href="/apple-touch-icon.png">' },
+  // The phone's browser bars take the page colour (note.css) rather than white.
+  { find: /<meta name="theme-color"[^>]*>/,
+    tag: '<meta name="theme-color" content="#cbdff7">' },
   ...imageFields(),
 ];
 
@@ -864,15 +855,6 @@ if (stateMode) {
   process.exit(0);
 }
 
-// The machine-written mark follows the live version, as the item document
-// does (P20): a page re-rendered without the meta, its body unchanged, is still
-// the machine's version, and one rendered with it over a human's unchanged body
-// isn't. Only a note the registry doesn't know yet goes by its page.
-for (const note of notes) {
-  const entry = registry.items[note.fileSlug];
-  if (entry) note.generated = entry.generated?.model ?? null;
-}
-
 // A thread shows its quotes as the registry baked them (P22), each with a
 // line back to what it quotes, at the quoted version when that version is
 // pinned. A quote the registry hasn't resolved — the page changed since the
@@ -969,7 +951,6 @@ notes.forEach((note, i) => {
   // A pin or change-note request is for the Action; once it has been read it
   // means nothing to anyone, so it never ships.
   updated = withoutChangeNote(withoutPinRequest(updated));
-  updated = withGeneratedMark(updated, note.generated);
   const entry = registry.items[note.fileSlug];
   if (entry) {
     updated = withVersions(withHeadLinks(updated, INDEX_PATH, entry.id), renderVersions(entry, note.path));
@@ -1011,7 +992,6 @@ function renderPinned(entry, page, pin, older, newer) {
   html = withDescription(html, describe({ title, content }));
   html = withNotefoot(html, renderNotefoot(noteTemplate, { path, time: pin.at }, older, newer));
   html = withPinnedVersions(html, renderPinnedVersions(entry, livePath, pin.version));
-  html = withGeneratedMark(html, pin.generated?.[0]?.model);
   html = withHeadLinks(html, INDEX_PATH, entry.id).replace(
     `${INDEX_PATH}items/${entry.id}.json"`, `${INDEX_PATH}items/${entry.id}/v${pin.version}.json"`
   );

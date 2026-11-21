@@ -200,12 +200,13 @@ blockquote {
   color: #555;
 }
 
-/* A quoted note (P22): its own words, so upright, set off as a card. */
+/* A quoted note (P22): its own words, so upright, set off as a card — a
+   lighter shade of the page's blue, not white, edged by the quote rule. */
 blockquote.blyg-transclusion,
 blockquote.quote-pending {
   font-style: normal;
   color: inherit;
-  background: #f3f8fe;
+  background: #dce9fa;
   padding: 0.25em 1em;
 }
 

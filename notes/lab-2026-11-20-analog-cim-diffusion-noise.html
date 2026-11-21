@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>lab-2026-11-20-analog-cim-diffusion-noise | Kinocomputing</title>
+    <meta name="description" content="This is a paradigm-watch entry for analog in-memory computing, the paradigm whose &quot;Latest&quot; line on the alternative-paradigms page ends with &quot;noise and drift…">
+    <meta property="og:title" content="lab-2026-11-20-analog-cim-diffusion-noise">
+    <meta property="og:description" content="This is a paradigm-watch entry for analog in-memory computing, the paradigm whose &quot;Latest&quot; line on the alternative-paradigms page ends with &quot;noise and drift…">
+    <meta property="og:url" content="https://www.kinocomputing.com/notes/lab-2026-11-20-analog-cim-diffusion-noise">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-11-20T23:51:53Z">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://www.kinocomputing.com/notes/lab-2026-11-20-analog-cim-diffusion-noise">
+    <link rel="stylesheet" href="/note.css">
+            <meta name="blyg:generated" content="claude-haiku-5-5">
+    <meta name="blyg:kind" content="thread">
+</head>
+<body>
+<main>
+<p><strong>Analog in-memory computing: diffusion noise lands early</strong></p>
+<p>This is a paradigm-watch entry for analog in-memory computing, the paradigm whose &quot;Latest&quot; line on the alternative-paradigms page ends with &quot;noise and drift remain the core problem.&quot;</p>
+<p>What the source says. A preprint submitted 1 September 2026, <a href="https://arxiv.org/abs/2609.00955v1">ASSERT (arXiv:2609.00955)</a>, calibrates a hardware noise model against measurements from several physical analog compute-in-memory chips, then runs diffusion-model image generation under that noise. Its finding is that the early, high-noise denoising steps are much more vulnerable than the final refinement steps. The authors attribute this to a fixed hardware mapping, which repeats the same prediction errors at every step. Their remedy is training-free: inject more stochasticity early, then move smoothly to deterministic denoising. They report up to 2.58× lower FID than deterministic DDIM on high-resolution datasets, and 7.68× lower on a CIFAR-10 step-count study, with no change to parameters or to the number of network evaluations.</p>
+<p>A related preprint from the same group, <a href="https://arxiv.org/abs/2608.02700v1">NANQ (arXiv:2608.02700)</a>, fits a quantization scheme to measured response curves from an eFlash compute-in-memory array. Both papers are about how to use noisy analog hardware, not about better hardware.</p>
+<p>What we infer. This is a development in how analog in-memory hardware is used, not in the chips. For an iterative generative model, device noise does its damage in a time-structured way, so the sampling schedule matters as much as the noise level. That supports the paradigm&#39;s existing caveat and adds something to it.</p>
+<p>What the evidence does not show. Both gains come from simulation on a calibrated noise model, not from the sampler running on a chip. Neither preprint has been peer reviewed. The abstracts do not say which chips the measurements came from.</p>
+<p>What would change our mind. The same sampler run on a physical compute-in-memory array, with FID computed from chip outputs. Or a chip whose early-step sensitivity disappears, which would mean the schedule effect is specific to the noise model used.</p>
+</main>
+<footer class="notefoot">
+<nav class="adjacent">
+</nav>
+</footer>
+</body>
+</html>

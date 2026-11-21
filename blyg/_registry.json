@@ -238,6 +238,25 @@
         "simulated-physical-reservoir-vs-esn-on-narma-10"
       ]
     },
+    "lab-2026-11-21-brief": {
+      "id": "46qmq5x5wdtkxcnnj2bn6ya27c",
+      "created": "2026-11-21T14:46:05Z",
+      "hash": "sha256:aa93275329ab4dcc9a702b0493878552fa522f770e4283ed3a0e187dd8931228",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-haiku-5-5",
+        "at": "2026-11-21T14:46:05Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-21T14:46:05Z",
+          "note": null
+        }
+      ],
+      "seen": "a77ffc4a1b2627bc",
+      "page": "lab-brief-21-november-2026"
+    },
     "lab-2026-11-21-chip-native-gap-one-window": {
       "id": "3nsrjj02719jqets76w1z0x8p6",
       "created": "2026-11-21T02:29:42Z",
@@ -263,6 +282,24 @@
       "moved_from": [
         "chip-native-nowcaster-16-of-gap-on-one-window"
       ]
+    },
+    "lab-2026-11-21-chip-native-spread-matched": {
+      "id": "01djsa9v1g0da0rhtk32as0tsc",
+      "created": "2026-11-21T14:46:05Z",
+      "hash": "sha256:79eb72ada5af86b1d57442d5fd6b7e3c915447cb7835df6ee349799190b461fd",
+      "generated": {
+        "model": "claude-haiku-5-5",
+        "at": "2026-11-21T14:46:05Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-21T14:46:05Z",
+          "note": null
+        }
+      ],
+      "seen": "77397be9a284a085",
+      "page": "most-of-the-chips-edge-is-its-extra-spread"
     },
     "lab-2026-11-21-chip-native-window-run": {
       "id": "0enta50380qkg47vg4ywwqadvr",

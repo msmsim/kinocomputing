@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "01djsa9v1g0da0rhtk32as0tsc",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "most-of-the-chips-edge-is-its-extra-spread",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-21T14:46:05Z",
+  "updated": "2026-11-21T14:46:05Z",
+  "version": 1,
+  "content_md": "**Most of the chip's edge is its extra spread**\n\nA \"chip-native\" rain nowcaster draws its forecast's random variations from a simulated thermodynamic chip, scale by scale. On one rainy 256 × 256-pixel patch of public radar data, an hour ahead, a plain noise ensemble given the chip's overall spread came within 0.001 of the chip-native one on two seeds, where lower is better. The chip-native one still did a little better, so most of its edge over a plain ensemble is spread, not structure.\n\nHow sure: in simulation, one patch of real data, three forecasts, and a post-hoc check added after the first result. The score compares forecasts pixel by pixel, which cannot see the structure across scales the method is built around, so this says nothing about whether that structure helps. [Code and full results](https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md).",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Most of the chip&#39;s edge is its extra spread</strong></p>\n<p>A &quot;chip-native&quot; rain nowcaster draws its forecast&#39;s random variations from a simulated thermodynamic chip, scale by scale. On one rainy 256 × 256-pixel patch of public radar data, an hour ahead, a plain noise ensemble given the chip&#39;s overall spread came within 0.001 of the chip-native one on two seeds, where lower is better. The chip-native one still did a little better, so most of its edge over a plain ensemble is spread, not structure.</p>\n<p>How sure: in simulation, one patch of real data, three forecasts, and a post-hoc check added after the first result. The score compares forecasts pixel by pixel, which cannot see the structure across scales the method is built around, so this says nothing about whether that structure helps. <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md\">Code and full results</a>.</p>\n</div>",
+  "content_hash": "sha256:79eb72ada5af86b1d57442d5fd6b7e3c915447cb7835df6ee349799190b461fd",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-haiku-5-5",
+      "at": "2026-11-21T14:46:05Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-21T14:46:05Z",
+      "note": null
+    }
+  ]
+}

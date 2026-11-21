@@ -1,0 +1,149 @@
+{
+  "items": {
+    "001-cobalt-martens": {
+      "id": "0gk0bcqryvp9166wq8qkyc46cc",
+      "created": "2026-08-23T10:36:20Z",
+      "hash": "sha256:352abebc3f0d515552243ba2e3399a77f44dd39fab8776eca50574b8395c6bba",
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-08-23T10:36:20Z",
+          "note": null
+        }
+      ],
+      "seen": "188b52cf8e3747af",
+      "page": "brandian-returns"
+    },
+    "003-ash-eels": {
+      "id": "54ycqv6z1fp4f387hgsm39cfjw",
+      "created": "2026-09-05T19:09:25Z",
+      "hash": "sha256:138e0d1a4909fd49a582903e682a3fa2be1b1182d53e922c0e78b59e0c03e17b",
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-09-05T19:09:25Z",
+          "note": null
+        }
+      ],
+      "seen": "769009c92174c91c",
+      "page": "ais-heretical-question"
+    },
+    "005-maroon-stoats": {
+      "id": "2nkfm46thtyhgyjdb328k672b9",
+      "created": "2026-08-29T14:11:21Z",
+      "hash": "sha256:25cd516fb4c1f53f4d9311ea5b0d42c3fca14f6097d9eb81975ce3eeb78b3948",
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-08-29T14:11:21Z",
+          "note": null
+        }
+      ],
+      "seen": "d4337fb7c0a8db87",
+      "page": "simplistic-thermodynamic-computing"
+    },
+    "006-jade-shrews": {
+      "id": "6ba6dgf4cxd1kmpwmscxy8c6j7",
+      "created": "2026-10-18T13:32:47Z",
+      "hash": "sha256:d91720114299d9efd37331c5b4278c038e7059ba74c1f11853a1b3e1fbb19483",
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-10-18T13:32:47Z",
+          "note": null
+        }
+      ],
+      "seen": "f51573358d0bdfca",
+      "page": "thermodynamic-computing-doesnt-shortcut-numerical-weather-pr"
+    },
+    "007-olive-snipes": {
+      "id": "0948srtzkp0b6pk4w4281z5bj0",
+      "created": "2026-09-12T21:43:36Z",
+      "hash": "sha256:898ee7719d117562bd71602e5954bcb0a07ebcffdb3b4fadc3cf18c6d88901e9",
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-09-12T21:43:36Z",
+          "note": null
+        }
+      ],
+      "seen": "786c072af0c3991a",
+      "page": "the-nwp-horseshoe"
+    },
+    "012-ash-bees": {
+      "id": "3pfdyzgym1hm9k15cdg9g25qpk",
+      "created": "2026-09-26T12:13:19Z",
+      "hash": "sha256:f1648cb94441f28fc4c64cd767507e0935893329d956c3a718fd861d518f6cda",
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-09-26T12:13:19Z",
+          "note": null
+        }
+      ],
+      "seen": "36ddf131e4ef58bf",
+      "page": "resident-m"
+    },
+    "014-cobalt-toads": {
+      "id": "124hvdrdak0jtpkknba81ycdwb",
+      "created": "2026-10-01T06:48:40Z",
+      "hash": "sha256:45f7eb0cdea2fd855a1fe99cf704549efd8fe7a58a51cb92df958f0911f592a9",
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-10-01T06:48:40Z",
+          "note": null
+        }
+      ],
+      "seen": "74394aa6d519ca38",
+      "page": "patterns-that-matter"
+    },
+    "015-ochre-cranes": {
+      "id": "7er8mjr500qaphps21sjjshex5",
+      "created": "2026-10-03T07:22:57Z",
+      "hash": "sha256:eb64200289c2b726f0a04acc6329788fa3e57b0a26fa8e4f63dd1727890d2a9a",
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-10-03T07:22:57Z",
+          "note": null
+        }
+      ],
+      "seen": "60032808aa064010",
+      "page": "alternative-paradigms"
+    },
+    "017-onyx-crabs": {
+      "id": "1yq9a2k2444azshy4mwdk5xrsn",
+      "created": "2026-11-20T20:11:45Z",
+      "hash": "sha256:77945a112da979ac2394e465f1866f9f412e493e0670c07a3892ca9dda5ba818",
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-20T20:11:45Z",
+          "note": null
+        },
+        {
+          "version": 2,
+          "at": "2026-11-20T20:14:00Z",
+          "note": "turned the three treatments into a bulleted list, no wording changed"
+        }
+      ],
+      "seen": "9693ae0cff66fa7a",
+      "page": "welcome-to-oncology"
+    },
+    "about": {
+      "id": "3ae53bqvd075ppjq3fmmpw90cz",
+      "created": "2026-08-10T08:00:00Z",
+      "hash": "sha256:3d035a5ab4c771580ff884a61e9df0ca282410704f064c5a3e7e7c1864c25334",
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-08-10T08:00:00Z",
+          "note": null
+        }
+      ],
+      "seen": "70e5358c9d31ea67",
+      "page": "about"
+    }
+  }
+}

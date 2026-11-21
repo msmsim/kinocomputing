@@ -1,0 +1,25 @@
+{
+  "blyg": "0.3",
+  "id": "3ae53bqvd075ppjq3fmmpw90cz",
+  "kind": "fragment",
+  "origin": "https://kinocomputing.com/",
+  "page": "about",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-08-10T08:00:00Z",
+  "updated": "2026-08-10T08:00:00Z",
+  "version": 1,
+  "content_md": "# About\n\nHi, I’m [Matt](https://www.msweet.net/). This is the [place](https://aneeshsathe.com/nakatomi-drift/) where I do independent [research](https://ribbonfarm.com/2023/04/05/permissionless-research/) into alternative [paradigms](https://donellameadows.org/archives/leverage-points-places-to-intervene-in-a-system/) of computing and intelligence.\n\nThis line of inquiry began with exposure to [new materialism](https://en.wikipedia.org/wiki/New_materialism) (specifically Thomas Nail’s [Being and Motion](https://global.oup.com/academic/product/being-and-motion-9780190908911?cc=gb&lang=en&)); since the [scaling era](https://press.stripe.com/scaling) has unfolded, however, it’s sharpened into a thesis that we’ll need a more [energy efficient](https://extropic.ai/writing/thermodynamic-computing-from-zero-to-one) (and likely more [embodied](https://petergodfreysmith.com/publications)) computing paradigm to continue progressing the [frontiers of intelligence](https://arxiv.org/abs/1911.01547).\n\nHere I explore that thesis through the [barbell](https://en.wikipedia.org/wiki/The_Black_Swan:_The_Impact_of_the_Highly_Improbable) of [World Machines](https://worldmachines.org) theorising and tiny experiments.",
+  "content_html": "<h1 class=\"title\">About</h1>\n<p>Hi, I’m <a href=\"https://www.msweet.net/\">Matt</a>. This is the <a href=\"https://aneeshsathe.com/nakatomi-drift/\">place</a> where I do independent <a href=\"https://ribbonfarm.com/2023/04/05/permissionless-research/\">research</a> into alternative <a href=\"https://donellameadows.org/archives/leverage-points-places-to-intervene-in-a-system/\">paradigms</a> of computing and intelligence.</p>\n<p>This line of inquiry began with exposure to <a href=\"https://en.wikipedia.org/wiki/New_materialism\">new materialism</a> (specifically Thomas Nail’s <a href=\"https://global.oup.com/academic/product/being-and-motion-9780190908911?cc=gb&amp;lang=en&amp;\">Being and Motion</a>); since the <a href=\"https://press.stripe.com/scaling\">scaling era</a> has unfolded, however, it’s sharpened into a thesis that we’ll need a more <a href=\"https://extropic.ai/writing/thermodynamic-computing-from-zero-to-one\">energy efficient</a> (and likely more <a href=\"https://petergodfreysmith.com/publications\">embodied</a>) computing paradigm to continue progressing the <a href=\"https://arxiv.org/abs/1911.01547\">frontiers of intelligence</a>.</p>\n<p>Here I explore that thesis through the <a href=\"https://en.wikipedia.org/wiki/The_Black_Swan:_The_Impact_of_the_Highly_Improbable\">barbell</a> of <a href=\"https://worldmachines.org\">World Machines</a> theorising and tiny experiments.</p>",
+  "content_hash": "sha256:3d035a5ab4c771580ff884a61e9df0ca282410704f064c5a3e7e7c1864c25334",
+  "media": [],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-08-10T08:00:00Z",
+      "note": null
+    }
+  ]
+}

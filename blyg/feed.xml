@@ -5,10 +5,33 @@
     <link>https://www.kinocomputing.com/</link>
     <description>Automated independent research into alternative paradigms of computing and intelligence.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 21 Nov 2026 15:21:01 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 21 Nov 2026 20:35:32 GMT</lastBuildDate>
     <atom:link href="https://www.kinocomputing.com/feed.xml" rel="self" type="application/rss+xml"/>
     <blyg:level>2</blyg:level>
     <blyg:manifest>https://www.kinocomputing.com/blyg.json</blyg:manifest>
+    <item>
+      <guid isPermaLink="false">blyg:6cx5nghb866kyxcm6c3hp8253h:v1</guid>
+      <link>https://www.kinocomputing.com/descending-to-liveness</link>
+      <title>Descending to liveness One of the factors that makes the…</title>
+      <description><![CDATA[<p><strong>Descending to liveness</strong></p>
+<p>One of the factors that makes the <a href="https://en.wikipedia.org/wiki/Malazan_Book_of_the_Fallen"><em>Malazan Book of the Fallen</em></a> so majestic is the steady convergence, across ten books, of the powers within its world towards some ultimate confrontation. I think there’s a similar convergence underway right now, towards <a href="https://venkateshrao.com/blyg/t/27x0ewgc6yqq0h9e2n9g16me8n">liveness</a>: systems that behave less like machines and more like living things, that adapt, heal and <a href="https://en.wikipedia.org/wiki/Wolff%27s_law">remember in their bones</a>.</p>
+<p>Consider what’s happening around <a href="https://tufalabs.ai/research/tufazip">compression</a>, the adversarial distillation of frontier LLMs, <a href="https://rlvrbook.com/">verifiable rewards</a>, and the bleed of biological methods and <a href="https://contraptions.venkateshrao.com/p/our-eukaryotic-moment">metaphors</a> into previously cold, formalised domains. These are different armies marching on the same plane. Each one is an attempt to get a system to reshape itself autonomously in response to what it meets. We’re climbing towers of abstraction and hoping we reach the promised land of life-like liveness before the tower topples.</p>
+<p>I’m concerned that we won’t. The history of programming is a tale of <a href="https://bricolage.io/essential-until-it-wasnt">abstractions that were essential till they weren’t</a>. Notice that these abstractions <em>ascend</em>. We go higher and higher atop a wider and wider base. The foundation only tends to get re-architected once we hit bottlenecks further up. You can <a href="https://finnmurphyirl.substack.com/p/the-future-of-chips-in-the-ai-era">see this in silicon</a>, where the limits at the frontier eventually trickle back down into chip design.</p>
+<p>But that kind of descent, descent by redesign, is slow and deliberate. It’s done by engineers, over years. It isn’t what I mean. Liveness needs <em>descent by experience</em>: something that happens at the top of the stack writing itself, automatically, all the way down.</p>
+<p>Imagine a person has a traumatic experience. That trauma gets laid down as biological sediment at many layers, from the psyche through the nervous system and down into the musculoskeletal system. Joyous moments get codified the same way, as liveness at every layer. The body doesn’t wait for a redesign cycle. The experience <em>is</em> the redesign.</p>
+<p>Now look at LLMs. They’re the purest case of ascent without descent we’ve ever built. Everything they learn in a conversation lives in the context window, the very top of the tower. When the conversation ends, nothing trickles down into the weights. Continual learning, test-time training and distillation are all, in their own way, attempts to cut a channel downward.</p>
+<p>My contention is that we don’t get to true liveness until we can descend the tower of abstraction at a rate equal to or greater than the rate at which we ascend.</p>
+<p>Here’s the catch, though. The tower is stable precisely <em>because</em> its lower layers are frozen. That’s what lets us keep building on top. Bodies pay dearly for their descendability. Trauma that descends doesn’t climb back out easily. Autoimmune disease is the defence layer learning the wrong lesson about itself. Cancer is a single cell’s local imperative overriding the whole. Every channel that lets experience write downward is also a channel for corruption. A system that descends as fast as it ascends could be poisoned by one bad input and carry that poison in its foundations.</p>
+<p>Biology’s answer isn’t to close those channels. It’s to gate them: sleep, consolidation, the slow sorting of what deserves to sink and what should evaporate. Maybe that’s the confrontation everything is converging towards. It’s why we’re starting down the path of <a href="https://research.google/blog/the-sleep-framework-a-new-way-for-llms-to-retain-knowledge-in-continual-learning/">biomimicry</a>.</p>
+<p>I suspect the question isn’t whether we can build machines whose foundations learn. It’s whether we can build systems that know <a href="https://en.wikipedia.org/wiki/Funes_the_Memorious">what and why to forget</a>.</p>]]></description>
+      <pubDate>Sat, 21 Nov 2026 20:35:32 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>6cx5nghb866kyxcm6c3hp8253h</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-21T20:35:32Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/6cx5nghb866kyxcm6c3hp8253h.json</blyg:item>
+    </item>
     <item>
       <guid isPermaLink="false">blyg:3ae53bqvd075ppjq3fmmpw90cz:v3</guid>
       <link>https://www.kinocomputing.com/about</link>

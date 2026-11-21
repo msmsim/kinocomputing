@@ -131,6 +131,21 @@
       "seen": "9693ae0cff66fa7a",
       "page": "welcome-to-oncology"
     },
+    "018-olive-geese": {
+      "id": "6cx5nghb866kyxcm6c3hp8253h",
+      "created": "2026-11-21T20:35:32Z",
+      "hash": "sha256:aceaa2da6aad067cab8193c38247fb7d187288582c85dcaa646f679a4d41e1d1",
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-21T20:35:32Z",
+          "note": null,
+          "pinned": true
+        }
+      ],
+      "seen": "6b703a9839857ffc",
+      "page": "descending-to-liveness"
+    },
     "about": {
       "id": "3ae53bqvd075ppjq3fmmpw90cz",
       "created": "2026-08-10T08:00:00Z",

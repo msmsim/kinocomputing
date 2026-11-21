@@ -141,10 +141,16 @@ test("every published note converts", async () => {
   const files = (await readdir("notes"))
     .filter((name) => name.endsWith(".html") && name !== "index.html" && !name.startsWith("_"));
   assert.ok(files.length > 0);
+  // A quote resolves to a note that is here (P22); its id is the Action's to give.
+  const here = new Set(files.map((name) => name.replace(/\.html$/, "")));
+  const quote = (slug) => {
+    if (!here.has(slug)) throw new Error(`quotes ${slug}, which isn't in notes/`);
+    return "0".repeat(26);
+  };
   for (const file of files) {
     const html = await readFile(join("notes", file), "utf8");
     const body = html.slice(html.indexOf("<main>") + "<main>".length, html.indexOf("</main>"));
-    assert.doesNotThrow(() => htmlToMarkdown(body), `${file} failed to convert`);
+    assert.doesNotThrow(() => htmlToMarkdown(body, { quote }), `${file} failed to convert`);
   }
 });
 

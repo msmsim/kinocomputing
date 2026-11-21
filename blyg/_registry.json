@@ -134,7 +134,7 @@
     "about": {
       "id": "3ae53bqvd075ppjq3fmmpw90cz",
       "created": "2026-08-10T08:00:00Z",
-      "hash": "sha256:c539144c2751a79e1b6fe39b673683a10b2d1fd495816b18b16a9a77e7c48a55",
+      "hash": "sha256:872b6952a9edcfd128ba1decc3b24e13740556fea5d7327a1feffca3f1234a8b",
       "changelog": [
         {
           "version": 1,
@@ -145,9 +145,14 @@
           "version": 2,
           "at": "2026-11-21T13:57:11Z",
           "note": null
+        },
+        {
+          "version": 3,
+          "at": "2026-11-21T15:21:01Z",
+          "note": null
         }
       ],
-      "seen": "529fdf1301edf528",
+      "seen": "2764e0715651b329",
       "page": "about"
     },
     "lab-2026-11-20-analog-cim-diffusion-noise": {

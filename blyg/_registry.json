@@ -146,6 +146,20 @@
       "seen": "6b703a9839857ffc",
       "page": "descending-to-liveness"
     },
+    "019-coral-seals": {
+      "id": "5pxwe5gmfh77fs923mpre0wge5",
+      "created": "2026-11-22T17:15:48Z",
+      "hash": "sha256:0c1f4f4429ca46eeeddf17f908572772fb5c28a1fc921ca37afbb0804f0fec48",
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-22T17:15:48Z",
+          "note": null
+        }
+      ],
+      "seen": "2e5d598328716f11",
+      "page": "introducing-goldleaf-money-that-grows-on-trees"
+    },
     "about": {
       "id": "3ae53bqvd075ppjq3fmmpw90cz",
       "created": "2026-08-10T08:00:00Z",

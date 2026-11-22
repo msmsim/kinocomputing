@@ -597,6 +597,43 @@
       "moved_from": [
         "few-alternative-hardware-abstracts-test-against-digital"
       ]
+    },
+    "lab-2026-11-22-block-scale-claim": {
+      "id": "527tn15nq4r7jf5sxz3kz48f1b",
+      "created": "2026-11-22T07:40:02Z",
+      "hash": "sha256:12af78901f9881317b43150b5033a55b4c39b7a25d9eb0cc8749c77d022a8aa6",
+      "generated": {
+        "model": "claude-haiku-5-5",
+        "at": "2026-11-22T07:40:02Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-22T07:40:02Z",
+          "note": null
+        }
+      ],
+      "seen": "07600adba288e90a",
+      "page": "at-block-scale-the-chip-beats-a-matched-plain-ensemble"
+    },
+    "lab-2026-11-22-brief": {
+      "id": "3s6z20tavjcr09rk01d0hnercv",
+      "created": "2026-11-22T07:40:02Z",
+      "hash": "sha256:a9ac4ac1d779c83e67cf1f97aa93a1a36b055ed5b32628c9bbdfabb3da3bb3f4",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-haiku-5-5",
+        "at": "2026-11-22T07:40:02Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-22T07:40:02Z",
+          "note": null
+        }
+      ],
+      "seen": "3989d40569910b8e",
+      "page": "lab-brief-22-november-2026"
     }
   }
 }

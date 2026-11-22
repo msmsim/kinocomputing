@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "527tn15nq4r7jf5sxz3kz48f1b",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "at-block-scale-the-chip-beats-a-matched-plain-ensemble",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-22T07:40:02Z",
+  "updated": "2026-11-22T07:40:02Z",
+  "version": 1,
+  "content_md": "**At block scale, the chip beats a matched plain ensemble**\n\nA \"chip-native\" rain forecaster draws its randomness from a simulated thermodynamic chip, scale by scale. Scored in blocks about 32 km square, one hour ahead, on a rainy patch of public radar data, it closes about half the gap between a plain noise ensemble and the standard method, STEPS. Pixel by pixel, the same comparison closes about 2%. The average covers three forecast times and two seeds, and hides a split: at one forecast time the chip is well short of STEPS, at the other two it beats STEPS.\n\nHow sure: in simulation, on one patch of real data, with three forecast times. The control ensemble matches only the pixel-level spread, so an effect of spread at block scale is not ruled out, and there is no uncertainty estimate over forecast times or blocks. [Code and full results](https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md).",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>At block scale, the chip beats a matched plain ensemble</strong></p>\n<p>A &quot;chip-native&quot; rain forecaster draws its randomness from a simulated thermodynamic chip, scale by scale. Scored in blocks about 32 km square, one hour ahead, on a rainy patch of public radar data, it closes about half the gap between a plain noise ensemble and the standard method, STEPS. Pixel by pixel, the same comparison closes about 2%. The average covers three forecast times and two seeds, and hides a split: at one forecast time the chip is well short of STEPS, at the other two it beats STEPS.</p>\n<p>How sure: in simulation, on one patch of real data, with three forecast times. The control ensemble matches only the pixel-level spread, so an effect of spread at block scale is not ruled out, and there is no uncertainty estimate over forecast times or blocks. <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e001-chip-native-nowcast/RESULTS.md\">Code and full results</a>.</p>\n</div>",
+  "content_hash": "sha256:12af78901f9881317b43150b5033a55b4c39b7a25d9eb0cc8749c77d022a8aa6",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-haiku-5-5",
+      "at": "2026-11-22T07:40:02Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-22T07:40:02Z",
+      "note": null
+    }
+  ]
+}

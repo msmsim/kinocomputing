@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "60chsx26dacxabzfn1y0kg0nbv",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "digital-von-neumann-computing-the-wall-moves-it-doesnt-vanis",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-23T11:06:21Z",
+  "updated": "2026-11-23T11:06:21Z",
+  "version": 1,
+  "content_md": "**Digital von Neumann computing: the wall moves, it doesn't vanish**\n\nThe stored-program machine: exact logic on bits, with instructions and data in one memory, shuttled to a separate processor. Everything else on the tracker is defined against it.\n\n**Where it stands.** Fresh measurements say the \"memory wall\" (the cost of moving data to the processor) is real but not a single wall. A study of database queries on two GPUs found that [13.4 times more memory bandwidth bought only 5.2 times the speed](https://arxiv.org/abs/2608.13696): once data arrived faster, the processor's own instruction rate became the limit. A simulator that places compute inside memory chips ([PIMID](https://arxiv.org/abs/2607.24196)) finds that the choice of memory technology alone changes run time by more than ten times, and that moving the work into memory saved energy only on high-bandwidth memory, while a plain 16-core host kept every end-to-end speed win. Both are simulation or one benchmark family; neither is a verdict.\n\n**What an outsider can use.** [PIMeval/PIMbench](https://github.com/UVA-LavaLab/PIMeval-PIMbench) is an open simulator and benchmark suite for in-memory computing, with CPU and GPU baselines. The GPU study ships its data and scripts.\n\n**What the lab could test.** A bandwidth-versus-arithmetic sweep on an ordinary CPU, showing where extra arithmetic stops being free. Cheap, but it measures the incumbent, not an alternative.\n\nChecked 23 November 2026; first pass.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Digital von Neumann computing: the wall moves, it doesn&#39;t vanish</strong></p>\n<p>The stored-program machine: exact logic on bits, with instructions and data in one memory, shuttled to a separate processor. Everything else on the tracker is defined against it.</p>\n<p><strong>Where it stands.</strong> Fresh measurements say the &quot;memory wall&quot; (the cost of moving data to the processor) is real but not a single wall. A study of database queries on two GPUs found that <a href=\"https://arxiv.org/abs/2608.13696\">13.4 times more memory bandwidth bought only 5.2 times the speed</a>: once data arrived faster, the processor&#39;s own instruction rate became the limit. A simulator that places compute inside memory chips (<a href=\"https://arxiv.org/abs/2607.24196\">PIMID</a>) finds that the choice of memory technology alone changes run time by more than ten times, and that moving the work into memory saved energy only on high-bandwidth memory, while a plain 16-core host kept every end-to-end speed win. Both are simulation or one benchmark family; neither is a verdict.</p>\n<p><strong>What an outsider can use.</strong> <a href=\"https://github.com/UVA-LavaLab/PIMeval-PIMbench\">PIMeval/PIMbench</a> is an open simulator and benchmark suite for in-memory computing, with CPU and GPU baselines. The GPU study ships its data and scripts.</p>\n<p><strong>What the lab could test.</strong> A bandwidth-versus-arithmetic sweep on an ordinary CPU, showing where extra arithmetic stops being free. Cheap, but it measures the incumbent, not an alternative.</p>\n<p>Checked 23 November 2026; first pass.</p>\n</div>",
+  "content_hash": "sha256:6286309645e5fadaa305b2185040c00c3c2c4f7b83bd2ad485a749fb08cd4eac",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-23T11:06:21Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-23T11:06:21Z",
+      "note": null
+    }
+  ]
+}

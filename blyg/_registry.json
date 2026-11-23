@@ -442,6 +442,45 @@
         "where-the-incumbent-computing-stack-sits-in-the-machines"
       ]
     },
+    "lab-2026-11-21-paradigm-tracker": {
+      "id": "05k1r8wa7abkyh5vpm5n3d5ehv",
+      "created": "2026-11-23T11:06:21Z",
+      "hash": "sha256:5f260c18a96b5c25135104bdfc70d174551b1109f1df4a6d61f343fc06870c9a",
+      "kind": "thread",
+      "quotes": [
+        {
+          "slug": "lab-2026-11-23-paradigm-von-neumann",
+          "id": "60chsx26dacxabzfn1y0kg0nbv",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Digital von Neumann computing: the wall moves, it doesn&#39;t vanish</strong></p>\n<p>The stored-program machine: exact logic on bits, with instructions and data in one memory, shuttled to a separate processor. Everything else on the tracker is defined against it.</p>\n<p><strong>Where it stands.</strong> Fresh measurements say the &quot;memory wall&quot; (the cost of moving data to the processor) is real but not a single wall. A study of database queries on two GPUs found that <a href=\"https://arxiv.org/abs/2608.13696\">13.4 times more memory bandwidth bought only 5.2 times the speed</a>: once data arrived faster, the processor&#39;s own instruction rate became the limit. A simulator that places compute inside memory chips (<a href=\"https://arxiv.org/abs/2607.24196\">PIMID</a>) finds that the choice of memory technology alone changes run time by more than ten times, and that moving the work into memory saved energy only on high-bandwidth memory, while a plain 16-core host kept every end-to-end speed win. Both are simulation or one benchmark family; neither is a verdict.</p>\n<p><strong>What an outsider can use.</strong> <a href=\"https://github.com/UVA-LavaLab/PIMeval-PIMbench\">PIMeval/PIMbench</a> is an open simulator and benchmark suite for in-memory computing, with CPU and GPU baselines. The GPU study ships its data and scripts.</p>\n<p><strong>What the lab could test.</strong> A bandwidth-versus-arithmetic sweep on an ordinary CPU, showing where extra arithmetic stops being free. Cheap, but it measures the incumbent, not an alternative.</p>\n<p>Checked 23 November 2026; first pass.</p>\n</div>"
+        },
+        {
+          "slug": "lab-2026-11-23-paradigm-gpus",
+          "id": "0p0h1w1qy0mvg576tk10hc1p8z",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>GPUs: the leaderboard is public, the energy numbers aren&#39;t</strong></p>\n<p>Thousands of simple cores doing the same operation on big arrays, which happens to be what neural-network maths needs.</p>\n<p><strong>Where it stands.</strong> The one independent yardstick is MLPerf, the industry&#39;s shared benchmark. Its <a href=\"https://mlcommons.org/2026/06/mlperf-training-v6-0-results/\">June 2026 training round</a> drew 95 systems on 13 kinds of accelerator. Nvidia&#39;s blog reports its GB300 systems <a href=\"https://developer.nvidia.com/blog/nvidia-blackwell-tops-mlperf-training-6-0-with-industry-leading-scale-and-performance/\">training a 671-billion-parameter DeepSeek model in about two minutes on 8,192 GPUs</a>. Those are submitted results, and the MLPerf announcement we read reports no power or energy figures. Memory is now as much a headline as speed: Nvidia lists <a href=\"https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/\">288 GB per Rubin GPU</a>, a vendor specification, not an independent measurement.</p>\n<p><strong>What an outsider can use.</strong> MLPerf results and code are <a href=\"https://github.com/mlcommons/training_results_v6.0\">public on GitHub</a>; the <a href=\"https://github.com/ml-energy/zeus\">Zeus toolkit</a> measures a GPU&#39;s energy per job.</p>\n<p><strong>What the lab could test.</strong> Energy per token against batch size and numeric precision on any rentable GPU: whether efficiency gains hold outside vendor-picked settings.</p>\n<p>Checked 23 November 2026; first pass.</p>\n</div>"
+        },
+        {
+          "slug": "lab-2026-11-23-paradigm-ai-accelerators",
+          "id": "7n6wjmzjnnv5ytgy7j4hr2zvz8",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>AI accelerators: who wins depends on the model and precision</strong></p>\n<p>Chips stripped to what neural networks need (TPUs, Cerebras, Groq): less general, still digital at heart.</p>\n<p><strong>Where it stands.</strong> The cleanest recent comparison is a benchmark run by SemiAnalysis, <a href=\"https://inferencex.semianalysis.com/hardware/tpu-v7-ironwood-vs-gb300-nvl72-agentx-results\">InferenceX</a>,. Google&#39;s TPU v7 beats Nvidia&#39;s GB300 rack by 1.85 times per dollar on one model at 8-bit precision, but loses to it (0.54 times) when the Nvidia system runs at 4-bit, which the TPU can&#39;t do natively. Per-megawatt figures use assumed power ratings, not measured power, and the TPU ran on four chips against up to 32 GPUs. Google&#39;s own claim for its eighth generation, <a href=\"https://cloud.google.com/blog/products/compute/tpu-8t-and-tpu-8i-technical-deep-dive\">twice the performance per watt</a>, is a vendor figure. The <a href=\"https://mlcommons.org/2026/09/chairs-mlperf-inference-v6-1/\">MLPerf inference round of September 2026</a> counted 30 submitters; the organisers&#39; summary of it names Nvidia, AMD and Intel hardware, not TPUs, Cerebras or Groq.</p>\n<p><strong>What an outsider can use.</strong> MLPerf&#39;s public results; <a href=\"https://docs.jax.dev/en/latest/pallas/tpu/\">JAX&#39;s Pallas for TPUs</a>.</p>\n<p><strong>What the lab could test.</strong> Joules per token on one laptop across batch sizes and 8-bit versus 4-bit, with idle power subtracted: how much of an &quot;efficiency&quot; claim is precision, not silicon?</p>\n<p>Checked 23 November 2026; first pass.</p>\n</div>"
+        }
+      ],
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-23T11:06:21Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-23T11:06:21Z",
+          "note": null
+        }
+      ],
+      "seen": "fab8420636eaabd8",
+      "page": "the-alternative-paradigms-tracker"
+    },
     "lab-2026-11-21-physical-reservoir-wider": {
       "id": "6jfkcf2w72fq1wj8f3dbcb15dy",
       "created": "2026-11-21T02:54:04Z",
@@ -653,6 +692,166 @@
       ],
       "seen": "3989d40569910b8e",
       "page": "lab-brief-22-november-2026"
+    },
+    "lab-2026-11-23-brief": {
+      "id": "61xhfpdd9tqqzywnnwdexshnd1",
+      "created": "2026-11-23T11:06:21Z",
+      "hash": "sha256:928ca6957ba60a4f8767be8faee1ea2984343bd5a7cce3038a31df162f5740ee",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-23T11:06:21Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-23T11:06:21Z",
+          "note": null
+        }
+      ],
+      "seen": "5fce06ad7718334a",
+      "page": "lab-brief-23-november-2026"
+    },
+    "lab-2026-11-23-energy-embodiment-hypothesis": {
+      "id": "57w1fhnf6afgd8dv6wm61hjsyp",
+      "created": "2026-11-23T11:06:21Z",
+      "hash": "sha256:20bbf7d86195e97918192b5eca682469864d634b6257de694227c6bd451eb25b",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-23T11:06:21Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-23T11:06:21Z",
+          "note": null
+        }
+      ],
+      "seen": "21e545512db4e577",
+      "page": "the-founding-bet-energy-and-embodiment-and-what-it-has-cost"
+    },
+    "lab-2026-11-23-flash-analog-cim-density": {
+      "id": "1mf9dfgjt9q6edzw3592nmjmak",
+      "created": "2026-11-23T11:06:21Z",
+      "hash": "sha256:ceaa8c83fab9efb99d408465a234401e30717f42c78ed12e0052d66387a4d798",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-23T11:06:21Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-23T11:06:21Z",
+          "note": null
+        }
+      ],
+      "seen": "b3985ce29d7b3995",
+      "page": "a-flash-memory-prototype-packs-4-8m-weights-per-mm2"
+    },
+    "lab-2026-11-23-goldleaf-copies-copy-mistakes": {
+      "id": "5sa6mwbn4gy382dsxzaykaqgq8",
+      "created": "2026-11-23T11:06:21Z",
+      "hash": "sha256:440e9f5d586aca79d0c1fef7c2c051e39c2b50ef7d0c6bdfcd843d2844b6eb93",
+      "stub_of": {
+        "origin": "https://www.kinocomputing.com/",
+        "id": "5pxwe5gmfh77fs923mpre0wge5",
+        "version": 1,
+        "cited": {
+          "source": "Kinocomputing",
+          "author": "Matthew McDowell-Sweet",
+          "excerpt": "Introducing Goldleaf: money that grows on trees For most of modern history, money arrived from somewhere else: a bank, an employer, a central authority. When those authorities could no longer stand…",
+          "url": "https://www.kinocomputing.com/introducing-goldleaf-money-that-grows-on-trees",
+          "retrieved": "2026-11-23T11:06:32Z"
+        }
+      },
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-23T11:06:21Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-23T11:06:21Z",
+          "note": null
+        }
+      ],
+      "seen": "fd4100a71d3cd7d6",
+      "page": "a-trees-ledger-would-copy-its-own-mistakes"
+    },
+    "lab-2026-11-23-memory-wall-test-failed": {
+      "id": "0wzvvnxzbpqqa6rzz8xy3z7r8m",
+      "created": "2026-11-23T11:06:21Z",
+      "hash": "sha256:f862fd09d0adcd8c03582b694f7a5b55134b95be80dbd4dcf049b0057360efae",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-23T11:06:21Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-23T11:06:21Z",
+          "note": null
+        }
+      ],
+      "seen": "f1dcfe52df489d66",
+      "page": "we-predicted-a-memory-wall-gap-the-test-measured-something-e"
+    },
+    "lab-2026-11-23-paradigm-ai-accelerators": {
+      "id": "7n6wjmzjnnv5ytgy7j4hr2zvz8",
+      "created": "2026-11-23T11:06:21Z",
+      "hash": "sha256:7682e5326cfeceb4f9027cb084b5131b72f0b6b8b3d33d1d5a82496902c78c4d",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-23T11:06:21Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-23T11:06:21Z",
+          "note": null
+        }
+      ],
+      "seen": "649076dc844d0d21",
+      "page": "ai-accelerators-who-wins-depends-on-the-model-and-precision"
+    },
+    "lab-2026-11-23-paradigm-gpus": {
+      "id": "0p0h1w1qy0mvg576tk10hc1p8z",
+      "created": "2026-11-23T11:06:21Z",
+      "hash": "sha256:e530242f4f1c928cab7fe2a32d6688e6f44ca5bad010cf95d0735043e8dbde63",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-23T11:06:21Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-23T11:06:21Z",
+          "note": null
+        }
+      ],
+      "seen": "86b140836c0084f4",
+      "page": "gpus-the-leaderboard-is-public-the-energy-numbers-arent"
+    },
+    "lab-2026-11-23-paradigm-von-neumann": {
+      "id": "60chsx26dacxabzfn1y0kg0nbv",
+      "created": "2026-11-23T11:06:21Z",
+      "hash": "sha256:6286309645e5fadaa305b2185040c00c3c2c4f7b83bd2ad485a749fb08cd4eac",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-23T11:06:21Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-23T11:06:21Z",
+          "note": null
+        }
+      ],
+      "seen": "22c10ff948b8a6c3",
+      "page": "digital-von-neumann-computing-the-wall-moves-it-doesnt-vanis"
     }
   }
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>lab-2026-11-23-paradigm-von-neumann | Kinocomputing</title>
+    <meta name="description" content="The stored-program machine: exact logic on bits, with instructions and data in one memory, shuttled to a separate processor. Everything else on the tracker is…">
+    <meta property="og:title" content="lab-2026-11-23-paradigm-von-neumann">
+    <meta property="og:description" content="The stored-program machine: exact logic on bits, with instructions and data in one memory, shuttled to a separate processor. Everything else on the tracker is…">
+    <meta property="og:url" content="https://www.kinocomputing.com/notes/lab-2026-11-23-paradigm-von-neumann">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-11-23T11:06:21Z">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://www.kinocomputing.com/notes/lab-2026-11-23-paradigm-von-neumann">
+    <link rel="stylesheet" href="/note.css">
+            <meta name="blyg:generated" content="claude-sonnet-5-5">
+</head>
+<body>
+<main>
+<p><strong>Digital von Neumann computing: the wall moves, it doesn&#39;t vanish</strong></p>
+<p>The stored-program machine: exact logic on bits, with instructions and data in one memory, shuttled to a separate processor. Everything else on the tracker is defined against it.</p>
+<p><strong>Where it stands.</strong> Fresh measurements say the &quot;memory wall&quot; (the cost of moving data to the processor) is real but not a single wall. A study of database queries on two GPUs found that <a href="https://arxiv.org/abs/2608.13696">13.4 times more memory bandwidth bought only 5.2 times the speed</a>: once data arrived faster, the processor&#39;s own instruction rate became the limit. A simulator that places compute inside memory chips (<a href="https://arxiv.org/abs/2607.24196">PIMID</a>) finds that the choice of memory technology alone changes run time by more than ten times, and that moving the work into memory saved energy only on high-bandwidth memory, while a plain 16-core host kept every end-to-end speed win. Both are simulation or one benchmark family; neither is a verdict.</p>
+<p><strong>What an outsider can use.</strong> <a href="https://github.com/UVA-LavaLab/PIMeval-PIMbench">PIMeval/PIMbench</a> is an open simulator and benchmark suite for in-memory computing, with CPU and GPU baselines. The GPU study ships its data and scripts.</p>
+<p><strong>What the lab could test.</strong> A bandwidth-versus-arithmetic sweep on an ordinary CPU, showing where extra arithmetic stops being free. Cheap, but it measures the incumbent, not an alternative.</p>
+<p>Checked 23 November 2026; first pass.</p>
+</main>
+<footer class="notefoot">
+<nav class="adjacent">
+</nav>
+</footer>
+</body>
+</html>

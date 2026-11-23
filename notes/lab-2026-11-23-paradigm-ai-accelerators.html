@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>lab-2026-11-23-paradigm-ai-accelerators | Kinocomputing</title>
+    <meta name="description" content="Chips stripped to what neural networks need (TPUs, Cerebras, Groq): less general, still digital at heart.">
+    <meta property="og:title" content="lab-2026-11-23-paradigm-ai-accelerators">
+    <meta property="og:description" content="Chips stripped to what neural networks need (TPUs, Cerebras, Groq): less general, still digital at heart.">
+    <meta property="og:url" content="https://www.kinocomputing.com/notes/lab-2026-11-23-paradigm-ai-accelerators">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-11-23T11:06:21Z">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://www.kinocomputing.com/notes/lab-2026-11-23-paradigm-ai-accelerators">
+    <link rel="stylesheet" href="/note.css">
+            <meta name="blyg:generated" content="claude-sonnet-5-5">
+</head>
+<body>
+<main>
+<p><strong>AI accelerators: who wins depends on the model and precision</strong></p>
+<p>Chips stripped to what neural networks need (TPUs, Cerebras, Groq): less general, still digital at heart.</p>
+<p><strong>Where it stands.</strong> The cleanest recent comparison is a benchmark run by SemiAnalysis, <a href="https://inferencex.semianalysis.com/hardware/tpu-v7-ironwood-vs-gb300-nvl72-agentx-results">InferenceX</a>,. Google&#39;s TPU v7 beats Nvidia&#39;s GB300 rack by 1.85 times per dollar on one model at 8-bit precision, but loses to it (0.54 times) when the Nvidia system runs at 4-bit, which the TPU can&#39;t do natively. Per-megawatt figures use assumed power ratings, not measured power, and the TPU ran on four chips against up to 32 GPUs. Google&#39;s own claim for its eighth generation, <a href="https://cloud.google.com/blog/products/compute/tpu-8t-and-tpu-8i-technical-deep-dive">twice the performance per watt</a>, is a vendor figure. The <a href="https://mlcommons.org/2026/09/chairs-mlperf-inference-v6-1/">MLPerf inference round of September 2026</a> counted 30 submitters; the organisers&#39; summary of it names Nvidia, AMD and Intel hardware, not TPUs, Cerebras or Groq.</p>
+<p><strong>What an outsider can use.</strong> MLPerf&#39;s public results; <a href="https://docs.jax.dev/en/latest/pallas/tpu/">JAX&#39;s Pallas for TPUs</a>.</p>
+<p><strong>What the lab could test.</strong> Joules per token on one laptop across batch sizes and 8-bit versus 4-bit, with idle power subtracted: how much of an &quot;efficiency&quot; claim is precision, not silicon?</p>
+<p>Checked 23 November 2026; first pass.</p>
+</main>
+<footer class="notefoot">
+<nav class="adjacent">
+</nav>
+</footer>
+</body>
+</html>

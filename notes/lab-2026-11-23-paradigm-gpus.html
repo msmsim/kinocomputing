@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>lab-2026-11-23-paradigm-gpus | Kinocomputing</title>
+    <meta name="description" content="Thousands of simple cores doing the same operation on big arrays, which happens to be what neural-network maths needs.">
+    <meta property="og:title" content="lab-2026-11-23-paradigm-gpus">
+    <meta property="og:description" content="Thousands of simple cores doing the same operation on big arrays, which happens to be what neural-network maths needs.">
+    <meta property="og:url" content="https://www.kinocomputing.com/notes/lab-2026-11-23-paradigm-gpus">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-11-23T11:06:21Z">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://www.kinocomputing.com/notes/lab-2026-11-23-paradigm-gpus">
+    <link rel="stylesheet" href="/note.css">
+            <meta name="blyg:generated" content="claude-sonnet-5-5">
+</head>
+<body>
+<main>
+<p><strong>GPUs: the leaderboard is public, the energy numbers aren&#39;t</strong></p>
+<p>Thousands of simple cores doing the same operation on big arrays, which happens to be what neural-network maths needs.</p>
+<p><strong>Where it stands.</strong> The one independent yardstick is MLPerf, the industry&#39;s shared benchmark. Its <a href="https://mlcommons.org/2026/06/mlperf-training-v6-0-results/">June 2026 training round</a> drew 95 systems on 13 kinds of accelerator. Nvidia&#39;s blog reports its GB300 systems <a href="https://developer.nvidia.com/blog/nvidia-blackwell-tops-mlperf-training-6-0-with-industry-leading-scale-and-performance/">training a 671-billion-parameter DeepSeek model in about two minutes on 8,192 GPUs</a>. Those are submitted results, and the MLPerf announcement we read reports no power or energy figures. Memory is now as much a headline as speed: Nvidia lists <a href="https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/">288 GB per Rubin GPU</a>, a vendor specification, not an independent measurement.</p>
+<p><strong>What an outsider can use.</strong> MLPerf results and code are <a href="https://github.com/mlcommons/training_results_v6.0">public on GitHub</a>; the <a href="https://github.com/ml-energy/zeus">Zeus toolkit</a> measures a GPU&#39;s energy per job.</p>
+<p><strong>What the lab could test.</strong> Energy per token against batch size and numeric precision on any rentable GPU: whether efficiency gains hold outside vendor-picked settings.</p>
+<p>Checked 23 November 2026; first pass.</p>
+</main>
+<footer class="notefoot">
+<nav class="adjacent">
+</nav>
+</footer>
+</body>
+</html>

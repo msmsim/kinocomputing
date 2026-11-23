@@ -118,10 +118,49 @@ or edge cache still serving the old one, which is otherwise indistinguishable
 from the edit not having worked.
 
 `description` and `og:description` are filled from the note's opening paragraph
-when absent or empty, trimmed to 160 characters at a word boundary. An authored
-description always wins and is copied across to the other tag rather than left
-to disagree with a derived one. So a hand-written note needs nothing but a
-timestamp and a `<main>`.
+(and the next ones, while it is under 50 characters; a byline in italics is
+skipped), trimmed to 160 characters at a word boundary. An authored description
+wins when search results can use it — 50 to 165 characters, and not just the
+title again, which is what motes writes for a titled note — and is copied
+across to the other tag. So a hand-written note needs nothing but a timestamp
+and a `<main>`.
+
+`<title>` is "<title> | Kinocomputing" when that fits in 65 characters, where
+search results cut titles off, and the title alone when it doesn't.
+
+### Agent readiness
+
+What search engines and AI assistants read without guessing, all derived at
+every build, so a new note is covered the moment it is published:
+
+- **Structured data** (JSON-LD) in every note's head: a `BlogPosting` (the
+  About page an `AboutPage`) with its headline, description, first and latest
+  version dates and version number, written by the PI or, for the lab's notes,
+  by the lab (with the model named), published by the project. The stream
+  carries the site graph: the `WebSite`, the project as a `ResearchProject`, its
+  founder, and the lab.
+- **`sitemap.xml`**: the stream and every live note, with when each last
+  changed. Not withdrawn notes, not frozen versions (they are canonical to the
+  live page).
+- **`llms.txt`** ([llmstxt.org](https://llmstxt.org)): what the site is, the
+  pages to start with, the machine-readable surface (blyg, feed, sitemap, the
+  lab's repository), the paradigm tracker's entries and the latest notes.
+- **`/.well-known/security.txt`** (RFC 9116): contact via the About page,
+  expiring 11 months from the month it was built, so it never lapses while
+  the site keeps building.
+- **`robots.txt`**, the site's own policy, versioned here (Cloudflare's
+  managed robots.txt is off, and so is its "Block AI bots" firewall rule,
+  which would otherwise override this file). The site sells nothing and
+  exists to be read, so the assistants' named crawlers are welcome for
+  search, live answers and training alike (GPTBot, OAI-SearchBot,
+  ChatGPT-User, ClaudeBot, Claude-SearchBot, Claude-User, Google-Extended,
+  Applebot-Extended, PerplexityBot…: none is named, so all may read), with a
+  content signal saying so. Refused: scrapers that resell, monitor or
+  harvest and bring no readers (`CRAWLERS_REFUSED` in the build). It names
+  the sitemap.
+
+The blyg was already most of what an agent needs: every note as JSON, with its
+versions, at a stable address.
 
 ### The share card
 
@@ -151,6 +190,9 @@ What is left is checked rather than fixed — the build warns, never fails, sinc
 a bad description is worse as a blocked deploy than as a line in the log:
 
 - a `description` / `og:description` that still disagree
+- a description outside 50–165 characters, or a title over 65 even without
+  the site's name: words only the author can change
+- no structured data
 - an unfilled `{{placeholder}}` left in the head
 
 The audit runs on the finished page, so it reports what actually ships rather

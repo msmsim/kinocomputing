@@ -311,8 +311,25 @@ function previewOf(note) {
 }
 
 // Long enough to be a useful search snippet, short enough not to be truncated
-// mid-word by someone else's ellipsis.
+// mid-word by someone else's ellipsis. Search results rewrite or cut a
+// description under 50 characters or over 165, and a title (with the site's
+// name) over 65.
 const DESCRIPTION_LENGTH = 160;
+const DESCRIPTION_MIN = 50;
+const DESCRIPTION_MAX = 165;
+const TITLE_MAX = 65;
+
+/** How long a piece of attribute text reads, entities counted as one character. */
+const shownLength = (text) => text.replace(/&(?:#\d+|#x[0-9a-f]+|[a-z]+);/gi, "x").length;
+
+/**
+ * A page's <title>: "<title> | Kinocomputing" when that fits a search result,
+ * the title alone when it doesn't — a cut-off title loses the words that matter.
+ */
+const pageTitle = (title) => {
+  const full = `${title} | ${SITE_NAME}`;
+  return shownLength(full) <= TITLE_MAX ? full : title;
+};
 
 /** Cuts at a word boundary, or mid-word if there isn't a usable one. */
 function truncate(text, max) {
@@ -334,23 +351,41 @@ function describe(note) {
     const title = firstBlock(rest);
     if (title) rest = title.rest;
   }
-  const opening = firstBlock(rest.trim());
-  if (!opening) return "";
-  const text = stripTags(opening.block);
+  // The opening paragraph, and the next ones too while it's too short to be
+  // a usable snippet (a one-line opener, a dateline).
+  let text = "";
+  let block = firstBlock(rest.trim());
+  while (block) {
+    // A byline ("By Concrete, one of the lab's AI voices") is a line wholly in
+    // italics: it says who, not what, so it's no part of a description.
+    if (/^<p>\s*<em>[\s\S]*<\/em>\s*<\/p>$/.test(block.block.trim()) && !/<\/em>[\s\S]*<em>/.test(block.block)) {
+      block = firstBlock(block.rest.trim());
+      continue;
+    }
+    text = `${text} ${stripTags(block.block)}`.trim();
+    if (text.length >= DESCRIPTION_MIN) break;
+    block = firstBlock(block.rest.trim());
+  }
   return text ? asText(truncate(text, DESCRIPTION_LENGTH)) : "";
 }
 
 /**
- * Fills in whichever of the two description tags is missing or empty. An
- * authored one always wins, and is copied across to the other rather than
- * being left to disagree with a derived one.
+ * Sets both description tags to one value. An authored description wins when
+ * it is usable as a search snippet: 50 to 165 characters, and not just the
+ * title again (which is what a publisher that copies the first line writes
+ * for a titled note). Otherwise the derived one, from the opening
+ * paragraphs, takes its place; an unusable authored one is still better than
+ * nothing when nothing can be derived.
  */
-function withDescription(html, derived) {
+function withDescription(html, derived, title = "") {
   const read = (pattern) => html.match(pattern)?.[1]?.trim() ?? "";
   const name = /<meta name="description" content="([^"]*)">/;
   const og = /<meta property="og:description" content="([^"]*)">/;
 
-  const value = read(name) || read(og) || derived;
+  const usable = (v) => v && shownLength(v) >= DESCRIPTION_MIN && shownLength(v) <= DESCRIPTION_MAX
+    && v.toLowerCase() !== title.toLowerCase();
+  const authored = read(name) || read(og);
+  const value = usable(authored) ? authored : derived || authored;
   if (!value) return html;
 
   let out = html;
@@ -359,7 +394,7 @@ function withDescription(html, derived) {
     [og, `<meta property="og:description" content="${value}">`],
   ]) {
     const found = out.match(pattern);
-    if (found?.[1].trim()) continue;
+    if (found?.[1].trim() === value) continue;
     if (found) {
       out = out.replace(pattern, () => tag);
       continue;
@@ -512,6 +547,170 @@ function withSameSiteLinks(html) {
   });
 }
 
+// AGENT READINESS. What search engines and AI assistants read without
+// guessing: structured data on every note and the stream, a sitemap, an
+// llms.txt, a security.txt. All derived from the notes at every build, so
+// each new note is covered the moment it is published.
+
+const LAB_REPO = "https://github.com/msmsim/kinocomputing-lab";
+const IDS = {
+  website: `${SITE_BASE}/#website`,
+  project: `${SITE_BASE}/#project`,
+  author: `${SITE_BASE}/#author`,
+  lab: `${SITE_BASE}/#lab`,
+};
+const GRAPH = [
+  { "@type": "WebSite", "@id": IDS.website, url: `${SITE_BASE}/`, name: SITE_NAME,
+    description: BLYG.description, inLanguage: "en", publisher: { "@id": IDS.project } },
+  { "@type": "ResearchProject", "@id": IDS.project, name: SITE_NAME, url: `${SITE_BASE}/`,
+    description: BLYG.description, founder: { "@id": IDS.author },
+    sameAs: [BLYG.generatorUrl, LAB_REPO] },
+  { "@type": "Person", "@id": IDS.author, name: BLYG.author.name, url: BLYG.author.url },
+  { "@type": "Organization", "@id": IDS.lab, name: `${SITE_NAME} lab`, url: `${SITE_BASE}/about`,
+    description: "An automated research lab: an AI researcher works a nightly shift on alternative paradigms of computing and intelligence, steered by the project's founder.",
+    parentOrganization: { "@id": IDS.project }, sameAs: [LAB_REPO] },
+];
+
+/** Attribute or element text back to plain text, for JSON and plain-text files. */
+const plain = (text) => text
+  .replace(/&quot;/g, '"').replace(/&#39;|&#x27;|&apos;/g, "'").replace(/&rsquo;/g, "’")
+  .replace(/&lsquo;/g, "‘").replace(/&ldquo;/g, "“").replace(/&rdquo;/g, "”")
+  .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&");
+
+/** One <script type="application/ld+json"> in the head, replacing any earlier one. */
+function withStructuredData(html, graph) {
+  const out = html.replace(/[ \t]*<script type="application\/ld\+json">[\s\S]*?<\/script>\n?/g, "");
+  const end = out.indexOf("</head>");
+  if (end === -1) return out;
+  // "<" escaped so no value can close the script element.
+  const json = JSON.stringify({ "@context": "https://schema.org", "@graph": graph }).replace(/</g, "\\u003c");
+  return `${out.slice(0, end)}    <script type="application/ld+json">${json}</script>\n${out.slice(end)}`;
+}
+
+/** A note as schema.org sees it: who wrote it (the PI, or the lab), when, which version. */
+function noteGraph(note, entry, description) {
+  const url = `${SITE_BASE}${note.path}`;
+  const changelog = entry?.changelog ?? [];
+  const page = {
+    "@type": note.fileSlug === "about" ? "AboutPage" : "BlogPosting",
+    "@id": url,
+    url,
+    mainEntityOfPage: url,
+    headline: plain(note.title ? asText(note.title) : note.slug).slice(0, 110),
+    ...(description ? { description: plain(description) } : {}),
+    datePublished: changelog[0]?.at ?? note.iso,
+    dateModified: changelog.at(-1)?.at ?? note.iso,
+    ...(changelog.length ? { version: String(changelog.at(-1).version) } : {}),
+    inLanguage: "en",
+    isPartOf: { "@id": IDS.website },
+    publisher: { "@id": IDS.project },
+    author: { "@id": note.generated ? IDS.lab : IDS.author },
+    ...(note.generated ? { creditText: `Written by an AI researcher (${note.generated}) in the ${SITE_NAME} lab` } : {}),
+  };
+  return [page, ...GRAPH];
+}
+
+/** sitemap.xml: the stream and every live note, each with when it last changed. */
+function renderSitemap(notes) {
+  const url = (loc, lastmod) => `  <url><loc>${loc}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}</url>`;
+  const lastOf = (note) => registry.items[note.fileSlug]?.changelog.at(-1)?.at ?? note.iso;
+  const newest = notes.map(lastOf).sort().at(-1);
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    url(`${SITE_BASE}/`, newest),
+    ...[...notes].sort((a, b) => a.path.localeCompare(b.path)).map((note) => url(`${SITE_BASE}${note.path}`, lastOf(note))),
+    "</urlset>",
+    "",
+  ].join("\n");
+}
+
+/**
+ * llms.txt (llmstxt.org): what the site is, in a paragraph, then links an AI
+ * model can follow — the pages that explain it, the machine-readable
+ * surface, the paradigm entries, and the latest notes.
+ */
+function renderLlmsTxt(notes) {
+  const line = (note) => {
+    const description = describe(note);
+    const title = plain(note.title ? asText(note.title) : note.slug);
+    return `- [${title}](${SITE_BASE}${note.path})${description ? `: ${plain(description)}` : ""}`;
+  };
+  const by = (fileSlug) => notes.find((note) => note.fileSlug === fileSlug);
+  const newestFirst = [...notes].sort((a, b) => b.iso.localeCompare(a.iso));
+  const paradigms = newestFirst.filter((note) => /^lab-\d{4}-\d{2}-\d{2}-paradigm-/.test(note.fileSlug) && !/-tracker$/.test(note.fileSlug))
+    .sort((a, b) => a.path.localeCompare(b.path));
+  const latest = newestFirst.filter((note) => !/-brief$/.test(note.fileSlug) && note.fileSlug !== "about").slice(0, 30);
+  const start = ["about", "015-ochre-cranes", "lab-2026-11-21-paradigm-tracker"].map(by).filter(Boolean);
+  return [
+    `# ${SITE_NAME}`,
+    "",
+    `> ${BLYG.description} A one-person research project by ${BLYG.author.name}, with an automated research lab: an AI researcher works a nightly shift, running small open experiments, checking the literature, and keeping a tracker of alternative computing paradigms (thermodynamic and probabilistic, neuromorphic, analog in-memory, photonic, reversible, physical reservoirs, living substrates and more), each revisited every two weeks.`,
+    "",
+    "Every note is also published as JSON through the site's blyg (a protocol for versioned, quotable notes), with its full version history. The lab's notes link to their evidence: code, data and results in a public repository. Claims state how sure the lab is in plain words.",
+    "",
+    "## Start here",
+    "",
+    ...start.map(line),
+    "",
+    "## Machine-readable",
+    "",
+    `- [Blyg manifest](${SITE_BASE}/blyg.json): every note, its versions and its JSON`,
+    `- [Feed](${SITE_BASE}/feed.xml): RSS of the latest notes`,
+    `- [Sitemap](${SITE_BASE}/sitemap.xml): every page`,
+    `- [The lab's repository](${LAB_REPO}): its charter, its researcher's instructions, every experiment with code and data`,
+    "",
+    ...(paradigms.length ? ["## The paradigm tracker's entries", "", ...paradigms.map(line), ""] : []),
+    "## Latest notes",
+    "",
+    ...latest.map(line),
+    "",
+  ].join("\n");
+}
+
+/**
+ * robots.txt: the site's own policy, kept here rather than in Cloudflare's
+ * managed file. The site exists to spread its ideas and sells nothing, so
+ * the named crawlers of the assistants people ask — for search, live
+ * answers and training alike — are welcome. Refused are the scrapers that
+ * resell, monitor or harvest and bring no readers. Everyone else may read.
+ */
+const CRAWLERS_REFUSED = [
+  "Bytespider", "Diffbot", "omgili", "PetalBot",
+  "AwarioSmartBot", "AwarioRssBot", "QualifiedBot", "ICC-Crawler", "atlassian-bot",
+  "FishBot", "BorderxBot", "NavuBot", "SemrushBot-SWA", "WARDBot", "magpie-crawler",
+  "CitibotSiteCrawler", "Cotoyogi",
+];
+function renderRobots() {
+  return [
+    "# Kinocomputing. Search, AI answers and training are all welcome:",
+    "# the point of the site is to be read. Scrapers that resell or monitor",
+    "# are not. Policy: README.md, \"Agent readiness\".",
+    "",
+    "User-agent: *",
+    "Content-Signal: search=yes,ai-input=yes,ai-train=yes",
+    "Allow: /",
+    "",
+    ...CRAWLERS_REFUSED.map((bot) => `User-agent: ${bot}`),
+    "Disallow: /",
+    "",
+    `Sitemap: ${SITE_BASE}/sitemap.xml`,
+    "",
+  ].join("\n");
+}
+
+/** security.txt (RFC 9116): where to report a problem; expiring 11 months from the month it was built. */
+function renderSecurityTxt() {
+  const expires = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 11, 1));
+  return [
+    `Contact: ${SITE_BASE}/about`,
+    `Expires: ${expires.toISOString().replace(/\.\d{3}Z$/, "Z")}`,
+    "Preferred-Languages: en",
+    `Canonical: ${SITE_BASE}/.well-known/security.txt`,
+    "",
+  ].join("\n");
+}
+
 /** A page's last step before it is written. */
 function finishPage(html) {
   return withAnalytics(withSameSiteLinks(html));
@@ -646,7 +845,7 @@ function imageFields() {
 
 const headFields = ({ title, url, type }) => [
   { find: /<title>[^<]*<\/title>/,
-    tag: `<title>${title} | ${SITE_NAME}</title>` },
+    tag: `<title>${pageTitle(title)}</title>` },
   { find: /<meta property="og:title" content="[^"]*">/,
     tag: `<meta property="og:title" content="${title}">` },
   { find: /<meta property="og:url" content="[^"]*">/,
@@ -717,6 +916,12 @@ function auditHead(html, slug) {
   if (description === undefined) say("no meta description");
   else if (!description.trim()) say("empty meta description");
   if (ogDescription === undefined) say("no og:description");
+  else if (description && (shownLength(description) < DESCRIPTION_MIN || shownLength(description) > DESCRIPTION_MAX)) {
+    say(`meta description is ${shownLength(description)} characters; search results rewrite one outside ${DESCRIPTION_MIN}–${DESCRIPTION_MAX}`);
+  }
+  const title = value(/<title>([^<]*)<\/title>/);
+  if (title && shownLength(title) > TITLE_MAX) say(`title is ${shownLength(title)} characters even without the site's name; search results cut one over ${TITLE_MAX}`);
+  if (!/<script type="application\/ld\+json">/.test(html)) say("no structured data");
 
   if (description !== undefined && ogDescription !== undefined
       && description !== ogDescription) {
@@ -969,7 +1174,7 @@ for (const [path, content] of await readTree(STATE_DIR)) {
   if (!path.split("/").some((part) => part.startsWith("_"))) site.set(path, content);
 }
 
-site.set("index.html", finishPage(withSiteFoot(renderStream(streamTemplate, notes))));
+site.set("index.html", finishPage(withSiteFoot(withStructuredData(renderStream(streamTemplate, notes), GRAPH))));
 
 notes.forEach((note, i) => {
   const { html } = note;
@@ -981,7 +1186,9 @@ notes.forEach((note, i) => {
     url: `${SITE_BASE}${note.path}`,
     type: "article",
   });
-  updated = withDescription(updated, describe(note));
+  updated = withDescription(updated, describe(note), note.title ? asText(note.title) : "");
+  updated = withStructuredData(updated, noteGraph(note, registry.items[note.fileSlug],
+    updated.match(/<meta name="description" content="([^"]*)">/)?.[1] ?? ""));
   updated = withMain(updated, note.content);
   updated = removeBlock(updated, '<nav class="back">', "</nav>");
   updated = removeBlock(updated, '<footer class="masthead">', "</footer>");
@@ -1153,6 +1360,10 @@ async function renderRedirects() {
 }
 
 site.set(REDIRECTS, await renderRedirects());
+site.set("sitemap.xml", renderSitemap(notes));
+site.set("llms.txt", renderLlmsTxt(notes));
+site.set(".well-known/security.txt", renderSecurityTxt());
+site.set("robots.txt", renderRobots());
 
 // What the deploy folder holds now, so a page dropped from the site is noticed
 // as a change and doesn't linger from an earlier build.

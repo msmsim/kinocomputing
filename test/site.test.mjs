@@ -156,3 +156,80 @@ test("links within the site open in place; links out open a new tab; the masthea
     site.dispose();
   }
 });
+
+test("agent readiness: structured data on every note and the stream, a sitemap, llms.txt, security.txt, robots.txt naming the sitemap", () => {
+  const site = makeSite();
+  const t = (m) => `2026-11-01T10:${String(m).padStart(2, "0")}:00Z`;
+  try {
+    site.publish("about", { body: "<p><strong>About</strong></p>\n<p>Independent research into alternative paradigms of computing and intelligence, and how it is done here.</p>", iso: t(1) });
+    site.publish("001-ash-eels", { body: "<p><strong>A pinned note</strong></p>\n<p>Its opening paragraph, long enough to serve as a description on its own.</p>", iso: t(2), pin: true });
+    site.publish("lab-2026-11-23-paradigm-gpus", { body: "<p><strong>GPUs: the leaderboard is public</strong></p>\n<p><em>By Concrete, one of the lab's AI voices</em></p>\n<p>Thousands of simple cores doing the same sum on big arrays, which is what neural networks need.</p>", iso: t(3), generated: "claude-sonnet-5-5" });
+    site.publish("002-teal-larks", { body: "<p>Gone soon.</p>", iso: t(4) });
+    site.action(t(5));
+    site.remove("002-teal-larks");
+    site.action(t(6));
+    const tree = site.deploy();
+    const ld = (path) => JSON.parse(tree.get(path).match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+
+    const home = ld("index.html")["@graph"];
+    assert.deepEqual(home.map((n) => n["@type"]), ["WebSite", "ResearchProject", "Person", "Organization"]);
+    assert.equal(home[1].founder["@id"], home[2]["@id"], "the project names its founder");
+
+    const lab = ld("gpus-the-leaderboard-is-public.html")["@graph"][0];
+    assert.equal(lab["@type"], "BlogPosting");
+    assert.equal(lab.author["@id"], "https://www.kinocomputing.com/#lab", "a lab note is the lab's");
+    assert.match(lab.creditText, /claude-sonnet-5-5/);
+    assert.equal(lab.description.startsWith("Thousands of simple cores"), true, "the byline is no part of the description");
+    const pinned = ld("a-pinned-note.html")["@graph"][0];
+    assert.equal(pinned.author["@id"], "https://www.kinocomputing.com/#author", "the PI's note is the PI's");
+    assert.equal(pinned.datePublished, t(2), "first published when its first version was");
+    assert.equal(pinned.version, "1");
+    assert.equal(ld("about.html")["@graph"][0]["@type"], "AboutPage");
+
+    const sitemap = tree.get("sitemap.xml");
+    const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+    assert.deepEqual(locs, ["https://www.kinocomputing.com/", "https://www.kinocomputing.com/a-pinned-note", "https://www.kinocomputing.com/about", "https://www.kinocomputing.com/gpus-the-leaderboard-is-public"],
+      "the stream and live notes; not a withdrawn note, not a frozen version");
+
+    const llms = tree.get("llms.txt");
+    assert.match(llms, /^# Kinocomputing\n\n> /);
+    assert.match(llms, /## Start here\n\n- \[About\]\(https:\/\/www\.kinocomputing\.com\/about\): Independent research/);
+    assert.match(llms, /## The paradigm tracker's entries\n\n- \[GPUs: the leaderboard is public\]\(https:\/\/www\.kinocomputing\.com\/gpus-the-leaderboard-is-public\): Thousands/);
+    assert.match(llms, /\[Sitemap\]\(https:\/\/www\.kinocomputing\.com\/sitemap\.xml\)/);
+
+    const security = tree.get(".well-known/security.txt");
+    assert.match(security, /^Contact: https:\/\/www\.kinocomputing\.com\/about$/m);
+    const expires = new Date(security.match(/^Expires: (.+)$/m)[1]);
+    const days = (expires - Date.now()) / 86400000;
+    assert.ok(days > 270 && days < 366, `Expires ${days.toFixed(0)} days out: within a year, as RFC 9116 asks`);
+    const robots = tree.get("robots.txt");
+    assert.match(robots, /^Sitemap: https:\/\/www\.kinocomputing\.com\/sitemap\.xml$/m);
+    assert.match(robots, /^User-agent: \*\nContent-Signal: search=yes,ai-input=yes,ai-train=yes\nAllow: \/$/m);
+    for (const bot of ["GPTBot", "ClaudeBot", "Google-Extended", "OAI-SearchBot"]) assert.ok(!robots.includes(`User-agent: ${bot}`), `${bot} is welcome`);
+    assert.match(robots, /^User-agent: Bytespider\n(?:User-agent: [^\n]+\n)*Disallow: \/$/m, "scrapers are refused");
+  } finally {
+    site.dispose();
+  }
+});
+
+test("search snippets: a title that won't fit drops the site's name; a description that is just the title, or too short, is derived from the opening", () => {
+  const site = makeSite();
+  try {
+    const long = "A title long enough that with the site name it runs past the cut";
+    site.publish("001-ash-eels", { body: `<p><strong>${long}</strong></p>\n<p>Short opener.</p>\n<p>And then the paragraph that actually says what the note is about.</p>`, iso: "2026-11-01T10:01:00Z", description: long });
+    site.publish("002-teal-larks", { body: "<p><strong>Short</strong></p>\n<p>Body.</p>", iso: "2026-11-01T10:02:00Z" });
+    site.publish("003-red-owls", { body: "<p><strong>Kept</strong></p>\n<p>Body.</p>", iso: "2026-11-01T10:03:00Z", description: "An authored description that is just the right length for a search result." });
+    site.action("2026-11-01T10:04:00Z");
+    const tree = site.deploy();
+    const head = (path, re) => tree.get(path).match(re)?.[1];
+    const slug = "a-title-long-enough-that-with-the-site-name-it-runs-past-the";
+    const page = [...tree.keys()].find((p) => p.startsWith(slug));
+    assert.equal(head(page, /<title>([^<]*)<\/title>/), long, "the title alone, not cut off");
+    assert.equal(head("short.html", /<title>([^<]*)<\/title>/), "Short | Kinocomputing");
+    assert.equal(head(page, /<meta name="description" content="([^"]*)">/), "Short opener. And then the paragraph that actually says what the note is about.");
+    assert.equal(head(page, /<meta property="og:description" content="([^"]*)">/), "Short opener. And then the paragraph that actually says what the note is about.");
+    assert.equal(head("kept.html", /<meta name="description" content="([^"]*)">/), "An authored description that is just the right length for a search result.", "a usable authored one stands");
+  } finally {
+    site.dispose();
+  }
+});

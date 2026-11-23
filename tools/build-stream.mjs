@@ -496,6 +496,27 @@ function withMain(html, content) {
  * removes the script from the whole site on the next build rather than leaving
  * it on pages that already have it.
  */
+/**
+ * Links within the site open where you are. Every page has `<base
+ * target="_blank">`, so links out open a new tab; a link to another page of
+ * this site, relative or absolute (apex or www), that names no target of its
+ * own gets `target="_self"`. Run on every page as it is written, so a note's
+ * content, a lab note's absolute links and the stream all behave the same.
+ */
+const SAME_SITE = /^(?:\/(?!\/)|https?:\/\/(?:www\.)?kinocomputing\.com(?:[/?#]|$))/i;
+function withSameSiteLinks(html) {
+  return html.replace(/<a\b([^>]*)>/gi, (tag, attrs) => {
+    if (/\starget\s*=/i.test(attrs)) return tag;
+    const href = attrs.match(/\shref\s*=\s*"([^"]*)"/i)?.[1];
+    return href != null && SAME_SITE.test(href) ? `<a${attrs} target="_self">` : tag;
+  });
+}
+
+/** A page's last step before it is written. */
+function finishPage(html) {
+  return withAnalytics(withSameSiteLinks(html));
+}
+
 function withAnalytics(html) {
   const out = html.replace(
     /[ \t]*<script[^>]*\bdata-goatcounter\b[\s\S]*?<\/script>\n?/g, ""
@@ -948,7 +969,7 @@ for (const [path, content] of await readTree(STATE_DIR)) {
   if (!path.split("/").some((part) => part.startsWith("_"))) site.set(path, content);
 }
 
-site.set("index.html", withAnalytics(withSiteFoot(renderStream(streamTemplate, notes))));
+site.set("index.html", finishPage(withSiteFoot(renderStream(streamTemplate, notes))));
 
 notes.forEach((note, i) => {
   const { html } = note;
@@ -974,7 +995,7 @@ notes.forEach((note, i) => {
   if (entry) {
     updated = withVersions(withHeadLinks(updated, INDEX_PATH, entry.id), renderVersions(entry, note.path));
   }
-  updated = withAnalytics(withSiteFoot(withNoteHead(updated)));
+  updated = finishPage(withSiteFoot(withNoteHead(updated)));
 
   // Audited after the rewrites, so it reports what actually ships rather than
   // what the publisher happened to hand over.
@@ -1014,7 +1035,7 @@ function renderPinned(entry, page, pin, older, newer) {
   html = withHeadLinks(html, INDEX_PATH, entry.id).replace(
     `${INDEX_PATH}items/${entry.id}.json"`, `${INDEX_PATH}items/${entry.id}/v${pin.version}.json"`
   );
-  return withAnalytics(withSiteFoot(withNoteHead(html)));
+  return finishPage(withSiteFoot(withNoteHead(html)));
 }
 
 /**
@@ -1033,7 +1054,7 @@ function renderTombstone(entry, page) {
   html = normaliseHead(html, { title: "Withdrawn", url: `${SITE_BASE}${livePath}`, type: "article" });
   html = withNotefoot(html, renderNotefoot(noteTemplate, { path: livePath, time: at }, null, null));
   html = withVersions(withHeadLinks(html, INDEX_PATH, entry.id), renderWithdrawn(entry, livePath));
-  return withAnalytics(withSiteFoot(withNoteHead(html)));
+  return finishPage(withSiteFoot(withNoteHead(html)));
 }
 
 /**
@@ -1053,7 +1074,7 @@ function renderNotFound() {
     .replace(/^[ \t]*<meta property="og:url"[^>]*>\n/m, "")
     .replace("</head>", '    <meta name="robots" content="noindex">\n</head>');
   html = withNotefoot(html, renderNotefoot(noteTemplate, null, null, null));
-  return withAnalytics(withSiteFoot(withNoteHead(html)));
+  return finishPage(withSiteFoot(withNoteHead(html)));
 }
 
 site.set("404.html", renderNotFound());

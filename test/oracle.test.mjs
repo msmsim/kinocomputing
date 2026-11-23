@@ -150,7 +150,8 @@ function checkDeploy(tree, model, ctx, where) {
       const pin = json(tree, `items/${id}/v${e.version}.json`);
       // P10: the pin's words verbatim, a leading bold line shown as the title.
       const shown = pin.content_html.replace(/^<p><strong>([^<]*)<\/strong><\/p>/, '<h1 class="title">$1</h1>');
-      assert.ok(frozen.includes(shown), `${where}: frozen page ${item.page}-v${e.version} isn't its pin's content, titled (P10)`);
+      // Links within the site are told to open in place; the words are untouched.
+      assert.ok(frozen.replace(/ target="_self"/g, "").includes(shown), `${where}: frozen page ${item.page}-v${e.version} isn't its pin's content, titled (P10)`);
       assert.ok(frozen.includes(`<link rel="canonical" href="${ORIGIN}${item.page}">`), `${where}: frozen page canonical (P10)`);
     }
     for (const old of (model.pages.get(file) ?? []).slice(0, -1)) {

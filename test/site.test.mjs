@@ -127,3 +127,32 @@ test("a 404 page: Cloudflare serves it, with a 404 status, for any address the s
     site.dispose();
   }
 });
+
+test("links within the site open in place; links out open a new tab; the masthead's name links home", () => {
+  const site = makeSite();
+  try {
+    const body = [
+      "<p><strong>Links</strong></p>",
+      '<p><a href="/about">rel</a> <a href="https://www.kinocomputing.com/x">www</a> <a href="https://kinocomputing.com/y?q=1">apex</a>',
+      '<a href="https://example.org/">out</a> <a href="https://kinocomputing.com.evil.example/">lookalike</a> <a href="//cdn.example/x">protocol-relative</a>',
+      '<a href="/z" target="_blank">asked for a tab</a></p>',
+    ].join("\n");
+    site.publish("001-ash-eels", { body, iso: "2026-11-01T10:01:00Z" });
+    site.action("2026-11-01T10:02:00Z");
+    const tree = site.deploy();
+    for (const path of ["links.html", "index.html"]) {
+      const html = tree.get(path);
+      assert.ok(html, `no ${path}`);
+      for (const href of ["/about", "https://www.kinocomputing.com/x", "https://kinocomputing.com/y?q=1"]) {
+        assert.ok(html.includes(`<a href="${href}" target="_self">`), `${path}: ${href} should open in place`);
+      }
+      for (const href of ["https://example.org/", "https://kinocomputing.com.evil.example/", "//cdn.example/x"]) {
+        assert.ok(html.includes(`<a href="${href}">`), `${path}: ${href} should open a new tab`);
+      }
+      assert.ok(html.includes('<a href="/z" target="_blank">'), `${path}: a link's own target stands`);
+    }
+    assert.match(tree.get("index.html"), /<h1 class="site-title"><a class="home" href="\/" target="_self" rel="home"><svg class="mark"[\s\S]*?<\/svg>Kinocomputing<\/a><\/h1>/);
+  } finally {
+    site.dispose();
+  }
+});

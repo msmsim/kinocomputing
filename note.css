@@ -149,12 +149,11 @@ header.notehead .mark {
   width: auto;
 }
 
-/* SECTION MENU
+/* MENU
 
-   Under the mark on every page, under the subtitle on the stream: the
-   site's sections as a quiet line of words, the current one in the text
-   colour and unlinked-looking. Small and grey, so a note still begins with
-   its title. */
+   Under the mark on every page, under the subtitle on the stream: Notes,
+   Tracker, About, as a quiet line of words, where you are in the text
+   colour. Small and grey, so a note still begins with its title. */
 nav.sections {
   font-size: 0.85em;
   color: #555;
@@ -186,19 +185,11 @@ header.masthead nav.sections {
   margin-top: 0.5em;
 }
 
-/* SECTION PAGES
+/* THE TRACKER
 
-   A section's page: a lead, its feed, and its notes as a list of titles,
-   dates and openings. The tracker sets its paradigms out as tables, and
-   gets a wider page for them; its prose stays at reading width. */
-main .lead {
-  font-size: 1.1em;
-}
-
-p.feedlink {
-  font-size: 0.85em;
-}
-
+   The one page with a layout of its own, in the notes' own column: its
+   paradigms as a table per group, or, before the lab's list exists, its
+   entries as a list of titles, dates and openings. */
 ul.listing {
   list-style: none;
   padding: 0;
@@ -220,16 +211,6 @@ ul.listing .summary {
   color: #333;
 }
 
-body.wide {
-  max-width: 60rem;
-}
-
-body.wide main > p,
-body.wide main > h1,
-body.wide main > h2 {
-  max-width: 65ch;
-}
-
 /* TABLES
 
    Plain rules under the rows, no boxes, no zebra: the eye follows the
@@ -243,7 +224,7 @@ body.wide main > h2 {
 table {
   border-collapse: collapse;
   width: 100%;
-  font-size: 0.95em;
+  font-size: 0.9em;
 }
 
 th, td {
@@ -262,7 +243,7 @@ thead th {
 
 table.tracker th[scope="row"] {
   font-weight: 500;
-  width: 22%;
+  width: 30%;
 }
 
 table.tracker .pending {

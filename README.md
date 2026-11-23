@@ -55,35 +55,26 @@ page when it is genuinely holding something back.
 itself, so a note that opens with a blockquote or a list comes back whole rather
 than being cut at the first `</p>` inside it.
 
-## Sections
+## The menu and the tracker
 
-One stream of notes, five views over it: **Notes** (the PI's own), **Lab**,
-**Tracker**, **Audits** and **Briefs**. Each is a page at `/<section>` and a
-plain RSS feed at `/feeds/<section>.xml`, and each is declared in `blyg.json`
-as a **hopper** (spec 0.4 §6.1): a curated list whose membership lives in the
-list, never in the items. Other blyg readers see the same plain items as
-before; the sections are this site's presentation, and anyone who wants one
-can follow its feed.
+Everything the site publishes is a note — a thread or a fragment, in the one
+stream and the one feed (`feed.xml`). Every page carries a small menu under
+the mark (the stream under its subtitle): **Notes** (the stream itself),
+**Tracker** and **About**, with where you are marked.
 
-A note's section is what its page asks for (`<meta name="kino:section">`,
-which the lab's publisher writes) or, failing that, worked out: the PI's
-notes (no `blyg:generated`) are Notes, the lab's briefs are Briefs, its
-paradigm entries are the Tracker's, and the rest of the lab's notes are the
-Lab's. About is a standing page in no section.
+The **Tracker** is the one page with a layout of its own, in the notes' own
+column: a table per group of every paradigm the lab follows, whether or not
+it has an entry yet, with where it stands (its entry's opening) and when the
+lab last looked. It is built from `notes/_tracker.json`, which the lab writes
+every night, and from the notes that are its entries: those whose page says
+so (`<meta name="kino:section" content="tracker">`, from the lab's publisher)
+or whose name marks them as a paradigm entry. It is presentation, not a blyg
+item, and has no feed of its own; its entries are in the main feed. Tables
+scroll in their own box on a phone rather than widening the page. It is in
+the sitemap and llms.txt, with a `CollectionPage` listing its entries.
 
-Every page carries the section menu under the mark (the stream under its
-subtitle), with the current section marked. Briefs are reached from the Lab's
-page and their feed rather than the menu.
-
-The **Tracker** page is a table per group, built from `notes/_tracker.json`,
-which the lab writes every night: every paradigm, whether or not it has an
-entry yet, with where it stands (its entry's opening) and when the lab last
-looked. It gets a wider page (`body.wide`); its prose stays at reading width.
-Tables scroll in their own box on a phone rather than widening the page.
-
-Section pages are in the sitemap, in llms.txt, and carry a `CollectionPage`
-with an `ItemList` of their notes. The section names are reserved, so no
-note can be published at one.
+An earlier version had pages and feeds for Notes, Lab, Audits and Briefs;
+their addresses redirect home and to `feed.xml`.
 
 ## Note titles
 

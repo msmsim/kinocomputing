@@ -11,5 +11,32 @@
   },
   "feed": "feed.xml",
   "items": "items/index.json",
-  "updated": "2026-11-23T18:47:20Z"
+  "hoppers": [
+    {
+      "title": "Notes",
+      "page": "notes",
+      "feed": "feeds/notes.xml"
+    },
+    {
+      "title": "Lab",
+      "page": "lab",
+      "feed": "feeds/lab.xml"
+    },
+    {
+      "title": "Tracker",
+      "page": "tracker",
+      "feed": "feeds/tracker.xml"
+    },
+    {
+      "title": "Audits",
+      "page": "audits",
+      "feed": "feeds/audits.xml"
+    },
+    {
+      "title": "Briefs",
+      "page": "briefs",
+      "feed": "feeds/briefs.xml"
+    }
+  ],
+  "updated": "2026-11-23T18:58:39Z"
 }

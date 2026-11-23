@@ -177,7 +177,7 @@
     "about": {
       "id": "3ae53bqvd075ppjq3fmmpw90cz",
       "created": "2026-08-10T08:00:00Z",
-      "hash": "sha256:b3481c629381320ccdc65c0ce78254592f0f5e452723f702892a7788bcb30fe2",
+      "hash": "sha256:904545edafd684afe1d1f4dd20dcc0db854ed6f1b4719de5006ee75f5979558a",
       "changelog": [
         {
           "version": 1,
@@ -198,9 +198,14 @@
           "version": 4,
           "at": "2026-11-22T18:31:35Z",
           "note": "Updated for the lab's new routine: five to ten notes a night, and a tracker that revisits every alternative paradigm every two weeks."
+        },
+        {
+          "version": 5,
+          "at": "2026-11-23T18:58:39Z",
+          "note": "Added a plain summary of what the site covers and where to find it."
         }
       ],
-      "seen": "c83af6c53e6fbf2b",
+      "seen": "153c595b0f2d50be",
       "page": "about"
     },
     "lab-2026-11-20-analog-cim-diffusion-noise": {

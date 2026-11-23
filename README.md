@@ -188,6 +188,11 @@ every build, so a new note is covered the moment it is published:
   content signal saying so. Refused: scrapers that resell, monitor or
   harvest and bring no readers (`CRAWLERS_REFUSED` in the build). It names
   the sitemap.
+  Cloudflare's edge still refuses ClaudeBot, anthropic-ai and PerplexityBot by
+  name (checked 23 November 2026; the per-crawler setting couldn't be found
+  in the dashboard). Claude's search and user-fetch agents (Claude-SearchBot,
+  Claude-User) get through, so Claude can still find and cite the site; only
+  Anthropic's training crawler is kept out.
 
 The blyg was already most of what an agent needs: every note as JSON, with its
 versions, at a stable address.

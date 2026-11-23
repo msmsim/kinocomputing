@@ -136,7 +136,7 @@ header.notehead {
   margin: 0.5rem 0 1.5rem;
 }
 
-header.notehead a {
+header.notehead > a {
   display: inline-block;
   padding: 0.4rem;
   color: #1a1a1a;
@@ -147,6 +147,126 @@ header.notehead .mark {
   display: block;
   height: 1.6rem;
   width: auto;
+}
+
+/* SECTION MENU
+
+   Under the mark on every page, under the subtitle on the stream: the
+   site's sections as a quiet line of words, the current one in the text
+   colour and unlinked-looking. Small and grey, so a note still begins with
+   its title. */
+nav.sections {
+  font-size: 0.85em;
+  color: #555;
+  margin-top: 0.15rem;
+}
+
+nav.sections a {
+  color: #555;
+  text-decoration: none;
+  padding: 0.1em 0.15em;
+}
+
+nav.sections a:hover {
+  color: #1a1a1a;
+  text-decoration: underline;
+  background: none;
+}
+
+nav.sections a[aria-current="page"] {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+nav.sections .dot {
+  color: #8fb4dc;
+}
+
+header.masthead nav.sections {
+  margin-top: 0.5em;
+}
+
+/* SECTION PAGES
+
+   A section's page: a lead, its feed, and its notes as a list of titles,
+   dates and openings. The tracker sets its paradigms out as tables, and
+   gets a wider page for them; its prose stays at reading width. */
+main .lead {
+  font-size: 1.1em;
+}
+
+p.feedlink {
+  font-size: 0.85em;
+}
+
+ul.listing {
+  list-style: none;
+  padding: 0;
+  margin: 1.5em 0 0;
+}
+
+ul.listing li {
+  margin: 0 0 1.1em;
+}
+
+ul.listing time,
+table.tracker .when {
+  font-size: 0.85em;
+  color: #555;
+  white-space: nowrap;
+}
+
+ul.listing .summary {
+  color: #333;
+}
+
+body.wide {
+  max-width: 60rem;
+}
+
+body.wide main > p,
+body.wide main > h1,
+body.wide main > h2 {
+  max-width: 65ch;
+}
+
+/* TABLES
+
+   Plain rules under the rows, no boxes, no zebra: the eye follows the
+   paradigm's name across. A table wider than a phone scrolls in its own
+   box rather than widening the page. */
+.table-scroll {
+  overflow-x: auto;
+  margin: 0.5em 0 1.5em;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.95em;
+}
+
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.5em 0.75em 0.5em 0;
+  border-bottom: 1px solid #a9c6ea;
+}
+
+thead th {
+  font-size: 0.8em;
+  font-weight: 600;
+  color: #555;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+table.tracker th[scope="row"] {
+  font-weight: 500;
+  width: 22%;
+}
+
+table.tracker .pending {
+  color: #777;
 }
 
 /* SITE FOOTER

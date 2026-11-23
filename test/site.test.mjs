@@ -5,7 +5,7 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync } from "node:fs";
+import { existsSync, writeFileSync } from "node:fs";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { makeSite } from "./twin.mjs";
@@ -50,7 +50,9 @@ test("every page carries the site footer once: mark and name home | what it is |
       const heads = html.match(/<header class="notehead">[\s\S]*?<\/header>/g) ?? [];
       assert.equal(heads.length, path === "index.html" ? 0 : 1, `${path}: ${heads.length} note heads`);
       if (heads.length) {
-        assert.equal(heads[0], `<header class="notehead"><a href="/" target="_self" rel="home" aria-label="Kinocomputing: home">${MARK}</a></header>`, `${path}: note head`);
+        assert.ok(heads[0].startsWith(`<header class="notehead"><a href="/" target="_self" rel="home" aria-label="Kinocomputing: home">${MARK}</a>\n<nav class="sections" aria-label="Sections">`), `${path}: note head`);
+        assert.deepEqual([...heads[0].matchAll(/<a href="([^"]+)" target="_self"[^>]*>([^<]+)<\/a>/g)].map((m) => `${m[1]} ${m[2]}`),
+          ["/notes Notes", "/lab Lab", "/tracker Tracker", "/audits Audits", "/about About"], `${path}: section menu`);
         assert.match(html, /<body[^>]*>\n<header class="notehead">/, `${path}: note head isn't first in the body`);
       }
       // After the page's own content and footer, before the counter script.
@@ -188,7 +190,9 @@ test("agent readiness: structured data on every note and the stream, a sitemap, 
 
     const sitemap = tree.get("sitemap.xml");
     const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
-    assert.deepEqual(locs, ["https://www.kinocomputing.com/", "https://www.kinocomputing.com/a-pinned-note", "https://www.kinocomputing.com/about", "https://www.kinocomputing.com/gpus-the-leaderboard-is-public"],
+    assert.deepEqual(locs, ["https://www.kinocomputing.com/",
+      ...["notes", "lab", "tracker", "audits", "briefs"].map((id) => `https://www.kinocomputing.com/${id}`),
+      "https://www.kinocomputing.com/a-pinned-note", "https://www.kinocomputing.com/about", "https://www.kinocomputing.com/gpus-the-leaderboard-is-public"],
       "the stream and live notes; not a withdrawn note, not a frozen version");
 
     const llms = tree.get("llms.txt");
@@ -229,6 +233,65 @@ test("search snippets: a title that won't fit drops the site's name; a descripti
     assert.equal(head(page, /<meta name="description" content="([^"]*)">/), "Short opener. And then the paragraph that actually says what the note is about.");
     assert.equal(head(page, /<meta property="og:description" content="([^"]*)">/), "Short opener. And then the paragraph that actually says what the note is about.");
     assert.equal(head("kept.html", /<meta name="description" content="([^"]*)">/), "An authored description that is just the right length for a search result.", "a usable authored one stands");
+  } finally {
+    site.dispose();
+  }
+});
+
+test("sections: each a page and a plain feed, declared as hoppers; notes placed by what they say or who wrote them; the tracker a table of every paradigm", () => {
+  const site = makeSite();
+  const t = (m) => `2026-11-01T10:${String(m).padStart(2, "0")}:00Z`;
+  try {
+    site.publish("001-ash-eels", { body: "<p><strong>An essay of mine</strong></p>\n<p>What the essay argues, at enough length to describe it.</p>", iso: t(1) });
+    site.publish("lab-2026-11-23-paradigm-gpus", { body: "<p><strong>GPUs: the leaderboard is public</strong></p>\n<p>Thousands of simple cores doing the same sum on big arrays, which is what neural networks need.</p>", iso: t(2), generated: "m" });
+    site.publish("lab-2026-11-23-brief", { body: "<p><strong>Lab brief: 23 November 2026</strong></p>\n<p>What the shift did tonight, and what it cost.</p>", iso: t(3), generated: "m" });
+    site.publish("lab-2026-11-23-memory-wall", { body: "<p><strong>A memory-wall test</strong></p>\n<p>A random read from memory is slow; we measured how slow.</p>", iso: t(4), generated: "m" });
+    site.publish("lab-2026-11-23-twenty-watts", { body: "<p><strong>Does the brain run on twenty watts?</strong></p>\n<p>The figure everyone quotes, traced to where it came from.</p>", iso: t(5), generated: "m" });
+    // The lab's publisher says where a note goes; an audit asks for audits.
+    const p = join(site.root, "notes", "lab-2026-11-23-twenty-watts.html");
+    writeFileSync(p, readFileSync(p, "utf8").replace("</head>", '    <meta name="kino:section" content="audits">\n</head>'));
+    writeFileSync(join(site.root, "notes", "_tracker.json"), JSON.stringify({ updated: "2026-11-23", groups: [
+      { name: "The incumbent stack", paradigms: [
+        { id: "gpus", name: "GPUs and massively parallel acceleration", last_checked: "2026-11-23", entry: "lab-2026-11-23-paradigm-gpus" },
+        { id: "symbolic-ai", name: "Symbolic AI", last_checked: null, entry: null },
+      ] },
+    ] }));
+    site.action(t(6));
+    const tree = site.deploy();
+    const items = (id) => [...tree.get(`${id}.html`).matchAll(/<li><a href="([^"]+)"/g)].map((m) => m[1]);
+    assert.deepEqual(items("notes"), ["/an-essay-of-mine"]);
+    assert.deepEqual(items("lab"), ["/a-memory-wall-test"]);
+    assert.deepEqual(items("audits"), ["/does-the-brain-run-on-twenty-watts"]);
+    assert.deepEqual(items("briefs"), ["/lab-brief-23-november-2026"]);
+    assert.match(tree.get("lab.html"), /<nav class="sections"[^>]*>[\s\S]*?<a href="\/lab" target="_self" aria-current="page">Lab<\/a>/, "the menu marks where you are");
+    assert.match(tree.get("a-memory-wall-test.html"), /<a href="\/lab" target="_self" aria-current="page">Lab<\/a>/, "and a note's page marks its section");
+    assert.ok(!/aria-current/.test(tree.get("index.html").match(/<nav class="sections"[\s\S]*?<\/nav>/)[0]), "the stream has the menu, nothing marked");
+
+    const tracker = tree.get("tracker.html");
+    assert.match(tracker, /<body class="wide">/);
+    assert.ok(!tracker.includes("<p></p>"), "no empty paragraph when there's nothing to say");
+    assert.match(tracker, /<h2>The incumbent stack<\/h2>/);
+    assert.match(tracker, /<tr><th scope="row"><a href="\/gpus-the-leaderboard-is-public" target="_self">GPUs and massively parallel acceleration<\/a><\/th><td>Thousands of simple cores[^<]*<\/td><td class="when"><time datetime="2026-11-23">23 Nov 2026<\/time><\/td><\/tr>/);
+    assert.match(tracker, /<tr><th scope="row">Symbolic AI<\/th><td><span class="pending">Not yet looked at\.<\/span><\/td><td class="when">—<\/td><\/tr>/);
+    const ld = JSON.parse(tracker.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])["@graph"][0];
+    assert.equal(ld["@type"], "CollectionPage");
+    assert.deepEqual(ld.mainEntity.itemListElement.map((i) => i.url), ["https://www.kinocomputing.com/gpus-the-leaderboard-is-public"]);
+
+    const feed = tree.get("feeds/lab.xml");
+    assert.match(feed, /<title>Kinocomputing: Lab<\/title>/);
+    assert.match(feed, /<link>https:\/\/www\.kinocomputing\.com\/a-memory-wall-test<\/link>/);
+    assert.ok(!/xmlns:blyg/.test(feed), "a hopper's feed is plain RSS (spec 0.4 §13.5)");
+    assert.match(tree.get("lab.html"), /<link rel="alternate" type="application\/rss\+xml" title="Kinocomputing: Lab" href="\/feeds\/lab\.xml">/);
+
+    const manifest = JSON.parse(tree.get("blyg.json"));
+    assert.deepEqual(manifest.hoppers.map((h) => [h.title, h.page, h.feed]), [
+      ["Notes", "notes", "feeds/notes.xml"], ["Lab", "lab", "feeds/lab.xml"], ["Tracker", "tracker", "feeds/tracker.xml"],
+      ["Audits", "audits", "feeds/audits.xml"], ["Briefs", "briefs", "feeds/briefs.xml"],
+    ]);
+    for (const item of [...tree.keys()].filter((k) => /^items\/[^/]+\.json$/.test(k) && k !== "items/index.json")) {
+      assert.ok(!/hopper|section/.test(tree.get(item)), `${item}: no item names a hopper`);
+    }
+    assert.match(tree.get("llms.txt"), /## Sections\n\n- \[Notes\]\(https:\/\/www\.kinocomputing\.com\/notes\)/);
   } finally {
     site.dispose();
   }

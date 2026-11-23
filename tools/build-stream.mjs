@@ -101,17 +101,59 @@ const SITE_FOOT = [
   "</footer>",
 ].join("\n");
 
-// At the head of every page but the stream (which has its masthead): the mark,
-// centred, back to the stream.
-const NOTE_HEAD = `<header class="notehead"><a href="${INDEX_PATH}" target="_self" rel="home" aria-label="${SITE_NAME}: home">${MARK_SVG}</a></header>`;
+// SECTIONS. The site's views over its one stream of notes. Each is a page
+// listing its notes and an RSS feed of them, declared in the blyg manifest as
+// a hopper (spec 0.4 §6.1): a list whose membership lives in the list, never
+// in the items, so other blyg readers see the same plain items as before.
+// Which section a note is in is decided here, from what the page says of
+// itself (`kino:section`, set by the lab's publisher) or, failing that, from
+// who wrote it and its name.
+const SECTIONS = [
+  { id: "notes", title: "Notes",
+    blurb: "Matt’s own writing: essays, round-ups and takes, and the questions the lab works from." },
+  { id: "lab", title: "Lab",
+    blurb: "The automated lab’s write-ups: small open experiments with their code and data, checks of the literature, World Machines analyses, and the claims they rest on, each stated only as strongly as the evidence allows." },
+  { id: "tracker", title: "Tracker",
+    blurb: "Every alternative paradigm of computing and intelligence the site follows, looked at again every two weeks: what has actually been measured, who is doing the work, what an outsider can use, and what a one-person lab could test." },
+  { id: "audits", title: "Audits",
+    blurb: "The foundations audit: the founding stories each field leans on, traced to their primary sources and judged, and the lab’s own published work checked again from scratch." },
+  { id: "briefs", title: "Briefs",
+    blurb: "The lab’s morning briefs: what each night’s shift did, what it published, and what it cost." },
+];
+const SECTION_IDS = new Set(SECTIONS.map((s) => s.id));
+// Each section is a hopper in the blyg manifest: its page and its feed.
+BLYG.hoppers = SECTIONS.map((s) => ({ title: s.title, page: s.id, feed: `feeds/${s.id}.xml` }));
+// The menu: the sections a reader browses, then About. Briefs are reached
+// from the Lab's page and their own feed.
+const MENU = [...SECTIONS.filter((s) => s.id !== "briefs"), { id: "about", title: "About" }];
 
-/** Puts the mark at the head of the body, replacing any already there. */
-function withNoteHead(html) {
+/** The section menu, with the current one marked. */
+const sectionNav = (current) => `<nav class="sections" aria-label="Sections">${MENU
+  .map((s) => `<a href="${INDEX_PATH}${s.id}" target="_self"${s.id === current ? ' aria-current="page"' : ""}>${s.title}</a>`)
+  .join('<span class="dot" aria-hidden="true"> · </span>')}</nav>`;
+
+// At the head of every page but the stream (which has its masthead): the mark,
+// centred, back to the stream, and the section menu under it.
+const noteHead = (current = null) => `<header class="notehead"><a href="${INDEX_PATH}" target="_self" rel="home" aria-label="${SITE_NAME}: home">${MARK_SVG}</a>\n${sectionNav(current)}</header>`;
+
+/** Puts the mark and menu at the head of the body, replacing any already there. */
+function withNoteHead(html, current = null) {
   const out = removeBlock(html, '<header class="notehead">', "</header>");
   const open = out.match(/<body[^>]*>\n?/);
   if (!open) return out;
   const at = open.index + open[0].length;
-  return `${out.slice(0, at)}${NOTE_HEAD}\n${out.slice(at)}`;
+  return `${out.slice(0, at)}${noteHead(current)}\n${out.slice(at)}`;
+}
+
+/** Which section a note is in; null for a standing page (About). */
+function sectionOf(note) {
+  const asked = note.html.match(/<meta name="kino:section" content="([a-z]+)">/)?.[1];
+  if (asked && SECTION_IDS.has(asked)) return asked;
+  if (note.fileSlug === "about") return null;
+  if (!note.generated) return "notes";
+  if (/-brief$/.test(note.fileSlug)) return "briefs";
+  if (/^lab-\d{4}-\d{2}-\d{2}-paradigm-/.test(note.fileSlug)) return "tracker";
+  return "lab";
 }
 
 // Paths the surface owns, which no note may be published at.
@@ -619,6 +661,8 @@ function renderSitemap(notes) {
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     url(`${SITE_BASE}/`, newest),
+    ...SECTIONS.map((section) => url(`${SITE_BASE}${INDEX_PATH}${section.id}`,
+      notes.filter((note) => note.section === section.id).map(lastOf).sort().at(-1))),
     ...[...notes].sort((a, b) => a.path.localeCompare(b.path)).map((note) => url(`${SITE_BASE}${note.path}`, lastOf(note))),
     "</urlset>",
     "",
@@ -652,6 +696,10 @@ function renderLlmsTxt(notes) {
     "## Start here",
     "",
     ...start.map(line),
+    "",
+    "## Sections",
+    "",
+    ...SECTIONS.map((section) => `- [${section.title}](${SITE_BASE}${INDEX_PATH}${section.id}): ${plain(section.blurb)} Feed: ${SITE_BASE}${INDEX_PATH}feeds/${section.id}.xml`),
     "",
     "## Machine-readable",
     "",
@@ -960,7 +1008,7 @@ const registry = { items: registryText ? JSON.parse(registryText).items ?? {} : 
 const notes = [];
 // Anything in the source folder that isn't a note still owns its name, so a
 // title can't be slugified onto the path of a file the scan left alone.
-const reserved = new Set(["index", "404", ...ASSETS, ...SURFACE_NAMES]);
+const reserved = new Set(["index", "404", "feeds", ...SECTION_IDS, ...ASSETS, ...SURFACE_NAMES]);
 // Every name with a file at it, note or not: what tells a withdrawn note (no
 // file) from one that has merely stopped parsing.
 const present = new Set();
@@ -1015,6 +1063,8 @@ for (const pass of [(note) => !note.title, (note) => note.title]) {
     note.path = `${INDEX_PATH}${slug}`;
   }
 }
+
+for (const note of notes) note.section = sectionOf(note);
 
 // The notes as the blyg sees them: keyed by source file, which never changes,
 // with the body as written and the page it is published at.
@@ -1174,7 +1224,8 @@ for (const [path, content] of await readTree(STATE_DIR)) {
   if (!path.split("/").some((part) => part.startsWith("_"))) site.set(path, content);
 }
 
-site.set("index.html", finishPage(withSiteFoot(withStructuredData(renderStream(streamTemplate, notes), GRAPH))));
+site.set("index.html", finishPage(withSiteFoot(withStructuredData(
+  renderStream(streamTemplate, notes).replace("<!-- sections -->", sectionNav(null)), GRAPH))));
 
 notes.forEach((note, i) => {
   const { html } = note;
@@ -1202,7 +1253,7 @@ notes.forEach((note, i) => {
   if (entry) {
     updated = withVersions(withHeadLinks(updated, INDEX_PATH, entry.id), renderVersions(entry, note.path));
   }
-  updated = finishPage(withSiteFoot(withNoteHead(updated)));
+  updated = finishPage(withSiteFoot(withNoteHead(updated, note.section)));
 
   // Audited after the rewrites, so it reports what actually ships rather than
   // what the publisher happened to hand over.
@@ -1285,6 +1336,143 @@ function renderNotFound() {
 }
 
 site.set("404.html", renderNotFound());
+
+// SECTION PAGES AND FEEDS
+
+const sectionPath = (id) => `${INDEX_PATH}${id}`;
+const feedPath = (id) => `${INDEX_PATH}feeds/${id}.xml`;
+const updatedOf = (note) => registry.items[note.fileSlug]?.changelog.at(-1)?.at ?? note.iso;
+const dateOnly = (iso) => new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(iso));
+const titleOf = (note) => (note.title ? asText(note.title) : note.slug);
+const inSection = (id) => notes.filter((note) => note.section === id)
+  .sort((a, b) => updatedOf(b).localeCompare(updatedOf(a)) || a.path.localeCompare(b.path));
+
+/** One note in a listing: its title, when it last changed, and its opening. */
+function listingRow(note) {
+  const description = describe(note);
+  return `<li><a href="${note.path}">${titleOf(note)}</a> <time datetime="${updatedOf(note)}">${dateOnly(updatedOf(note))}</time>${description ? `<br><span class="summary">${description}</span>` : ""}</li>`;
+}
+
+/**
+ * The tracker's table, from the lab's paradigm list (notes/_tracker.json,
+ * written by the lab every night): every paradigm in its group, whether or
+ * not it has an entry yet, with where it stands and when it was last looked
+ * at. Without the list, the entries alone.
+ */
+async function trackerTables(entries) {
+  const listed = await readFile(join(SOURCE_DIR, "_tracker.json"), "utf8").then(JSON.parse, () => null);
+  const byFile = new Map(notes.map((note) => [note.fileSlug, note]));
+  if (!listed?.groups?.length) return entries.length ? `<ul class="listing">\n${entries.map(listingRow).join("\n")}\n</ul>` : "<p>No entries yet.</p>";
+  const escape = (text) => String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+  return listed.groups.map((group) => {
+    const rows = group.paradigms.map((p) => {
+      const entry = p.entry ? byFile.get(p.entry) : null;
+      const name = entry ? `<a href="${entry.path}">${escape(p.name)}</a>` : escape(p.name);
+      const stands = entry ? describe(entry) : '<span class="pending">Not yet looked at.</span>';
+      const when = p.last_checked ? `<time datetime="${escape(p.last_checked)}">${dateOnly(`${p.last_checked}T12:00:00Z`)}</time>` : "—";
+      return `<tr><th scope="row">${name}</th><td>${stands}</td><td class="when">${when}</td></tr>`;
+    });
+    return [
+      `<h2>${escape(group.name)}</h2>`,
+      '<div class="table-scroll"><table class="tracker">',
+      "<thead><tr><th scope=\"col\">Paradigm</th><th scope=\"col\">Where it stands</th><th scope=\"col\" class=\"when\">Looked at</th></tr></thead>",
+      `<tbody>\n${rows.join("\n")}\n</tbody>`,
+      "</table></div>",
+    ].join("\n");
+  }).join("\n");
+}
+
+/** A section's page: what it is, its feed, and its notes. */
+async function renderSection(section) {
+  const members = inSection(section.id);
+  const url = `${SITE_BASE}${sectionPath(section.id)}`;
+  const lead = `<p class="lead">${section.blurb}</p>`;
+  const feed = `<p class="feedlink"><a href="${feedPath(section.id)}" target="_self">Follow ${section.title} by RSS</a></p>`;
+  let body;
+  if (section.id === "tracker") {
+    const tracker = notes.find((note) => note.fileSlug === "lab-2026-11-21-paradigm-tracker");
+    const roundup = notes.find((note) => note.fileSlug === "015-ochre-cranes");
+    const entries = members.filter((note) => note !== tracker);
+    const origins = [
+      roundup && `It began as Matt’s <a href="${roundup.path}">round-up of alternative paradigms</a>`,
+      tracker && `the lab keeps <a href="${tracker.path}">a running account</a> that quotes every entry`,
+    ].filter(Boolean);
+    body = [
+      lead,
+      ...(origins.length ? [`<p>${origins.join("; ")}.</p>`] : []),
+      feed,
+      await trackerTables(entries),
+    ].join("\n");
+  } else if (section.id === "audits") {
+    body = [
+      lead,
+      `<p>The ledgers the lab keeps as it goes: <a href="${LAB_REPO}/blob/main/audits/foundations.md">founding stories</a> and <a href="${LAB_REPO}/blob/main/audits/self.md">self-audits</a>.</p>`,
+      feed,
+      members.length ? `<ul class="listing">\n${members.map(listingRow).join("\n")}\n</ul>` : "<p>No audits published yet: the first are under way.</p>",
+    ].join("\n");
+  } else {
+    body = [
+      lead,
+      ...(section.id === "lab" ? [`<p>Each night’s shift ends with a <a href="${sectionPath("briefs")}" target="_self">brief</a>; the lab’s workings, code and data are <a href="${LAB_REPO}">in its repository</a>.</p>`] : []),
+      feed,
+      members.length ? `<ul class="listing">\n${members.map(listingRow).join("\n")}\n</ul>` : "<p>Nothing here yet.</p>",
+    ].join("\n");
+  }
+  let html = fill(bareTemplate(noteTemplate), {
+    slug: section.title, description: section.blurb, url, path: sectionPath(section.id), index_path: INDEX_PATH,
+    content: `<h1 class="title">${section.title}</h1>\n${body}`, datetime_iso: "", datetime: "",
+  });
+  html = normaliseHead(html, { title: section.title, url, type: "website" });
+  html = withDescription(html, asText(section.blurb));
+  html = html.replace("</head>", `    <link rel="alternate" type="application/rss+xml" title="${SITE_NAME}: ${section.title}" href="${feedPath(section.id)}">\n</head>`);
+  if (section.id === "tracker") html = html.replace("<body>", '<body class="wide">');
+  html = withStructuredData(html, [{
+    "@type": "CollectionPage", "@id": url, url, name: `${section.title} | ${SITE_NAME}`,
+    description: plain(section.blurb), isPartOf: { "@id": IDS.website }, inLanguage: "en",
+    mainEntity: { "@type": "ItemList", numberOfItems: members.length,
+      itemListElement: members.map((note, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE_BASE}${note.path}`, name: plain(titleOf(note)) })) },
+  }, ...GRAPH]);
+  html = withNotefoot(html, renderNotefoot(noteTemplate, null, null, null));
+  return finishPage(withSiteFoot(withNoteHead(html, section.id)));
+}
+
+/**
+ * A section's feed: plain RSS 2.0 of its notes, newest change first. A
+ * hopper's feed doesn't use the blyg namespace (spec 0.4 §13.5): the items
+ * themselves are in the site's own feed and JSON.
+ */
+function renderSectionFeed(section) {
+  const xml = (text) => String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const members = inSection(section.id).slice(0, 50);
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+    "  <channel>",
+    `    <title>${xml(`${SITE_NAME}: ${section.title}`)}</title>`,
+    `    <link>${SITE_BASE}${sectionPath(section.id)}</link>`,
+    `    <description>${xml(plain(section.blurb))}</description>`,
+    "    <language>en</language>",
+    ...(members.length ? [`    <lastBuildDate>${new Date(updatedOf(members[0])).toUTCString()}</lastBuildDate>`] : []),
+    `    <atom:link href="${SITE_BASE}${feedPath(section.id)}" rel="self" type="application/rss+xml"/>`,
+    ...members.map((note) => [
+      "    <item>",
+      `      <title>${xml(plain(titleOf(note)))}</title>`,
+      `      <link>${SITE_BASE}${note.path}</link>`,
+      `      <guid isPermaLink="false">${SITE_BASE}${note.path}#${updatedOf(note)}</guid>`,
+      `      <description>${xml(plain(describe(note)))}</description>`,
+      `      <pubDate>${new Date(updatedOf(note)).toUTCString()}</pubDate>`,
+      "    </item>",
+    ].join("\n")),
+    "  </channel>",
+    "</rss>",
+    "",
+  ].join("\n");
+}
+
+for (const section of SECTIONS) {
+  site.set(`${section.id}.html`, await renderSection(section));
+  site.set(`feeds/${section.id}.xml`, renderSectionFeed(section));
+}
 
 const position = new Map(notes.map((note, i) => [note.fileSlug, i]));
 for (const [fileSlug, entry] of Object.entries(registry.items)) {

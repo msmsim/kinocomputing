@@ -55,6 +55,36 @@ page when it is genuinely holding something back.
 itself, so a note that opens with a blockquote or a list comes back whole rather
 than being cut at the first `</p>` inside it.
 
+## Sections
+
+One stream of notes, five views over it: **Notes** (the PI's own), **Lab**,
+**Tracker**, **Audits** and **Briefs**. Each is a page at `/<section>` and a
+plain RSS feed at `/feeds/<section>.xml`, and each is declared in `blyg.json`
+as a **hopper** (spec 0.4 §6.1): a curated list whose membership lives in the
+list, never in the items. Other blyg readers see the same plain items as
+before; the sections are this site's presentation, and anyone who wants one
+can follow its feed.
+
+A note's section is what its page asks for (`<meta name="kino:section">`,
+which the lab's publisher writes) or, failing that, worked out: the PI's
+notes (no `blyg:generated`) are Notes, the lab's briefs are Briefs, its
+paradigm entries are the Tracker's, and the rest of the lab's notes are the
+Lab's. About is a standing page in no section.
+
+Every page carries the section menu under the mark (the stream under its
+subtitle), with the current section marked. Briefs are reached from the Lab's
+page and their feed rather than the menu.
+
+The **Tracker** page is a table per group, built from `notes/_tracker.json`,
+which the lab writes every night: every paradigm, whether or not it has an
+entry yet, with where it stands (its entry's opening) and when the lab last
+looked. It gets a wider page (`body.wide`); its prose stays at reading width.
+Tables scroll in their own box on a phone rather than widening the page.
+
+Section pages are in the sitemap, in llms.txt, and carry a `CollectionPage`
+with an `ItemList` of their notes. The section names are reserved, so no
+note can be published at one.
+
 ## Note titles
 
 A note may open with a bolded line on its own — `<p><strong>…</strong></p>`.

@@ -71,7 +71,7 @@ test("a thread quotes a fragment whole and in part, published in the same act (P
     // The page shows the snapshot, with a way back to what it quotes.
     const page = tree.get(`${analysis.page}.html`);
     assert.ok(page.includes('class="blyg-transclusion"'), "baked on the page");
-    assert.ok(page.includes(`<p class="quoted-from"><a href="/${claim.page}" target="_self">quoted</a></p>`));
+    assert.ok(page.includes(`<p class="quoted-from">From <a href="/${claim.page}" target="_self">Reservoirs per joule</a></p>`), "a quote names its source by title");
     assert.ok(!page.includes("kino-quote"), "no placeholder ships");
   } finally {
     w.dispose();
@@ -92,7 +92,7 @@ test("a quote is a snapshot: the source moving on leaves it, a new version of th
     assert.equal(analysis.version, 1, "the thread didn't change");
     assert.deepEqual(analysis.transclusions, [{ id: claim.id, version: 1 }], "stale, not live (§10.4)");
     assert.ok(analysis.content_html.includes("on one task"), "still the v1 snapshot");
-    assert.ok(tree.get(`${analysis.page}.html`).includes(`<a href="/${claim.page}-v1" target="_self">v1</a>`), "a pinned version is linked by its frozen page, in place");
+    assert.ok(tree.get(`${analysis.page}.html`).includes(`<p class="quoted-from">From <a href="/${claim.page}-v1" target="_self">Reservoirs per joule</a> (version 1)</p>`), "a pinned version is linked by its frozen page, by title and version, in place");
 
     w.publish("102-analysis", thread(whole("101-claim")).replace("An argument.", "A revised argument."), { kind: "thread" });
     ({ tree } = w.step());

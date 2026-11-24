@@ -1144,16 +1144,19 @@ if (stateMode) {
 }
 
 // A thread shows its quotes as the registry baked them (P22), each with a
-// line back to what it quotes, at the quoted version when that version is
-// pinned. A quote the registry hasn't resolved — the page changed since the
-// Action last ran, or it quotes something that can't be quoted — shows as a
-// link to the note it names, and its selection if it has one.
+// line back to what it quotes, by its title, at the quoted version when that
+// version is pinned. A quote the registry hasn't resolved — the page changed
+// since the Action last ran, or it quotes something that can't be quoted —
+// shows as a link to the note it names, and its selection if it has one.
+// Presentation only: the items carry the quote, not this line.
+const titleBySlug = new Map(notes.map((note) => [note.fileSlug, note.title ? asText(note.title) : null]));
+const quotedTitle = (slug, page) => titleBySlug.get(slug) ?? page;
 const quotedFrom = (slug, version) => {
   const target = registry.items[slug];
   if (!target?.page) return "";
   const pinned = target.changelog.some((e) => e.version === version && e.pinned);
   const href = `${INDEX_PATH}${pinned ? pinnedPath(target.page, version) : target.page}`;
-  return `\n<p class="quoted-from"><a href="${href}">${pinned ? `v${version}` : "quoted"}</a></p>`;
+  return `\n<p class="quoted-from">From <a href="${href}">${quotedTitle(slug, target.page)}</a>${pinned ? ` (version ${version})` : ""}</p>`;
 };
 for (const note of notes) {
   if (!quotesIn(note.content).length) continue;
@@ -1163,7 +1166,7 @@ for (const note of notes) {
   note.content = baked ?? note.content.replace(/<blockquote\b[^>]*\sclass="kino-quote"[^>]*>([\s\S]*?)<\/blockquote>/g, (block, inner) => {
     const slug = block.match(/\sdata-note="([^"]+)"/)?.[1] ?? "";
     const page = registry.items[slug]?.page ?? slug;
-    return `<blockquote class="quote-pending">${inner}<p class="quoted-from"><a href="${INDEX_PATH}${page}">${page}</a></p></blockquote>`;
+    return `<blockquote class="quote-pending">${inner}<p class="quoted-from">From <a href="${INDEX_PATH}${page}">${quotedTitle(slug, page)}</a></p></blockquote>`;
   });
 }
 

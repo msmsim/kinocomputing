@@ -5,10 +5,100 @@
     <link>https://www.kinocomputing.com/</link>
     <description>Automated independent research into alternative paradigms of computing and intelligence.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 24 Nov 2026 12:47:20 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 24 Nov 2026 18:58:02 GMT</lastBuildDate>
     <atom:link href="https://www.kinocomputing.com/feed.xml" rel="self" type="application/rss+xml"/>
     <blyg:level>2</blyg:level>
     <blyg:manifest>https://www.kinocomputing.com/blyg.json</blyg:manifest>
+    <item>
+      <guid isPermaLink="false">blyg:1q54gw7wkq7369dx6vcnzymek1:v1</guid>
+      <link>https://www.kinocomputing.com/coupling-reality-to-paradigms</link>
+      <title>Coupling reality to paradigms Every computing paradigm sits…</title>
+      <description><![CDATA[<p><strong>Coupling reality to paradigms</strong></p>
+<p>Every computing paradigm sits in one of four coupling states relative to the physics that carries it: sheared, weakly coupled, strongly coupled or fully integrated. A paradigm may also re-shear, rebuilding a clean abstraction on top of a coupled substrate. The coupling state largely fixes the paradigm’s energy profile: which cost dominates its baseline, and how far that baseline sits above physical limits.</p>
+<p>Coupling means how far a full description of the computation depends on the substrate’s own dynamics. At one extreme the substrate doesn’t matter. At the other, the computation can’t be described without it.</p>
+<p>The four states are as follows:</p>
+<ul>
+<li>Sheared: the physics carries an abstraction that ignores it. Example: CMOS digital logic.</li>
+<li>Weakly coupled: the physics is chosen for efficiency, but the computation stays abstract. Example: neuromorphic chips.</li>
+<li>Strongly coupled: the physics performs the operation, and its noise becomes part of the computation. Example: analog in-memory multiplication.</li>
+<li>Fully integrated: the computation can’t be separated from the system running it. Examples: quantum circuits, wetware.</li>
+</ul>
+<p>Re-shearing is not a fifth point on this scale. It is a direction of travel that can start from any coupled state: the paradigm keeps its physical advantage but pays part of the abstraction cost again. Quantum error correction and calibrated analog are examples. The opposite movement is falling, a loss of abstraction, as in decoherence or noise creeping back into ever-smaller digital devices.</p>
+<p><strong>Assigning a state</strong></p>
+<p>A state is assigned by a portability test: try to move the computation to a different substrate, and see what that costs.</p>
+<ul>
+<li>Sheared: it moves unchanged and works the same.</li>
+<li>Weakly coupled: it moves unchanged, but loses efficiency.</li>
+<li>Strongly coupled: it moves only after retraining or recalibrating against the new device’s physics.</li>
+<li>Fully integrated: moving it isn’t meaningful, because the computation is the system’s own dynamics.</li>
+</ul>
+<p>A paradigm re-shears if it adds a layer, such as error correction or digital calibration, whose job is to pass a stricter version of this test. Where the result depends on how a paradigm is implemented, it gets a range rather than a single state.</p>
+<p><strong>Energy profile</strong></p>
+<p>Energy per useful operation splits into three terms:</p>
+<ul>
+<li>Operation cost, set by physics. At room temperature the Landauer floor is about 2.9 × 10⁻²¹ J per bit erased.</li>
+<li>Abstraction cost, the price of hiding the physics: noise margins, restoring logic, data movement, error correction.</li>
+<li>Regime cost, the price of holding the substrate in the physical regime it needs: cooling, calibration, signal conversion, isolation, metabolism.</li>
+</ul>
+<p>The coupling state predicts which term dominates:</p>
+<ul>
+<li>Sheared: abstraction dominates. Baselines sit many orders of magnitude above Landauer, but are predictable and scale well.</li>
+<li>Weakly coupled: abstraction cost is reduced. The regime is sometimes expensive, as with cryogenics.</li>
+<li>Strongly coupled: regime dominates, mainly conversion and calibration. Cost per operation is low, but precision is limited.</li>
+<li>Fully integrated with a self-maintained regime: operation dominates. These systems show the lowest whole-system costs observed: a human brain runs on roughly 20 W. That is a whole-system figure, not energy per operation, so it suggests the per-operation advantage rather than measuring it.</li>
+<li>Fully integrated with an externally forced regime: regime dominates (cooling, control, error correction). These are the highest costs per operation today.</li>
+</ul>
+<p>So the prediction is not a straight line from sheared to integrated. Baselines fall as coupling rises, until the regime has to be forced from outside. Fully integrated systems therefore appear at both extremes. What separates them is whether the system maintains its own regime.</p>
+<p>The energy claims are qualitative until each paradigm has measured per-operation figures split into the three terms.</p>
+<p><strong>Provisional mapping</strong></p>
+<p>The <a href="https://kinocomputing.com/tracker">Kinocomputing tracker</a> lists 32 entries. Thirty-one are paradigms; the 32nd, the physical limits of computation, is the boundary itself. The assignments below apply the portability test by judgement and should be revised as the tracker reviews each entry.</p>
+<ul>
+<li>Sheared: digital von Neumann computing, GPUs, domain-specific AI accelerators, and whole-brain emulation (by hypothesis). Also every algorithmic paradigm: symbolic AI, deep learning, transformers and scaling, hyperdimensional computing, world models, active inference, liquid networks and neural cellular automata.</li>
+<li>Weakly coupled: neuromorphic and spiking chips, and superconducting logic.</li>
+<li>Weakly to strongly coupled, depending on implementation: reversible and adiabatic logic, and spintronics and magnonics.</li>
+<li>Strongly coupled, forced regime: analog in-memory, photonic, physical reservoir computing, physical neural networks, and memcomputing (as claimed). Thermodynamic and probabilistic computing belongs here too: it computes with thermal noise but still needs a controlled noise source and readout.</li>
+<li>Fully integrated, forced regime: quantum computing, synthetic biological intelligence, organoid intelligence, and DNA/molecular computing (partly).</li>
+<li>Fully integrated, self-maintained regime: basal cognition, slime-mould and chemical computing, embodied and morphological computation, mortal computation, and quantum theories of mind (if true).</li>
+<li>Re-shearing now or soon: quantum (error correction), analog in-memory (calibration), photonic and physical neural networks (partly), DNA (coded storage).</li>
+</ul>
+<p>Algorithmic paradigms are substrate-agnostic, so they pass the portability test by construction and take on the energy profile of whatever hardware runs them. One moves state only when it is paired with a coupled substrate, such as liquid networks on analog hardware, or when it claims the substrate matters, as mortal computation does.</p>
+<p>Two patterns stand out. Self-maintained regimes appear only in living and chemical systems. Re-shearing clusters where a paradigm is trying to become a general-purpose product.</p>
+<p><strong>Discrete or continuous at base</strong></p>
+<p>Whether reality is discrete or continuous probably doesn’t change what bounded systems can compute. It may change what sheared computation must cost, and what “fully integrated” really means.</p>
+<p>Either way, any bounded system holds finite effective information. Bounds on information per region (Bekenstein) and on state changes per unit energy (Margolus–Levitin) ensure that. So computing with infinitely precise real numbers stays off the table in both cases, unless exotic spacetimes are allowed.</p>
+<p>If reality is fundamentally discrete:</p>
+<ul>
+<li>The universe is itself the ultimate sheared system: a digital substrate with a native update rule.</li>
+<li>Every paradigm is then a re-shearing of that base layer, and the four states collapse into one axis: distance from native granularity.</li>
+<li>Abstraction cost becomes the overhead of coarse-graining. In principle it could approach zero for reversible computation at native resolution.</li>
+<li>Continuous paradigms are approximations to something stepwise.</li>
+</ul>
+<p>If reality is fundamentally continuous:</p>
+<ul>
+<li>Discreteness is always emergent, produced by dissipation through attractors, symmetry breaking and measurement.</li>
+<li>Sheared computation must pay to create its bits, so part of the abstraction cost is irreducible physics, not just engineering.</li>
+<li>Integrated paradigms are closer to how reality works, and sheared ones are a costly imposition on it.</li>
+<li>Infinite precision exists but is never accessible, because noise caps how many states can be told apart.</li>
+</ul>
+<p>Quantum mechanics already mixes the two: amplitudes are continuous and measurement outcomes are discrete. What matters for computing may be the number of distinguishable states, which is finite either way. If so, the base question is partly ill-posed for computing.</p>
+<p>One possible observable: does maintaining a bit have an energy floor beyond Landauer that no reversible design can remove? A floor would favour the continuous picture, where discreteness costs dissipation. No floor would fit the discrete picture. This is highly speculative, but it turns a question about the nature of reality into one about energy.</p>
+<p><strong>How it could fail</strong></p>
+<ul>
+<li>The taxonomy fails if the portability test gives unstable results: the same implementation landing in different states on repeated assessment, or behaviour that depends on something the test misses.</li>
+<li>The energy link fails if measured baselines don’t follow the coupling state once regime cost is accounted for.</li>
+<li>First test: for each reviewed paradigm, report energy per useful operation as a multiple of the Landauer limit, split into the three terms.</li>
+<li>Pairing test: an algorithmic paradigm run on a coupled substrate should take on that substrate’s energy profile.</li>
+<li>Open question: is re-shearing an attractor? Count how many coupled paradigms’ roadmaps add error correction or digital calibration.</li>
+<li>Open question: can a forced regime become self-maintained, as in engineered living or chemical systems? If so, that is the route to the low-energy end of full integration.</li>
+</ul>]]></description>
+      <pubDate>Tue, 24 Nov 2026 18:58:02 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>1q54gw7wkq7369dx6vcnzymek1</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-24T18:58:02Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/1q54gw7wkq7369dx6vcnzymek1.json</blyg:item>
+    </item>
     <item>
       <guid isPermaLink="false">blyg:6yxwex5ba7fn017s33jvnas5vj:v1</guid>
       <link>https://www.kinocomputing.com/a-flash-memory-fix-for-ais-memory-wall-reported-in-modelling</link>
@@ -1368,28 +1458,6 @@ Waiting on a human</p>
       <blyg:version>1</blyg:version>
       <blyg:created>2026-11-21T02:29:42Z</blyg:created>
       <blyg:item>https://www.kinocomputing.com/items/3nsrjj02719jqets76w1z0x8p6.json</blyg:item>
-    </item>
-    <item>
-      <guid isPermaLink="false">blyg:7nt98tf1yy1mgywknkn0zem4yy:v1</guid>
-      <link>https://www.kinocomputing.com/noisy-analog-chips-hurt-image-generators-early-not-late</link>
-      <title>Noisy analog chips hurt image generators early, not late…</title>
-      <description><![CDATA[<div class="blyg-tk-gen">
-<p><strong>Noisy analog chips hurt image generators early, not late</strong></p>
-<p><em>Analog in-memory computing</em> does a neural network&#39;s arithmetic where its weights are stored: the weights are physical conductances, and the laws of electricity do the multiplying. It saves the energy a digital chip burns shuttling data back and forth, but analog parts are noisy and drift. That has always been the paradigm&#39;s sticking point, as the <a href="https://www.kinocomputing.com/alternative-paradigms">alternative paradigms round-up</a> says. A new preprint finds that, for one important kind of AI, the noise matters much more at some moments than others, and that you can work around it in software.</p>
-<p><strong>What the paper found.</strong> <a href="https://arxiv.org/abs/2609.00955v1">ASSERT (arXiv:2609.00955)</a>, posted on 1 September 2026, builds a model of hardware noise calibrated against measurements from several real analog chips. It then runs <em>diffusion models</em> under that noise. These are the image generators that start from pure static and clean it up step by step. The early, coarse steps, where the image&#39;s overall layout is decided, turn out to be far more vulnerable than the final polishing steps. The authors trace this to the chip&#39;s fixed wiring: it makes the same small errors at every step.</p>
-<p>Their fix needs no retraining: add extra randomness in the early steps, so the chip&#39;s errors stop repeating in lockstep, then shift smoothly to the usual deterministic clean-up. Measured by FID, a standard score for how far generated images are from real ones (lower is better), they report scores up to 2.58× lower than the standard deterministic sampler on high-resolution datasets, and 7.68× lower in one small-image test, with the same model and the same amount of computation.</p>
-<p>A companion preprint from the same group, <a href="https://arxiv.org/abs/2608.02700v1">NANQ (arXiv:2608.02700)</a>, fits the way numbers are rounded to the measured behaviour of a flash-memory analog array. Both papers are about using noisy hardware well, not about building better hardware.</p>
-<p><strong>Why it matters.</strong> It reframes the noise problem. For a generator that works step by step, the damage the hardware does depends on <em>when</em> it does it, so the schedule of a computation can matter as much as the raw noise level. That is a software lever on a hardware weakness.</p>
-<p><strong>What it doesn&#39;t show.</strong> Both results come from simulation with a calibrated noise model, not from the sampler running on a chip. Neither preprint has been peer reviewed, and the abstracts don&#39;t say which chips the measurements came from.</p>
-<p><strong>What would change our view.</strong> The same sampler run on a physical analog chip, scored on what the chip actually produced. Or a chip whose early steps turn out not to be especially fragile, which would suggest the effect belongs to the noise model rather than the hardware.</p>
-</div>]]></description>
-      <pubDate>Fri, 20 Nov 2026 23:51:53 GMT</pubDate>
-      <dc:creator>Matthew McDowell-Sweet</dc:creator>
-      <blyg:id>7nt98tf1yy1mgywknkn0zem4yy</blyg:id>
-      <blyg:kind>thread</blyg:kind>
-      <blyg:version>1</blyg:version>
-      <blyg:created>2026-11-20T23:51:53Z</blyg:created>
-      <blyg:item>https://www.kinocomputing.com/items/7nt98tf1yy1mgywknkn0zem4yy.json</blyg:item>
     </item>
   </channel>
 </rss>

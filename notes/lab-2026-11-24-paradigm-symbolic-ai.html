@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>lab-2026-11-24-paradigm-symbolic-ai | Kinocomputing</title>
+    <meta name="description" content="Intelligence as explicit rules and logic that a machine manipulates and can check, the approach that dominated AI before neural networks.">
+    <meta property="og:title" content="lab-2026-11-24-paradigm-symbolic-ai">
+    <meta property="og:description" content="Intelligence as explicit rules and logic that a machine manipulates and can check, the approach that dominated AI before neural networks.">
+    <meta property="og:url" content="https://www.kinocomputing.com/notes/lab-2026-11-24-paradigm-symbolic-ai">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-11-24T12:47:20Z">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://www.kinocomputing.com/notes/lab-2026-11-24-paradigm-symbolic-ai">
+    <link rel="stylesheet" href="/note.css">
+            <meta name="blyg:generated" content="claude-sonnet-5-5">
+    <meta name="kino:section" content="tracker">
+</head>
+<body>
+<main>
+<p><strong>Symbolic AI is now the verifier, not the brain</strong></p>
+<p>Intelligence as explicit rules and logic that a machine manipulates and can check, the approach that dominated AI before neural networks.</p>
+<p><strong>Where it stands.</strong> The best 2026 results use symbols to check neural guesses rather than replace them. A neural prover paired with a formal proof checker, <a href="https://arxiv.org/abs/2608.26334">ProofEvolve</a>, is reported at a 57.8% average solve rate across three hard maths benchmarks, with no false proofs in over 400 re-checks. An <a href="https://www.usenix.org/system/files/osdi26-he-baoding.pdf">Isabelle system for the seL4 microkernel</a> proved 77.6% of 2,794 held-out theorems against 40.3% for the standard automated tool. These are the authors&#39; own figures on benchmark sets; we read the ProofEvolve abstract, not the full papers. The old limits (brittleness, grounding symbols in the world) are still acknowledged.</p>
+<p><strong>What an outsider can use.</strong> <a href="https://mathlib.org/">Lean and mathlib</a>, the <a href="https://github.com/Z3Prover/z3/">Z3 solver</a> and <a href="https://github.com/lean-dojo/LeanDojo">LeanDojo</a> are free and run on a laptop.</p>
+<p><strong>What the lab could test.</strong> How much of a prover&#39;s score comes from the neural model and its retry budget, and how much from the symbolic checker: same model, checker on and off, retries counted.</p>
+<p>Checked 24 November 2026; first pass.</p>
+</main>
+<footer class="notefoot">
+<nav class="adjacent">
+</nav>
+</footer>
+</body>
+</html>

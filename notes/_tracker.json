@@ -1,0 +1,228 @@
+{
+  "updated": "2026-11-24",
+  "source": "https://www.kinocomputing.com/alternative-paradigms",
+  "groups": [
+    {
+      "name": "The incumbent stack",
+      "paradigms": [
+        {
+          "id": "von-neumann",
+          "name": "Digital von Neumann computing",
+          "last_checked": "2026-11-23",
+          "entry": "lab-2026-11-23-paradigm-von-neumann"
+        },
+        {
+          "id": "gpus",
+          "name": "GPUs and massively parallel acceleration",
+          "last_checked": "2026-11-23",
+          "entry": "lab-2026-11-23-paradigm-gpus"
+        },
+        {
+          "id": "ai-accelerators",
+          "name": "Domain-specific AI accelerators",
+          "last_checked": "2026-11-23",
+          "entry": "lab-2026-11-23-paradigm-ai-accelerators"
+        },
+        {
+          "id": "symbolic-ai",
+          "name": "Symbolic AI",
+          "last_checked": "2026-11-24",
+          "entry": "lab-2026-11-24-paradigm-symbolic-ai"
+        },
+        {
+          "id": "connectionism",
+          "name": "Connectionism and deep learning",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "transformers-scaling",
+          "name": "Transformers and the scaling hypothesis",
+          "last_checked": "2026-11-24",
+          "entry": "lab-2026-11-24-paradigm-transformers-scaling"
+        }
+      ]
+    },
+    {
+      "name": "Let physics compute",
+      "paradigms": [
+        {
+          "id": "analog-in-memory",
+          "name": "Analog in-memory computing",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "photonic",
+          "name": "Photonic / optical computing",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "thermodynamic",
+          "name": "Thermodynamic / probabilistic computing",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "reversible",
+          "name": "Reversible / adiabatic computing",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "quantum",
+          "name": "Quantum computing",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "physical-reservoir",
+          "name": "Physical reservoir computing",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "physical-neural-networks",
+          "name": "Physical neural networks",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "dna-molecular",
+          "name": "DNA / molecular computing",
+          "last_checked": null,
+          "entry": null
+        }
+      ]
+    },
+    {
+      "name": "Brain-inspired silicon",
+      "paradigms": [
+        {
+          "id": "neuromorphic",
+          "name": "Neuromorphic / spiking computing",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "hyperdimensional",
+          "name": "Hyperdimensional computing / vector-symbolic architectures",
+          "last_checked": null,
+          "entry": null
+        }
+      ]
+    },
+    {
+      "name": "Living substrates",
+      "paradigms": [
+        {
+          "id": "wetware",
+          "name": "Synthetic biological intelligence (wetware)",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "organoids",
+          "name": "Organoid intelligence",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "basal-cognition",
+          "name": "Basal cognition / diverse intelligence",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "slime-mould-chemical",
+          "name": "Slime-mould and chemical computing",
+          "last_checked": null,
+          "entry": null
+        }
+      ]
+    },
+    {
+      "name": "Paradigms of intelligence",
+      "paradigms": [
+        {
+          "id": "world-models",
+          "name": "World models / JEPA",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "active-inference",
+          "name": "Active inference / free-energy principle",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "liquid-networks",
+          "name": "Liquid / continuous-time networks",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "embodied-cognition",
+          "name": "Embodied cognition / morphological computation",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "mortal-computation",
+          "name": "Mortal computation",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "neural-cellular-automata",
+          "name": "Neural cellular automata / self-organising systems",
+          "last_checked": null,
+          "entry": null
+        }
+      ]
+    },
+    {
+      "name": "Speculative frontiers",
+      "paradigms": [
+        {
+          "id": "superconducting-logic",
+          "name": "Superconducting / cryogenic logic",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "spintronic-magnonic",
+          "name": "Spintronic and magnonic computing",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "memcomputing",
+          "name": "Memcomputing",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "whole-brain-emulation",
+          "name": "Whole-brain emulation",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "quantum-theories-of-mind",
+          "name": "Quantum theories of mind",
+          "last_checked": null,
+          "entry": null
+        },
+        {
+          "id": "physical-limits",
+          "name": "The physical limits of computation",
+          "last_checked": null,
+          "entry": null
+        }
+      ]
+    }
+  ]
+}

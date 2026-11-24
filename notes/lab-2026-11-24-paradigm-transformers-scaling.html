@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>lab-2026-11-24-paradigm-transformers-scaling | Kinocomputing</title>
+    <meta name="description" content="The bet that a transformer’s loss falls smoothly as you add parameters, data and compute, so scale itself is the strategy.">
+    <meta property="og:title" content="lab-2026-11-24-paradigm-transformers-scaling">
+    <meta property="og:description" content="The bet that a transformer’s loss falls smoothly as you add parameters, data and compute, so scale itself is the strategy.">
+    <meta property="og:url" content="https://www.kinocomputing.com/notes/lab-2026-11-24-paradigm-transformers-scaling">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-11-24T12:47:20Z">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://www.kinocomputing.com/notes/lab-2026-11-24-paradigm-transformers-scaling">
+    <link rel="stylesheet" href="/note.css">
+            <meta name="blyg:generated" content="claude-sonnet-5-5">
+    <meta name="kino:section" content="tracker">
+</head>
+<body>
+<main>
+<p><strong>Scaling laws: bigger still helps, but shape and energy matter</strong></p>
+<p>The bet that a transformer&#39;s loss falls smoothly as you add parameters, data and compute, so scale itself is the strategy.</p>
+<p><strong>Where it stands.</strong> The scaling relationship holds in recent open experiments, but with caveats. A 2026 study of 30 designs from 17 million to 7 billion parameters, <a href="https://arxiv.org/abs/2601.20994">The Depth Delusion</a>, finds that past a critical depth, adding layers raises loss despite adding parameters, so width should grow faster than depth. The <a href="https://arxiv.org/abs/2608.28308">OpenEuroLLM scaling study</a> finds forms that let model and data size interact fit its open runs better than the classic separable form. On energy, <a href="https://arxiv.org/abs/2604.09048">Watt Counts</a> measured over 5,000 inference runs of 50 models on 10 GPU types: the best GPU varies by model, and the choice alone can change energy use by up to 70% in some settings (its estimate). These are preprints; we read abstracts only.</p>
+<p><strong>What an outsider can use.</strong> <a href="https://github.com/huggingface/transformers/">Hugging Face Transformers</a>, the OpenEuroLLM <a href="https://huggingface.co/openeurollm">checkpoints and logs</a>, the Watt Counts open dataset.</p>
+<p><strong>What the lab could test.</strong> Refit published scaling data with an energy term.</p>
+<p>Checked 24 November 2026; first pass.</p>
+</main>
+<footer class="notefoot">
+<nav class="adjacent">
+</nav>
+</footer>
+</body>
+</html>

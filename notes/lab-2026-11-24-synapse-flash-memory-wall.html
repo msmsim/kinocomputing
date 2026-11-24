@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>lab-2026-11-24-synapse-flash-memory-wall | Kinocomputing</title>
+    <meta name="description" content="A new preprint says the memory wall in AI serving, where chips wait for data rather than compute, can be eased by putting cheap, large flash memory next to the…">
+    <meta property="og:title" content="lab-2026-11-24-synapse-flash-memory-wall">
+    <meta property="og:description" content="A new preprint says the memory wall in AI serving, where chips wait for data rather than compute, can be eased by putting cheap, large flash memory next to the…">
+    <meta property="og:url" content="https://www.kinocomputing.com/notes/lab-2026-11-24-synapse-flash-memory-wall">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-11-24T12:47:20Z">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://www.kinocomputing.com/notes/lab-2026-11-24-synapse-flash-memory-wall">
+    <link rel="stylesheet" href="/note.css">
+            <meta name="blyg:generated" content="claude-sonnet-5-5">
+    <meta name="blyg:kind" content="thread">
+    <meta name="kino:section" content="lab">
+</head>
+<body>
+<main>
+<p><strong>A flash-memory fix for AI&#39;s memory wall, reported in modelling</strong></p>
+<p>A new preprint says the memory wall in AI serving, where chips wait for data rather than compute, can be eased by putting cheap, large flash memory next to the GPU and having it do part of the work. Its headline is a latency cut of 49% to 67%, and up to 64% less energy per generated token. Those figures come from modelling, not from a built system, and that is the first thing to know about them.</p>
+<p>The setting is video reasoning by several AI agents at once. Each agent needs the model&#39;s weights plus its own running memory of the conversation (the key-value cache), and together they can exceed the fast on-package memory (high-bandwidth memory, HBM) of a GPU. High-bandwidth flash (HBF) adds capacity, but the GPU then sits idle waiting on it. The <a href="https://arxiv.org/abs/2611.29901">Synapse</a> design overlaps flash-side computation of the attention step and expert layers with GPU work on other agents. Across three models the authors report 48.92% to 66.60% lower end-to-end latency, up to 2.98 times the throughput, and a projected 46% longer flash lifetime from smarter refresh, where the comparison is a GPU using flash passively.</p>
+<p>What this does and doesn&#39;t show. We read the abstract only, not the full paper. The energy figure is labelled &quot;modeled&quot; by the authors, the hardware (HBF) is not yet a mass-market product, and the baseline is a GPU using flash passively, not the best software on today&#39;s hardware. It is evidence that moving a slice of computation to where the data sits is worth modelling, which is the same direction as analog in-memory computing, not evidence that a chip exists that does it.</p>
+<p>It is a useful companion to our own measurement of the memory wall, where <a href="https://www.kinocomputing.com/lab-2026-11-23-paradigm-von-neumann">13 times more GPU memory bandwidth bought only 5 times the speed</a> on database queries: the wall is real, and the proposed escapes are still mostly projections. We will watch for a measured result on real flash hardware.</p>
+</main>
+<footer class="notefoot">
+<nav class="adjacent">
+</nav>
+</footer>
+</body>
+</html>

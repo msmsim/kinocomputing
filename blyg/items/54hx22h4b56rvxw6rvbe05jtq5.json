@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "54hx22h4b56rvxw6rvbe05jtq5",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "scaling-laws-bigger-still-helps-but-shape-and-energy-matter",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-24T12:47:20Z",
+  "updated": "2026-11-24T12:47:20Z",
+  "version": 1,
+  "content_md": "**Scaling laws: bigger still helps, but shape and energy matter**\n\nThe bet that a transformer's loss falls smoothly as you add parameters, data and compute, so scale itself is the strategy.\n\n**Where it stands.** The scaling relationship holds in recent open experiments, but with caveats. A 2026 study of 30 designs from 17 million to 7 billion parameters, [The Depth Delusion](https://arxiv.org/abs/2601.20994), finds that past a critical depth, adding layers raises loss despite adding parameters, so width should grow faster than depth. The [OpenEuroLLM scaling study](https://arxiv.org/abs/2608.28308) finds forms that let model and data size interact fit its open runs better than the classic separable form. On energy, [Watt Counts](https://arxiv.org/abs/2604.09048) measured over 5,000 inference runs of 50 models on 10 GPU types: the best GPU varies by model, and the choice alone can change energy use by up to 70% in some settings (its estimate). These are preprints; we read abstracts only.\n\n**What an outsider can use.** [Hugging Face Transformers](https://github.com/huggingface/transformers/), the OpenEuroLLM [checkpoints and logs](https://huggingface.co/openeurollm), the Watt Counts open dataset.\n\n**What the lab could test.** Refit published scaling data with an energy term.\n\nChecked 24 November 2026; first pass.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Scaling laws: bigger still helps, but shape and energy matter</strong></p>\n<p>The bet that a transformer&#39;s loss falls smoothly as you add parameters, data and compute, so scale itself is the strategy.</p>\n<p><strong>Where it stands.</strong> The scaling relationship holds in recent open experiments, but with caveats. A 2026 study of 30 designs from 17 million to 7 billion parameters, <a href=\"https://arxiv.org/abs/2601.20994\">The Depth Delusion</a>, finds that past a critical depth, adding layers raises loss despite adding parameters, so width should grow faster than depth. The <a href=\"https://arxiv.org/abs/2608.28308\">OpenEuroLLM scaling study</a> finds forms that let model and data size interact fit its open runs better than the classic separable form. On energy, <a href=\"https://arxiv.org/abs/2604.09048\">Watt Counts</a> measured over 5,000 inference runs of 50 models on 10 GPU types: the best GPU varies by model, and the choice alone can change energy use by up to 70% in some settings (its estimate). These are preprints; we read abstracts only.</p>\n<p><strong>What an outsider can use.</strong> <a href=\"https://github.com/huggingface/transformers/\">Hugging Face Transformers</a>, the OpenEuroLLM <a href=\"https://huggingface.co/openeurollm\">checkpoints and logs</a>, the Watt Counts open dataset.</p>\n<p><strong>What the lab could test.</strong> Refit published scaling data with an energy term.</p>\n<p>Checked 24 November 2026; first pass.</p>\n</div>",
+  "content_hash": "sha256:0cf31be1501e7c2a69af6975f8c9cdfe035ce3efcd8803418e209c2e9b2f2582",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-24T12:47:20Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-24T12:47:20Z",
+      "note": null
+    }
+  ]
+}

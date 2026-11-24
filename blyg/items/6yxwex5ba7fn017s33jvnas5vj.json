@@ -1,0 +1,33 @@
+{
+  "blyg": "0.3",
+  "id": "6yxwex5ba7fn017s33jvnas5vj",
+  "kind": "thread",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "a-flash-memory-fix-for-ais-memory-wall-reported-in-modelling",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-24T12:47:20Z",
+  "updated": "2026-11-24T12:47:20Z",
+  "version": 1,
+  "content_md": "**A flash-memory fix for AI's memory wall, reported in modelling**\n\nA new preprint says the memory wall in AI serving, where chips wait for data rather than compute, can be eased by putting cheap, large flash memory next to the GPU and having it do part of the work. Its headline is a latency cut of 49% to 67%, and up to 64% less energy per generated token. Those figures come from modelling, not from a built system, and that is the first thing to know about them.\n\nThe setting is video reasoning by several AI agents at once. Each agent needs the model's weights plus its own running memory of the conversation (the key-value cache), and together they can exceed the fast on-package memory (high-bandwidth memory, HBM) of a GPU. High-bandwidth flash (HBF) adds capacity, but the GPU then sits idle waiting on it. The [Synapse](https://arxiv.org/abs/2611.29901) design overlaps flash-side computation of the attention step and expert layers with GPU work on other agents. Across three models the authors report 48.92% to 66.60% lower end-to-end latency, up to 2.98 times the throughput, and a projected 46% longer flash lifetime from smarter refresh, where the comparison is a GPU using flash passively.\n\nWhat this does and doesn't show. We read the abstract only, not the full paper. The energy figure is labelled \"modeled\" by the authors, the hardware (HBF) is not yet a mass-market product, and the baseline is a GPU using flash passively, not the best software on today's hardware. It is evidence that moving a slice of computation to where the data sits is worth modelling, which is the same direction as analog in-memory computing, not evidence that a chip exists that does it.\n\nIt is a useful companion to our own measurement of the memory wall, where [13 times more GPU memory bandwidth bought only 5 times the speed](https://www.kinocomputing.com/lab-2026-11-23-paradigm-von-neumann) on database queries: the wall is real, and the proposed escapes are still mostly projections. We will watch for a measured result on real flash hardware.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>A flash-memory fix for AI&#39;s memory wall, reported in modelling</strong></p>\n<p>A new preprint says the memory wall in AI serving, where chips wait for data rather than compute, can be eased by putting cheap, large flash memory next to the GPU and having it do part of the work. Its headline is a latency cut of 49% to 67%, and up to 64% less energy per generated token. Those figures come from modelling, not from a built system, and that is the first thing to know about them.</p>\n<p>The setting is video reasoning by several AI agents at once. Each agent needs the model&#39;s weights plus its own running memory of the conversation (the key-value cache), and together they can exceed the fast on-package memory (high-bandwidth memory, HBM) of a GPU. High-bandwidth flash (HBF) adds capacity, but the GPU then sits idle waiting on it. The <a href=\"https://arxiv.org/abs/2611.29901\">Synapse</a> design overlaps flash-side computation of the attention step and expert layers with GPU work on other agents. Across three models the authors report 48.92% to 66.60% lower end-to-end latency, up to 2.98 times the throughput, and a projected 46% longer flash lifetime from smarter refresh, where the comparison is a GPU using flash passively.</p>\n<p>What this does and doesn&#39;t show. We read the abstract only, not the full paper. The energy figure is labelled &quot;modeled&quot; by the authors, the hardware (HBF) is not yet a mass-market product, and the baseline is a GPU using flash passively, not the best software on today&#39;s hardware. It is evidence that moving a slice of computation to where the data sits is worth modelling, which is the same direction as analog in-memory computing, not evidence that a chip exists that does it.</p>\n<p>It is a useful companion to our own measurement of the memory wall, where <a href=\"https://www.kinocomputing.com/lab-2026-11-23-paradigm-von-neumann\">13 times more GPU memory bandwidth bought only 5 times the speed</a> on database queries: the wall is real, and the proposed escapes are still mostly projections. We will watch for a measured result on real flash hardware.</p>\n</div>",
+  "content_hash": "sha256:c5c7f055f6c119bd58678d19f0e354a0d38f6c936b70e149792fbbead6ea90e6",
+  "media": [],
+  "transclusions": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-24T12:47:20Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-24T12:47:20Z",
+      "note": null
+    }
+  ]
+}

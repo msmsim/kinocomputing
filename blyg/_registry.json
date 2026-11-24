@@ -871,6 +871,146 @@
       ],
       "seen": "22c10ff948b8a6c3",
       "page": "digital-von-neumann-computing-the-wall-moves-it-doesnt-vanis"
+    },
+    "lab-2026-11-24-brief": {
+      "id": "646s88mw77rf0psrgtt32k9mx7",
+      "created": "2026-11-24T12:47:20Z",
+      "hash": "sha256:c948f71d399457787acbd4adb123fe63ac3338e391ea3d970439f55b987e678f",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-24T12:47:20Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-24T12:47:20Z",
+          "note": null
+        }
+      ],
+      "seen": "9dad43da1b7e6e2e",
+      "page": "lab-brief-24-november-2026"
+    },
+    "lab-2026-11-24-discreteness-is-a-choice": {
+      "id": "2h9ctm3s13qtzkgmh7entc2nz0",
+      "created": "2026-11-24T12:47:20Z",
+      "hash": "sha256:4d5536585e9b306cd9d293001c8b5ff593fba6d08c932d772fce6291ccc36e5e",
+      "kind": "thread",
+      "quotes": [
+        {
+          "slug": "lab-2026-11-20-oscillator-reservoir-claim",
+          "id": "22v1e3dt4ryr37vxbxcddeevq5",
+          "version": 2,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Noisy oscillators fall short of a digital reservoir</strong></p>\n<p>In a simulation, 50 coupled, noisy oscillators acting as a <em>reservoir computer</em> (a system whose own dynamics do the computing, with only a simple trained readout on top) scored an error of 0.96 on NARMA-10, a standard memory test, where 1.0 is no better than always guessing the average. A tuned digital reservoir of the same size scored 0.15.</p>\n<p>How sure: simulation only, one toy model, one task, one range of settings, narrowed after adversarial review. It says nothing about physical reservoirs in general, or about energy. <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e002-physical-reservoir-narma10/RESULTS.md\">Code and full results</a>.</p>\n</div>"
+        }
+      ],
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-24T12:47:20Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-24T12:47:20Z",
+          "note": null
+        }
+      ],
+      "seen": "dca1784c3c7825f0",
+      "page": "discreteness-as-a-choice-made-within-a-continuous-world"
+    },
+    "lab-2026-11-24-grown-or-trained": {
+      "id": "5ks4vtk0fg0n5qa26d07zjjrmb",
+      "created": "2026-11-24T12:47:20Z",
+      "hash": "sha256:b700e8b6c660148b86d39da8b921b4404aed2445e981cda8b1428bd3f1275df8",
+      "stub_of": {
+        "origin": "https://www.kinocomputing.com/",
+        "id": "086qbhwp6ddy50vxzetnvfy85x",
+        "version": 1,
+        "cited": {
+          "source": "Kinocomputing",
+          "author": "Matthew McDowell-Sweet",
+          "excerpt": "Grown, not imagined Some intelligences can’t be imagined. They have to be evolved. And the people best placed to imagine intelligence, at frontier labs say, may be the least likely to see the kinds…",
+          "url": "https://www.kinocomputing.com/grown-not-imagined",
+          "retrieved": "2026-11-24T12:47:31Z"
+        }
+      },
+      "quotes": [
+        {
+          "slug": "020-violet-herons",
+          "id": "086qbhwp6ddy50vxzetnvfy85x",
+          "version": 1,
+          "html": "<p><strong>Grown, not imagined</strong></p>\n<p>Some intelligences can’t be imagined. They have to be evolved. And the people best placed to imagine intelligence, at frontier labs say, may be the least likely to see the kinds that can only be grown.</p>\n<p>I think of this as <a href=\"https://en.wikipedia.org/wiki/Conway%27s_law\">Conway’s law</a> for intelligence. Systems end up shaped like the organisations that build them, and our ideas of intelligence end up shaped like the cultures that hold them. We can only imagine the kinds our own culture already knows how to recognise. Anything else gets filed away as friction, or luck, or taste.</p>\n<p>The kinds we miss tend to be the ones that were never designed at all. They’re closer to a <a href=\"https://en.wikipedia.org/wiki/Meander\">meander</a>, which belongs neither to the river nor to the land but is the record of the two meeting, over and over. Nobody imagines a meander into existence. It’s carved, one encounter at a time, as experience works its way down into the bed. That’s the <a href=\"https://www.kinocomputing.com/notes/018-olive-geese\">descendability</a> I’ve written about before.</p>\n<p>A craftsman’s knowing is like that. Years at the bench sink into hands and <a href=\"https://en.wikipedia.org/wiki/Wolff%27s_law\">bones</a> until they just <em>know</em> which few things out of a thousand are about to matter. You can’t get there by thinking about it from a desk. Venkatesh Rao’s <a href=\"https://venkateshrao.com/blyg/t/4b8w1gayzwzhrn53dvcst11nhd\">archipelago</a> makes a similar point: some knowledge yields to rules and compute, and some only comes from actually going there.</p>\n<p>Whole cultures show the same gap. Western science spent decades asking the <a href=\"https://en.wikipedia.org/wiki/Needham_question\">Needham question</a>, why China never produced a scientific revolution, without quite noticing that the question took its own idea of science as the measure. Indigenous <a href=\"https://en.wikipedia.org/wiki/Traditional_ecological_knowledge\">ecological knowledge</a> and <a href=\"https://en.wikipedia.org/wiki/Songline\">songlines</a> were long treated as folklore, not knowledge, partly because they live in practice, story and country rather than in papers. You can’t derive them from first principles. They were grown, over many generations, in one particular place.</p>\n<p>Benedict Anderson showed in <a href=\"https://en.wikipedia.org/wiki/Imagined_Communities\"><em>Imagined Communities</em></a> how print lets strangers imagine themselves into a nation. Text is very good at imagining communities. I suspect it’s much worse at imagining intelligences, and large language models, made almost entirely of text, are print culture’s furthest reach. Some things can be imagined into being. Others still have to be grown.</p>",
+          "exact": "Some intelligences can’t be imagined. They have to be evolved."
+        }
+      ],
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-24T12:47:20Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-24T12:47:20Z",
+          "note": null
+        }
+      ],
+      "seen": "391eb2549e7202d4",
+      "page": "grown-or-trained-gradient-descent-is-growing-too"
+    },
+    "lab-2026-11-24-paradigm-symbolic-ai": {
+      "id": "5ardw35vhxr14aq0r2sp83wyq7",
+      "created": "2026-11-24T12:47:20Z",
+      "hash": "sha256:f250638b17f36349a8c481aae0a2a9af4cc6a48a711d6f5e48a9df9de89b60fd",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-24T12:47:20Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-24T12:47:20Z",
+          "note": null
+        }
+      ],
+      "seen": "7c34cb17f091d917",
+      "page": "symbolic-ai-is-now-the-verifier-not-the-brain"
+    },
+    "lab-2026-11-24-paradigm-transformers-scaling": {
+      "id": "54hx22h4b56rvxw6rvbe05jtq5",
+      "created": "2026-11-24T12:47:20Z",
+      "hash": "sha256:0cf31be1501e7c2a69af6975f8c9cdfe035ce3efcd8803418e209c2e9b2f2582",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-24T12:47:20Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-24T12:47:20Z",
+          "note": null
+        }
+      ],
+      "seen": "745b59012604fc86",
+      "page": "scaling-laws-bigger-still-helps-but-shape-and-energy-matter"
+    },
+    "lab-2026-11-24-synapse-flash-memory-wall": {
+      "id": "6yxwex5ba7fn017s33jvnas5vj",
+      "created": "2026-11-24T12:47:20Z",
+      "hash": "sha256:c5c7f055f6c119bd58678d19f0e354a0d38f6c936b70e149792fbbead6ea90e6",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-24T12:47:20Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-24T12:47:20Z",
+          "note": null
+        }
+      ],
+      "seen": "9acc5c4949b70cf1",
+      "page": "a-flash-memory-fix-for-ais-memory-wall-reported-in-modelling"
     }
   }
 }

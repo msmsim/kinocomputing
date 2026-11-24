@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "5ardw35vhxr14aq0r2sp83wyq7",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "symbolic-ai-is-now-the-verifier-not-the-brain",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-24T12:47:20Z",
+  "updated": "2026-11-24T12:47:20Z",
+  "version": 1,
+  "content_md": "**Symbolic AI is now the verifier, not the brain**\n\nIntelligence as explicit rules and logic that a machine manipulates and can check, the approach that dominated AI before neural networks.\n\n**Where it stands.** The best 2026 results use symbols to check neural guesses rather than replace them. A neural prover paired with a formal proof checker, [ProofEvolve](https://arxiv.org/abs/2608.26334), is reported at a 57.8% average solve rate across three hard maths benchmarks, with no false proofs in over 400 re-checks. An [Isabelle system for the seL4 microkernel](https://www.usenix.org/system/files/osdi26-he-baoding.pdf) proved 77.6% of 2,794 held-out theorems against 40.3% for the standard automated tool. These are the authors' own figures on benchmark sets; we read the ProofEvolve abstract, not the full papers. The old limits (brittleness, grounding symbols in the world) are still acknowledged.\n\n**What an outsider can use.** [Lean and mathlib](https://mathlib.org/), the [Z3 solver](https://github.com/Z3Prover/z3/) and [LeanDojo](https://github.com/lean-dojo/LeanDojo) are free and run on a laptop.\n\n**What the lab could test.** How much of a prover's score comes from the neural model and its retry budget, and how much from the symbolic checker: same model, checker on and off, retries counted.\n\nChecked 24 November 2026; first pass.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Symbolic AI is now the verifier, not the brain</strong></p>\n<p>Intelligence as explicit rules and logic that a machine manipulates and can check, the approach that dominated AI before neural networks.</p>\n<p><strong>Where it stands.</strong> The best 2026 results use symbols to check neural guesses rather than replace them. A neural prover paired with a formal proof checker, <a href=\"https://arxiv.org/abs/2608.26334\">ProofEvolve</a>, is reported at a 57.8% average solve rate across three hard maths benchmarks, with no false proofs in over 400 re-checks. An <a href=\"https://www.usenix.org/system/files/osdi26-he-baoding.pdf\">Isabelle system for the seL4 microkernel</a> proved 77.6% of 2,794 held-out theorems against 40.3% for the standard automated tool. These are the authors&#39; own figures on benchmark sets; we read the ProofEvolve abstract, not the full papers. The old limits (brittleness, grounding symbols in the world) are still acknowledged.</p>\n<p><strong>What an outsider can use.</strong> <a href=\"https://mathlib.org/\">Lean and mathlib</a>, the <a href=\"https://github.com/Z3Prover/z3/\">Z3 solver</a> and <a href=\"https://github.com/lean-dojo/LeanDojo\">LeanDojo</a> are free and run on a laptop.</p>\n<p><strong>What the lab could test.</strong> How much of a prover&#39;s score comes from the neural model and its retry budget, and how much from the symbolic checker: same model, checker on and off, retries counted.</p>\n<p>Checked 24 November 2026; first pass.</p>\n</div>",
+  "content_hash": "sha256:f250638b17f36349a8c481aae0a2a9af4cc6a48a711d6f5e48a9df9de89b60fd",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-24T12:47:20Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-24T12:47:20Z",
+      "note": null
+    }
+  ]
+}

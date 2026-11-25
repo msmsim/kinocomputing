@@ -60,7 +60,7 @@ than being cut at the first `</p>` inside it.
 Everything the site publishes is a note — a thread or a fragment, in the one
 stream and the one feed (`feed.xml`). Every page carries a small menu under
 the mark (the stream under its subtitle): **Notes** (the stream itself),
-**Tracker** and **About**, with where you are marked.
+**Tracker**, **Reading** and **About**, with where you are marked.
 
 The **Tracker** is the one page with a layout of its own, in the notes' own
 column: a table per group of every paradigm the lab follows, whether or not
@@ -75,6 +75,27 @@ the sitemap and llms.txt, with a `CollectionPage` listing its entries.
 
 An earlier version had pages and feeds for Notes, Lab, Audits and Briefs;
 their addresses redirect home and to `feed.xml`.
+
+## Reading
+
+The lab's reading list, and the site's one **hopper** (spec 0.4 §6.1): every
+link Matt shares to the lab from Subset, and every source the lab itself
+found worth keeping, each with one line from the lab on what it is and why
+it matters, its paradigms, and the notes that used it. Newest first, with a
+filter by words and by paradigm. The filter is the site's only script; the
+page is complete without it, and the form stays hidden until the script
+shows it.
+
+It is built from `notes/_hopper.json`, which the lab writes every night from
+its `state/hopper.jsonl`, and it is presentation, not blyg items: the links
+are other people's pages. Its feed, `feeds/reading.xml`, is plain RSS of the
+links, declared in `blyg.json` as the hopper's feed. The site's notes feed
+stays the one feed of notes.
+
+Subset's receiver for the lab tells Subset that a share lives at
+`/reading/<share>`; `_redirects` sends any such address to
+`/reading#<share>`, its row on the page (or the top of it, until the lab has
+weighed the share).
 
 ## Note titles
 

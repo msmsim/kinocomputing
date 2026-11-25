@@ -10,6 +10,8 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { makeSite } from "./twin.mjs";
 
+const menuOf = (html) => html.match(/<nav class="sections"[\s\S]*?<\/nav>/)[0];
+
 // The footer's parts, in order, as the PI asked for them.
 const PARTS = [
   '<a class="home" href="/" target="_self">MARKKinocomputing</a>',
@@ -52,7 +54,7 @@ test("every page carries the site footer once: mark and name home | what it is |
       if (heads.length) {
         assert.ok(heads[0].startsWith(`<header class="notehead"><a href="/" target="_self" rel="home" aria-label="Kinocomputing: home">${MARK}</a>\n<nav class="sections" aria-label="Sections">`), `${path}: note head`);
         assert.deepEqual([...heads[0].matchAll(/<a href="([^"]+)" target="_self"[^>]*>([^<]+)<\/a>/g)].map((m) => `${m[1]} ${m[2]}`),
-          ["/ Notes", "/tracker Tracker", "/about About"], `${path}: the menu`);
+          ["/ Notes", "/tracker Tracker", "/reading Reading", "/about About"], `${path}: the menu`);
         assert.match(html, /<body[^>]*>\n<header class="notehead">/, `${path}: note head isn't first in the body`);
       }
       // After the page's own content and footer, before the counter script.
@@ -191,7 +193,7 @@ test("agent readiness: structured data on every note and the stream, a sitemap, 
     const sitemap = tree.get("sitemap.xml");
     const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
     assert.deepEqual(locs, ["https://www.kinocomputing.com/",
-      "https://www.kinocomputing.com/tracker",
+      "https://www.kinocomputing.com/tracker", "https://www.kinocomputing.com/reading",
       "https://www.kinocomputing.com/a-pinned-note", "https://www.kinocomputing.com/about", "https://www.kinocomputing.com/gpus-the-leaderboard-is-public"],
       "the stream and live notes; not a withdrawn note, not a frozen version");
 
@@ -268,16 +270,61 @@ test("one stream, one feed; the menu is Notes, Tracker, About; the tracker is a 
     assert.equal(ld["@type"], "CollectionPage");
     assert.deepEqual(ld.mainEntity.itemListElement.map((i) => i.url), ["https://www.kinocomputing.com/gpus-the-leaderboard-is-public"]);
 
-    // One feed: the site's own. No view has one, and the manifest names none.
-    assert.deepEqual([...tree.keys()].filter((k) => k.endsWith(".xml") && k !== "sitemap.xml"), ["feed.xml"]);
+    // One feed of notes: the site's own. No view of the notes has one; the
+    // only other feed is the reading list's, the hopper, of other people's links.
+    assert.deepEqual([...tree.keys()].filter((k) => k.endsWith(".xml") && k !== "sitemap.xml").sort(), ["feed.xml", "feeds/reading.xml"]);
     assert.ok(!/rel="alternate" type="application\/rss\+xml"[^>]*feeds\//.test(tracker));
-    assert.ok(!("hoppers" in JSON.parse(tree.get("blyg.json"))));
+    assert.deepEqual(JSON.parse(tree.get("blyg.json")).hoppers, [{ title: "Reading", page: "reading", feed: "feeds/reading.xml" }]);
     for (const gone of ["notes", "lab", "audits", "briefs"]) {
       assert.ok(!tree.has(`${gone}.html`), `no ${gone} page`);
       assert.match(tree.get("_redirects"), new RegExp(`^/${gone} / 301$`, "m"));
       assert.match(tree.get("_redirects"), new RegExp(`^/feeds/${gone}\\.xml /feed\\.xml 301$`, "m"));
     }
     assert.match(tree.get("llms.txt"), /## The tracker\n\n- \[Tracker\]\(https:\/\/www\.kinocomputing\.com\/tracker\)/);
+  } finally {
+    site.dispose();
+  }
+});
+
+test("reading: the lab's list of links, newest first, filterable, with its feed as the manifest's hopper; a share's address lands on its row", () => {
+  const site = makeSite();
+  try {
+    site.publish("lab-2026-11-25-photonic-note", { body: "<p><strong>A photonic note</strong></p>\n<p>It used the chip paper, and said so.</p>", iso: "2026-11-25T03:00:00Z", generated: "m" });
+    writeFileSync(join(site.root, "notes", "_tracker.json"), JSON.stringify({ groups: [{ name: "Let physics compute", paradigms: [{ id: "photonic", name: "Photonic / optical computing" }] }] }));
+    writeFileSync(join(site.root, "notes", "_hopper.json"), JSON.stringify({ updated: "2026-11-25", items: [
+      { id: "500-amber-owls", url: "https://example.org/chip?a=1&b=2", title: "A new <photonic> chip", site: "example.org", added: "2026-11-25", from: "pi", paradigms: ["photonic"], why: "A measured 10 fJ per operation, on silicon.", used_in: ["lab-2026-11-25-photonic-note"] },
+      { id: "r-0123456789", url: "https://arxiv.org/abs/2611.00001", title: "A reservoir paper", site: "arxiv.org", added: "2026-11-24", from: "lab", paradigms: [], why: "Found while checking the reservoir entry.", used_in: [] },
+      { id: "bad id", url: "javascript:alert(1)", title: "x", added: "2026-11-24" },
+    ] }));
+    site.action("2026-11-25T04:00:00Z");
+    const tree = site.deploy();
+    const page = tree.get("reading.html");
+    const rows = [...page.matchAll(/<li id="([^"]+)"/g)].map((m) => m[1]);
+    assert.deepEqual(rows, ["500-amber-owls", "r-0123456789"], "newest first; a bad line never shows");
+    assert.match(page, /<li id="500-amber-owls" data-paradigms="photonic" data-text="[^"]*photonic \/ optical computing"><a href="https:\/\/example\.org\/chip\?a=1&amp;b=2">A new &lt;photonic&gt; chip<\/a> <span class="site">example\.org<\/span> <time datetime="2026-11-25">25 Nov 2026<\/time><br><span class="summary">A measured 10 fJ per operation, on silicon\.<\/span><br><span class="meta"><span class="tag" data-paradigm="photonic">Photonic \/ optical computing<\/span> · Used in <a href="\/a-photonic-note" target="_self">A photonic note<\/a><\/span><\/li>/);
+    assert.match(page, /<form id="reading-filter" class="filter" role="search" hidden/, "the filter shows only when its script runs");
+    assert.match(page, /<option value="photonic">Photonic \/ optical computing<\/option>/);
+    assert.match(page, /<\/main>\n<script>/);
+    assert.match(menuOf(page), /<a href="\/reading" target="_self" aria-current="page">Reading<\/a>/);
+
+    const feed = tree.get("feeds/reading.xml");
+    assert.match(feed, /<item>\n      <title>A new &lt;photonic&gt; chip<\/title>\n      <link>https:\/\/example\.org\/chip\?a=1&amp;b=2<\/link>\n      <guid isPermaLink="false">https:\/\/www\.kinocomputing\.com\/reading#500-amber-owls<\/guid>/);
+    assert.ok(!/xmlns:blyg/.test(feed), "a hopper's feed is plain RSS");
+    assert.match(tree.get("_redirects"), /^\/reading\/:share \/reading#:share 302$/m, "the address the receiver gives Subset");
+    assert.match(tree.get("llms.txt"), /## Reading\n\n- \[Reading\]\(https:\/\/www\.kinocomputing\.com\/reading\)/);
+  } finally {
+    site.dispose();
+  }
+});
+
+test("reading, empty: the page says so and carries no filter", () => {
+  const site = makeSite();
+  try {
+    site.publish("001-ash-eels", { body: "<p>A note.</p>", iso: "2026-11-25T03:00:00Z" });
+    site.action("2026-11-25T04:00:00Z");
+    const page = site.deploy().get("reading.html");
+    assert.match(page, /Nothing yet: the first links arrive/);
+    assert.ok(!page.includes("<script>\n(() =>"), "no script when there is nothing to filter");
   } finally {
     site.dispose();
   }

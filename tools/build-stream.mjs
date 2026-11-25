@@ -121,8 +121,18 @@ const RETIRED_FEEDS = [...RETIRED_VIEWS, "tracker"];
 const MENU = [
   { id: "notes", title: "Notes", path: INDEX_PATH },
   { id: "tracker", title: "Tracker", path: `${INDEX_PATH}tracker` },
+  { id: "reading", title: "Reading", path: `${INDEX_PATH}reading` },
   { id: "about", title: "About", path: `${INDEX_PATH}about` },
 ];
+// The hopper (spec 0.4 §6.1): the lab's reading list — every link the PI
+// shares from Subset and every source the lab keeps — as a page and an RSS
+// feed of links, declared in the manifest. Its membership is the list's; the
+// links are other people's pages, not items of this blyg.
+const READING = {
+  id: "reading", title: "Reading",
+  blurb: "What the lab is reading: every link Matt sends it, and every source the lab itself found worth keeping, each with a line on what it is and why it matters, and the notes that used it. Newest first.",
+};
+BLYG.hoppers = [{ title: READING.title, page: READING.id, feed: `feeds/${READING.id}.xml` }];
 
 /** The menu, with where you are marked. */
 const sectionNav = (current) => `<nav class="sections" aria-label="Sections">${MENU
@@ -656,6 +666,7 @@ function renderSitemap(notes) {
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     url(`${SITE_BASE}/`, newest),
     url(`${SITE_BASE}${INDEX_PATH}${TRACKER.id}`, notes.filter((note) => note.section === "tracker").map(lastOf).sort().at(-1)),
+    url(`${SITE_BASE}${INDEX_PATH}${READING.id}`, HOPPER.items[0] ? `${HOPPER.items.map((i) => i.added).sort().at(-1)}T00:00:00Z` : null),
     ...[...notes].sort((a, b) => a.path.localeCompare(b.path)).map((note) => url(`${SITE_BASE}${note.path}`, lastOf(note))),
     "</urlset>",
     "",
@@ -693,6 +704,10 @@ function renderLlmsTxt(notes) {
     "## The tracker",
     "",
     `- [${TRACKER.title}](${SITE_BASE}${INDEX_PATH}${TRACKER.id}): ${plain(TRACKER.blurb)}`,
+    "",
+    "## Reading",
+    "",
+    `- [${READING.title}](${SITE_BASE}${INDEX_PATH}${READING.id}): ${plain(READING.blurb)} Feed: ${SITE_BASE}${INDEX_PATH}feeds/${READING.id}.xml`,
     "",
     "## Machine-readable",
     "",
@@ -998,10 +1013,16 @@ const files = (await readdir(SOURCE_DIR))
 const registryText = await readFile(REGISTRY, "utf8").catch(() => null);
 const registry = { items: registryText ? JSON.parse(registryText).items ?? {} : {} };
 
+// The lab's reading list (notes/_hopper.json, written by the lab every
+// night): read once, kept only where each item is a link with a name.
+const HOPPER = await readFile(join(SOURCE_DIR, "_hopper.json"), "utf8").then(JSON.parse, () => null)
+  .then((data) => ({ items: (Array.isArray(data?.items) ? data.items : []).filter((i) => /^https?:\/\//.test(String(i?.url ?? "")) && /^[\w-]+$/.test(String(i?.id ?? "")) && /^\d{4}-\d{2}-\d{2}$/.test(String(i?.added ?? "")))
+    .map((i) => ({ ...i, title: String(i.title || i.url), why: String(i.why ?? ""), site: String(i.site ?? ""), paradigms: Array.isArray(i.paradigms) ? i.paradigms.map(String) : [], used_in: Array.isArray(i.used_in) ? i.used_in.map(String) : [] })) }));
+
 const notes = [];
 // Anything in the source folder that isn't a note still owns its name, so a
 // title can't be slugified onto the path of a file the scan left alone.
-const reserved = new Set(["index", "404", "feeds", TRACKER.id, ...RETIRED_VIEWS, ...ASSETS, ...SURFACE_NAMES]);
+const reserved = new Set(["index", "404", "feeds", TRACKER.id, READING.id, ...RETIRED_VIEWS, ...ASSETS, ...SURFACE_NAMES]);
 // Every name with a file at it, note or not: what tells a withdrawn note (no
 // file) from one that has merely stopped parsing.
 const present = new Set();
@@ -1413,6 +1434,121 @@ async function renderTracker() {
 
 site.set(`${TRACKER.id}.html`, await renderTracker());
 
+// THE READING LIST
+
+/** A link's paradigms by name, from the tracker's list when there is one. */
+const paradigmNames = new Map(((await readFile(join(SOURCE_DIR, "_tracker.json"), "utf8").then(JSON.parse, () => null))?.groups ?? [])
+  .flatMap((g) => g.paradigms.map((p) => [p.id, p.name])));
+const esc = (text) => String(text ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const noteByFile = new Map(notes.map((note) => [note.fileSlug, note]));
+
+/** One link: its title, where it's from, when it was added, the lab's line, its paradigms, and the notes that used it. */
+function readingRow(item) {
+  const tags = item.paradigms.map((id) => `<span class="tag" data-paradigm="${esc(id)}">${esc(paradigmNames.get(id) ?? id)}</span>`).join(" ");
+  const used = item.used_in.map((name) => noteByFile.get(name)).filter(Boolean)
+    .map((note) => `<a href="${note.path}">${titleOf(note)}</a>`);
+  const searchable = [item.title, item.why, item.site, ...item.paradigms.map((id) => paradigmNames.get(id) ?? id)].join(" ").toLowerCase();
+  return [
+    `<li id="${esc(item.id)}" data-paradigms="${esc(item.paradigms.join(" "))}" data-text="${esc(searchable)}">`,
+    `<a href="${esc(item.url)}">${esc(item.title)}</a> <span class="site">${esc(item.site)}</span> <time datetime="${esc(item.added)}">${dateOnly(`${item.added}T12:00:00Z`)}</time>`,
+    ...(item.why ? [`<br><span class="summary">${esc(item.why)}</span>`] : []),
+    ...(tags || used.length ? [`<br><span class="meta">${[tags, used.length ? `Used in ${used.join(", ")}` : ""].filter(Boolean).join(" · ")}</span>`] : []),
+    "</li>",
+  ].join("");
+}
+
+// A filter by text and by paradigm. The page is complete without it: the
+// script only hides rows, and only when someone types or picks.
+const READING_SCRIPT = `<script>
+(() => {
+  const q = document.getElementById("reading-q"), p = document.getElementById("reading-p");
+  const rows = [...document.querySelectorAll("ul.reading > li")];
+  const count = document.getElementById("reading-count");
+  const apply = () => {
+    const words = q.value.toLowerCase().split(/\\s+/).filter(Boolean);
+    let shown = 0;
+    for (const row of rows) {
+      const ok = (!p.value || row.dataset.paradigms.split(" ").includes(p.value))
+        && words.every((w) => row.dataset.text.includes(w));
+      row.hidden = !ok;
+      if (ok) shown += 1;
+    }
+    count.textContent = shown === rows.length ? "" : \`\${shown} of \${rows.length}\`;
+  };
+  document.getElementById("reading-filter").hidden = false;
+  q.addEventListener("input", apply);
+  p.addEventListener("change", apply);
+})();
+</script>`;
+
+async function renderReading() {
+  const items = HOPPER.items;
+  const url = `${SITE_BASE}${INDEX_PATH}${READING.id}`;
+  const present = [...new Set(items.flatMap((i) => i.paradigms))]
+    .sort((a, b) => (paradigmNames.get(a) ?? a).localeCompare(paradigmNames.get(b) ?? b));
+  const filter = items.length ? [
+    '<form id="reading-filter" class="filter" role="search" hidden onsubmit="return false">',
+    '<input id="reading-q" type="search" placeholder="Filter" aria-label="Filter by words">',
+    ...(present.length ? [`<select id="reading-p" aria-label="Filter by paradigm"><option value="">All paradigms</option>${present.map((id) => `<option value="${esc(id)}">${esc(paradigmNames.get(id) ?? id)}</option>`).join("")}</select>`] : ['<select id="reading-p" hidden><option value=""></option></select>']),
+    '<span id="reading-count" class="count"></span>',
+    "</form>",
+  ].join("\n") : "";
+  const body = [
+    `<p>${READING.blurb}</p>`,
+    `<p><a href="${INDEX_PATH}feeds/${READING.id}.xml" target="_self">Follow it by RSS</a>.</p>`,
+    filter,
+    items.length ? `<ul class="listing reading">\n${items.map(readingRow).join("\n")}\n</ul>` : "<p>Nothing yet: the first links arrive with the lab’s next shift.</p>",
+  ].filter(Boolean).join("\n");
+  let html = fill(bareTemplate(noteTemplate), {
+    slug: READING.title, description: READING.blurb, url, path: `${INDEX_PATH}${READING.id}`, index_path: INDEX_PATH,
+    content: `<h1 class="title">${READING.title}</h1>\n${body}`, datetime_iso: "", datetime: "",
+  });
+  html = normaliseHead(html, { title: "Reading: what the lab is reading", url, type: "website" });
+  html = withDescription(html, asText(READING.blurb));
+  html = html.replace("</head>", `    <link rel="alternate" type="application/rss+xml" title="${SITE_NAME}: ${READING.title}" href="${INDEX_PATH}feeds/${READING.id}.xml">\n</head>`);
+  if (items.length) html = html.replace("</main>", `</main>\n${READING_SCRIPT}`);
+  html = withStructuredData(html, [{
+    "@type": "CollectionPage", "@id": url, url, name: `${READING.title} | ${SITE_NAME}`,
+    description: plain(READING.blurb), isPartOf: { "@id": IDS.website }, inLanguage: "en",
+    mainEntity: { "@type": "ItemList", numberOfItems: items.length,
+      itemListElement: items.slice(0, 200).map((item, i) => ({ "@type": "ListItem", position: i + 1, url: item.url, name: item.title })) },
+  }, ...GRAPH]);
+  html = withNotefoot(html, renderNotefoot(noteTemplate, null, null, null));
+  return finishPage(withSiteFoot(withNoteHead(html, "reading")));
+}
+
+/** The hopper's feed (§6.1, §13.5): plain RSS 2.0 of the links, newest first. */
+function renderReadingFeed() {
+  const xml = (text) => String(text ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const items = HOPPER.items.slice(0, 100);
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+    "  <channel>",
+    `    <title>${xml(`${SITE_NAME}: ${READING.title}`)}</title>`,
+    `    <link>${SITE_BASE}${INDEX_PATH}${READING.id}</link>`,
+    `    <description>${xml(plain(READING.blurb))}</description>`,
+    "    <language>en</language>",
+    ...(items.length ? [`    <lastBuildDate>${new Date(`${items[0].added}T12:00:00Z`).toUTCString()}</lastBuildDate>`] : []),
+    `    <atom:link href="${SITE_BASE}${INDEX_PATH}feeds/${READING.id}.xml" rel="self" type="application/rss+xml"/>`,
+    ...items.map((item) => [
+      "    <item>",
+      `      <title>${xml(item.title)}</title>`,
+      `      <link>${xml(item.url)}</link>`,
+      `      <guid isPermaLink="false">${SITE_BASE}${INDEX_PATH}${READING.id}#${xml(item.id)}</guid>`,
+      `      <description>${xml(item.why)}</description>`,
+      `      <pubDate>${new Date(`${item.added}T12:00:00Z`).toUTCString()}</pubDate>`,
+      "    </item>",
+    ].join("\n")),
+    "  </channel>",
+    "</rss>",
+    "",
+  ].join("\n");
+}
+
+site.set(`${READING.id}.html`, await renderReading());
+site.set(`feeds/${READING.id}.xml`, renderReadingFeed());
+
 const position = new Map(notes.map((note, i) => [note.fileSlug, i]));
 for (const [fileSlug, entry] of Object.entries(registry.items)) {
   const page = entry.page ?? fileSlug;
@@ -1464,6 +1600,9 @@ async function renderRedirects() {
   };
 
   for (const view of RETIRED_VIEWS) add(`${INDEX_PATH}${view}`, INDEX_PATH);
+  // The address the Subset receiver gives for a share lands on its place in
+  // the reading list (at the top of it, until the lab has weighed it).
+  lines.add(`${INDEX_PATH}${READING.id}/:share ${INDEX_PATH}${READING.id}#:share 302`);
   for (const feed of RETIRED_FEEDS) add(`${INDEX_PATH}feeds/${feed}.xml`, `${INDEX_PATH}feed.xml`);
   for (const note of notes) {
     add(`${INDEX_PATH}${SOURCE_DIR}/${note.fileSlug}`, note.path);

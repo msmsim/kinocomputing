@@ -753,6 +753,9 @@ export function buildSurfaces(registry, notes, site) {
     author: site.author,
     feed: "feed.xml",
     items: "items/index.json",
+    // Curated lists over other people's pages (§6.1): a client construct, so
+    // no item ever names one.
+    ...(site.hoppers?.length ? { hoppers: site.hoppers } : {}),
     updated,
   }));
 

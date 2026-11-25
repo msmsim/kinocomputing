@@ -211,6 +211,58 @@ ul.listing .summary {
   color: #333;
 }
 
+/* READING
+
+   The lab's reading list: the same list as the tracker's entries, with the
+   link's site beside its title, and its paradigms and the notes that used it
+   on a small grey line under the lab's line. The filter is a plain text box
+   and a select, shown only once its script has run. */
+ul.reading .site,
+ul.reading .meta {
+  font-size: 0.85em;
+  color: #555;
+}
+
+ul.reading .tag {
+  white-space: nowrap;
+}
+
+ul.reading .tag + .tag::before {
+  content: "";
+}
+
+form.filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  align-items: center;
+  margin: 1em 0 0;
+}
+
+form.filter[hidden] {
+  display: none;
+}
+
+form.filter input,
+form.filter select {
+  font: inherit;
+  font-size: 0.9em;
+  color: #1a1a1a;
+  background: #e6f1fe;
+  border: 1px solid #a9c6ea;
+  border-radius: 3px;
+  padding: 0.25em 0.5em;
+}
+
+form.filter input {
+  flex: 1 1 12em;
+}
+
+form.filter .count {
+  font-size: 0.85em;
+  color: #555;
+}
+
 /* TABLES
 
    Plain rules under the rows, no boxes, no zebra: the eye follows the

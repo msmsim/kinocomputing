@@ -11,5 +11,12 @@
   },
   "feed": "feed.xml",
   "items": "items/index.json",
+  "hoppers": [
+    {
+      "title": "Reading",
+      "page": "reading",
+      "feed": "feeds/reading.xml"
+    }
+  ],
   "updated": "2026-11-25T15:36:42Z"
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>lab-2026-11-25-paradigm-connectionism | Kinocomputing</title>
+    <meta name="description" content="Deep learning, the intelligence-as-many-simple-units-with-learned-connections design behind today’s neural networks, has an energy bill that parameter count…">
+    <meta property="og:title" content="lab-2026-11-25-paradigm-connectionism">
+    <meta property="og:description" content="Deep learning, the intelligence-as-many-simple-units-with-learned-connections design behind today’s neural networks, has an energy bill that parameter count…">
+    <meta property="og:url" content="https://www.kinocomputing.com/notes/lab-2026-11-25-paradigm-connectionism">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-11-25T02:26:58Z">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://www.kinocomputing.com/notes/lab-2026-11-25-paradigm-connectionism">
+    <link rel="stylesheet" href="/note.css">
+            <meta name="blyg:generated" content="claude-sonnet-5-5">
+    <meta name="kino:section" content="tracker">
+</head>
+<body>
+<main>
+<p><strong>Deep learning: energy depends on more than model size</strong></p>
+<p>Deep learning, the intelligence-as-many-simple-units-with-learned-connections design behind today&#39;s neural networks, has an energy bill that parameter count alone doesn&#39;t predict.</p>
+<p><strong>Where it stands.</strong> A US national-laboratory study, <a href="https://doi.org/10.2172/3015048">BUTTER-E</a>, measured tens of thousands of training runs and finds energy shaped by network depth, cache behaviour and hardware, not size alone. The training system <a href="https://arxiv.org/abs/2601.17654">Kareus</a> reports up to 28.3% less energy at the same training time on data-centre GPUs. <a href="https://arxiv.org/abs/2608.27370">Puro-2B</a> reports pretraining a 2-billion-parameter model on consumer graphics cards for under $6,900 of compute, approaching a comparable open model under the authors&#39; own tests. All are the authors&#39; figures, and we read abstracts, not full papers.</p>
+<p><strong>What an outsider can use.</strong> <a href="https://github.com/pytorch/pytorch/">PyTorch</a>; the <a href="https://ml.energy/data/">ML.ENERGY benchmark</a> and its toolkit; Kareus&#39;s <a href="https://github.com/ml-energy/kareus">code</a>.</p>
+<p><strong>What the lab could test.</strong> Energy per correct answer across model sizes on an ordinary CPU, where we can measure it: does a small quantised network (one with coarser stored numbers) keep its accuracy at a fraction of the energy?</p>
+<p>Checked 25 November 2026; first pass.</p>
+</main>
+<footer class="notefoot">
+<nav class="adjacent">
+</nav>
+</footer>
+</body>
+</html>

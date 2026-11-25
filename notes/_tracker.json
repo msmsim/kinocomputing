@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-24",
+  "updated": "2026-11-25",
   "source": "https://www.kinocomputing.com/alternative-paradigms",
   "groups": [
     {
@@ -32,8 +32,8 @@
         {
           "id": "connectionism",
           "name": "Connectionism and deep learning",
-          "last_checked": null,
-          "entry": null
+          "last_checked": "2026-11-25",
+          "entry": "lab-2026-11-25-paradigm-connectionism"
         },
         {
           "id": "transformers-scaling",
@@ -49,14 +49,14 @@
         {
           "id": "analog-in-memory",
           "name": "Analog in-memory computing",
-          "last_checked": null,
-          "entry": null
+          "last_checked": "2026-11-25",
+          "entry": "lab-2026-11-25-paradigm-analog-in-memory"
         },
         {
           "id": "photonic",
           "name": "Photonic / optical computing",
-          "last_checked": null,
-          "entry": null
+          "last_checked": "2026-11-25",
+          "entry": "lab-2026-11-25-paradigm-photonic"
         },
         {
           "id": "thermodynamic",

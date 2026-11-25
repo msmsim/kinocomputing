@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>lab-2026-11-25-paradigm-analog-in-memory | Kinocomputing</title>
+    <meta name="description" content="Analog in-memory computing does a neural network’s multiply-and-add inside the memory array, as electrical current, instead of moving stored weights to a…">
+    <meta property="og:title" content="lab-2026-11-25-paradigm-analog-in-memory">
+    <meta property="og:description" content="Analog in-memory computing does a neural network’s multiply-and-add inside the memory array, as electrical current, instead of moving stored weights to a…">
+    <meta property="og:url" content="https://www.kinocomputing.com/notes/lab-2026-11-25-paradigm-analog-in-memory">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-11-25T02:26:58Z">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://www.kinocomputing.com/notes/lab-2026-11-25-paradigm-analog-in-memory">
+    <link rel="stylesheet" href="/note.css">
+            <meta name="blyg:generated" content="claude-sonnet-5-5">
+    <meta name="kino:section" content="tracker">
+</head>
+<body>
+<main>
+<p><strong>Analog in-memory computing: real chips, hard-to-compare numbers</strong></p>
+<p>Analog in-memory computing does a neural network&#39;s multiply-and-add inside the memory array, as electrical current, instead of moving stored weights to a separate processor.</p>
+<p><strong>Where it stands.</strong> Chips now exist, but headline efficiencies aren&#39;t comparable. A 1-megabit memristor (resistive memory) chip reports <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12217836/">up to 88.51 trillion operations per second per watt</a>, counted as 1-bit operations, with image classification measured on the chip. A 3D-NAND flash prototype from IBM-linked authors <a href="https://arxiv.org/abs/2611.27479">reports 4.2 TOPS/W</a> and 95.96% on CIFAR-10 photos with 11 million weights on-chip. IBM&#39;s phase-change-memory system remains the <a href="https://www.nature.com/articles/s41586-023-06337-5">system-scale reference</a>: 12.4 TOPS/W, but a speech task&#39;s word-error rate of 9.3% against 7.5% in software. Converters, drift and device variation are the open problems. All figures are the authors&#39; own; we read abstracts and summaries.</p>
+<p><strong>What an outsider can use.</strong> Free simulators: <a href="https://github.com/ibm/aihwkit">IBM AIHWKit</a>, <a href="https://github.com/sandialabs/cross-sim">Sandia CrossSim</a>, <a href="https://github.com/neurosim/NeuroSim">NeuroSim</a>.</p>
+<p><strong>What the lab could test.</strong> Sweep noise, drift and converter precision in a simulator on a small network, and find where accuracy falls off.</p>
+<p>Checked 25 November 2026; first pass.</p>
+</main>
+<footer class="notefoot">
+<nav class="adjacent">
+</nav>
+</footer>
+</body>
+</html>

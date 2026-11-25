@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "4zdfcv54xtetjvbckeckrxshqr",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "deep-learning-energy-depends-on-more-than-model-size",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-25T02:26:58Z",
+  "updated": "2026-11-25T02:26:58Z",
+  "version": 1,
+  "content_md": "**Deep learning: energy depends on more than model size**\n\nDeep learning, the intelligence-as-many-simple-units-with-learned-connections design behind today's neural networks, has an energy bill that parameter count alone doesn't predict.\n\n**Where it stands.** A US national-laboratory study, [BUTTER-E](https://doi.org/10.2172/3015048), measured tens of thousands of training runs and finds energy shaped by network depth, cache behaviour and hardware, not size alone. The training system [Kareus](https://arxiv.org/abs/2601.17654) reports up to 28.3% less energy at the same training time on data-centre GPUs. [Puro-2B](https://arxiv.org/abs/2608.27370) reports pretraining a 2-billion-parameter model on consumer graphics cards for under $6,900 of compute, approaching a comparable open model under the authors' own tests. All are the authors' figures, and we read abstracts, not full papers.\n\n**What an outsider can use.** [PyTorch](https://github.com/pytorch/pytorch/); the [ML.ENERGY benchmark](https://ml.energy/data/) and its toolkit; Kareus's [code](https://github.com/ml-energy/kareus).\n\n**What the lab could test.** Energy per correct answer across model sizes on an ordinary CPU, where we can measure it: does a small quantised network (one with coarser stored numbers) keep its accuracy at a fraction of the energy?\n\nChecked 25 November 2026; first pass.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Deep learning: energy depends on more than model size</strong></p>\n<p>Deep learning, the intelligence-as-many-simple-units-with-learned-connections design behind today&#39;s neural networks, has an energy bill that parameter count alone doesn&#39;t predict.</p>\n<p><strong>Where it stands.</strong> A US national-laboratory study, <a href=\"https://doi.org/10.2172/3015048\">BUTTER-E</a>, measured tens of thousands of training runs and finds energy shaped by network depth, cache behaviour and hardware, not size alone. The training system <a href=\"https://arxiv.org/abs/2601.17654\">Kareus</a> reports up to 28.3% less energy at the same training time on data-centre GPUs. <a href=\"https://arxiv.org/abs/2608.27370\">Puro-2B</a> reports pretraining a 2-billion-parameter model on consumer graphics cards for under $6,900 of compute, approaching a comparable open model under the authors&#39; own tests. All are the authors&#39; figures, and we read abstracts, not full papers.</p>\n<p><strong>What an outsider can use.</strong> <a href=\"https://github.com/pytorch/pytorch/\">PyTorch</a>; the <a href=\"https://ml.energy/data/\">ML.ENERGY benchmark</a> and its toolkit; Kareus&#39;s <a href=\"https://github.com/ml-energy/kareus\">code</a>.</p>\n<p><strong>What the lab could test.</strong> Energy per correct answer across model sizes on an ordinary CPU, where we can measure it: does a small quantised network (one with coarser stored numbers) keep its accuracy at a fraction of the energy?</p>\n<p>Checked 25 November 2026; first pass.</p>\n</div>",
+  "content_hash": "sha256:da48447aa75c6536f5a554ee172a99128486cd09605eaa73cd22abddd3fe7ba9",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-25T02:26:58Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-25T02:26:58Z",
+      "note": null
+    }
+  ]
+}

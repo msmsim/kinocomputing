@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "0bz0270vemqqxkh18fxz2qzcr2",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "photonic-computing-tiny-optical-energy-bigger-system-bill",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-25T02:26:58Z",
+  "updated": "2026-11-25T02:26:58Z",
+  "version": 1,
+  "content_md": "**Photonic computing: tiny optical energy, bigger system bill**\n\nPhotonic computing multiplies matrices with light passing through chips, hoping for speed and low energy.\n\n**Where it stands.** The optical part is cheap; the electronics around it are not. A [16×16 optical processor](https://www.nature.com/articles/s41467-026-68452-x) reports about 20 attojoules per multiply-add in the light itself (an attojoule is a billionth of a billionth of a joule) at 96.4% classification accuracy, but 250 femtojoules per operation, over 10,000 times more, counting the whole system. A [rack-mounted silicon-photonic processor](https://www.nature.com/articles/s41467-026-71599-2) reaches 98.1% on handwritten digits and 72.0% on CIFAR-10 photos, and its projected full-system efficiency is 0.022 TOPS/W, though the two papers count operations differently, so the figures aren't strictly comparable. Converters between electrical and optical signals dominate. We read the papers' abstracts and the passages giving these figures.\n\n**What an outsider can use.** Free simulators: [torchonn](https://github.com/JeremieMelo/pytorch-onn), [Neurophox](https://github.com/solgaardlab/neurophox), [AnalogVNN](https://github.com/vivswan/analogvnn).\n\n**What the lab could test.** Rebuild the energy accounting from the optical core out to the converters, and see how large a matrix must be before optics wins.\n\nChecked 25 November 2026; first pass.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Photonic computing: tiny optical energy, bigger system bill</strong></p>\n<p>Photonic computing multiplies matrices with light passing through chips, hoping for speed and low energy.</p>\n<p><strong>Where it stands.</strong> The optical part is cheap; the electronics around it are not. A <a href=\"https://www.nature.com/articles/s41467-026-68452-x\">16×16 optical processor</a> reports about 20 attojoules per multiply-add in the light itself (an attojoule is a billionth of a billionth of a joule) at 96.4% classification accuracy, but 250 femtojoules per operation, over 10,000 times more, counting the whole system. A <a href=\"https://www.nature.com/articles/s41467-026-71599-2\">rack-mounted silicon-photonic processor</a> reaches 98.1% on handwritten digits and 72.0% on CIFAR-10 photos, and its projected full-system efficiency is 0.022 TOPS/W, though the two papers count operations differently, so the figures aren&#39;t strictly comparable. Converters between electrical and optical signals dominate. We read the papers&#39; abstracts and the passages giving these figures.</p>\n<p><strong>What an outsider can use.</strong> Free simulators: <a href=\"https://github.com/JeremieMelo/pytorch-onn\">torchonn</a>, <a href=\"https://github.com/solgaardlab/neurophox\">Neurophox</a>, <a href=\"https://github.com/vivswan/analogvnn\">AnalogVNN</a>.</p>\n<p><strong>What the lab could test.</strong> Rebuild the energy accounting from the optical core out to the converters, and see how large a matrix must be before optics wins.</p>\n<p>Checked 25 November 2026; first pass.</p>\n</div>",
+  "content_hash": "sha256:26d824403e1347a56e38d4e0b8e36f1c63a2beea894019d75f03926421ac0695",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-25T02:26:58Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-25T02:26:58Z",
+      "note": null
+    }
+  ]
+}

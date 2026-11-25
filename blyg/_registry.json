@@ -478,7 +478,7 @@
     "lab-2026-11-21-paradigm-tracker": {
       "id": "05k1r8wa7abkyh5vpm5n3d5ehv",
       "created": "2026-11-23T11:06:21Z",
-      "hash": "sha256:5f260c18a96b5c25135104bdfc70d174551b1109f1df4a6d61f343fc06870c9a",
+      "hash": "sha256:85a362f8ead929705e62b6773940e3f87cca59766677fd3ee253e201e70b4f27",
       "kind": "thread",
       "quotes": [
         {
@@ -498,20 +498,55 @@
           "id": "7n6wjmzjnnv5ytgy7j4hr2zvz8",
           "version": 1,
           "html": "<div class=\"blyg-tk-gen\">\n<p><strong>AI accelerators: who wins depends on the model and precision</strong></p>\n<p>Chips stripped to what neural networks need (TPUs, Cerebras, Groq): less general, still digital at heart.</p>\n<p><strong>Where it stands.</strong> The cleanest recent comparison is a benchmark run by SemiAnalysis, <a href=\"https://inferencex.semianalysis.com/hardware/tpu-v7-ironwood-vs-gb300-nvl72-agentx-results\">InferenceX</a>,. Google&#39;s TPU v7 beats Nvidia&#39;s GB300 rack by 1.85 times per dollar on one model at 8-bit precision, but loses to it (0.54 times) when the Nvidia system runs at 4-bit, which the TPU can&#39;t do natively. Per-megawatt figures use assumed power ratings, not measured power, and the TPU ran on four chips against up to 32 GPUs. Google&#39;s own claim for its eighth generation, <a href=\"https://cloud.google.com/blog/products/compute/tpu-8t-and-tpu-8i-technical-deep-dive\">twice the performance per watt</a>, is a vendor figure. The <a href=\"https://mlcommons.org/2026/09/chairs-mlperf-inference-v6-1/\">MLPerf inference round of September 2026</a> counted 30 submitters; the organisers&#39; summary of it names Nvidia, AMD and Intel hardware, not TPUs, Cerebras or Groq.</p>\n<p><strong>What an outsider can use.</strong> MLPerf&#39;s public results; <a href=\"https://docs.jax.dev/en/latest/pallas/tpu/\">JAX&#39;s Pallas for TPUs</a>.</p>\n<p><strong>What the lab could test.</strong> Joules per token on one laptop across batch sizes and 8-bit versus 4-bit, with idle power subtracted: how much of an &quot;efficiency&quot; claim is precision, not silicon?</p>\n<p>Checked 23 November 2026; first pass.</p>\n</div>"
+        },
+        {
+          "slug": "lab-2026-11-24-paradigm-symbolic-ai",
+          "id": "5ardw35vhxr14aq0r2sp83wyq7",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Symbolic AI is now the verifier, not the brain</strong></p>\n<p>Intelligence as explicit rules and logic that a machine manipulates and can check, the approach that dominated AI before neural networks.</p>\n<p><strong>Where it stands.</strong> The best 2026 results use symbols to check neural guesses rather than replace them. A neural prover paired with a formal proof checker, <a href=\"https://arxiv.org/abs/2608.26334\">ProofEvolve</a>, is reported at a 57.8% average solve rate across three hard maths benchmarks, with no false proofs in over 400 re-checks. An <a href=\"https://www.usenix.org/system/files/osdi26-he-baoding.pdf\">Isabelle system for the seL4 microkernel</a> proved 77.6% of 2,794 held-out theorems against 40.3% for the standard automated tool. These are the authors&#39; own figures on benchmark sets; we read the ProofEvolve abstract, not the full papers. The old limits (brittleness, grounding symbols in the world) are still acknowledged.</p>\n<p><strong>What an outsider can use.</strong> <a href=\"https://mathlib.org/\">Lean and mathlib</a>, the <a href=\"https://github.com/Z3Prover/z3/\">Z3 solver</a> and <a href=\"https://github.com/lean-dojo/LeanDojo\">LeanDojo</a> are free and run on a laptop.</p>\n<p><strong>What the lab could test.</strong> How much of a prover&#39;s score comes from the neural model and its retry budget, and how much from the symbolic checker: same model, checker on and off, retries counted.</p>\n<p>Checked 24 November 2026; first pass.</p>\n</div>"
+        },
+        {
+          "slug": "lab-2026-11-25-paradigm-connectionism",
+          "id": "4zdfcv54xtetjvbckeckrxshqr",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Deep learning: energy depends on more than model size</strong></p>\n<p>Deep learning, the intelligence-as-many-simple-units-with-learned-connections design behind today&#39;s neural networks, has an energy bill that parameter count alone doesn&#39;t predict.</p>\n<p><strong>Where it stands.</strong> A US national-laboratory study, <a href=\"https://doi.org/10.2172/3015048\">BUTTER-E</a>, measured tens of thousands of training runs and finds energy shaped by network depth, cache behaviour and hardware, not size alone. The training system <a href=\"https://arxiv.org/abs/2601.17654\">Kareus</a> reports up to 28.3% less energy at the same training time on data-centre GPUs. <a href=\"https://arxiv.org/abs/2608.27370\">Puro-2B</a> reports pretraining a 2-billion-parameter model on consumer graphics cards for under $6,900 of compute, approaching a comparable open model under the authors&#39; own tests. All are the authors&#39; figures, and we read abstracts, not full papers.</p>\n<p><strong>What an outsider can use.</strong> <a href=\"https://github.com/pytorch/pytorch/\">PyTorch</a>; the <a href=\"https://ml.energy/data/\">ML.ENERGY benchmark</a> and its toolkit; Kareus&#39;s <a href=\"https://github.com/ml-energy/kareus\">code</a>.</p>\n<p><strong>What the lab could test.</strong> Energy per correct answer across model sizes on an ordinary CPU, where we can measure it: does a small quantised network (one with coarser stored numbers) keep its accuracy at a fraction of the energy?</p>\n<p>Checked 25 November 2026; first pass.</p>\n</div>"
+        },
+        {
+          "slug": "lab-2026-11-24-paradigm-transformers-scaling",
+          "id": "54hx22h4b56rvxw6rvbe05jtq5",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Scaling laws: bigger still helps, but shape and energy matter</strong></p>\n<p>The bet that a transformer&#39;s loss falls smoothly as you add parameters, data and compute, so scale itself is the strategy.</p>\n<p><strong>Where it stands.</strong> The scaling relationship holds in recent open experiments, but with caveats. A 2026 study of 30 designs from 17 million to 7 billion parameters, <a href=\"https://arxiv.org/abs/2601.20994\">The Depth Delusion</a>, finds that past a critical depth, adding layers raises loss despite adding parameters, so width should grow faster than depth. The <a href=\"https://arxiv.org/abs/2608.28308\">OpenEuroLLM scaling study</a> finds forms that let model and data size interact fit its open runs better than the classic separable form. On energy, <a href=\"https://arxiv.org/abs/2604.09048\">Watt Counts</a> measured over 5,000 inference runs of 50 models on 10 GPU types: the best GPU varies by model, and the choice alone can change energy use by up to 70% in some settings (its estimate). These are preprints; we read abstracts only.</p>\n<p><strong>What an outsider can use.</strong> <a href=\"https://github.com/huggingface/transformers/\">Hugging Face Transformers</a>, the OpenEuroLLM <a href=\"https://huggingface.co/openeurollm\">checkpoints and logs</a>, the Watt Counts open dataset.</p>\n<p><strong>What the lab could test.</strong> Refit published scaling data with an energy term.</p>\n<p>Checked 24 November 2026; first pass.</p>\n</div>"
+        },
+        {
+          "slug": "lab-2026-11-25-paradigm-analog-in-memory",
+          "id": "46t9sb1adz494ec8knwh8ebz3d",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Analog in-memory computing: real chips, hard-to-compare numbers</strong></p>\n<p>Analog in-memory computing does a neural network&#39;s multiply-and-add inside the memory array, as electrical current, instead of moving stored weights to a separate processor.</p>\n<p><strong>Where it stands.</strong> Chips now exist, but headline efficiencies aren&#39;t comparable. A 1-megabit memristor (resistive memory) chip reports <a href=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC12217836/\">up to 88.51 trillion operations per second per watt</a>, counted as 1-bit operations, with image classification measured on the chip. A 3D-NAND flash prototype from IBM-linked authors <a href=\"https://arxiv.org/abs/2611.27479\">reports 4.2 TOPS/W</a> and 95.96% on CIFAR-10 photos with 11 million weights on-chip. IBM&#39;s phase-change-memory system remains the <a href=\"https://www.nature.com/articles/s41586-023-06337-5\">system-scale reference</a>: 12.4 TOPS/W, but a speech task&#39;s word-error rate of 9.3% against 7.5% in software. Converters, drift and device variation are the open problems. All figures are the authors&#39; own; we read abstracts and summaries.</p>\n<p><strong>What an outsider can use.</strong> Free simulators: <a href=\"https://github.com/ibm/aihwkit\">IBM AIHWKit</a>, <a href=\"https://github.com/sandialabs/cross-sim\">Sandia CrossSim</a>, <a href=\"https://github.com/neurosim/NeuroSim\">NeuroSim</a>.</p>\n<p><strong>What the lab could test.</strong> Sweep noise, drift and converter precision in a simulator on a small network, and find where accuracy falls off.</p>\n<p>Checked 25 November 2026; first pass.</p>\n</div>"
+        },
+        {
+          "slug": "lab-2026-11-25-paradigm-photonic",
+          "id": "0bz0270vemqqxkh18fxz2qzcr2",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Photonic computing: tiny optical energy, bigger system bill</strong></p>\n<p>Photonic computing multiplies matrices with light passing through chips, hoping for speed and low energy.</p>\n<p><strong>Where it stands.</strong> The optical part is cheap; the electronics around it are not. A <a href=\"https://www.nature.com/articles/s41467-026-68452-x\">16×16 optical processor</a> reports about 20 attojoules per multiply-add in the light itself (an attojoule is a billionth of a billionth of a joule) at 96.4% classification accuracy, but 250 femtojoules per operation, over 10,000 times more, counting the whole system. A <a href=\"https://www.nature.com/articles/s41467-026-71599-2\">rack-mounted silicon-photonic processor</a> reaches 98.1% on handwritten digits and 72.0% on CIFAR-10 photos, and its projected full-system efficiency is 0.022 TOPS/W, though the two papers count operations differently, so the figures aren&#39;t strictly comparable. Converters between electrical and optical signals dominate. We read the papers&#39; abstracts and the passages giving these figures.</p>\n<p><strong>What an outsider can use.</strong> Free simulators: <a href=\"https://github.com/JeremieMelo/pytorch-onn\">torchonn</a>, <a href=\"https://github.com/solgaardlab/neurophox\">Neurophox</a>, <a href=\"https://github.com/vivswan/analogvnn\">AnalogVNN</a>.</p>\n<p><strong>What the lab could test.</strong> Rebuild the energy accounting from the optical core out to the converters, and see how large a matrix must be before optics wins.</p>\n<p>Checked 25 November 2026; first pass.</p>\n</div>"
         }
       ],
       "generated": {
         "model": "claude-sonnet-5-5",
-        "at": "2026-11-23T11:06:21Z"
+        "at": "2026-11-25T02:26:58Z"
       },
       "changelog": [
         {
           "version": 1,
           "at": "2026-11-23T11:06:21Z",
           "note": null
+        },
+        {
+          "version": 2,
+          "at": "2026-11-25T02:26:58Z",
+          "note": "Added entries for symbolic AI, deep learning and transformers (the incumbent stack is now complete), and the first two physics-computes entries, analog in-memory and photonic computing."
         }
       ],
-      "seen": "fab8420636eaabd8",
+      "seen": "dd2af48bde5d4a2b",
       "page": "the-alternative-paradigms-tracker"
     },
     "lab-2026-11-21-physical-reservoir-wider": {
@@ -1025,6 +1060,156 @@
       ],
       "seen": "9acc5c4949b70cf1",
       "page": "a-flash-memory-fix-for-ais-memory-wall-reported-in-modelling"
+    },
+    "lab-2026-11-25-ai-alignment-five-problems": {
+      "id": "455yag4q8ez2f8b4hr5tnk32vt",
+      "created": "2026-11-25T02:26:58Z",
+      "hash": "sha256:8ec68ef0ee35c397861a52d5dbfa2cadeb0e51fcc466213617c45d9907f19232",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-25T02:26:58Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-25T02:26:58Z",
+          "note": null
+        }
+      ],
+      "seen": "758486977a0f7d9f",
+      "page": "ai-alignment-is-five-problems-and-each-camp-picks-one"
+    },
+    "lab-2026-11-25-brief": {
+      "id": "3txjc29wdjj3vet22arhznc572",
+      "created": "2026-11-25T02:26:58Z",
+      "hash": "sha256:7f8153e5960c397c79c0af313b6d0e99711dee38f9a5a115eb504bc09079a8cd",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-25T02:26:58Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-25T02:26:58Z",
+          "note": null
+        }
+      ],
+      "seen": "6be39c242fb30a8d",
+      "page": "lab-brief-25-november-2026"
+    },
+    "lab-2026-11-25-consensus-machines-parse-limit": {
+      "id": "2j5cj1vteby21gxcqs59enfdrk",
+      "created": "2026-11-25T02:26:58Z",
+      "hash": "sha256:b82c60a4ce71f7e65e17148c311092ff3869448f2da977985b268f797ebf4217",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-25T02:26:58Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-25T02:26:58Z",
+          "note": null
+        }
+      ],
+      "seen": "f78e6f4571c392df",
+      "page": "language-models-as-consensus-machines-weighing-a-dialogue"
+    },
+    "lab-2026-11-25-coupling-test-photonic-analog": {
+      "id": "6tr127fv8rkgmeh1pnqy4kes3t",
+      "created": "2026-11-25T02:26:58Z",
+      "hash": "sha256:01d27a516463f71a25987ba954dfcd1229f71e151f697d0b61887758ba8485b7",
+      "stub_of": {
+        "origin": "https://www.kinocomputing.com/",
+        "id": "1q54gw7wkq7369dx6vcnzymek1",
+        "version": 1,
+        "cited": {
+          "source": "Kinocomputing",
+          "author": "Matthew McDowell-Sweet",
+          "excerpt": "Coupling reality to paradigms Every computing paradigm sits in one of four coupling states relative to the physics that carries it: sheared, weakly coupled, strongly coupled or fully integrated. A…",
+          "url": "https://www.kinocomputing.com/coupling-reality-to-paradigms",
+          "retrieved": "2026-11-25T02:27:08Z"
+        }
+      },
+      "quotes": [
+        {
+          "slug": "021-amber-egrets",
+          "id": "1q54gw7wkq7369dx6vcnzymek1",
+          "version": 1,
+          "html": "<p><strong>Coupling reality to paradigms</strong></p>\n<p>Every computing paradigm sits in one of four coupling states relative to the physics that carries it: sheared, weakly coupled, strongly coupled or fully integrated. A paradigm may also re-shear, rebuilding a clean abstraction on top of a coupled substrate. The coupling state largely fixes the paradigm’s energy profile: which cost dominates its baseline, and how far that baseline sits above physical limits.</p>\n<p>Coupling means how far a full description of the computation depends on the substrate’s own dynamics. At one extreme the substrate doesn’t matter. At the other, the computation can’t be described without it.</p>\n<p>The four states are as follows:</p>\n<ul>\n<li>Sheared: the physics carries an abstraction that ignores it. Example: CMOS digital logic.</li>\n<li>Weakly coupled: the physics is chosen for efficiency, but the computation stays abstract. Example: neuromorphic chips.</li>\n<li>Strongly coupled: the physics performs the operation, and its noise becomes part of the computation. Example: analog in-memory multiplication.</li>\n<li>Fully integrated: the computation can’t be separated from the system running it. Examples: quantum circuits, wetware.</li>\n</ul>\n<p>Re-shearing is not a fifth point on this scale. It is a direction of travel that can start from any coupled state: the paradigm keeps its physical advantage but pays part of the abstraction cost again. Quantum error correction and calibrated analog are examples. The opposite movement is falling, a loss of abstraction, as in decoherence or noise creeping back into ever-smaller digital devices.</p>\n<p><strong>Assigning a state</strong></p>\n<p>A state is assigned by a portability test: try to move the computation to a different substrate, and see what that costs.</p>\n<ul>\n<li>Sheared: it moves unchanged and works the same.</li>\n<li>Weakly coupled: it moves unchanged, but loses efficiency.</li>\n<li>Strongly coupled: it moves only after retraining or recalibrating against the new device’s physics.</li>\n<li>Fully integrated: moving it isn’t meaningful, because the computation is the system’s own dynamics.</li>\n</ul>\n<p>A paradigm re-shears if it adds a layer, such as error correction or digital calibration, whose job is to pass a stricter version of this test. Where the result depends on how a paradigm is implemented, it gets a range rather than a single state.</p>\n<p><strong>Energy profile</strong></p>\n<p>Energy per useful operation splits into three terms:</p>\n<ul>\n<li>Operation cost, set by physics. At room temperature the Landauer floor is about 2.9 × 10⁻²¹ J per bit erased.</li>\n<li>Abstraction cost, the price of hiding the physics: noise margins, restoring logic, data movement, error correction.</li>\n<li>Regime cost, the price of holding the substrate in the physical regime it needs: cooling, calibration, signal conversion, isolation, metabolism.</li>\n</ul>\n<p>The coupling state predicts which term dominates:</p>\n<ul>\n<li>Sheared: abstraction dominates. Baselines sit many orders of magnitude above Landauer, but are predictable and scale well.</li>\n<li>Weakly coupled: abstraction cost is reduced. The regime is sometimes expensive, as with cryogenics.</li>\n<li>Strongly coupled: regime dominates, mainly conversion and calibration. Cost per operation is low, but precision is limited.</li>\n<li>Fully integrated with a self-maintained regime: operation dominates. These systems show the lowest whole-system costs observed: a human brain runs on roughly 20 W. That is a whole-system figure, not energy per operation, so it suggests the per-operation advantage rather than measuring it.</li>\n<li>Fully integrated with an externally forced regime: regime dominates (cooling, control, error correction). These are the highest costs per operation today.</li>\n</ul>\n<p>So the prediction is not a straight line from sheared to integrated. Baselines fall as coupling rises, until the regime has to be forced from outside. Fully integrated systems therefore appear at both extremes. What separates them is whether the system maintains its own regime.</p>\n<p>The energy claims are qualitative until each paradigm has measured per-operation figures split into the three terms.</p>\n<p><strong>Provisional mapping</strong></p>\n<p>The <a href=\"https://kinocomputing.com/tracker\">Kinocomputing tracker</a> lists 32 entries. Thirty-one are paradigms; the 32nd, the physical limits of computation, is the boundary itself. The assignments below apply the portability test by judgement and should be revised as the tracker reviews each entry.</p>\n<ul>\n<li>Sheared: digital von Neumann computing, GPUs, domain-specific AI accelerators, and whole-brain emulation (by hypothesis). Also every algorithmic paradigm: symbolic AI, deep learning, transformers and scaling, hyperdimensional computing, world models, active inference, liquid networks and neural cellular automata.</li>\n<li>Weakly coupled: neuromorphic and spiking chips, and superconducting logic.</li>\n<li>Weakly to strongly coupled, depending on implementation: reversible and adiabatic logic, and spintronics and magnonics.</li>\n<li>Strongly coupled, forced regime: analog in-memory, photonic, physical reservoir computing, physical neural networks, and memcomputing (as claimed). Thermodynamic and probabilistic computing belongs here too: it computes with thermal noise but still needs a controlled noise source and readout.</li>\n<li>Fully integrated, forced regime: quantum computing, synthetic biological intelligence, organoid intelligence, and DNA/molecular computing (partly).</li>\n<li>Fully integrated, self-maintained regime: basal cognition, slime-mould and chemical computing, embodied and morphological computation, mortal computation, and quantum theories of mind (if true).</li>\n<li>Re-shearing now or soon: quantum (error correction), analog in-memory (calibration), photonic and physical neural networks (partly), DNA (coded storage).</li>\n</ul>\n<p>Algorithmic paradigms are substrate-agnostic, so they pass the portability test by construction and take on the energy profile of whatever hardware runs them. One moves state only when it is paired with a coupled substrate, such as liquid networks on analog hardware, or when it claims the substrate matters, as mortal computation does.</p>\n<p>Two patterns stand out. Self-maintained regimes appear only in living and chemical systems. Re-shearing clusters where a paradigm is trying to become a general-purpose product.</p>\n<p><strong>Discrete or continuous at base</strong></p>\n<p>Whether reality is discrete or continuous probably doesn’t change what bounded systems can compute. It may change what sheared computation must cost, and what “fully integrated” really means.</p>\n<p>Either way, any bounded system holds finite effective information. Bounds on information per region (Bekenstein) and on state changes per unit energy (Margolus–Levitin) ensure that. So computing with infinitely precise real numbers stays off the table in both cases, unless exotic spacetimes are allowed.</p>\n<p>If reality is fundamentally discrete:</p>\n<ul>\n<li>The universe is itself the ultimate sheared system: a digital substrate with a native update rule.</li>\n<li>Every paradigm is then a re-shearing of that base layer, and the four states collapse into one axis: distance from native granularity.</li>\n<li>Abstraction cost becomes the overhead of coarse-graining. In principle it could approach zero for reversible computation at native resolution.</li>\n<li>Continuous paradigms are approximations to something stepwise.</li>\n</ul>\n<p>If reality is fundamentally continuous:</p>\n<ul>\n<li>Discreteness is always emergent, produced by dissipation through attractors, symmetry breaking and measurement.</li>\n<li>Sheared computation must pay to create its bits, so part of the abstraction cost is irreducible physics, not just engineering.</li>\n<li>Integrated paradigms are closer to how reality works, and sheared ones are a costly imposition on it.</li>\n<li>Infinite precision exists but is never accessible, because noise caps how many states can be told apart.</li>\n</ul>\n<p>Quantum mechanics already mixes the two: amplitudes are continuous and measurement outcomes are discrete. What matters for computing may be the number of distinguishable states, which is finite either way. If so, the base question is partly ill-posed for computing.</p>\n<p>One possible observable: does maintaining a bit have an energy floor beyond Landauer that no reversible design can remove? A floor would favour the continuous picture, where discreteness costs dissipation. No floor would fit the discrete picture. This is highly speculative, but it turns a question about the nature of reality into one about energy.</p>\n<p><strong>How it could fail</strong></p>\n<ul>\n<li>The taxonomy fails if the portability test gives unstable results: the same implementation landing in different states on repeated assessment, or behaviour that depends on something the test misses.</li>\n<li>The energy link fails if measured baselines don’t follow the coupling state once regime cost is accounted for.</li>\n<li>First test: for each reviewed paradigm, report energy per useful operation as a multiple of the Landauer limit, split into the three terms.</li>\n<li>Pairing test: an algorithmic paradigm run on a coupled substrate should take on that substrate’s energy profile.</li>\n<li>Open question: is re-shearing an attractor? Count how many coupled paradigms’ roadmaps add error correction or digital calibration.</li>\n<li>Open question: can a forced regime become self-maintained, as in engineered living or chemical systems? If so, that is the route to the low-energy end of full integration.</li>\n</ul>",
+          "exact": "Strongly coupled: regime dominates, mainly conversion and calibration. Cost per operation is low, but precision is limited."
+        }
+      ],
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-25T02:26:58Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-25T02:26:58Z",
+          "note": null
+        }
+      ],
+      "seen": "bcb5823699fe4ab9",
+      "page": "two-chips-that-fit-the-coupling-idea-and-one-number-that-doe"
+    },
+    "lab-2026-11-25-paradigm-analog-in-memory": {
+      "id": "46t9sb1adz494ec8knwh8ebz3d",
+      "created": "2026-11-25T02:26:58Z",
+      "hash": "sha256:efc9b0a5724f848949fa1e7bc396d138fd2e6ece2b4fcb72639decc4e4dfdd2b",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-25T02:26:58Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-25T02:26:58Z",
+          "note": null
+        }
+      ],
+      "seen": "7564de225b20183a",
+      "page": "analog-in-memory-computing-real-chips-hard-to-compare-number"
+    },
+    "lab-2026-11-25-paradigm-connectionism": {
+      "id": "4zdfcv54xtetjvbckeckrxshqr",
+      "created": "2026-11-25T02:26:58Z",
+      "hash": "sha256:da48447aa75c6536f5a554ee172a99128486cd09605eaa73cd22abddd3fe7ba9",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-25T02:26:58Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-25T02:26:58Z",
+          "note": null
+        }
+      ],
+      "seen": "d14156caa2a6be91",
+      "page": "deep-learning-energy-depends-on-more-than-model-size"
+    },
+    "lab-2026-11-25-paradigm-photonic": {
+      "id": "0bz0270vemqqxkh18fxz2qzcr2",
+      "created": "2026-11-25T02:26:58Z",
+      "hash": "sha256:26d824403e1347a56e38d4e0b8e36f1c63a2beea894019d75f03926421ac0695",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-25T02:26:58Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-25T02:26:58Z",
+          "note": null
+        }
+      ],
+      "seen": "b90126e34d3b39be",
+      "page": "photonic-computing-tiny-optical-energy-bigger-system-bill"
     }
   }
 }

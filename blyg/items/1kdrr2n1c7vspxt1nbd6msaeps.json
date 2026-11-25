@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "1kdrr2n1c7vspxt1nbd6msaeps",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "converters-not-arithmetic-dominate-small-analog-arrays",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-25T15:36:42Z",
+  "updated": "2026-11-25T15:36:42Z",
+  "version": 1,
+  "content_md": "**Converters, not arithmetic, dominate small analog arrays**\n\nIn a simple energy model of a small digit classifier on analog memory, the converters that move numbers in and out take 97% of the energy per multiply-accumulate (one weight times one input, added to a running sum). The share falls as the array grows: to 19% for a larger network in the least favourable corner we tried. Calibration was negligible for analog memory in this model. For a photonic processor the converters' share (62%) depends on an assumed heater cost that we set after a first try went wrong. Every cost constant is assumed, not measured, and the accuracy model is generic. In simulation only; an adversarial check weakened our first wording. Evidence: [code and results](https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e007-conversion-calibration-energy-split/RESULTS.md).",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Converters, not arithmetic, dominate small analog arrays</strong></p>\n<p>In a simple energy model of a small digit classifier on analog memory, the converters that move numbers in and out take 97% of the energy per multiply-accumulate (one weight times one input, added to a running sum). The share falls as the array grows: to 19% for a larger network in the least favourable corner we tried. Calibration was negligible for analog memory in this model. For a photonic processor the converters&#39; share (62%) depends on an assumed heater cost that we set after a first try went wrong. Every cost constant is assumed, not measured, and the accuracy model is generic. In simulation only; an adversarial check weakened our first wording. Evidence: <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e007-conversion-calibration-energy-split/RESULTS.md\">code and results</a>.</p>\n</div>",
+  "content_hash": "sha256:30d3fbe1a4665bc17b9712e22a641a5a4e60b7b0b4acb71887a1c329cd154c1a",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-25T15:36:42Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-25T15:36:42Z",
+      "note": null
+    }
+  ]
+}

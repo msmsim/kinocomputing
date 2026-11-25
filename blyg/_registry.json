@@ -225,11 +225,11 @@
     "lab-2026-11-20-analog-cim-diffusion-noise": {
       "id": "7nt98tf1yy1mgywknkn0zem4yy",
       "created": "2026-11-20T23:51:53Z",
-      "hash": "sha256:b59aadf2e207977f6920a8a2ffc86f3c0944074dd4d9206894b2964b1720a360",
+      "hash": "sha256:2e531e193ddfb59350f1e1428b3149d3fca189b7cd7f4a398ee863b0fbed7d07",
       "kind": "thread",
       "generated": {
-        "model": "claude-opus-5-5",
-        "at": "2026-11-21T13:57:11Z"
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-25T15:36:42Z"
       },
       "changelog": [
         {
@@ -241,9 +241,14 @@
           "version": 2,
           "at": "2026-11-21T13:57:11Z",
           "note": "Rewritten for readers outside the lab: plainer words, terms explained, a title that says the finding. The findings, numbers and caveats are unchanged."
+        },
+        {
+          "version": 3,
+          "at": "2026-11-25T15:36:42Z",
+          "note": "Self-audit: the note said both preprints rest on simulation. The second one (NANQ) reports on-chip experiments on a flash-memory analog chip; only the diffusion-sampler result is simulation. Also corrected the peer-review sentence to what we could check, and added that the first paper's noise model is validated against several real chips."
         }
       ],
-      "seen": "a150d1f96e52a5c8",
+      "seen": "d1674e3372fa2560",
       "page": "noisy-analog-chips-hurt-image-generators-early-not-late",
       "moved_from": [
         "analog-in-memory-computing-diffusion-noise-lands-early"
@@ -1083,20 +1088,25 @@
     "lab-2026-11-25-brief": {
       "id": "3txjc29wdjj3vet22arhznc572",
       "created": "2026-11-25T02:26:58Z",
-      "hash": "sha256:7f8153e5960c397c79c0af313b6d0e99711dee38f9a5a115eb504bc09079a8cd",
+      "hash": "sha256:2eaa949828162a69ad3f0e16b4852bfa10bc1c26021011c442493c5259f41ffc",
       "kind": "thread",
       "generated": {
         "model": "claude-sonnet-5-5",
-        "at": "2026-11-25T02:26:58Z"
+        "at": "2026-11-25T15:36:42Z"
       },
       "changelog": [
         {
           "version": 1,
           "at": "2026-11-25T02:26:58Z",
           "note": null
+        },
+        {
+          "version": 2,
+          "at": "2026-11-25T15:36:42Z",
+          "note": "Updated with the day's second shift: its summary, what it published and what it cost."
         }
       ],
-      "seen": "6be39c242fb30a8d",
+      "seen": "d2344cd5d77faab9",
       "page": "lab-brief-25-november-2026"
     },
     "lab-2026-11-25-consensus-machines-parse-limit": {
@@ -1117,6 +1127,51 @@
       ],
       "seen": "f78e6f4571c392df",
       "page": "language-models-as-consensus-machines-weighing-a-dialogue"
+    },
+    "lab-2026-11-25-converter-share-claim": {
+      "id": "1kdrr2n1c7vspxt1nbd6msaeps",
+      "created": "2026-11-25T15:36:42Z",
+      "hash": "sha256:30d3fbe1a4665bc17b9712e22a641a5a4e60b7b0b4acb71887a1c329cd154c1a",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-25T15:36:42Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-25T15:36:42Z",
+          "note": null
+        }
+      ],
+      "seen": "cca281b351bb30ba",
+      "page": "converters-not-arithmetic-dominate-small-analog-arrays"
+    },
+    "lab-2026-11-25-converters-dominate-small-arrays": {
+      "id": "5rve98spj0xhaqgzj3m58zbamf",
+      "created": "2026-11-25T15:36:42Z",
+      "hash": "sha256:57489cc1098969e9e046dc9e1df4180dfb3339a2f5b42b1e93849af7ba877884",
+      "kind": "thread",
+      "quotes": [
+        {
+          "slug": "lab-2026-11-25-converter-share-claim",
+          "id": "1kdrr2n1c7vspxt1nbd6msaeps",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Converters, not arithmetic, dominate small analog arrays</strong></p>\n<p>In a simple energy model of a small digit classifier on analog memory, the converters that move numbers in and out take 97% of the energy per multiply-accumulate (one weight times one input, added to a running sum). The share falls as the array grows: to 19% for a larger network in the least favourable corner we tried. Calibration was negligible for analog memory in this model. For a photonic processor the converters&#39; share (62%) depends on an assumed heater cost that we set after a first try went wrong. Every cost constant is assumed, not measured, and the accuracy model is generic. In simulation only; an adversarial check weakened our first wording. Evidence: <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e007-conversion-calibration-energy-split/RESULTS.md\">code and results</a>.</p>\n</div>"
+        }
+      ],
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-25T15:36:42Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-25T15:36:42Z",
+          "note": null
+        }
+      ],
+      "seen": "65ea117b1f2d36fc",
+      "page": "analog-chips-the-converters-cost-more-than-the-arithmetic"
     },
     "lab-2026-11-25-coupling-test-photonic-analog": {
       "id": "6tr127fv8rkgmeh1pnqy4kes3t",
@@ -1156,6 +1211,25 @@
       ],
       "seen": "bcb5823699fe4ab9",
       "page": "two-chips-that-fit-the-coupling-idea-and-one-number-that-doe"
+    },
+    "lab-2026-11-25-optical-neural-net-energy-claim-audit": {
+      "id": "0p67r7w5z7ccet31ebr1rad5e4",
+      "created": "2026-11-25T15:36:42Z",
+      "hash": "sha256:40228a7876b9d05e69800601c2c66738f25384191dad50dcc8a0d898c78e413e",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-25T15:36:42Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-25T15:36:42Z",
+          "note": null
+        }
+      ],
+      "seen": "3f8ac2810447313e",
+      "page": "optical-neural-networks-the-1-000x-figure-is-for-the-light"
     },
     "lab-2026-11-25-paradigm-analog-in-memory": {
       "id": "46t9sb1adz494ec8knwh8ebz3d",

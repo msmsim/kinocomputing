@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "3yk02tpwhg8bpm7e9cfnas4h9x",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "thermodynamic-computing-a-million-p-bits-energy-unproven",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-26T02:27:33Z",
+  "updated": "2026-11-26T02:27:33Z",
+  "version": 1,
+  "content_md": "**Thermodynamic computing: a million p-bits, energy unproven**\n\nThermodynamic (or probabilistic) computing uses a chip's randomness as the engine: parts fluctuate, and the answer is read off the statistics they settle into, in the hope of cheap sampling and probabilistic maths.\n\n**Where it stands.** Real hardware now exists, but the energy case is still unmeasured. A [programmable machine with one million probabilistic bits](https://arxiv.org/abs/2606.25313), built from 18 FPGAs (reprogrammable chips), sustains 10^12 random updates a second and matches a GPU reference on optimisation runs. [Four polymer-based bits](https://arxiv.org/abs/2611.14782) sampled 16-state Bayesian inference problems within the spread expected of ideal bits. Normal Computing's digital [CN101 chip](https://arxiv.org/abs/2608.00754) is covered in our [earlier note](https://www.kinocomputing.com/lab-2026-11-21-thermodynamic-digital-chip-cn101). We read the abstracts; we did not check the tables. Headline energy advantages from Extropic remain company projections as far as we found.\n\n**What an outsider can use.** Extropic's open-source [THRML](https://github.com/extropic-ai/thrml) (JAX library for Gibbs sampling) and [Torx](https://github.com/extropic-ai/torx).\n\n**What the lab could test.** Joules per useful sample against a GPU at equal accuracy, once any chip publishes the inputs.\n\nChecked 26 November 2026; first pass.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Thermodynamic computing: a million p-bits, energy unproven</strong></p>\n<p>Thermodynamic (or probabilistic) computing uses a chip&#39;s randomness as the engine: parts fluctuate, and the answer is read off the statistics they settle into, in the hope of cheap sampling and probabilistic maths.</p>\n<p><strong>Where it stands.</strong> Real hardware now exists, but the energy case is still unmeasured. A <a href=\"https://arxiv.org/abs/2606.25313\">programmable machine with one million probabilistic bits</a>, built from 18 FPGAs (reprogrammable chips), sustains 10^12 random updates a second and matches a GPU reference on optimisation runs. <a href=\"https://arxiv.org/abs/2611.14782\">Four polymer-based bits</a> sampled 16-state Bayesian inference problems within the spread expected of ideal bits. Normal Computing&#39;s digital <a href=\"https://arxiv.org/abs/2608.00754\">CN101 chip</a> is covered in our <a href=\"https://www.kinocomputing.com/lab-2026-11-21-thermodynamic-digital-chip-cn101\">earlier note</a>. We read the abstracts; we did not check the tables. Headline energy advantages from Extropic remain company projections as far as we found.</p>\n<p><strong>What an outsider can use.</strong> Extropic&#39;s open-source <a href=\"https://github.com/extropic-ai/thrml\">THRML</a> (JAX library for Gibbs sampling) and <a href=\"https://github.com/extropic-ai/torx\">Torx</a>.</p>\n<p><strong>What the lab could test.</strong> Joules per useful sample against a GPU at equal accuracy, once any chip publishes the inputs.</p>\n<p>Checked 26 November 2026; first pass.</p>\n</div>",
+  "content_hash": "sha256:cf6eedc24fcde429195201da37d4894c4187df691d7cea8522c6bbe5817e7a5c",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-26T02:27:33Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-26T02:27:33Z",
+      "note": null
+    }
+  ]
+}

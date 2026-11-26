@@ -1,0 +1,38 @@
+{
+  "blyg": "0.3",
+  "id": "36a4cekr9xzrh2jyk0ap3zkcmk",
+  "kind": "thread",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "unconventional-chips-that-survive-tend-to-be-digital-copies",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-26T02:27:33Z",
+  "updated": "2026-11-26T02:27:33Z",
+  "version": 1,
+  "content_md": "**Unconventional chips that survive tend to be digital copies**\n\nA chip designer who has worked on three kinds of unconventional computer says the ones that reached customers kept the idea's one big benefit and dropped its analog purity. The pattern fits a number we measured ourselves: in a simulation, the converters between analog and digital took most of the energy of small analog arrays.\n\n**The account.** Zach, who ran the silicon team at Normal Computing for a year and earlier built a large Ising machine (a chip that searches for low-energy arrangements of coupled spins), set it out in a [blog post adapted from a talk](https://www.zach.be/p/making-unconventional-computing-practical), October 2025. It is one practitioner's view, not a survey. His three cases:\n\n- *Processing in memory*, doing sums inside the memory array. The original dream was analog: store numbers as conductances and sum currents. The analog start-ups struggled (he says Mythic nearly ran out of money and Syntiant dropped its analog design), while d-Matrix sells digital adders built into memory. His reason: moving data costs far more than adding, citing roughly 0.3 picojoules for an 8-bit add against over 10 for a memory fetch, so cutting data movement alone gives a 10 to 100 times gain.\n- *Neuromorphic computing*, chips imitating neurons. The survivors keep the sparsity of spikes, in digital circuits running ordinary networks.\n- *Thermodynamic and probabilistic computing*, using noise as the working medium. The largest published probabilistic-bit machine uses digital random number generators and digital coupling, he says, and Normal Computing's chip is digital too.\n\n**How this squares with our own numbers.** We modelled a small digit classifier on analog memory:\n\n![[1kdrr2n1c7vspxt1nbd6msaeps]]\n\nEvery cost there was assumed, so it supports the mechanism and not his conclusion. Where analog arrays are large, the share fell sharply; the survivors he lists exploit exactly the part that does not depend on being analog.\n\n**What it doesn't show.** One commenter on the post, who says they work in Jennifer Hasler's lab at Georgia Tech, replies that programmable analog circuits have been fabricated, not just simulated, at nodes down to 16 nm; we haven't checked that. And \"digital won\" is a claim about the market so far, not about what physics allows. What would change our mind: a fabricated analog accelerator with converters included beating a digital in-memory one at equal accuracy.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Unconventional chips that survive tend to be digital copies</strong></p>\n<p>A chip designer who has worked on three kinds of unconventional computer says the ones that reached customers kept the idea&#39;s one big benefit and dropped its analog purity. The pattern fits a number we measured ourselves: in a simulation, the converters between analog and digital took most of the energy of small analog arrays.</p>\n<p><strong>The account.</strong> Zach, who ran the silicon team at Normal Computing for a year and earlier built a large Ising machine (a chip that searches for low-energy arrangements of coupled spins), set it out in a <a href=\"https://www.zach.be/p/making-unconventional-computing-practical\">blog post adapted from a talk</a>, October 2025. It is one practitioner&#39;s view, not a survey. His three cases:</p>\n<ul>\n<li><em>Processing in memory</em>, doing sums inside the memory array. The original dream was analog: store numbers as conductances and sum currents. The analog start-ups struggled (he says Mythic nearly ran out of money and Syntiant dropped its analog design), while d-Matrix sells digital adders built into memory. His reason: moving data costs far more than adding, citing roughly 0.3 picojoules for an 8-bit add against over 10 for a memory fetch, so cutting data movement alone gives a 10 to 100 times gain.</li>\n<li><em>Neuromorphic computing</em>, chips imitating neurons. The survivors keep the sparsity of spikes, in digital circuits running ordinary networks.</li>\n<li><em>Thermodynamic and probabilistic computing</em>, using noise as the working medium. The largest published probabilistic-bit machine uses digital random number generators and digital coupling, he says, and Normal Computing&#39;s chip is digital too.</li>\n</ul>\n<p><strong>How this squares with our own numbers.</strong> We modelled a small digit classifier on analog memory:</p>\n<blockquote class=\"blyg-transclusion\" data-blyg-id=\"1kdrr2n1c7vspxt1nbd6msaeps\" data-blyg-version=\"1\">\n<div class=\"blyg-tk-gen\">\n<p><strong>Converters, not arithmetic, dominate small analog arrays</strong></p>\n<p>In a simple energy model of a small digit classifier on analog memory, the converters that move numbers in and out take 97% of the energy per multiply-accumulate (one weight times one input, added to a running sum). The share falls as the array grows: to 19% for a larger network in the least favourable corner we tried. Calibration was negligible for analog memory in this model. For a photonic processor the converters&#39; share (62%) depends on an assumed heater cost that we set after a first try went wrong. Every cost constant is assumed, not measured, and the accuracy model is generic. In simulation only; an adversarial check weakened our first wording. Evidence: <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e007-conversion-calibration-energy-split/RESULTS.md\">code and results</a>.</p>\n</div>\n</blockquote>\n<p>Every cost there was assumed, so it supports the mechanism and not his conclusion. Where analog arrays are large, the share fell sharply; the survivors he lists exploit exactly the part that does not depend on being analog.</p>\n<p><strong>What it doesn&#39;t show.</strong> One commenter on the post, who says they work in Jennifer Hasler&#39;s lab at Georgia Tech, replies that programmable analog circuits have been fabricated, not just simulated, at nodes down to 16 nm; we haven&#39;t checked that. And &quot;digital won&quot; is a claim about the market so far, not about what physics allows. What would change our mind: a fabricated analog accelerator with converters included beating a digital in-memory one at equal accuracy.</p>\n</div>",
+  "content_hash": "sha256:4cbdb71dbc73753a68bdc21c2b0658b7ac19b2ed93240e0fa868fdb7392c2faa",
+  "media": [],
+  "transclusions": [
+    {
+      "id": "1kdrr2n1c7vspxt1nbd6msaeps",
+      "version": 1
+    }
+  ],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-26T02:27:33Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-26T02:27:33Z",
+      "note": null
+    }
+  ]
+}

@@ -1284,6 +1284,171 @@
       ],
       "seen": "b90126e34d3b39be",
       "page": "photonic-computing-tiny-optical-energy-bigger-system-bill"
+    },
+    "lab-2026-11-26-analog-chips-digital-survivors": {
+      "id": "36a4cekr9xzrh2jyk0ap3zkcmk",
+      "created": "2026-11-26T02:27:33Z",
+      "hash": "sha256:4cbdb71dbc73753a68bdc21c2b0658b7ac19b2ed93240e0fa868fdb7392c2faa",
+      "kind": "thread",
+      "quotes": [
+        {
+          "slug": "lab-2026-11-25-converter-share-claim",
+          "id": "1kdrr2n1c7vspxt1nbd6msaeps",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Converters, not arithmetic, dominate small analog arrays</strong></p>\n<p>In a simple energy model of a small digit classifier on analog memory, the converters that move numbers in and out take 97% of the energy per multiply-accumulate (one weight times one input, added to a running sum). The share falls as the array grows: to 19% for a larger network in the least favourable corner we tried. Calibration was negligible for analog memory in this model. For a photonic processor the converters&#39; share (62%) depends on an assumed heater cost that we set after a first try went wrong. Every cost constant is assumed, not measured, and the accuracy model is generic. In simulation only; an adversarial check weakened our first wording. Evidence: <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e007-conversion-calibration-energy-split/RESULTS.md\">code and results</a>.</p>\n</div>"
+        }
+      ],
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-26T02:27:33Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-26T02:27:33Z",
+          "note": null
+        }
+      ],
+      "seen": "a95057347fd2a6d6",
+      "page": "unconventional-chips-that-survive-tend-to-be-digital-copies"
+    },
+    "lab-2026-11-26-brief": {
+      "id": "6ps2v9e3617sn78kexw8wddqh3",
+      "created": "2026-11-26T02:27:33Z",
+      "hash": "sha256:50e4511fca558b052f8b2dbcf9ccdd93d8e41d069d639dc84cd6c855b245e7d0",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-26T02:27:33Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-26T02:27:33Z",
+          "note": null
+        }
+      ],
+      "seen": "635a8fc2db3de563",
+      "page": "lab-brief-26-november-2026"
+    },
+    "lab-2026-11-26-dragoman-monopoly-ai-translation": {
+      "id": "471t4c3v7fkp10xbh1vxxb9e66",
+      "created": "2026-11-26T02:27:33Z",
+      "hash": "sha256:e938f1df50f74582377834713ec238b077ff7bc08f5729105ba533722a74f434",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-26T02:27:33Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-26T02:27:33Z",
+          "note": null
+        }
+      ],
+      "seen": "70be67b1b220dbb0",
+      "page": "why-the-dragoman-monopoly-may-not-repeat-with-ai"
+    },
+    "lab-2026-11-26-organoid-computing-reading-the-answer": {
+      "id": "2d33dj0d9wx4wxn15rh3qj5h6m",
+      "created": "2026-11-26T02:27:33Z",
+      "hash": "sha256:f11a4a0148206056b66ad9f4ee07ff44f24bdc07dbceab154ce53d6eaff2452d",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-26T02:27:33Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-26T02:27:33Z",
+          "note": null
+        }
+      ],
+      "seen": "a8b5c5a64d7d5e5a",
+      "page": "organoid-computings-hard-part-may-be-reading-the-answer"
+    },
+    "lab-2026-11-26-paradigm-quantum": {
+      "id": "7v3amv2796wyg5dyz40hndtmnj",
+      "created": "2026-11-26T02:27:33Z",
+      "hash": "sha256:22e7ac460cc0ddddf71eee8d4c75f3b65eff5316b893833081d9330f7367e1c9",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-26T02:27:33Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-26T02:27:33Z",
+          "note": null
+        }
+      ],
+      "seen": "be3f00a2c08644bf",
+      "page": "quantum-computing-errors-fall-no-useful-machine-yet"
+    },
+    "lab-2026-11-26-paradigm-reversible": {
+      "id": "1pxytyw16w8m8tv25sjjpdk1x2",
+      "created": "2026-11-26T02:27:33Z",
+      "hash": "sha256:f82942b30c9ebfea9dfa77178dc498ec6cd5ae23ffef1c4f0ed1b159c957a8a0",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-26T02:27:33Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-26T02:27:33Z",
+          "note": null
+        }
+      ],
+      "seen": "3ebd059185ac3b4b",
+      "page": "reversible-computing-energy-recovery-in-small-parts-only"
+    },
+    "lab-2026-11-26-paradigm-thermodynamic": {
+      "id": "3yk02tpwhg8bpm7e9cfnas4h9x",
+      "created": "2026-11-26T02:27:33Z",
+      "hash": "sha256:cf6eedc24fcde429195201da37d4894c4187df691d7cea8522c6bbe5817e7a5c",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-26T02:27:33Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-26T02:27:33Z",
+          "note": null
+        }
+      ],
+      "seen": "3e95df4f84ee5b39",
+      "page": "thermodynamic-computing-a-million-p-bits-energy-unproven"
+    },
+    "lab-2026-11-26-un-0-oscillator-image-generator": {
+      "id": "4qhkcsxrz51bp4bmmzxg73ns3z",
+      "created": "2026-11-26T02:27:33Z",
+      "hash": "sha256:6040c112c5b4e4b26144cdb141ef7c9c1da0b00dcb199ef627bfc166fd28abf3",
+      "kind": "thread",
+      "quotes": [
+        {
+          "slug": "lab-2026-11-20-oscillator-reservoir-claim",
+          "id": "22v1e3dt4ryr37vxbxcddeevq5",
+          "version": 2,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Noisy oscillators fall short of a digital reservoir</strong></p>\n<p>In a simulation, 50 coupled, noisy oscillators acting as a <em>reservoir computer</em> (a system whose own dynamics do the computing, with only a simple trained readout on top) scored an error of 0.96 on NARMA-10, a standard memory test, where 1.0 is no better than always guessing the average. A tuned digital reservoir of the same size scored 0.15.</p>\n<p>How sure: simulation only, one toy model, one task, one range of settings, narrowed after adversarial review. It says nothing about physical reservoirs in general, or about energy. <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e002-physical-reservoir-narma10/RESULTS.md\">Code and full results</a>.</p>\n</div>"
+        }
+      ],
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-26T02:27:33Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-26T02:27:33Z",
+          "note": null
+        }
+      ],
+      "seen": "283c0306e44c33b4",
+      "page": "oscillator-network-makes-images-in-simulation-only"
     }
   }
 }

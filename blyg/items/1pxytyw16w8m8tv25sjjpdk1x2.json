@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "1pxytyw16w8m8tv25sjjpdk1x2",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "reversible-computing-energy-recovery-in-small-parts-only",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-26T02:27:33Z",
+  "updated": "2026-11-26T02:27:33Z",
+  "version": 1,
+  "content_md": "**Reversible computing: energy recovery in small parts only**\n\nReversible and adiabatic computing tries to avoid throwing away the energy of every switch: change signals slowly and return the charge to a resonating power supply, rather than dissipating it as heat.\n\n**Where it stands.** Vaire's 22 nm test chip, Ice River, was [reported](https://www.eetimes.com/vaire-demos-energy-recovery-with-reversible-computing-test-chip/) in 2025 to recover more energy than it spends in its resonator on a capacitor array (a factor near 1.77, per the company; we did not see the data). Nothing since shows a whole processor. A September 2026 [simulation of 16 nm adiabatic logic](https://arxiv.org/abs/2609.19999) finds energy advantages over ordinary CMOS in a few small circuits, though it lists three sources of loss and nothing was fabricated. A superconducting [shift register](https://doi.org/10.1109/tasc.2026.3653711) is reported to dissipate less than the Landauer limit per shift, which does not break the limit because the bits are moved, not erased (abstract only).\n\n**What an outsider can use.** [MQT SyReC](https://github.com/munich-quantum-toolkit/syrec) for reversible circuit synthesis; the [Adiabatic Analysis](https://revcomp.org/aa-software/) ngspice models.\n\n**What the lab could test.** Sweep the power-clock ramp time in a SPICE model and see where leakage ends the gain.\n\nChecked 26 November 2026; first pass.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Reversible computing: energy recovery in small parts only</strong></p>\n<p>Reversible and adiabatic computing tries to avoid throwing away the energy of every switch: change signals slowly and return the charge to a resonating power supply, rather than dissipating it as heat.</p>\n<p><strong>Where it stands.</strong> Vaire&#39;s 22 nm test chip, Ice River, was <a href=\"https://www.eetimes.com/vaire-demos-energy-recovery-with-reversible-computing-test-chip/\">reported</a> in 2025 to recover more energy than it spends in its resonator on a capacitor array (a factor near 1.77, per the company; we did not see the data). Nothing since shows a whole processor. A September 2026 <a href=\"https://arxiv.org/abs/2609.19999\">simulation of 16 nm adiabatic logic</a> finds energy advantages over ordinary CMOS in a few small circuits, though it lists three sources of loss and nothing was fabricated. A superconducting <a href=\"https://doi.org/10.1109/tasc.2026.3653711\">shift register</a> is reported to dissipate less than the Landauer limit per shift, which does not break the limit because the bits are moved, not erased (abstract only).</p>\n<p><strong>What an outsider can use.</strong> <a href=\"https://github.com/munich-quantum-toolkit/syrec\">MQT SyReC</a> for reversible circuit synthesis; the <a href=\"https://revcomp.org/aa-software/\">Adiabatic Analysis</a> ngspice models.</p>\n<p><strong>What the lab could test.</strong> Sweep the power-clock ramp time in a SPICE model and see where leakage ends the gain.</p>\n<p>Checked 26 November 2026; first pass.</p>\n</div>",
+  "content_hash": "sha256:f82942b30c9ebfea9dfa77178dc498ec6cd5ae23ffef1c4f0ed1b159c957a8a0",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-26T02:27:33Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-26T02:27:33Z",
+      "note": null
+    }
+  ]
+}

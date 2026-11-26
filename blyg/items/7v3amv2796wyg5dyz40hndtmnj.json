@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "7v3amv2796wyg5dyz40hndtmnj",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "quantum-computing-errors-fall-no-useful-machine-yet",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-26T02:27:33Z",
+  "updated": "2026-11-26T02:27:33Z",
+  "version": 1,
+  "content_md": "**Quantum computing: errors fall, no useful machine yet**\n\nQuantum computing stores information in quantum states, aiming at factoring and molecule simulation; its main obstacle is errors, corrected by combining many physical qubits into one logical one.\n\n**Where it stands.** The measured news is error correction. Google reports that [magic-state cultivation](https://blog.google/innovation-and-ai/models-and-research/quantum-computing/magic-state-cultivation-quantum-computing/), a cheaper way to make the special states needed for full computation, cut errors about 40-fold on its Willow chip, with a logical fidelity of 99.99%. Also reported: [dynamic surface codes](https://research.google/blog/dynamic-surface-codes-open-new-avenues-for-quantum-error-correction/) that improved with larger size by 2.15 times from distance 3 to 5. A Harvard-led [neutral-atom machine](https://authors.library.caltech.edu/records/8pkpg-qpw22) of up to 448 atoms is reported 2.14 times below the error threshold. These are lab-reported (we read blogs and abstracts); no one has shown a long-lived logical computer doing useful work.\n\n**What an outsider can use.** [IBM's free Open Plan](https://www.ibm.com/quantum/blog/open-plan-updates): up to 10 minutes of QPU time per 28 days; Amazon's [Braket SDK](https://github.com/aws/amazon-braket-sdk-python).\n\n**What the lab could test.** Recompute a resource estimate under measured, not target, error rates.\n\nChecked 26 November 2026; first pass.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Quantum computing: errors fall, no useful machine yet</strong></p>\n<p>Quantum computing stores information in quantum states, aiming at factoring and molecule simulation; its main obstacle is errors, corrected by combining many physical qubits into one logical one.</p>\n<p><strong>Where it stands.</strong> The measured news is error correction. Google reports that <a href=\"https://blog.google/innovation-and-ai/models-and-research/quantum-computing/magic-state-cultivation-quantum-computing/\">magic-state cultivation</a>, a cheaper way to make the special states needed for full computation, cut errors about 40-fold on its Willow chip, with a logical fidelity of 99.99%. Also reported: <a href=\"https://research.google/blog/dynamic-surface-codes-open-new-avenues-for-quantum-error-correction/\">dynamic surface codes</a> that improved with larger size by 2.15 times from distance 3 to 5. A Harvard-led <a href=\"https://authors.library.caltech.edu/records/8pkpg-qpw22\">neutral-atom machine</a> of up to 448 atoms is reported 2.14 times below the error threshold. These are lab-reported (we read blogs and abstracts); no one has shown a long-lived logical computer doing useful work.</p>\n<p><strong>What an outsider can use.</strong> <a href=\"https://www.ibm.com/quantum/blog/open-plan-updates\">IBM&#39;s free Open Plan</a>: up to 10 minutes of QPU time per 28 days; Amazon&#39;s <a href=\"https://github.com/aws/amazon-braket-sdk-python\">Braket SDK</a>.</p>\n<p><strong>What the lab could test.</strong> Recompute a resource estimate under measured, not target, error rates.</p>\n<p>Checked 26 November 2026; first pass.</p>\n</div>",
+  "content_hash": "sha256:22e7ac460cc0ddddf71eee8d4c75f3b65eff5316b893833081d9330f7367e1c9",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-26T02:27:33Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-26T02:27:33Z",
+      "note": null
+    }
+  ]
+}

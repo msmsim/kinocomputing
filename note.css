@@ -5,23 +5,121 @@
    like is decided here. Edit this file to restyle the whole site at once; no
    republishing needed. */
 
+/* TOKENS
+
+   The site's whole palette, light and dark, and its three faces. Every colour
+   below is one of these; the lab's images are drawn from the same values
+   (the lab's config/house/tokens.json), so a chart's ink turns light with the
+   page. Every text colour clears 4.5:1 on the page in both schemes; the
+   vermilion is for marks and lines, never small text. */
+:root {
+  color-scheme: light dark;
+  --paper: #cbdff7;        /* the page */
+  --paper-2: #dce9fa;      /* a quoted note's card */
+  --paper-3: #e6f1fe;      /* code, fields, panels */
+  --ink: #1a1a1a;          /* text, 12.8:1 */
+  --ink-2: #333;           /* secondary text, 9.3:1 */
+  --grey: #555;            /* furniture, captions, links, 5.5:1 */
+  --rule: #9dc0e8;         /* rules between things */
+  --rule-faint: #a9c6ea;   /* table and grid lines */
+  --dot: #8fb4dc;          /* separators, decorative */
+  --hover: #b0d0f7;        /* a link under the pointer */
+  --blue: #2f5d8c;         /* emphasis, a second series, focus, 5.0:1 */
+  --vermilion: #c8553d;    /* the one warm accent: marks, not text */
+  --serif: "Source Serif 4", "Source Serif Pro", Charter, Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --mono: "SF Mono", Monaco, "Cascadia Code", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0f1a28;
+    --paper-2: #172638;
+    --paper-3: #1c2e45;
+    --ink: #e7edf5;        /* 14.9:1 */
+    --ink-2: #cdd7e3;      /* 12.0:1 */
+    --grey: #a3b2c4;       /* 8.1:1 */
+    --rule: #3a5878;
+    --rule-faint: #2c4560;
+    --dot: #4f7092;
+    --hover: #26425f;
+    --blue: #8db8e8;       /* 8.5:1 */
+    --vermilion: #f08c74;  /* 7.3:1 */
+  }
+}
+
+/* Source Serif 4 (Adobe, SIL Open Font Licence, fonts/OFL.txt), self-hosted,
+   Latin, one variable file per style. Text shows at once in the fallback and
+   swaps when the font arrives. */
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("/fonts/source-serif-4-latin-wght-normal.woff2") format("woff2-variations"),
+       url("/fonts/source-serif-4-latin-wght-normal.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("/fonts/source-serif-4-latin-wght-italic.woff2") format("woff2-variations"),
+       url("/fonts/source-serif-4-latin-wght-italic.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* The page colour is set on html as well as body: a browser paints the area
    past the page's ends (overscroll, the bars around it on a phone) from html,
    and left to itself that is white. */
 html {
   scrollbar-gutter: stable both-edges;
-  background: #cbdff7;
+  background: var(--paper);
+  font-size: 100%;
 }
 
+/* Reading text in the serif, at the reader's own size (1rem, 16px unless
+   they've chosen otherwise), a step larger on a wider screen; 65 characters
+   to the line and 1.45 between them (Butterick: 45–90 and 120–145%). The
+   page's furniture — menus, stamps, captions, tables, footers — is set in
+   the sans, a step smaller. */
 body {
-  font-size: 16px;
-  line-height: 1.5;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: #1a1a1a;
-  background: #cbdff7;
+  font-size: 1rem;
+  line-height: 1.45;
+  font-family: var(--serif);
+  color: var(--ink);
+  background: var(--paper);
   max-width: 65ch;
   margin: 1rem auto;
   padding: 0 1rem;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+}
+
+@media (min-width: 48em) {
+  body {
+    font-size: 1.0625rem;
+  }
+}
+
+nav, footer, .stamp, table, form, figcaption, .quoted-from, header.masthead .subtitle {
+  font-family: var(--sans);
+}
+
+/* Numbers that line up: dates, costs and counts in tables and stamps. */
+table, time, .stamp {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hyphenation where the column is narrow enough to need it. */
+@media (max-width: 40em) {
+  main p, article p, main li, article li {
+    hyphens: auto;
+    /* Only long words, and never leaving two letters behind. */
+    hyphenate-limit-chars: 9 4 4;
+    -webkit-hyphenate-limit-before: 4;
+    -webkit-hyphenate-limit-after: 4;
+  }
 }
 
 /* MASTHEAD
@@ -86,7 +184,7 @@ header.masthead .site-title .mark {
 
 header.masthead .subtitle {
   margin: 0;
-  color: #555;
+  color: var(--grey);
 }
 
 /* FEED LINKS
@@ -124,7 +222,7 @@ nav.feeds a.feed {
 }
 
 nav.feeds .what {
-  color: #555;
+  color: var(--grey);
   white-space: nowrap;
 }
 
@@ -139,7 +237,7 @@ header.notehead {
 header.notehead > a {
   display: inline-block;
   padding: 0.4rem;
-  color: #1a1a1a;
+  color: var(--ink);
   text-decoration: none;
 }
 
@@ -156,29 +254,29 @@ header.notehead .mark {
    colour. Small and grey, so a note still begins with its title. */
 nav.sections {
   font-size: 0.85em;
-  color: #555;
+  color: var(--grey);
   margin-top: 0.15rem;
 }
 
 nav.sections a {
-  color: #555;
+  color: var(--grey);
   text-decoration: none;
   padding: 0.1em 0.15em;
 }
 
 nav.sections a:hover {
-  color: #1a1a1a;
+  color: var(--ink);
   text-decoration: underline;
   background: none;
 }
 
 nav.sections a[aria-current="page"] {
-  color: #1a1a1a;
+  color: var(--ink);
   font-weight: 600;
 }
 
 nav.sections .dot {
-  color: #8fb4dc;
+  color: var(--dot);
 }
 
 header.masthead nav.sections {
@@ -203,12 +301,12 @@ ul.listing li {
 ul.listing time,
 table.tracker .when {
   font-size: 0.85em;
-  color: #555;
+  color: var(--grey);
   white-space: nowrap;
 }
 
 ul.listing .summary {
-  color: #333;
+  color: var(--ink-2);
 }
 
 /* READING
@@ -220,7 +318,7 @@ ul.listing .summary {
 ul.reading .site,
 ul.reading .meta {
   font-size: 0.85em;
-  color: #555;
+  color: var(--grey);
 }
 
 ul.reading .tag {
@@ -247,9 +345,9 @@ form.filter input,
 form.filter select {
   font: inherit;
   font-size: 0.9em;
-  color: #1a1a1a;
-  background: #e6f1fe;
-  border: 1px solid #a9c6ea;
+  color: var(--ink);
+  background: var(--paper-3);
+  border: 1px solid var(--rule-faint);
   border-radius: 3px;
   padding: 0.25em 0.5em;
 }
@@ -260,7 +358,7 @@ form.filter input {
 
 form.filter .count {
   font-size: 0.85em;
-  color: #555;
+  color: var(--grey);
 }
 
 /* TABLES
@@ -283,14 +381,14 @@ th, td {
   text-align: left;
   vertical-align: top;
   padding: 0.5em 0.75em 0.5em 0;
-  border-bottom: 1px solid #a9c6ea;
+  border-bottom: 1px solid var(--rule-faint);
 }
 
 thead th {
   font-size: 0.8em;
   font-weight: 600;
-  color: #555;
-  border-bottom: 1px solid #1a1a1a;
+  color: var(--grey);
+  border-bottom: 1px solid var(--ink);
 }
 
 table.tracker th[scope="row"] {
@@ -299,7 +397,7 @@ table.tracker th[scope="row"] {
 }
 
 table.tracker .pending {
-  color: #777;
+  color: var(--grey);
 }
 
 /* SITE FOOTER
@@ -311,9 +409,9 @@ table.tracker .pending {
 footer.sitefoot {
   margin-top: 3em;
   padding-top: 1em;
-  border-top: 1px solid #9dc0e8;
+  border-top: 1px solid var(--rule);
   font-size: 0.9em;
-  color: #555;
+  color: var(--grey);
 }
 
 footer.sitefoot p {
@@ -321,7 +419,7 @@ footer.sitefoot p {
 }
 
 footer.sitefoot .sep {
-  color: #8fb4dc;
+  color: var(--dot);
 }
 
 @media (max-width: 40em) {
@@ -343,18 +441,22 @@ footer.sitefoot .mark {
   vertical-align: -0.02em;
 }
 
-/* HEADINGS */
+/* HEADINGS
+
+   The note's title is the largest thing on the page; a section inside a note
+   is marked by weight and space above it, not by size, so no heading in the
+   body outranks the title it sits under. */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
-  margin-top: 1em;
-  margin-bottom: 0.3em;
-  font-weight: 500;
+  margin-top: 1.6em;
+  margin-bottom: 0.4em;
+  font-weight: 600;
 }
 
-h1 { font-size: 1.5em; }
-h2 { font-size: 1.35em; }
-h3 { font-size: 1.15em; }
-h4 { font-size: 1.05em; }
+h1 { font-size: 1.35em; }
+h2 { font-size: 1.12em; }
+h3 { font-size: 1em; }
+h4, h5, h6 { font-size: 1em; font-weight: 600; font-style: italic; }
 
 /* PARAGRAPHS */
 p {
@@ -368,13 +470,36 @@ p {
    attention by colour, so a link is marked by the underline alone and the page
    stays a single tone. */
 a {
-  color: #555;
+  color: var(--grey);
   text-decoration: underline;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.18em;
 }
 
 a:hover {
-  color: #1a1a1a;
-  background: #b0d0f7;
+  color: var(--ink);
+  background: var(--hover);
+}
+
+/* Where the keyboard is, shown only to keyboard users. */
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* On a touch screen every link in the furniture is a target a finger can
+   hit (Apple: 44 points): the same layout, with room around each. */
+@media (pointer: coarse) {
+  nav.sections a,
+  nav.adjacent a,
+  nav.feeds a,
+  footer.sitefoot a,
+  .stamp a {
+    display: inline-block;
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
+  }
 }
 
 /* LISTS */
@@ -391,9 +516,9 @@ li {
 blockquote {
   margin: 0.75em 0;
   padding-left: 1em;
-  border-left: 3px solid #9dc0e8;
+  border-left: 3px solid var(--rule);
   font-style: italic;
-  color: #555;
+  color: var(--grey);
 }
 
 /* A quoted note (P22): its own words, so upright, set off as a card — a
@@ -402,7 +527,7 @@ blockquote.blyg-transclusion,
 blockquote.quote-pending {
   font-style: normal;
   color: inherit;
-  background: #dce9fa;
+  background: var(--paper-2);
   padding: 0.25em 1em;
 }
 
@@ -419,15 +544,15 @@ blockquote.blyg-partial {
 
 /* CODE */
 code {
-  font-family: "SF Mono", Monaco, "Cascadia Code", monospace;
+  font-family: var(--mono);
   font-size: 0.9em;
-  background: #e6f1fe;
+  background: var(--paper-3);
   padding: 0.2em 0.4em;
   border-radius: 3px;
 }
 
 pre {
-  background: #e6f1fe;
+  background: var(--paper-3);
   padding: 1em;
   overflow-x: auto;
   border-radius: 3px;
@@ -442,7 +567,7 @@ pre code {
 /* HORIZONTAL RULES */
 hr {
   border: none;
-  border-top: 1px solid #9dc0e8;
+  border-top: 1px solid var(--rule);
   margin: 1em 0;
 }
 
@@ -454,9 +579,15 @@ hr {
    in the stream, where it is one article among many — one rule for both. */
 .title {
   margin: 0 0 0.6em;
-  font-size: 1.15em;
-  font-weight: 600;
-  letter-spacing: -0.005em;
+  font-size: 1.45em;
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+/* In the stream, one article among many: a step smaller. */
+article .title {
+  font-size: 1.25em;
 }
 
 /* READ MORE
@@ -538,7 +669,7 @@ nav.adjacent {
 }
 
 nav.adjacent .sep {
-  color: #8fb4dc;
+  color: var(--dot);
 }
 
 /* STREAM
@@ -549,7 +680,7 @@ article:first-of-type {
 }
 
 article + article {
-  border-top: 1px solid #9dc0e8;
+  border-top: 1px solid var(--rule);
   margin-top: 1.5em;
   padding-top: 1.5em;
 }
@@ -573,4 +704,64 @@ math[display="block"] {
   overflow-x: auto;
   overflow-y: hidden;
   padding: 0.2em 0;
+}
+
+/* THE TRACKER ON A PHONE
+
+   Three columns don't fit a phone's width with a paragraph in one of them,
+   so each paradigm stacks: its name, when it was looked at, then where it
+   stands, at the column's full width. */
+@media (max-width: 40em) {
+  table.tracker thead {
+    display: none;
+  }
+
+  table.tracker,
+  table.tracker tbody,
+  table.tracker tr,
+  table.tracker th,
+  table.tracker td {
+    display: block;
+    width: auto;
+  }
+
+  table.tracker tr {
+    padding: 0.75em 0;
+    border-bottom: 1px solid var(--rule-faint);
+  }
+
+  table.tracker th,
+  table.tracker td {
+    border: none;
+    padding: 0;
+  }
+
+  table.tracker th[scope="row"] {
+    width: auto;
+    font-weight: 600;
+  }
+
+  table.tracker td.when {
+    margin: 0.1em 0 0.35em;
+  }
+
+  /* The date comes before the paragraph on a phone. */
+  table.tracker tr {
+    display: flex;
+    flex-direction: column;
+  }
+
+  table.tracker td.when {
+    order: -1;
+  }
+
+  table.tracker th[scope="row"] {
+    order: -2;
+  }
+}
+
+/* Where a paradigm stands is reading, not data: the serif. */
+table.tracker td:not(.when) {
+  font-family: var(--serif);
+  font-size: 1.05em;
 }

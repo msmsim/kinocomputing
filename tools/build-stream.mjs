@@ -57,7 +57,9 @@ const REDIRECTS = "_redirects";
 
 // Copied into the deploy as they are. Everything else at the repo root — the
 // build, the README — is tooling, and stays out of the site.
-const ASSETS = ["note.css", "favicon.svg", "favicon.ico", "apple-touch-icon.png"];
+const ASSETS = ["note.css", "favicon.svg", "favicon.ico", "apple-touch-icon.png",
+  // The body face, self-hosted (note.css, @font-face), and its licence.
+  "fonts/source-serif-4-latin-wght-normal.woff2", "fonts/source-serif-4-latin-wght-italic.woff2", "fonts/OFL.txt"];
 
 // GoatCounter. Pageview counts only — no cookies and no cross-site identifiers,
 // which is what keeps the site free of a consent banner. Set to "" to take the
@@ -950,9 +952,16 @@ const headFields = ({ title, url, type }) => [
     tag: `<link rel="icon" type="image/svg+xml" href="${favicon}">` },
   { find: /<link rel="apple-touch-icon"[^>]*>/,
     tag: '<link rel="apple-touch-icon" href="/apple-touch-icon.png">' },
-  // The phone's browser bars take the page colour (note.css) rather than white.
-  { find: /<meta name="theme-color"[^>]*>/,
-    tag: '<meta name="theme-color" content="#cbdff7">' },
+  // The phone's browser bars take the page colour (note.css) rather than
+  // white: the light page's, and the dark page's when the reader's system is
+  // dark.
+  { find: /<meta name="theme-color"(?![^>]*prefers-color-scheme: dark)[^>]*>/,
+    tag: '<meta name="theme-color" content="#cbdff7" media="(prefers-color-scheme: light)">' },
+  { find: /<meta name="theme-color"[^>]*prefers-color-scheme: dark[^>]*>/,
+    tag: '<meta name="theme-color" content="#0f1a28" media="(prefers-color-scheme: dark)">' },
+  // The body face, fetched with the stylesheet rather than after it.
+  { find: /<link rel="preload" href="\/fonts\/[^"]*"[^>]*>/,
+    tag: '<link rel="preload" href="/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>' },
   ...imageFields(),
 ];
 
@@ -1045,7 +1054,7 @@ const HOPPER = await readFile(join(SOURCE_DIR, "_hopper.json"), "utf8").then(JSO
 const notes = [];
 // Anything in the source folder that isn't a note still owns its name, so a
 // title can't be slugified onto the path of a file the scan left alone.
-const reserved = new Set(["index", "404", "feeds", TRACKER.id, READING.id, ...RETIRED_VIEWS, ...ASSETS, ...SURFACE_NAMES]);
+const reserved = new Set(["index", "404", "feeds", "fonts", "media", TRACKER.id, READING.id, ...RETIRED_VIEWS, ...ASSETS, ...SURFACE_NAMES]);
 // Every name with a file at it, note or not: what tells a withdrawn note (no
 // file) from one that has merely stopped parsing.
 const present = new Set();

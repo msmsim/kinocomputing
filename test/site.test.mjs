@@ -80,7 +80,9 @@ test("icons: .ico and touch icon at the conventional addresses, all three linked
       assert.match(head, /<link rel="apple-touch-icon" href="\/apple-touch-icon\.png">/, `${path}: no touch icon link`);
       assert.equal((head.match(/rel="icon"/g) ?? []).length, 2, `${path}: icon links duplicated`);
       // The browser's own bars take the page colour, not white.
-      assert.equal((head.match(/<meta name="theme-color" content="#cbdff7">/g) ?? []).length, 1, `${path}: no single theme-color`);
+      assert.equal((head.match(/<meta name="theme-color" content="#cbdff7" media="\(prefers-color-scheme: light\)">/g) ?? []).length, 1, `${path}: no single light theme-color`);
+      assert.equal((head.match(/<meta name="theme-color" content="#0f1a28" media="\(prefers-color-scheme: dark\)">/g) ?? []).length, 1, `${path}: no single dark theme-color`);
+      assert.equal((head.match(/<link rel="preload" href="\/fonts\/source-serif-4-latin-wght-normal\.woff2" as="font" type="font\/woff2" crossorigin>/g) ?? []).length, 1, `${path}: the body face isn't preloaded once`);
     }
   } finally {
     site.dispose();
@@ -104,11 +106,32 @@ test("a title's apostrophes close up in its address, however they are written", 
   }
 });
 
-test("the page colour reaches past the page's ends: html is painted, and the theme colour matches", () => {
+test("the page colour reaches past the page's ends, in both schemes; every colour is a token; the tokens clear the contrast they promise", () => {
   const css = readFileSync(new URL("../note.css", import.meta.url), "utf8");
-  const colour = (sel) => css.match(new RegExp(`^${sel} \\{[^}]*?background: (#[0-9a-f]{6})`, "m"))?.[1];
-  assert.equal(colour("html"), "#cbdff7", "html has no background of its own, so the page's ends show white");
-  assert.equal(colour("body"), colour("html"), "html and body disagree on the page colour");
+  const background = (sel) => css.match(new RegExp(`^${sel} \\{[^}]*?background: ([^;]+);`, "m"))?.[1];
+  assert.equal(background("html"), "var(--paper)", "html has no background of its own, so the page's ends show white");
+  assert.equal(background("body"), background("html"), "html and body disagree on the page colour");
+  const scheme = (block) => Object.fromEntries([...block.matchAll(/--([a-z0-9-]+):\s*(#[0-9a-f]{3,6})/g)].map((m) => [m[1], m[2]]));
+  const light = scheme(css.match(/^:root \{[\s\S]*?\n\}/m)[0]);
+  const dark = scheme(css.match(/@media \(prefers-color-scheme: dark\) \{\s*:root \{[\s\S]*?\}/)[0]);
+  assert.equal(light.paper, "#cbdff7", "the theme-color meta says #cbdff7");
+  assert.equal(dark.paper, "#0f1a28", "the dark theme-color meta says #0f1a28");
+  const outside = css.replace(/^:root \{[\s\S]*?\n\}/m, "").replace(/@media \(prefers-color-scheme: dark\) \{[\s\S]*?\n\}/, "");
+  assert.deepEqual(outside.match(/#[0-9a-f]{3,6}\b/gi) ?? [], [], "a colour outside the tokens");
+  const lum = (hex) => {
+    const h = hex.length === 4 ? hex.slice(1).split("").map((c) => c + c).join("") : hex.slice(1);
+    const [r, g, b] = [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16) / 255).map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+  const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
+  for (const [name, colours] of [["light", light], ["dark", dark]]) {
+    for (const text of ["ink", "ink-2", "grey", "blue"]) {
+      for (const ground of ["paper", "paper-2", "paper-3"]) {
+        assert.ok(ratio(colours[text], colours[ground]) >= 4.5, `${name}: ${text} on ${ground} is ${ratio(colours[text], colours[ground]).toFixed(2)}:1, under 4.5`);
+      }
+    }
+    assert.ok(ratio(colours.vermilion, colours.paper) >= 3, `${name}: vermilion marks under 3:1`);
+  }
 });
 
 test("a 404 page: Cloudflare serves it, with a 404 status, for any address the site doesn't have", () => {

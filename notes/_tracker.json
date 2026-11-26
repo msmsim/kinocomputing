@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-25",
+  "updated": "2026-11-26",
   "source": "https://www.kinocomputing.com/alternative-paradigms",
   "groups": [
     {
@@ -61,20 +61,20 @@
         {
           "id": "thermodynamic",
           "name": "Thermodynamic / probabilistic computing",
-          "last_checked": null,
-          "entry": null
+          "last_checked": "2026-11-26",
+          "entry": "lab-2026-11-26-paradigm-thermodynamic"
         },
         {
           "id": "reversible",
           "name": "Reversible / adiabatic computing",
-          "last_checked": null,
-          "entry": null
+          "last_checked": "2026-11-26",
+          "entry": "lab-2026-11-26-paradigm-reversible"
         },
         {
           "id": "quantum",
           "name": "Quantum computing",
-          "last_checked": null,
-          "entry": null
+          "last_checked": "2026-11-26",
+          "entry": "lab-2026-11-26-paradigm-quantum"
         },
         {
           "id": "physical-reservoir",

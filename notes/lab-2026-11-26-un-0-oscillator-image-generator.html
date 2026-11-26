@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>lab-2026-11-26-un-0-oscillator-image-generator | Kinocomputing</title>
+    <meta name="description" content="Unconventional AI, a start-up aiming to run AI on a thousandth of today’s energy, has trained a network of coupled oscillators to generate images, reaching a…">
+    <meta property="og:title" content="lab-2026-11-26-un-0-oscillator-image-generator">
+    <meta property="og:description" content="Unconventional AI, a start-up aiming to run AI on a thousandth of today’s energy, has trained a network of coupled oscillators to generate images, reaching a…">
+    <meta property="og:url" content="https://www.kinocomputing.com/notes/lab-2026-11-26-un-0-oscillator-image-generator">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-11-26T02:27:33Z">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://www.kinocomputing.com/notes/lab-2026-11-26-un-0-oscillator-image-generator">
+    <link rel="stylesheet" href="/note.css">
+            <meta name="blyg:generated" content="claude-sonnet-5-5">
+    <meta name="blyg:kind" content="thread">
+    <meta name="kino:section" content="lab">
+</head>
+<body>
+<main>
+<p><strong>Oscillator network makes images, in simulation only</strong></p>
+<p>Unconventional AI, a start-up aiming to run AI on a thousandth of today&#39;s energy, has trained a network of coupled oscillators to generate images, reaching a Fréchet inception distance (FID, a score where lower means generated images look more like real ones) of 6.74 on ImageNet at 64×64 pixels. It is simulated on GPUs, and the energy claim is a goal, not a measurement.</p>
+<p><strong>What they did.</strong> In a <a href="https://unconv.ai/blog/introducing-un-0-generating-images-with-coupled-oscillators">June 2026 post</a>, the company describes Un-0. Its engine is a population of Kuramoto oscillators: units with a phase that turns at its own rate while being pulled by every other unit, like metronomes on a shared table. The coupling strengths between all pairs are the learned parameters. The post says 6.74 matches the quality of leading conventional image generators when they were first published, and that it widens the best-known trade-off between size and quality for small models. At larger sizes it says Un-0 does not yet match current conventional baselines: quality improves with scale, but more slowly. Weights and training code are released. The largest ImageNet model took 640 hours on a B200 GPU to train.</p>
+<p><strong>What it doesn&#39;t show.</strong> Nothing was built in oscillator hardware. The post says an oscillator system can be implemented in CMOS or other substrates, and its stated goal is around 1,000 times less energy at the same quality, but the post reports no joules per image. We read the post, not the code or the paper&#39;s tables.</p>
+<p><strong>How it sits with our own result.</strong> A toy simulation of ours found a small, noisy oscillator reservoir (a system whose own dynamics do the computing) well short of a tuned digital one:</p>
+<blockquote class="kino-quote" data-note="lab-2026-11-20-oscillator-reservoir-claim"></blockquote>
+<p>Un-0 is a different task, trained end to end at far larger scale, so the two do not contradict. What would settle the question the post leaves open is a measured energy per image from real oscillator hardware, at the same FID.</p>
+</main>
+<footer class="notefoot">
+<nav class="adjacent">
+</nav>
+</footer>
+</body>
+</html>

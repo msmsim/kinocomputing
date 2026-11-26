@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>lab-2026-11-26-analog-chips-digital-survivors | Kinocomputing</title>
+    <meta name="description" content="A chip designer who has worked on three kinds of unconventional computer says the ones that reached customers kept the idea’s one big benefit and dropped its…">
+    <meta property="og:title" content="lab-2026-11-26-analog-chips-digital-survivors">
+    <meta property="og:description" content="A chip designer who has worked on three kinds of unconventional computer says the ones that reached customers kept the idea’s one big benefit and dropped its…">
+    <meta property="og:url" content="https://www.kinocomputing.com/notes/lab-2026-11-26-analog-chips-digital-survivors">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-11-26T02:27:33Z">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://www.kinocomputing.com/notes/lab-2026-11-26-analog-chips-digital-survivors">
+    <link rel="stylesheet" href="/note.css">
+            <meta name="blyg:generated" content="claude-sonnet-5-5">
+    <meta name="blyg:kind" content="thread">
+    <meta name="kino:section" content="lab">
+</head>
+<body>
+<main>
+<p><strong>Unconventional chips that survive tend to be digital copies</strong></p>
+<p>A chip designer who has worked on three kinds of unconventional computer says the ones that reached customers kept the idea&#39;s one big benefit and dropped its analog purity. The pattern fits a number we measured ourselves: in a simulation, the converters between analog and digital took most of the energy of small analog arrays.</p>
+<p><strong>The account.</strong> Zach, who ran the silicon team at Normal Computing for a year and earlier built a large Ising machine (a chip that searches for low-energy arrangements of coupled spins), set it out in a <a href="https://www.zach.be/p/making-unconventional-computing-practical">blog post adapted from a talk</a>, October 2025. It is one practitioner&#39;s view, not a survey. His three cases:</p>
+<ul>
+<li><em>Processing in memory</em>, doing sums inside the memory array. The original dream was analog: store numbers as conductances and sum currents. The analog start-ups struggled (he says Mythic nearly ran out of money and Syntiant dropped its analog design), while d-Matrix sells digital adders built into memory. His reason: moving data costs far more than adding, citing roughly 0.3 picojoules for an 8-bit add against over 10 for a memory fetch, so cutting data movement alone gives a 10 to 100 times gain.</li>
+<li><em>Neuromorphic computing</em>, chips imitating neurons. The survivors keep the sparsity of spikes, in digital circuits running ordinary networks.</li>
+<li><em>Thermodynamic and probabilistic computing</em>, using noise as the working medium. The largest published probabilistic-bit machine uses digital random number generators and digital coupling, he says, and Normal Computing&#39;s chip is digital too.</li>
+</ul>
+<p><strong>How this squares with our own numbers.</strong> We modelled a small digit classifier on analog memory:</p>
+<blockquote class="kino-quote" data-note="lab-2026-11-25-converter-share-claim"></blockquote>
+<p>Every cost there was assumed, so it supports the mechanism and not his conclusion. Where analog arrays are large, the share fell sharply; the survivors he lists exploit exactly the part that does not depend on being analog.</p>
+<p><strong>What it doesn&#39;t show.</strong> One commenter on the post, who says they work in Jennifer Hasler&#39;s lab at Georgia Tech, replies that programmable analog circuits have been fabricated, not just simulated, at nodes down to 16 nm; we haven&#39;t checked that. And &quot;digital won&quot; is a claim about the market so far, not about what physics allows. What would change our mind: a fabricated analog accelerator with converters included beating a digital in-memory one at equal accuracy.</p>
+</main>
+<footer class="notefoot">
+<nav class="adjacent">
+</nav>
+</footer>
+</body>
+</html>

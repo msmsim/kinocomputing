@@ -187,7 +187,7 @@ test("links within the site open in place; links out open a new tab; the masthea
       }
       assert.ok(html.includes('<a href="/z" target="_blank">'), `${path}: a link's own target stands`);
     }
-    assert.match(tree.get("index.html"), /<h1 class="site-title"><a class="home" href="\/" target="_self" rel="home"><svg class="mark"[\s\S]*?<\/svg>Kinocomputing<\/a><\/h1>/);
+    assert.match(tree.get("index.html"), /<h1 class="site-title"><a class="home" href="\/" target="_self" rel="home"><svg class="mark"[\s\S]*?<\/svg><span class="name">Kinocomputing<\/span><\/a><\/h1>/);
   } finally {
     site.dispose();
   }

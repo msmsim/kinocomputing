@@ -171,45 +171,21 @@ table, time, .stamp {
 
 /* MASTHEAD
 
-   Stream page only. The site's name, with the subtitle under it, and the feed
-   links stacked in the top right. The name is the page's h1, which is why
-   notes in the stream step their titles down to h2. The feed links come first
-   in the markup and stay top right at every width: stacked beside the name
-   where there is room, in a row above it on a phone, aligned left with it. */
+   Stream page only, centred like the note head on every other page, and
+   built from it: the mark, then the site's name under it in Newsreader (the
+   page's h1, which is why notes in the stream step their titles down to h2),
+   the subtitle, the menu, and last the two feeds, small. */
 header.masthead {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 0.5em 1em;
-  margin: 0 0 2em;
-}
-
-/* The name and subtitle take two thirds of the column, so the subtitle sets
-   as a short block under the name rather than a line across the page, and
-   the feed links have the last third. A phone has no third to spare: there
-   the name takes the full width. */
-header.masthead .titles {
-  flex: 0 1 66%;
-  order: -1;
-}
-
-@media (max-width: 40em) {
-  header.masthead .titles {
-    flex-basis: 100%;
-    order: 0;
-  }
-
-  header.masthead nav.feeds {
-    flex-basis: 100%;
-    flex-direction: row;
-    justify-content: flex-start;
-    margin-left: 0;
-  }
+  text-align: center;
+  margin: 0.5rem 0 2.5rem;
 }
 
 header.masthead .site-title {
-  margin: 0 0 0.2em;
+  margin: 0 0 0.3em;
+  font-size: 1.9em;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
 }
 
 /* The name links home, as a site's name conventionally does, without
@@ -220,52 +196,39 @@ header.masthead .site-title a.home {
 }
 
 /* The site's mark, □◇ — "always eventually", liveness in temporal logic —
-   ahead of the name, in the name's colour, the height of its capitals. The
-   favicon is the same drawing on a tile. */
+   above the name, the size it is in the note head. The favicon is the same
+   drawing on a tile. */
 header.masthead .site-title .mark {
-  height: 0.72em;
+  display: block;
+  height: 1.6rem;
   width: auto;
-  margin-right: 0.35em;
-  vertical-align: -0.02em;
+  margin: 0 auto 0.6rem;
 }
 
 header.masthead .subtitle {
-  margin: 0;
+  max-width: 26em;
+  margin: 0 auto 0.5em;
   color: var(--grey);
 }
 
 /* FEED LINKS
 
-   The blyg and the RSS feed, each an icon and its name in one link; what
-   they are is on the About page. No prose underline. Sized with the datestamps: page
-   furniture, a step below the prose. Stacked and right-aligned in the
-   masthead; side by side and left-aligned on a phone. */
+   The blyg and the RSS feed, each an icon and its name in one link, side by
+   side under the menu; what they are is on the About page. Furniture: a step
+   below the menu, grey, no underline. */
 nav.feeds {
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  align-items: flex-end;
-  margin-left: auto;
-  gap: 0.25em 0.8em;
-  margin-top: 0.3em;
-  font-size: 0.9em;
-}
-
-nav.feeds .pair {
-  display: flex;
-  align-items: center;
-}
-
-nav.feeds a {
-  line-height: 1;
-  padding: 0.25em 0;
+  justify-content: center;
+  gap: 0 1.2em;
+  margin-top: 0.4em;
+  font-size: 0.8em;
 }
 
 nav.feeds a.feed {
   display: flex;
   align-items: center;
   gap: 0.3em;
+  line-height: 1;
   padding: 0.25em 0;
   color: var(--grey);
   text-decoration: none;
@@ -299,7 +262,7 @@ header.notehead .mark {
 /* MENU
 
    Under the mark on every page, under the subtitle on the stream: Notes,
-   Tracker, About, as a quiet line of words, where you are in the text
+   Tracker, Reading, About, as a quiet line of words, where you are in the text
    colour. Small and grey, so a note still begins with its title. */
 nav.sections {
   font-size: 0.85em;

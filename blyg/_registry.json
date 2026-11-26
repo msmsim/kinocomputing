@@ -191,7 +191,7 @@
     "about": {
       "id": "3ae53bqvd075ppjq3fmmpw90cz",
       "created": "2026-08-10T08:00:00Z",
-      "hash": "sha256:904545edafd684afe1d1f4dd20dcc0db854ed6f1b4719de5006ee75f5979558a",
+      "hash": "sha256:cdb1401e1a6563b1a3a88cb5e7129054d044004eb4aa4cb81cd22d81cfb6aa7d",
       "changelog": [
         {
           "version": 1,
@@ -217,9 +217,14 @@
           "version": 5,
           "at": "2026-11-23T18:58:39Z",
           "note": "Added a plain summary of what the site covers and where to find it."
+        },
+        {
+          "version": 6,
+          "at": "2026-11-26T19:24:11Z",
+          "note": "Added how to follow along: RSS and the blyg, explained here rather than at the top of every page."
         }
       ],
-      "seen": "153c595b0f2d50be",
+      "seen": "fd7c7015a8d666af",
       "page": "about"
     },
     "lab-2026-11-20-analog-cim-diffusion-noise": {

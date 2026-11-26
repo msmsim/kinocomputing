@@ -98,6 +98,24 @@ Subset's receiver for the lab tells Subset that a share lives at
 `/reading#<share>`, its row on the page (or the top of it, until the lab has
 weighed the share).
 
+## Maths
+
+Write TeX between dollars — `$e^{i\pi}+1=0$` inline, `$$…$$` on a line of its
+own for a displayed formula — following pandoc's `tex_math_dollars`, as the
+blyg reference client does: an opening `$` must be followed by a non-space,
+and a closing one must follow a non-space and not be followed by a digit, so
+"$5 and $10" stays prices; `\$` is a dollar; code is left alone.
+
+The build draws each formula as MathML Core with the TeX kept in an
+`application/x-tex` annotation (spec 0.4 §5.2), using temml, server-side: no
+script, stylesheet or font goes with the page, and a reader that won't draw
+MathML can show the TeX. The blyg item's markdown carries the TeX as written;
+a formula without its annotation is refused. temml is vendored in
+`tools/vendor/` so nothing needs installing: the blyg state Action and
+Cloudflare Pages build from a bare checkout, and the lab's publisher uses the
+same `tools/maths.mjs`. Maths in your own posts works if motes passes the
+dollars through untouched.
+
 ## Previews
 
 The stream shows each note's title and its lead, and the description (search

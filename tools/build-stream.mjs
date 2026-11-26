@@ -29,6 +29,7 @@ import {
   withQuotes, bakeQuote, quotesIn,
 } from "./blyg.mjs";
 import { stubTarget, resolveStub } from "./stub.mjs";
+import { withMaths } from "./maths.mjs";
 
 // Notes are published into a folder of their own and served from the site root:
 // a note written as notes/001-teal-voles.html is served at /001-teal-voles, and
@@ -225,7 +226,7 @@ function readTitle(content) {
 
 /** Tag-free plain text. */
 const stripTags = (html) =>
-  html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+  html.replace(/<annotation\b[^>]*>[\s\S]*?<\/annotation>/g, "").replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
 
 /** Tag-free, quote-safe text for a title attribute or a <title> element. */
 const asText = (html) => stripTags(html).replace(/"/g, "&quot;");
@@ -266,7 +267,11 @@ function parseNote(fileSlug, html) {
   const iso = published[1];
   if (Number.isNaN(new Date(iso).getTime())) return null;
 
-  const { title, content } = readTitle(main.inner.trim());
+  // The one thing done to a body before anything reads it: its formulas,
+  // written as TeX between dollars, drawn as MathML (maths.mjs, §5.2). A
+  // body without one is untouched.
+  const body = withMaths(main.inner.trim());
+  const { title, content } = readTitle(body);
 
   // slug and path are assigned later: a titled note is published at a path made
   // from its title, which can only be settled once every note is known.
@@ -279,7 +284,7 @@ function parseNote(fileSlug, html) {
     content,
     // The body as its publisher wrote it, before the title is promoted: this,
     // not anything the build does to it, is the blyg item's content.
-    source: main.inner.trim(),
+    source: body,
     pin: asksForPin(html),
     changeNote: changeNoteOf(html),
     // The model that wrote the page, when a machine did (§5.7, docs/blyg.md P20).

@@ -1,0 +1,4 @@
+temml 0.11.11 (https://temml.org), MIT licence (temml.LICENSE), copied unchanged from its
+dist/temml.mjs so the build needs nothing installed: the blyg state Action and
+Cloudflare Pages build from a bare checkout, and the lab imports maths.mjs from
+one. Replace both files to upgrade.

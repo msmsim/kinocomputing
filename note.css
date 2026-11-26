@@ -557,3 +557,20 @@ article + article {
 article > :first-child {
   margin-top: 0;
 }
+
+/* MATHS
+
+   Formulas are MathML, drawn by the browser with no script or font (spec
+   0.4 §5.2). Inline ones sit in the line; displayed ones are centred on a
+   line of their own and scroll on their own if wider than the column. */
+math {
+  font-size: 1.05em;
+}
+
+math[display="block"] {
+  display: block math;
+  margin: 1em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.2em 0;
+}

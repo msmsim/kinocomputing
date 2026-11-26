@@ -64,7 +64,8 @@ const fence = (text, min) => {
 /**
  * The note body's HTML as markdown. Covers what a markdown renderer emits —
  * paragraphs, headings, lists (nested too), blockquotes, code blocks, rules,
- * links, images, emphasis, strikethrough, inline code, line breaks — and
+ * links, images, emphasis, strikethrough, inline code, line breaks,
+ * mathematics (MathML with its TeX annotation, back to `$…$` or `$$…$$`) — and
  * throws on anything else, so an unfamiliar page is reported rather than
  * hashed into a version from a wrong reconstruction.
  *
@@ -135,6 +136,24 @@ export function htmlToMarkdown(html, { quote = null } = {}) {
         // Padded where a backtick at either edge would join the delimiter.
         const pad = /^`|`$/.test(code) ? " " : "";
         out += `${ticks}${pad}${code}${pad}${ticks}`;
+      } else if (token.name === "math") {
+        // A formula's markdown is the TeX it was written in, which the MathML
+        // carries as its annotation (§5.2); one without it can't be told back.
+        const display = /\sdisplay="block"/.test(token.attrs);
+        let depth = 1;
+        let tex = null;
+        while (depth > 0) {
+          const t = tokens[at];
+          if (!t) throw new Error("unclosed <math>");
+          at += 1;
+          if (t.type === "open" && t.name === "math") depth += 1;
+          else if (t.type === "close" && t.name === "math") depth -= 1;
+          else if (t.type === "open" && t.name === "annotation" && /encoding="application\/x-tex"/.test(t.attrs)) {
+            tex = tokens[at]?.type === "text" ? decodeEntities(tokens[at].text) : "";
+          }
+        }
+        if (!tex?.trim()) throw new Error("a formula without its TeX annotation");
+        out += display ? `$$${tex.trim()}$$` : `$${tex.trim()}$`;
       } else if (token.name === "br") {
         out += "\\\n";
       } else if (token.name === "img") {

@@ -355,3 +355,33 @@ test("previews lead with the lead: a byline or a bold label above it is passed o
     site.dispose();
   }
 });
+
+test("maths: $…$ and $$…$$ become MathML with the TeX kept; prices and code are left alone; the item keeps the TeX (spec 0.4 §5.2)", () => {
+  const site = makeSite();
+  try {
+    const body = [
+      "<p><strong>Euler and Basel</strong></p>",
+      "<p>Euler's identity, $e^{i\\pi}+1=0$, costs nothing; the coffee cost $5 and $10.</p>",
+      "<p>$$\\sum_{n=1}^\\infty \\frac{1}{n^2}=\\frac{\\pi^2}{6}$$</p>",
+      "<p>In code it stays put: <code>$x$</code>, and \\$3 is a price.</p>",
+    ].join("\n");
+    site.publish("001-ash-eels", { body, iso: "2026-11-26T10:00:00Z" });
+    site.action("2026-11-26T10:01:00Z");
+    const tree = site.deploy();
+    const page = tree.get("euler-and-basel.html");
+    assert.match(page, /<math><semantics><mrow><msup><mi>e<\/mi>[\s\S]*?<annotation encoding="application\/x-tex">e\^\{i\\pi\}\+1=0<\/annotation><\/semantics><\/math>/);
+    assert.match(page, /<p><math display="block"><semantics>[\s\S]*<annotation encoding="application\/x-tex">\\sum_\{n=1\}\^\\infty/);
+    assert.ok(!/ class="tml|style="display/.test(page), "no classes or inline styles in the MathML");
+    assert.match(page, /the coffee cost \$5 and \$10\./, "prices are prices");
+    assert.match(page, /<code>\$x\$<\/code>, and \$3 is a price\./, "code is code, and an escaped dollar is a dollar");
+    assert.match(page, /<meta name="description" content="Euler(?:'|&#39;)s identity, eiπ\+1=0, costs nothing;/, "the description reads the formula, not its TeX twice");
+    const id = JSON.parse(tree.get("blyg/_registry.json") ?? "null")?.items?.["001-ash-eels"]?.id
+      ?? [...tree.keys()].find((k) => /^items\/[^/]+\.json$/.test(k) && k !== "items/index.json")?.slice(6, -5);
+    const item = JSON.parse(tree.get(`items/${id}.json`));
+    assert.match(item.content_md, /Euler's identity, \$e\^\{i\\pi\}\+1=0\$, costs nothing/);
+    assert.match(item.content_md, /\$\$\\sum_\{n=1\}\^\\infty \\frac\{1\}\{n\^2\}=\\frac\{\\pi\^2\}\{6\}\$\$/);
+    assert.match(item.content_html, /<annotation encoding="application\/x-tex">/);
+  } finally {
+    site.dispose();
+  }
+});

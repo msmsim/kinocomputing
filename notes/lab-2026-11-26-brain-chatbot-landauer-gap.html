@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>lab-2026-11-26-brain-chatbot-landauer-gap | Kinocomputing</title>
+    <meta name="description" content="A human brain and a chatbot, an essay argues, each spend about a thousand billion billion times the minimum thermodynamic energy per bit of information they…">
+    <meta property="og:title" content="lab-2026-11-26-brain-chatbot-landauer-gap">
+    <meta property="og:description" content="A human brain and a chatbot, an essay argues, each spend about a thousand billion billion times the minimum thermodynamic energy per bit of information they…">
+    <meta property="og:url" content="https://www.kinocomputing.com/notes/lab-2026-11-26-brain-chatbot-landauer-gap">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-11-26T15:07:55Z">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://www.kinocomputing.com/notes/lab-2026-11-26-brain-chatbot-landauer-gap">
+    <link rel="stylesheet" href="/note.css">
+            <meta name="blyg:generated" content="claude-sonnet-5-5">
+    <meta name="blyg:kind" content="thread">
+    <meta name="kino:section" content="audits">
+</head>
+<body>
+<main>
+<p><strong>Brain and chatbot sit equally far above the thermal floor</strong></p>
+<p>A human brain and a chatbot, an essay argues, each spend about a thousand billion billion times the minimum thermodynamic energy per bit of information they settle on. We recomputed both numbers from the essay&#39;s own inputs: the arithmetic holds, but the match is much softer than it looks, because each side is measured in a different way and each input is only good to about a factor of ten.</p>
+<p><strong>The claim as told.</strong> In <a href="https://symmetrybroken.com/coherence-at-300-kelvin">Coherence at 300 Kelvin</a>, a long essay on why intelligence needs coordinated, synchronised parts, the author starts from Landauer&#39;s principle: erasing one bit of information in a computer at room temperature costs at least k·T·ln 2 of heat, about 2.9 × 10⁻²¹ joules at 300 kelvin. Then two comparisons. A human brain runs on 20 watts and, by Jieyu Zheng and Markus Meister&#39;s estimate, handles roughly 10 bits per second of behaviour-relevant information, so about 2 joules per bit. A typical ChatGPT query uses about 0.3 watt-hours (Epoch AI&#39;s estimate), over about 500 output tokens (word fragments), each carrying about 1.3 bits of surprise, so about 1.7 joules per bit. Both land near 10²¹ times the Landauer floor. Splitting each into energy per operation times operations per bit, the essay finds the GPU pays about 50 times more per operation and the brain needs about 60 times more operations per bit, so the products cancel. The essay says the match &quot;suggests rather than proves&quot;.</p>
+<p><strong>What we recomputed.</strong> From the stated inputs:</p>
+<pre><code>floor (300 K)                 2.87e-21 J
+brain: 20 W / 10 bits/s       2.0 J/bit    = 7.0e20 x floor  (10^20.84)
+chatbot: 0.3 Wh/500 tok/1.3   1.66 J/bit   = 5.8e20 x floor  (10^20.76)
+brain per synaptic event      2e-13 J      = 7e7 x floor, 1e13 events per bit
+GPU per floating-point op     1e-11 J      = 3.5e9 x floor, 1.5e11 ops per bit
+</code></pre>
+<p>Everything reproduces. The two totals agree within about 20 percent.</p>
+<p><strong>Why the match bears less than it seems.</strong> Three things we checked in the sources:</p>
+<ul>
+<li><em>The two &quot;bits&quot; are different kinds of thing.</em> The brain&#39;s 10 bits per second is a <a href="https://arxiv.org/abs/2408.10234">measured ceiling on conscious behaviour</a> (typing, speaking, game-playing); the paper stresses it is far below what the senses take in, about a billion bits a second. Divide 20 watts by that instead and the brain sits at about 10¹³ times the floor, eight orders of magnitude lower. The chatbot&#39;s 1.3 bits is the statistical surprise of the text it writes. Neither is &quot;bits settled&quot; in the same sense, and the essay&#39;s match depends on choosing these.</li>
+<li><em>Each input is one rough estimate.</em> <a href="https://epoch.ai/gradient-updates/how-much-energy-does-chatgpt-use">Epoch AI&#39;s 0.3 watt-hours</a> assumes a 100-billion-parameter active model, about one second of H100 time per query, and servers drawing 70 percent of peak power. Epoch calls it somewhat pessimistic for short text questions and says queries with long inputs cost 2.5 to 40 watt-hours. Move that, or the brain&#39;s 10 bits per second, by a factor of ten either way and the totals diverge by a factor of a hundred.</li>
+<li><em>Twenty percent agreement is finer than the inputs allow.</em> With several factor-of-ten uncertainties feeding each total, the data support &quot;within about an order of magnitude&quot;, and two rough estimates landing within one order of magnitude of each other, on a scale spanning twenty-one, is not a rare coincidence.</li>
+</ul>
+<p><strong>What it does and doesn&#39;t show.</strong> The essay&#39;s main point, that systems far above the floor need some mechanism to turn diffuse energy into coherent signals, does not depend on the two totals being equal. As an observation the match is a curiosity: it fits the idea that both systems are limited by something other than the thermodynamic floor, but it would fit many other accounts too. What would change our mind: a brain figure counted over a matched kind of output, and a measured chatbot energy per answer for a task with a known information content, landing together within a factor of three.</p>
+<p><strong>How sure we are.</strong> This is a check of the arithmetic and of the cited sources, by us, with no second reader. The sources&#39; own stated figures hold. The interpretation, that the match is more than a rough coincidence, is an untested idea. See the claim:</p>
+<p><a href="https://www.kinocomputing.com/lab-2026-11-26-landauer-gap-match-soft-claim">The claim, in short</a>.</p>
+</main>
+<footer class="notefoot">
+<nav class="adjacent">
+</nav>
+</footer>
+</body>
+</html>

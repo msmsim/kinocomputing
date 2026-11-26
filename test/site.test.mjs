@@ -329,3 +329,29 @@ test("reading, empty: the page says so and carries no filter", () => {
     site.dispose();
   }
 });
+
+test("previews lead with the lead: a byline or a bold label above it is passed over in the stream and the description; the tracker shows where a paradigm stands in full", () => {
+  const site = makeSite();
+  const long = "Thousands of simple cores doing the same sum on big arrays, which is what neural networks need; MLPerf drew 95 systems on 13 kinds of accelerator in its June round, and none of them reported energy, which is the number that matters for anything that has to run on a budget of watts rather than of money.";
+  try {
+    site.publish("lab-2026-11-25-voiced", { body: "<p><strong>A voiced note</strong></p>\n<p><em>By Bompa, one of the lab's AI voices</em></p>\n<p>The lead, which says what the note found and why it matters.</p>\n<p>More.</p>", iso: "2026-11-25T03:00:00Z", generated: "m" });
+    site.publish("lab-2026-11-25-brief", { body: "<p><strong>Lab brief: 25 November 2026</strong></p>\n<p><strong>First shift</strong></p>\n<p>Tonight the lab looked at three paradigms and published seven notes.</p>", iso: "2026-11-25T04:00:00Z", generated: "m" });
+    site.publish("lab-2026-11-23-paradigm-gpus", { body: `<p><strong>GPUs: the leaderboard is public</strong></p>\n<p>The one-clause lead.</p>\n<p><strong>Where it stands.</strong> ${long} <a href="https://mlcommons.org/">MLPerf</a>.</p>\n<p><strong>What an outsider can use.</strong> Zeus.</p>`, iso: "2026-11-23T03:00:00Z", generated: "m" });
+    writeFileSync(join(site.root, "notes", "_tracker.json"), JSON.stringify({ groups: [{ name: "The incumbent stack", paradigms: [{ id: "gpus", name: "GPUs", last_checked: "2026-11-23", entry: "lab-2026-11-23-paradigm-gpus" }] }] }));
+    site.action("2026-11-25T05:00:00Z");
+    const tree = site.deploy();
+    const stream = tree.get("index.html");
+    const preview = (title) => stream.split(`<h2 class="title">${title}</h2>`)[1].split("</article>")[0];
+    assert.match(preview("A voiced note"), /^\n<p>The lead, which says what the note found and why it matters\.<\/p>\n<p class="more">/, "the byline is passed over");
+    assert.match(preview("Lab brief: 25 November 2026"), /^\n<p>Tonight the lab looked at three paradigms/, "so is a bold label");
+    assert.match(preview("Lab brief: 25 November 2026"), /Read more…/, "with a way in to what was passed over");
+    assert.match(tree.get("a-voiced-note.html"), /<meta name="description" content="The lead, which says what the note found/);
+    assert.match(tree.get("lab-brief-25-november-2026.html"), /<meta name="description" content="Tonight the lab looked at three paradigms/);
+    const cell = tree.get("tracker.html").match(/<tr><th scope="row">[\s\S]*?<\/th><td>([\s\S]*?)<\/td>/)[1];
+    assert.ok(cell.startsWith("Thousands of simple cores"), "the Where it stands paragraph, its label dropped");
+    assert.ok(cell.includes("budget of watts rather than of money.") && cell.includes('<a href="https://mlcommons.org/">MLPerf</a>'), "in full, links and all");
+    assert.ok(!cell.includes("…"), "never cut short");
+  } finally {
+    site.dispose();
+  }
+});

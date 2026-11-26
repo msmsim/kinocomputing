@@ -328,6 +328,27 @@ function firstBlock(html) {
 }
 
 /**
+ * A paragraph that labels rather than says: wholly in italics (a byline, "By
+ * Concrete, one of the lab's AI voices") or wholly in bold (a section's name,
+ * "First shift"). It is no lead, so previews and descriptions pass over it.
+ */
+function isLabel(block) {
+  const inner = block.trim().match(/^<p>([\s\S]*)<\/p>$/)?.[1]?.trim();
+  if (!inner) return false;
+  const wrapped = inner.match(/^<(em|strong)>([\s\S]*)<\/\1>[\s.:]*$/);
+  return Boolean(wrapped) && !new RegExp(`</${wrapped[1]}>`).test(wrapped[2]);
+}
+
+/** The first block after `html` that says something: labels skipped, or the first block if all are. */
+function leadOf(html) {
+  const first = firstBlock(html.trim());
+  for (let block = first; block; block = firstBlock(block.rest.trim())) {
+    if (!isLabel(block.block)) return block;
+  }
+  return first;
+}
+
+/**
  * What a note shows in the stream: its title, its opening block, and a way in
  * if there is more. A note that fits in one block shows whole and gets no link
  * — the stream should read as the note itself wherever it can, and only defer
@@ -344,11 +365,12 @@ function previewOf(note) {
     rest = title.rest;
   }
 
-  const opening = firstBlock(rest.trim());
+  // The lead, not a byline or a label above it.
+  const opening = leadOf(rest);
   if (!opening) return note.content;
   parts.push(opening.block.trim());
 
-  if (opening.rest.trim()) {
+  if (opening.rest.trim() || opening.block.trim() !== rest.trim().slice(0, opening.block.trim().length)) {
     parts.push(
       `<p class="more"><a href="${note.path}" target="_self">Read more…</a></p>`
     );
@@ -397,19 +419,15 @@ function describe(note) {
     const title = firstBlock(rest);
     if (title) rest = title.rest;
   }
-  // The opening paragraph, and the next ones too while it's too short to be
-  // a usable snippet (a one-line opener, a dateline).
+  // The lead (labels and bylines passed over), and the next paragraphs too
+  // while it's too short to be a usable snippet (a one-line opener, a dateline).
   let text = "";
-  let block = firstBlock(rest.trim());
+  let block = leadOf(rest);
   while (block) {
-    // A byline ("By Concrete, one of the lab's AI voices") is a line wholly in
-    // italics: it says who, not what, so it's no part of a description.
-    if (/^<p>\s*<em>[\s\S]*<\/em>\s*<\/p>$/.test(block.block.trim()) && !/<\/em>[\s\S]*<em>/.test(block.block)) {
-      block = firstBlock(block.rest.trim());
-      continue;
+    if (!isLabel(block.block)) {
+      text = `${text} ${stripTags(block.block)}`.trim();
+      if (text.length >= DESCRIPTION_MIN) break;
     }
-    text = `${text} ${stripTags(block.block)}`.trim();
-    if (text.length >= DESCRIPTION_MIN) break;
     block = firstBlock(block.rest.trim());
   }
   return text ? asText(truncate(text, DESCRIPTION_LENGTH)) : "";
@@ -1373,6 +1391,22 @@ function listingRow(note) {
 }
 
 /**
+ * Where a paradigm stands, in full: its entry's "Where it stands." paragraph
+ * without the label, links and all, or, for an entry without one, its whole
+ * lead. Never cut short: the table is where it is read.
+ */
+function standsOf(entry) {
+  let rest = entry.content;
+  if (entry.title) rest = firstBlock(rest)?.rest ?? rest;
+  for (let block = firstBlock(rest.trim()); block; block = firstBlock(block.rest.trim())) {
+    const labelled = block.block.trim().match(/^<p>\s*<strong>\s*Where it stands[.:]?\s*<\/strong>\s*([\s\S]*)<\/p>$/i);
+    if (labelled) return labelled[1].trim();
+  }
+  const lead = leadOf(rest);
+  return lead ? lead.block.trim().replace(/^<p>([\s\S]*)<\/p>$/, "$1") : "";
+}
+
+/**
  * The tracker's tables, from the lab's paradigm list (notes/_tracker.json,
  * written by the lab every night): every paradigm in its group, whether or
  * not it has an entry yet, with where it stands and when it was last looked
@@ -1387,7 +1421,7 @@ async function trackerTables(entries) {
     const rows = group.paradigms.map((p) => {
       const entry = p.entry ? byFile.get(p.entry) : null;
       const name = entry ? `<a href="${entry.path}">${escape(p.name)}</a>` : escape(p.name);
-      const stands = entry ? describe(entry) : '<span class="pending">Not yet looked at.</span>';
+      const stands = entry ? standsOf(entry) : '<span class="pending">Not yet looked at.</span>';
       const when = p.last_checked ? `<time datetime="${escape(p.last_checked)}">${dateOnly(`${p.last_checked}T12:00:00Z`)}</time>` : "—";
       return `<tr><th scope="row">${name}</th><td>${stands}</td><td class="when">${when}</td></tr>`;
     });

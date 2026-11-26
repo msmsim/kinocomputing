@@ -64,8 +64,9 @@ the mark (the stream under its subtitle): **Notes** (the stream itself),
 
 The **Tracker** is the one page with a layout of its own, in the notes' own
 column: a table per group of every paradigm the lab follows, whether or not
-it has an entry yet, with where it stands (its entry's opening) and when the
-lab last looked. It is built from `notes/_tracker.json`, which the lab writes
+it has an entry yet, with where it stands — its entry's "Where it stands"
+paragraph in full, links and all, or its whole lead — and when the lab last
+looked. It is built from `notes/_tracker.json`, which the lab writes
 every night, and from the notes that are its entries: those whose page says
 so (`<meta name="kino:section" content="tracker">`, from the lab's publisher)
 or whose name marks them as a paradigm entry. It is presentation, not a blyg
@@ -96,6 +97,14 @@ Subset's receiver for the lab tells Subset that a share lives at
 `/reading/<share>`; `_redirects` sends any such address to
 `/reading#<share>`, its row on the page (or the top of it, until the lab has
 weighed the share).
+
+## Previews
+
+The stream shows each note's title and its lead, and the description (search
+results, share cards, llms.txt) is drawn from the same lead. A paragraph
+that only labels — wholly in italics, like a voice's byline, or wholly in
+bold, like a brief's "First shift" — is passed over in both, so a preview
+always opens with something the note says.
 
 ## Note titles
 

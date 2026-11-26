@@ -5,7 +5,7 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { makeSite } from "./twin.mjs";
@@ -18,6 +18,7 @@ const PARTS = [
   "Automated independent research into alternative paradigms of computing and intelligence",
   'Orchestrated by <a href="https://www.msweet.net/">Matthew McDowell-Sweet</a>',
   "Reachable via matt@thisdomain",
+  '<button class="theme" type="button" hidden>Theme: Auto</button>',
 ];
 // The masthead's mark, which the footer repeats ahead of the name.
 const MARK = readFileSync(new URL("../notes/_stream.html", import.meta.url), "utf8").match(/<svg class="mark"[\s\S]*?<\/svg>/)[0];
@@ -47,7 +48,13 @@ test("every page carries the site footer once: mark and name home | what it is |
       const [foot] = feet;
       const parts = [...foot.matchAll(/<span class="part">([\s\S]*?)<\/span>(?=<span class="sep"|<\/p>)/g)].map((m) => m[1]);
       assert.deepEqual(parts, PARTS.map((p) => p.replace("MARK", MARK)), `${path}: footer parts`);
-      assert.equal((foot.match(/<span class="sep" aria-hidden="true"> \| <\/span>/g) ?? []).length, 3, `${path}: three bars between four parts`);
+      assert.equal((foot.match(/<span class="sep" aria-hidden="true"> \| <\/span>/g) ?? []).length, 4, `${path}: four bars between five parts`);
+      // The theme: chosen before anything is drawn (in the head, ahead of
+      // the stylesheet), changed by the footer's button.
+      const head = html.slice(0, html.indexOf("</head>"));
+      assert.equal((head.match(/<script>try\{var t=localStorage\.getItem\("theme"\)/g) ?? []).length, 1, `${path}: the theme's line in the head`);
+      if (head.includes('rel="stylesheet"')) assert.ok(head.indexOf('localStorage.getItem("theme")') < head.indexOf('rel="stylesheet"'), `${path}: the theme is set after the stylesheet`);
+      assert.match(foot, /<script>\(function\(\)\{var b=document\.querySelector\("button\.theme"\)/, `${path}: the theme button's script`);
       // The mark at the head: every page but the stream, centred, home.
       const heads = html.match(/<header class="notehead">[\s\S]*?<\/header>/g) ?? [];
       assert.equal(heads.length, path === "index.html" ? 0 : 1, `${path}: ${heads.length} note heads`);
@@ -82,7 +89,7 @@ test("icons: .ico and touch icon at the conventional addresses, all three linked
       // The browser's own bars take the page colour, not white.
       assert.equal((head.match(/<meta name="theme-color" content="#cbdff7" media="\(prefers-color-scheme: light\)">/g) ?? []).length, 1, `${path}: no single light theme-color`);
       assert.equal((head.match(/<meta name="theme-color" content="#0f1a28" media="\(prefers-color-scheme: dark\)">/g) ?? []).length, 1, `${path}: no single dark theme-color`);
-      assert.equal((head.match(/<link rel="preload" href="\/fonts\/source-serif-4-latin-wght-normal\.woff2" as="font" type="font\/woff2" crossorigin>/g) ?? []).length, 1, `${path}: the body face isn't preloaded once`);
+      assert.equal((head.match(/<link rel="preload" href="\/fonts\/inter-latin-opsz-normal\.woff2" as="font" type="font\/woff2" crossorigin>/g) ?? []).length, 1, `${path}: the body face isn't preloaded once`);
     }
   } finally {
     site.dispose();
@@ -113,10 +120,12 @@ test("the page colour reaches past the page's ends, in both schemes; every colou
   assert.equal(background("body"), background("html"), "html and body disagree on the page colour");
   const scheme = (block) => Object.fromEntries([...block.matchAll(/--([a-z0-9-]+):\s*(#[0-9a-f]{3,6})/g)].map((m) => [m[1], m[2]]));
   const light = scheme(css.match(/^:root \{[\s\S]*?\n\}/m)[0]);
-  const dark = scheme(css.match(/@media \(prefers-color-scheme: dark\) \{\s*:root \{[\s\S]*?\}/)[0]);
+  const dark = scheme(css.match(/@media \(prefers-color-scheme: dark\) \{\s*:root:not\(\[data-theme="light"\]\) \{[\s\S]*?\}/)[0]);
+  const chosen = scheme(css.match(/^:root\[data-theme="dark"\] \{[\s\S]*?\n\}/m)[0]);
+  assert.deepEqual(chosen, dark, "the dark the reader picks is the dark the system gets");
   assert.equal(light.paper, "#cbdff7", "the theme-color meta says #cbdff7");
   assert.equal(dark.paper, "#0f1a28", "the dark theme-color meta says #0f1a28");
-  const outside = css.replace(/^:root \{[\s\S]*?\n\}/m, "").replace(/@media \(prefers-color-scheme: dark\) \{[\s\S]*?\n\}/, "");
+  const outside = css.replace(/^:root \{[\s\S]*?\n\}/m, "").replace(/@media \(prefers-color-scheme: dark\) \{[\s\S]*?\n\}/, "").replace(/^:root\[data-theme="dark"\] \{[\s\S]*?\n\}/m, "");
   assert.deepEqual(outside.match(/#[0-9a-f]{3,6}\b/gi) ?? [], [], "a colour outside the tokens");
   const lum = (hex) => {
     const h = hex.length === 4 ? hex.slice(1).split("").map((c) => c + c).join("") : hex.slice(1);
@@ -404,6 +413,35 @@ test("maths: $…$ and $$…$$ become MathML with the TeX kept; prices and code 
     assert.match(item.content_md, /Euler's identity, \$e\^\{i\\pi\}\+1=0\$, costs nothing/);
     assert.match(item.content_md, /\$\$\\sum_\{n=1\}\^\\infty \\frac\{1\}\{n\^2\}=\\frac\{\\pi\^2\}\{6\}\$\$/);
     assert.match(item.content_html, /<annotation encoding="application\/x-tex">/);
+  } finally {
+    site.dispose();
+  }
+});
+
+test("images: a figure publishes with its caption, its file is served from media/, and the item lists it with its type and alt text (§5.4)", () => {
+  const site = makeSite();
+  try {
+    mkdirSync(join(site.root, "media"), { recursive: true });
+    writeFileSync(join(site.root, "media", "0123456789abcdef.svg"), '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360"><path d="M0 0L10 10" stroke="#1a1a1a"/></svg>\n');
+    writeFileSync(join(site.root, "media", "not an image.txt"), "nope");
+    const body = [
+      "<p><strong>The memory wall</strong></p>",
+      "<p>Moving numbers costs more than computing on them, and the gap is growing.</p>",
+      '<figure class="plate"><img src="https://www.kinocomputing.com/media/0123456789abcdef.svg" alt="A wall between a processor and a memory, data squeezing through a gap" width="640" height="360" loading="lazy" decoding="async"><figcaption>The memory wall: moving data costs more than computing on it.</figcaption></figure>',
+      "<p>More.</p>",
+    ].join("\n");
+    site.publish("lab-2026-11-27-wall", { body, iso: "2026-11-27T03:00:00Z", generated: "m" });
+    site.action("2026-11-27T03:01:00Z");
+    const tree = site.deploy();
+    assert.ok(tree.has("media/0123456789abcdef.svg"), "the image is served");
+    assert.ok(!tree.has("media/not an image.txt"), "only images");
+    const page = tree.get("the-memory-wall.html");
+    assert.match(page, /<figure class="plate"><img src="https:\/\/www\.kinocomputing\.com\/media\/0123456789abcdef\.svg" alt="A wall between[^"]*" width="640" height="360" loading="lazy" decoding="async"><figcaption>The memory wall: moving data costs more than computing on it\.<\/figcaption><\/figure>/);
+    const id = [...tree.keys()].find((k) => /^items\/[^/]+\.json$/.test(k) && k !== "items/index.json").slice(6, -5);
+    const item = JSON.parse(tree.get(`items/${id}.json`));
+    assert.match(item.content_md, /!\[A wall between a processor and a memory, data squeezing through a gap\]\(https:\/\/www\.kinocomputing\.com\/media\/0123456789abcdef\.svg "The memory wall: moving data costs more than computing on it\."\)/);
+    assert.deepEqual(item.media, [{ url: "https://www.kinocomputing.com/media/0123456789abcdef.svg", mime: "image/svg+xml", alt: "A wall between a processor and a memory, data squeezing through a gap" }]);
+    assert.match(tree.get("index.html"), /Moving numbers costs more than computing on them/, "the stream previews the lead, not the image");
   } finally {
     site.dispose();
   }

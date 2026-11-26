@@ -52,8 +52,27 @@ function tokenize(html) {
 const INLINE = { em: "*", i: "*", strong: "**", b: "**", del: "~~", s: "~~", strike: "~~" };
 const HEADING = /^h([1-6])$/;
 const BLOCKS = new Set([
-  "p", "ul", "ol", "blockquote", "pre", "hr", "h1", "h2", "h3", "h4", "h5", "h6",
+  "p", "ul", "ol", "blockquote", "pre", "hr", "h1", "h2", "h3", "h4", "h5", "h6", "figure",
 ]);
+
+const MIME = { svg: "image/svg+xml", png: "image/png", jpg: "image/jpeg", jpeg: "image/jpeg", webp: "image/webp", gif: "image/gif" };
+
+/**
+ * The media an item's HTML shows (§5.4): each image's absolute URL, type and
+ * alt text, in order, once each.
+ */
+export function mediaOf(html) {
+  const seen = new Set();
+  const out = [];
+  for (const [tag] of html.matchAll(/<img\b[^>]*>/g)) {
+    const url = decodeEntities(tag.match(/\ssrc="([^"]*)"/)?.[1] ?? "");
+    if (!/^https?:\/\//.test(url) || seen.has(url)) continue;
+    seen.add(url);
+    const ext = url.split(/[?#]/)[0].split(".").pop().toLowerCase();
+    out.push({ url, mime: MIME[ext] ?? "application/octet-stream", alt: decodeEntities(tag.match(/\salt="([^"]*)"/)?.[1] ?? "") });
+  }
+  return out;
+}
 
 /** A backtick run longer than any in `text`, at least `min` long. */
 const fence = (text, min) => {
@@ -224,6 +243,29 @@ export function htmlToMarkdown(html, { quote = null } = {}) {
         const quoted = blocks("blockquote").join("\n\n");
         expectClose("blockquote");
         out.push(quoted.split("\n").map((line) => (line ? `> ${line}` : ">")).join("\n"));
+      } else if (token.name === "figure") {
+        // An image and its caption: markdown's image, with the caption as
+        // its title, `![alt](url "caption")`.
+        skipSpace();
+        const img = tokens[at];
+        if (img?.type !== "open" || img.name !== "img") throw new Error("a figure without an image");
+        at += 1;
+        const src = img.attrs.match(/\ssrc="([^"]*)"/);
+        if (!src) throw new Error("<img> without src");
+        const url = decodeEntities(src[1]);
+        if (/[<>\n]/.test(url)) throw new Error(`unsupported image source ${url}`);
+        const alt = escapeInline(decodeEntities(img.attrs.match(/\salt="([^"]*)"/)?.[1] ?? ""));
+        skipSpace();
+        let caption = "";
+        if (tokens[at]?.type === "open" && tokens[at].name === "figcaption") {
+          at += 1;
+          caption = lines(inline("figcaption")).join(" ");
+          expectClose("figcaption");
+          skipSpace();
+        }
+        expectClose("figure");
+        const target = /[()\s]/.test(url) ? `<${url}>` : url;
+        out.push(`![${alt}](${target}${caption ? ` "${caption.replace(/"/g, '\\"')}"` : ""})`);
       } else if (token.name === "hr") {
         out.push("---");
       } else if (token.name === "pre") {
@@ -715,7 +757,7 @@ export function buildSurfaces(registry, notes, site) {
       content_md: markdown,
       content_html: html,
       content_hash: entry.hash,
-      media: [],
+      media: mediaOf(html),
       ...threadMembers(entry),
       ...generatedMembers(entry),
       changelog: entry.changelog,

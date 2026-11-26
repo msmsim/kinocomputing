@@ -58,8 +58,9 @@ const REDIRECTS = "_redirects";
 // Copied into the deploy as they are. Everything else at the repo root — the
 // build, the README — is tooling, and stays out of the site.
 const ASSETS = ["note.css", "favicon.svg", "favicon.ico", "apple-touch-icon.png",
-  // The body face, self-hosted (note.css, @font-face), and its licence.
-  "fonts/source-serif-4-latin-wght-normal.woff2", "fonts/source-serif-4-latin-wght-italic.woff2", "fonts/OFL.txt"];
+  // The faces, self-hosted (note.css, @font-face), and their licences.
+  "fonts/inter-latin-opsz-normal.woff2", "fonts/inter-latin-opsz-italic.woff2",
+  "fonts/newsreader-latin-opsz-normal.woff2", "fonts/newsreader-latin-opsz-italic.woff2", "fonts/OFL.txt"];
 
 // GoatCounter. Pageview counts only — no cookies and no cross-site identifiers,
 // which is what keeps the site free of a consent banner. Set to "" to take the
@@ -93,6 +94,16 @@ const MARK_SVG = '<svg class="mark" viewBox="2 9.3 28 13.4" aria-hidden="true"><
 // the same values as the blyg's manifest so the two can't come to disagree.
 // The address is written the way the PI wants it, not as a mailto: link.
 const FOOT_SEP = '<span class="sep" aria-hidden="true"> | </span>';
+
+// THE THEME. The site follows the reader's system, light or dark, unless the
+// reader picks one with the footer's button, which goes round Auto, Light,
+// Dark. The choice is kept in the browser (localStorage, nothing sent) and
+// set on <html> by a line in the head before anything is drawn, so the page
+// never shows the wrong one first. Without scripts the button stays hidden
+// and the system decides.
+const THEME_HEAD = `<script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>`;
+const THEME_BUTTON = '<button class="theme" type="button" hidden>Theme: Auto</button>';
+const THEME_SCRIPT = `<script>(function(){var b=document.querySelector("button.theme"),r=document.documentElement,order=["auto","light","dark"],name={auto:"Auto",light:"Light",dark:"Dark"};if(!b)return;function now(){return r.dataset.theme||"auto"}function show(){var t=now();b.textContent="Theme: "+name[t];b.setAttribute("aria-label","Theme: "+name[t]+". Change to "+name[order[(order.indexOf(t)+1)%3]]);var dark=t==="dark"||(t==="auto"&&matchMedia("(prefers-color-scheme: dark)").matches);document.querySelectorAll('meta[name="theme-color"]').forEach(function(m){m.setAttribute("content",dark?"${"#0f1a28"}":"${"#cbdff7"}")})}b.hidden=false;show();b.addEventListener("click",function(){var t=order[(order.indexOf(now())+1)%3];if(t==="auto")delete r.dataset.theme;else r.dataset.theme=t;try{if(t==="auto")localStorage.removeItem("theme");else localStorage.setItem("theme",t)}catch(e){}show()})})();</script>`;
 const SITE_FOOT = [
   '<footer class="sitefoot">',
   `<p>${[
@@ -100,7 +111,9 @@ const SITE_FOOT = [
     BLYG.description.replace(/\.$/, ""),
     `Orchestrated by <a href="${BLYG.author.url}">${BLYG.author.name}</a>`,
     "Reachable via matt@thisdomain",
+    THEME_BUTTON,
   ].map((part) => `<span class="part">${part}</span>`).join(FOOT_SEP)}</p>`,
+  THEME_SCRIPT,
   "</footer>",
 ].join("\n");
 
@@ -794,7 +807,16 @@ function renderSecurityTxt() {
 
 /** A page's last step before it is written. */
 function finishPage(html) {
-  return withAnalytics(withSameSiteLinks(html));
+  return withAnalytics(withSameSiteLinks(withThemeHead(html)));
+}
+
+/** The theme's line in the head (THE THEME), once, ahead of the stylesheet. */
+function withThemeHead(html) {
+  const out = html.replace(/[ \t]*<script>try\{var t=localStorage\.getItem\("theme"\)[^<]*<\/script>\n?/g, "");
+  const at = out.search(/[ \t]*<link rel="stylesheet"/);
+  const end = at === -1 ? out.indexOf("</head>") : at;
+  if (end === -1) return out;
+  return `${out.slice(0, end)}    ${THEME_HEAD}\n${out.slice(end)}`;
 }
 
 function withAnalytics(html) {
@@ -961,7 +983,7 @@ const headFields = ({ title, url, type }) => [
     tag: '<meta name="theme-color" content="#0f1a28" media="(prefers-color-scheme: dark)">' },
   // The body face, fetched with the stylesheet rather than after it.
   { find: /<link rel="preload" href="\/fonts\/[^"]*"[^>]*>/,
-    tag: '<link rel="preload" href="/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>' },
+    tag: '<link rel="preload" href="/fonts/inter-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>' },
   ...imageFields(),
 ];
 
@@ -1239,6 +1261,11 @@ const noteTemplate = await readFile(join(SOURCE_DIR, "_note.html"), "utf8");
 // one — which is otherwise indistinguishable from the edit not working.
 const assets = new Map();
 for (const name of ASSETS) assets.set(name, await readFile(name));
+// The notes' images (the lab writes them to media/, named by their
+// contents, so a file never changes under its name), published as they are.
+for (const file of await readdir("media").catch(() => [])) {
+  if (/^[a-z0-9][a-z0-9._-]*\.(?:svg|png|jpe?g|webp)$/i.test(file)) assets.set(`media/${file}`, await readFile(join("media", file)));
+}
 
 const stylesheet = `/note.css?v=${createHash("sha256")
   .update(assets.get("note.css")).digest("hex").slice(0, 8)}`;

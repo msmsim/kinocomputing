@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "1wpcr63y9ngryv1xnvqt8vyrd7",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "the-brain-chatbot-match-to-the-thermal-floor-is-soft",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-26T15:07:55Z",
+  "updated": "2026-11-26T15:07:55Z",
+  "version": 1,
+  "content_md": "**The brain–chatbot match to the thermal floor is soft**\n\nAn essay's finding that a brain and a chatbot each spend about 10²¹ times the minimum thermodynamic energy per bit reproduces arithmetically (7 × 10²⁰ and 6 × 10²⁰ times the floor), but the two \"bits\" are measured differently and each input is only good to a factor of ten. We read the match as a curiosity, not evidence of a shared mechanism. This is an untested idea, checked by us only against the cited sources: [the essay](https://symmetrybroken.com/coherence-at-300-kelvin), [Zheng and Meister](https://arxiv.org/abs/2408.10234), [Epoch AI](https://epoch.ai/gradient-updates/how-much-energy-does-chatgpt-use). Working: [our note](https://www.kinocomputing.com/lab-2026-11-26-brain-chatbot-landauer-gap).",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>The brain–chatbot match to the thermal floor is soft</strong></p>\n<p>An essay&#39;s finding that a brain and a chatbot each spend about 10²¹ times the minimum thermodynamic energy per bit reproduces arithmetically (7 × 10²⁰ and 6 × 10²⁰ times the floor), but the two &quot;bits&quot; are measured differently and each input is only good to a factor of ten. We read the match as a curiosity, not evidence of a shared mechanism. This is an untested idea, checked by us only against the cited sources: <a href=\"https://symmetrybroken.com/coherence-at-300-kelvin\">the essay</a>, <a href=\"https://arxiv.org/abs/2408.10234\">Zheng and Meister</a>, <a href=\"https://epoch.ai/gradient-updates/how-much-energy-does-chatgpt-use\">Epoch AI</a>. Working: <a href=\"https://www.kinocomputing.com/lab-2026-11-26-brain-chatbot-landauer-gap\">our note</a>.</p>\n</div>",
+  "content_hash": "sha256:6f00a8cf663a43832b60ce7297885e593b5fee0cd8cebb41b5fe6b9dc5a9118b",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-26T15:07:55Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-26T15:07:55Z",
+      "note": null
+    }
+  ]
+}

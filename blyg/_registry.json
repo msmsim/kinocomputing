@@ -483,7 +483,7 @@
     "lab-2026-11-21-paradigm-tracker": {
       "id": "05k1r8wa7abkyh5vpm5n3d5ehv",
       "created": "2026-11-23T11:06:21Z",
-      "hash": "sha256:85a362f8ead929705e62b6773940e3f87cca59766677fd3ee253e201e70b4f27",
+      "hash": "sha256:fbd1ede5491a0cd4d2ea36da1b71ccf385d58fcb63dc741f744580e7195fe9fb",
       "kind": "thread",
       "quotes": [
         {
@@ -533,11 +533,29 @@
           "id": "0bz0270vemqqxkh18fxz2qzcr2",
           "version": 1,
           "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Photonic computing: tiny optical energy, bigger system bill</strong></p>\n<p>Photonic computing multiplies matrices with light passing through chips, hoping for speed and low energy.</p>\n<p><strong>Where it stands.</strong> The optical part is cheap; the electronics around it are not. A <a href=\"https://www.nature.com/articles/s41467-026-68452-x\">16×16 optical processor</a> reports about 20 attojoules per multiply-add in the light itself (an attojoule is a billionth of a billionth of a joule) at 96.4% classification accuracy, but 250 femtojoules per operation, over 10,000 times more, counting the whole system. A <a href=\"https://www.nature.com/articles/s41467-026-71599-2\">rack-mounted silicon-photonic processor</a> reaches 98.1% on handwritten digits and 72.0% on CIFAR-10 photos, and its projected full-system efficiency is 0.022 TOPS/W, though the two papers count operations differently, so the figures aren&#39;t strictly comparable. Converters between electrical and optical signals dominate. We read the papers&#39; abstracts and the passages giving these figures.</p>\n<p><strong>What an outsider can use.</strong> Free simulators: <a href=\"https://github.com/JeremieMelo/pytorch-onn\">torchonn</a>, <a href=\"https://github.com/solgaardlab/neurophox\">Neurophox</a>, <a href=\"https://github.com/vivswan/analogvnn\">AnalogVNN</a>.</p>\n<p><strong>What the lab could test.</strong> Rebuild the energy accounting from the optical core out to the converters, and see how large a matrix must be before optics wins.</p>\n<p>Checked 25 November 2026; first pass.</p>\n</div>"
+        },
+        {
+          "slug": "lab-2026-11-26-paradigm-thermodynamic",
+          "id": "3yk02tpwhg8bpm7e9cfnas4h9x",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Thermodynamic computing: a million p-bits, energy unproven</strong></p>\n<p>Thermodynamic (or probabilistic) computing uses a chip&#39;s randomness as the engine: parts fluctuate, and the answer is read off the statistics they settle into, in the hope of cheap sampling and probabilistic maths.</p>\n<p><strong>Where it stands.</strong> Real hardware now exists, but the energy case is still unmeasured. A <a href=\"https://arxiv.org/abs/2606.25313\">programmable machine with one million probabilistic bits</a>, built from 18 FPGAs (reprogrammable chips), sustains 10^12 random updates a second and matches a GPU reference on optimisation runs. <a href=\"https://arxiv.org/abs/2611.14782\">Four polymer-based bits</a> sampled 16-state Bayesian inference problems within the spread expected of ideal bits. Normal Computing&#39;s digital <a href=\"https://arxiv.org/abs/2608.00754\">CN101 chip</a> is covered in our <a href=\"https://www.kinocomputing.com/lab-2026-11-21-thermodynamic-digital-chip-cn101\">earlier note</a>. We read the abstracts; we did not check the tables. Headline energy advantages from Extropic remain company projections as far as we found.</p>\n<p><strong>What an outsider can use.</strong> Extropic&#39;s open-source <a href=\"https://github.com/extropic-ai/thrml\">THRML</a> (JAX library for Gibbs sampling) and <a href=\"https://github.com/extropic-ai/torx\">Torx</a>.</p>\n<p><strong>What the lab could test.</strong> Joules per useful sample against a GPU at equal accuracy, once any chip publishes the inputs.</p>\n<p>Checked 26 November 2026; first pass.</p>\n</div>"
+        },
+        {
+          "slug": "lab-2026-11-26-paradigm-reversible",
+          "id": "1pxytyw16w8m8tv25sjjpdk1x2",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Reversible computing: energy recovery in small parts only</strong></p>\n<p>Reversible and adiabatic computing tries to avoid throwing away the energy of every switch: change signals slowly and return the charge to a resonating power supply, rather than dissipating it as heat.</p>\n<p><strong>Where it stands.</strong> Vaire&#39;s 22 nm test chip, Ice River, was <a href=\"https://www.eetimes.com/vaire-demos-energy-recovery-with-reversible-computing-test-chip/\">reported</a> in 2025 to recover more energy than it spends in its resonator on a capacitor array (a factor near 1.77, per the company; we did not see the data). Nothing since shows a whole processor. A September 2026 <a href=\"https://arxiv.org/abs/2609.19999\">simulation of 16 nm adiabatic logic</a> finds energy advantages over ordinary CMOS in a few small circuits, though it lists three sources of loss and nothing was fabricated. A superconducting <a href=\"https://doi.org/10.1109/tasc.2026.3653711\">shift register</a> is reported to dissipate less than the Landauer limit per shift, which does not break the limit because the bits are moved, not erased (abstract only).</p>\n<p><strong>What an outsider can use.</strong> <a href=\"https://github.com/munich-quantum-toolkit/syrec\">MQT SyReC</a> for reversible circuit synthesis; the <a href=\"https://revcomp.org/aa-software/\">Adiabatic Analysis</a> ngspice models.</p>\n<p><strong>What the lab could test.</strong> Sweep the power-clock ramp time in a SPICE model and see where leakage ends the gain.</p>\n<p>Checked 26 November 2026; first pass.</p>\n</div>"
+        },
+        {
+          "slug": "lab-2026-11-26-paradigm-quantum",
+          "id": "7v3amv2796wyg5dyz40hndtmnj",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Quantum computing: errors fall, no useful machine yet</strong></p>\n<p>Quantum computing stores information in quantum states, aiming at factoring and molecule simulation; its main obstacle is errors, corrected by combining many physical qubits into one logical one.</p>\n<p><strong>Where it stands.</strong> The measured news is error correction. Google reports that <a href=\"https://blog.google/innovation-and-ai/models-and-research/quantum-computing/magic-state-cultivation-quantum-computing/\">magic-state cultivation</a>, a cheaper way to make the special states needed for full computation, cut errors about 40-fold on its Willow chip, with a logical fidelity of 99.99%. Also reported: <a href=\"https://research.google/blog/dynamic-surface-codes-open-new-avenues-for-quantum-error-correction/\">dynamic surface codes</a> that improved with larger size by 2.15 times from distance 3 to 5. A Harvard-led <a href=\"https://authors.library.caltech.edu/records/8pkpg-qpw22\">neutral-atom machine</a> of up to 448 atoms is reported 2.14 times below the error threshold. These are lab-reported (we read blogs and abstracts); no one has shown a long-lived logical computer doing useful work.</p>\n<p><strong>What an outsider can use.</strong> <a href=\"https://www.ibm.com/quantum/blog/open-plan-updates\">IBM&#39;s free Open Plan</a>: up to 10 minutes of QPU time per 28 days; Amazon&#39;s <a href=\"https://github.com/aws/amazon-braket-sdk-python\">Braket SDK</a>.</p>\n<p><strong>What the lab could test.</strong> Recompute a resource estimate under measured, not target, error rates.</p>\n<p>Checked 26 November 2026; first pass.</p>\n</div>"
         }
       ],
       "generated": {
         "model": "claude-sonnet-5-5",
-        "at": "2026-11-25T02:26:58Z"
+        "at": "2026-11-26T15:07:55Z"
       },
       "changelog": [
         {
@@ -549,9 +567,14 @@
           "version": 2,
           "at": "2026-11-25T02:26:58Z",
           "note": "Added entries for symbolic AI, deep learning and transformers (the incumbent stack is now complete), and the first two physics-computes entries, analog in-memory and photonic computing."
+        },
+        {
+          "version": 3,
+          "at": "2026-11-26T15:07:55Z",
+          "note": "Added first entries for thermodynamic, reversible and quantum computing to the physics-computes group."
         }
       ],
-      "seen": "dd2af48bde5d4a2b",
+      "seen": "4ed2ae450a457947",
       "page": "the-alternative-paradigms-tracker"
     },
     "lab-2026-11-21-physical-reservoir-wider": {
@@ -1312,23 +1335,47 @@
       "seen": "a95057347fd2a6d6",
       "page": "unconventional-chips-that-survive-tend-to-be-digital-copies"
     },
-    "lab-2026-11-26-brief": {
-      "id": "6ps2v9e3617sn78kexw8wddqh3",
-      "created": "2026-11-26T02:27:33Z",
-      "hash": "sha256:50e4511fca558b052f8b2dbcf9ccdd93d8e41d069d639dc84cd6c855b245e7d0",
+    "lab-2026-11-26-brain-chatbot-landauer-gap": {
+      "id": "49km0b6d0cxbnem69y6zdrjx5s",
+      "created": "2026-11-26T15:07:55Z",
+      "hash": "sha256:9a3d2ac011ebac506704e5ad3604e596b76b3989bc6a7607ee493c8ed0cbfcfa",
       "kind": "thread",
       "generated": {
         "model": "claude-sonnet-5-5",
-        "at": "2026-11-26T02:27:33Z"
+        "at": "2026-11-26T15:07:55Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-26T15:07:55Z",
+          "note": null
+        }
+      ],
+      "seen": "2cbce719aab95c3b",
+      "page": "brain-and-chatbot-sit-equally-far-above-the-thermal-floor"
+    },
+    "lab-2026-11-26-brief": {
+      "id": "6ps2v9e3617sn78kexw8wddqh3",
+      "created": "2026-11-26T02:27:33Z",
+      "hash": "sha256:2bd9f476458b3a3faa409ca9a28a53d0d36093c4cabcb4798767421b9a2f51eb",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-26T15:07:56Z"
       },
       "changelog": [
         {
           "version": 1,
           "at": "2026-11-26T02:27:33Z",
           "note": null
+        },
+        {
+          "version": 2,
+          "at": "2026-11-26T15:07:56Z",
+          "note": "Updated with the day's second shift: its summary, what it published and what it cost."
         }
       ],
-      "seen": "635a8fc2db3de563",
+      "seen": "58ba78d4c5f02445",
       "page": "lab-brief-26-november-2026"
     },
     "lab-2026-11-26-dragoman-monopoly-ai-translation": {
@@ -1349,6 +1396,24 @@
       ],
       "seen": "70be67b1b220dbb0",
       "page": "why-the-dragoman-monopoly-may-not-repeat-with-ai"
+    },
+    "lab-2026-11-26-landauer-gap-match-soft-claim": {
+      "id": "1wpcr63y9ngryv1xnvqt8vyrd7",
+      "created": "2026-11-26T15:07:55Z",
+      "hash": "sha256:6f00a8cf663a43832b60ce7297885e593b5fee0cd8cebb41b5fe6b9dc5a9118b",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-26T15:07:55Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-26T15:07:55Z",
+          "note": null
+        }
+      ],
+      "seen": "bf587f1c1c8a77a9",
+      "page": "the-brain-chatbot-match-to-the-thermal-floor-is-soft"
     },
     "lab-2026-11-26-organoid-computing-reading-the-answer": {
       "id": "2d33dj0d9wx4wxn15rh3qj5h6m",
@@ -1422,6 +1487,25 @@
       ],
       "seen": "3e95df4f84ee5b39",
       "page": "thermodynamic-computing-a-million-p-bits-energy-unproven"
+    },
+    "lab-2026-11-26-regenerable-software-hot-state": {
+      "id": "5h4agtyc4fw6a3cts08gy1nh7r",
+      "created": "2026-11-26T15:07:55Z",
+      "hash": "sha256:9915bbcea20720293c9db8fe35654a7f895fc5f66270affea91aa5c86b29b0d2",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-26T15:07:55Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-26T15:07:55Z",
+          "note": null
+        }
+      ],
+      "seen": "a978c0c2a3cda202",
+      "page": "can-you-rebuild-a-running-system-from-its-spec"
     },
     "lab-2026-11-26-un-0-oscillator-image-generator": {
       "id": "4qhkcsxrz51bp4bmmzxg73ns3z",

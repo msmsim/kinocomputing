@@ -446,3 +446,32 @@ test("images: a figure publishes with its caption, its file is served from media
     site.dispose();
   }
 });
+
+test("glyphs: every note's stamp, in the stream and on its page, ends with the note's own glyph — ten squares and diamonds in staggered rows of three, four and three, filled or in outline, in the ink; the same through every version, different from other notes'", () => {
+  const site = makeSite();
+  try {
+    site.publish("lab-2026-11-27-one", { body: "<p><strong>One</strong></p>\n<p>The lab's note.</p>", iso: "2026-11-27T03:00:00Z", generated: "claude-opus-5-5" });
+    site.publish("002-teal-larks", { body: "<p><strong>Two</strong></p>\n<p>The PI's note.</p>", iso: "2026-11-27T04:00:00Z" });
+    site.action("2026-11-27T04:01:00Z");
+    let tree = site.deploy();
+    const glyphIn = (html, path) => html.split('<p class="stamp">').slice(1).find((s) => s.split("</p>")[0].includes(`<a href="${path}" target="_self"><time`))?.split("</p>")[0].match(/<svg class="glyph"[^]*?<\/svg>$/)?.[0];
+    const one = glyphIn(tree.get("one.html"), "/one");
+    const two = glyphIn(tree.get("two.html"), "/two");
+    assert.ok(one && two, "each note's page has its glyph after the datestamp");
+    assert.equal(glyphIn(tree.get("index.html"), "/one"), one, "the same glyph in the stream");
+    assert.equal(glyphIn(tree.get("index.html"), "/two"), two);
+    assert.notEqual(one, two, "different notes, different glyphs");
+    for (const g of [one, two]) {
+      assert.match(g, /viewBox="0 0 40 30"/);
+      const shapes = g.match(/<(?:rect|path) class="[os]"/g) ?? [];
+      assert.ok(shapes.length >= 8 && shapes.length <= 10, `${shapes.length} shapes: at most two cells empty`);
+      assert.ok(!/fill="|stroke="|#[0-9a-f]{3,6}/i.test(g), "no colour of its own: the page's ink");
+    }
+    site.publish("lab-2026-11-27-one", { body: "<p><strong>One</strong></p>\n<p>The lab's note, revised.</p>", iso: "2026-11-27T03:00:00Z", generated: "claude-opus-5-5" });
+    site.action("2026-11-27T05:00:00Z");
+    tree = site.deploy();
+    assert.equal(glyphIn(tree.get("one.html"), "/one"), one, "a new version keeps its glyph");
+  } finally {
+    site.dispose();
+  }
+});

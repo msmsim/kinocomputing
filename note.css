@@ -662,6 +662,30 @@ main > :first-child {
   font-size: 0.85em;
 }
 
+/* GLYPH
+
+   Each note's own small drawing (tools/glyph.mjs), after its datestamp: four
+   across and three down of the site's squares and diamonds, filled or in
+   outline, in the ink. */
+.stamp .glyph {
+  height: 1.05em;
+  width: auto;
+  margin-left: 0.55em;
+  vertical-align: -0.12em;
+  overflow: visible;
+}
+
+.glyph .o {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+}
+
+.glyph .s {
+  fill: var(--ink);
+}
+
 /* SOURCE
 
    Where a note is about something published elsewhere, the link to it sits with

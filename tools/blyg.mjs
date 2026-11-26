@@ -969,7 +969,8 @@ export function withPinnedVersions(html, { before, after }) {
   const footer = html.indexOf("</main>");
   if (footer === -1) return html;
   return html.slice(0, footer) + html.slice(footer).replace(
-    /(<p class="stamp">)(.*?)(<\/p>)/s,
+    // Before the note's glyph, which ends the stamp (tools/glyph.mjs).
+    /(<p class="stamp">)(.*?)((?:<svg class="glyph".*?<\/svg>)?<\/p>)/s,
     (whole, open, time, close) => `${open}${before}${time}${after}${close}`
   );
 }

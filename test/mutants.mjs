@@ -27,7 +27,7 @@ const MUTANTS = {
   // write-once rule is checked through what a rewrite would change: the time.
   "pin-doc-time-drifts": ["blyg.mjs", "        at: event.at,\n        note: event.note,", "        at: toUtc(Date.now() + 1000),\n        note: event.note,"],
   "version-on-rerender": ["blyg.mjs", "} else if (entry.hash !== hash || entry.withdrawn) {", "} else if (entry.hash !== hash || entry.withdrawn || fresh) {"],
-  "site-links-open-new-tabs": ["build-stream.mjs", "return withAnalytics(withSameSiteLinks(html));", "return withAnalytics(html);"],
+  "site-links-open-new-tabs": ["build-stream.mjs", "return withAnalytics(withSameSiteLinks(withThemeHead(html)));", "return withAnalytics(withThemeHead(html));"],
   "quotes-unnamed": ["build-stream.mjs", "From <a href=\"${href}\">${quotedTitle(slug, target.page)}</a>", "<a href=\"${href}\">quoted</a>"],
   "no-frozen-page": ["build-stream.mjs", "    site.set(name, renderPinned(entry, page, JSON.parse(source),", "    if (0) site.set(name, renderPinned(entry, page, JSON.parse(source),"],
   "frozen-title-not-promoted": ["build-stream.mjs", "    content, datetime_iso: pin.at, datetime: displayTime(pin.at),", "    content: pin.content_html, datetime_iso: pin.at, datetime: displayTime(pin.at),"],

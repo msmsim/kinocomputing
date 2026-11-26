@@ -30,6 +30,7 @@ import {
 } from "./blyg.mjs";
 import { stubTarget, resolveStub } from "./stub.mjs";
 import { withMaths } from "./maths.mjs";
+import { glyph, glyphsFor } from "./glyph.mjs";
 
 // Notes are published into a folder of their own and served from the site root:
 // a note written as notes/001-teal-voles.html is served at /001-teal-voles, and
@@ -515,6 +516,7 @@ function renderStream(template, notes) {
     datetime_iso: note.time,
     datetime: displayTime(note.time),
     slug: note.slug,
+    glyph: GLYPHS.get(note.fileSlug) ?? glyph(note.fileSlug),
   }).trim()).join("\n");
 
   let shell = template.slice(0, each.start) + entries + template.slice(each.end);
@@ -579,6 +581,7 @@ function renderNotefoot(noteTemplate, note, older, newer) {
   // Derived from published_time rather than left as the publisher wrote it, so
   // a change of format or time zone reaches every note that already exists.
   const stamp = part(foot.inner, "stamp", note && {
+    glyph: GLYPHS.get(note.fileSlug) ?? glyph(note.fileSlug),
     path: note.path,
     datetime_iso: note.time,
     datetime: displayTime(note.time),
@@ -1250,6 +1253,8 @@ for (const note of notes) {
 // rerun can't shuffle two notes published in the same second.
 for (const note of notes) note.time = latestTime(registry, { slug: note.fileSlug, iso: note.iso });
 notes.sort((a, b) => new Date(b.time) - new Date(a.time) || b.slug.localeCompare(a.slug));
+// Each note's glyph, no two alike (tools/glyph.mjs).
+const GLYPHS = glyphsFor(notes);
 
 // Beside the notes, which is where motes looks for them too.
 const streamTemplate = await readFile(join(SOURCE_DIR, "_stream.html"), "utf8");

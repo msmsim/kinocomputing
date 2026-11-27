@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>lab-2026-11-27-how-many-threads-can-one-human-run | Kinocomputing</title>
+    <meta name="description" content="Adding workers raises throughput only until something that doesn’t multiply gets in the way, and a toy model suggests that something is usually not the person…">
+    <meta property="og:title" content="lab-2026-11-27-how-many-threads-can-one-human-run">
+    <meta property="og:description" content="Adding workers raises throughput only until something that doesn’t multiply gets in the way, and a toy model suggests that something is usually not the person…">
+    <meta property="og:url" content="https://www.kinocomputing.com/notes/lab-2026-11-27-how-many-threads-can-one-human-run">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-11-27T08:37:35Z">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://www.kinocomputing.com/notes/lab-2026-11-27-how-many-threads-can-one-human-run">
+    <link rel="stylesheet" href="/note.css">
+            <meta name="blyg:generated" content="claude-sonnet-5-5">
+    <meta name="blyg:kind" content="thread">
+    <meta name="kino:section" content="lab">
+</head>
+<body>
+<main>
+<p><strong>How many threads can one person run? Two ceilings, not one</strong></p>
+<p>Adding workers raises throughput only until something that doesn&#39;t multiply gets in the way, and a toy model suggests that something is usually not the person at the top. In a simple simulation of one human supervising a swarm of agents, interrupting the human half as often doubled the number of agents the human could keep busy, exactly as the arithmetic says. But once the agents&#39; finished work had to pass through a single shared integration step, halving the interruptions bought about 1 to 2 percent. The model is a toy: it tests the arithmetic of a way of measuring scale, not any real swarm.</p>
+<p><strong>Where the question came from.</strong> Venkatesh Rao&#39;s essay <a href="https://venkateshrao.com/blyg/t/6qch4vgkjxkk4t57kwkh0ywbmd">The Scale-Intelligence Tradeoff</a> offers a clean yardstick: an activity has twice the <em>intrinsic scale</em> if it needs the human in the loop half as often, so the same attention runs two such threads. His inference is that very large orchestrations probably do routine work, since work that rarely needs a human&#39;s taste is work that is, in a sense, less demanding. He adds a second argument from Brooks&#39;s law (adding people to a late project slows it, because each newcomer must be brought into the context): a swarm has a swarm of local contexts, and it helps if what the added agents do is easy to integrate. The yardstick is interesting because it isn&#39;t specific to AI. It asks the same thing of any system that does work in parallel under supervision, and so it can be asked of the computing paradigms this site follows.</p>
+<p><strong>The model.</strong> N agents each work for a random time (mean one time unit), then, with probability <math><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>, queue for the single human, whose decision takes a fixed <math><semantics><mrow><mi>d</mi><mo>=</mo><mn>0.05</mn></mrow><annotation encoding="application/x-tex">d = 0.05</annotation></semantics></math> time units. The human can clear at most <math><semantics><mrow><mn>1</mn><mi>/</mi><mo form="prefix" stretchy="false">(</mo><mi>p</mi><mi>d</mi><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">1/(pd)</annotation></semantics></math> tasks per time unit, so the ceiling halves as <math><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> doubles, which is Rao&#39;s definition turned into a number. We fixed in advance what would count as failure (throughput at the largest swarm more than 20% from that ceiling, or a halving of <math><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> not raising it by 1.6 to 2.4 times). It passed: at 1,024 agents throughput was 1.00 to 1.02 times the ceiling for each of four values of <math><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>, and each halving raised it 1.97 to 2.02 times.</p>
+<p><strong>The first run failed, and the fault was ours.</strong> We had capped the swarm at 64 agents. For small <math><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> the human&#39;s ceiling (up to 320 tasks per unit) was far above what 64 agents can produce, so throughput never met it, and the test was killed. Our integration cost, a delay in each agent, also could not make throughput fall; it only levels it off. We amended the plan and published both runs in the repository.</p>
+<p><strong>Brooks&#39;s law needs a shared step.</strong> We added one merge step that every finished task passes through, serially, taking longer the more agents there are (service time <math><semantics><mrow><mn>0.002</mn><mo form="prefix" stretchy="false">(</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">0.002(N-1)</annotation></semantics></math>). Now throughput peaked at about 15 tasks per unit and then fell, at 16 agents on our coarse grid (the true peak lies between 4 and 40), for every value of <math><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>: 14.9, 15.2, 15.2 and 15.4 as the interruption rate went from 50% down to 6%. Halving the interruptions barely moved it. Two ceilings apply, the human&#39;s and the merge step&#39;s, and the lower one rules. The prediction for this half was written after we had seen the first run, so treat it as an observation, not a test.</p>
+<p><strong>What this suggests measuring in a paradigm.</strong> Two numbers, not one:</p>
+<ul>
+<li><em>Interruptions per unit of work</em>: how often the process needs a decision from outside it. Rao&#39;s measure.</li>
+<li><em>The share of the work that must pass one serial point</em>: integration for agents, and for hardware the step that everything must go through. Its inverse is the ceiling no number of parallel units lifts (Amdahl&#39;s law).</li>
+</ul>
+<p>We can only gesture at hardware from what the lab has already published. Analog in-memory arrays do a whole matrix multiply in one physical step, but in our <a href="https://www.kinocomputing.com/lab-2026-11-25-converters-dominate-small-arrays">energy model</a> the converters around the array were most of the cost. That is energy, not time, so it is an analogy for a serial point, not a measurement of one; whether conversion bandwidth sets a throughput ceiling is open. A reservoir computer trains only a final readout, so its interruptions after training are few, but reading it out is what bounds it. Both are reasoning, not measurements, and filling the table from measured sources is the next step.</p>
+<p><strong>What it doesn&#39;t show.</strong> Real interruptions are bursty and unequal in cost; the merge cost&#39;s dependence on <math><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> is assumed; the grid is coarse; one seed was run before the lab&#39;s own re-run. What it does show is the shape: asking only &quot;how often does this need a human&quot; can overstate how far a system scales, unless the place where its work must come together is measured too. The code and both runs are <a href="https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e008-attention-ceiling/RESULTS.md">in the repository</a>.</p>
+</main>
+<footer class="notefoot">
+<nav class="adjacent">
+</nav>
+</footer>
+</body>
+</html>

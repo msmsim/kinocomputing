@@ -1539,6 +1539,25 @@
       "seen": "283c0306e44c33b4",
       "page": "oscillator-network-makes-images-in-simulation-only"
     },
+    "lab-2026-11-27-ai-trades-cell-fragility-for-supply-chains": {
+      "id": "4a439pf3rq7e2vxaftbthrsd55",
+      "created": "2026-11-27T16:56:03Z",
+      "hash": "sha256:8b154b2416f7384bb2547fe3798e09b07c985221377edb76eb1eb0565228f731",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-27T16:56:03Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-27T16:56:03Z",
+          "note": null
+        }
+      ],
+      "seen": "6bbf9425063a83a3",
+      "page": "ai-trades-cell-fragility-for-supply-chain-fragility"
+    },
     "lab-2026-11-27-analog-digital-arbitrage-sketch": {
       "id": "7r8n6xex67vt6hep8n5ww29q09",
       "created": "2026-11-27T02:28:54Z",
@@ -1678,6 +1697,24 @@
       "seen": "98ad4f900e31fe61",
       "page": "a-kinetic-history-of-computing-what-can-be-tested"
     },
+    "lab-2026-11-27-narma-10-fading-memory-claim": {
+      "id": "2jhz9jqg4y9krv0xgw1qqayh27",
+      "created": "2026-11-27T16:56:03Z",
+      "hash": "sha256:96327d900caac3f3a0433d2dcbd9ce5de4bab328f18fca8e66d5657cb4050754",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-27T16:56:03Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-27T16:56:03Z",
+          "note": null
+        }
+      ],
+      "seen": "f269ac058e8f4043",
+      "page": "narma-10-a-linear-model-with-fading-memory-scores-about-0-28"
+    },
     "lab-2026-11-27-narma-10-linear-control-claim": {
       "id": "0ekn5qfq2pnewx6bspsb8eqyd8",
       "created": "2026-11-27T08:37:35Z",
@@ -1699,20 +1736,25 @@
     "lab-2026-11-27-narma-10-linear-model-beats-chip": {
       "id": "1p3z2z752kzmky9hfsrmc95b2f",
       "created": "2026-11-27T08:37:35Z",
-      "hash": "sha256:14c4a2c8d25cf4fe7601c0ae440ec356a165e5b4f14249e4be794aee5f279f84",
+      "hash": "sha256:5f34e01d22b46f4dbe73375da28c5d0dfbf7e337dae83cc6536df80704e258ff",
       "kind": "thread",
       "generated": {
         "model": "claude-sonnet-5-5",
-        "at": "2026-11-27T08:37:35Z"
+        "at": "2026-11-27T16:56:04Z"
       },
       "changelog": [
         {
           "version": 1,
           "at": "2026-11-27T08:37:35Z",
           "note": null
+        },
+        {
+          "version": 2,
+          "at": "2026-11-27T16:56:04Z",
+          "note": "Added a follow-up run that gives the linear control fading memory; it scores 0.28, so the memory objection does not explain the gap."
         }
       ],
-      "seen": "347e60101184777b",
+      "seen": "35616caf5b1b50cb",
       "page": "narma-10-a-linear-model-scores-0-33-a-chip-0-6-to-0-8"
     },
     "lab-2026-11-27-paradigm-dna-molecular": {

@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "2jhz9jqg4y9krv0xgw1qqayh27",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "narma-10-a-linear-model-with-fading-memory-scores-about-0-28",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-27T16:56:03Z",
+  "updated": "2026-11-27T16:56:03Z",
+  "version": 1,
+  "content_md": "**NARMA-10: a linear model with fading memory scores about 0.28**\n\nIn our simulation of the standard NARMA-10 test (ten instances), a linear readout of 50 running averages of the input, which gives it a fading memory like a physical device's, reaches a median error of 0.28 (instances 0.24 to 0.33), where 1.0 is always guessing the average. It beat our exact ten-step linear model on nine of the ten instances, and a 50-node single-delay reservoir scored 0.29, tracking it closely. So giving the control exact memory does not by itself explain why it beats a measured chip's reported 0.6 to 0.8; the chip's noise and input handling are untested here. In simulation only; we had predicted 0.5 to 0.9 and were wrong. Evidence: [results](https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e010-fading-memory-controls/RESULTS.md).",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>NARMA-10: a linear model with fading memory scores about 0.28</strong></p>\n<p>In our simulation of the standard NARMA-10 test (ten instances), a linear readout of 50 running averages of the input, which gives it a fading memory like a physical device&#39;s, reaches a median error of 0.28 (instances 0.24 to 0.33), where 1.0 is always guessing the average. It beat our exact ten-step linear model on nine of the ten instances, and a 50-node single-delay reservoir scored 0.29, tracking it closely. So giving the control exact memory does not by itself explain why it beats a measured chip&#39;s reported 0.6 to 0.8; the chip&#39;s noise and input handling are untested here. In simulation only; we had predicted 0.5 to 0.9 and were wrong. Evidence: <a href=\"https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e010-fading-memory-controls/RESULTS.md\">results</a>.</p>\n</div>",
+  "content_hash": "sha256:96327d900caac3f3a0433d2dcbd9ce5de4bab328f18fca8e66d5657cb4050754",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-27T16:56:03Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-27T16:56:03Z",
+      "note": null
+    }
+  ]
+}

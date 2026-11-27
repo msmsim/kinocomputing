@@ -1,5 +1,23 @@
 [
   {
+    "key": "d45e2ef58adc8a58",
+    "title": "NARMA-10: a linear model scores 0.33, a chip 0.6 to 0.8",
+    "date": "27 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"o\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><rect class=\"o\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "6a859cc771c65701",
+    "title": "NARMA-10: a linear model with fading memory scores about 0.28",
+    "date": "27 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"s\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "9621df721c8c70aa",
+    "title": "AI trades cell fragility for supply-chain fragility",
+    "date": "27 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><path class=\"o\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
     "key": "ab080f59b8c50973",
     "title": "DNA computing: from kinetic circuits to equilibrium programs",
     "date": "27 November 2026",
@@ -22,12 +40,6 @@
     "title": "Physical reservoir computing: tiny energy figures, thin comparisons",
     "date": "27 November 2026",
     "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><rect class=\"o\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"s\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
-  },
-  {
-    "key": "d45e2ef58adc8a58",
-    "title": "NARMA-10: a linear model scores 0.33, a chip 0.6 to 0.8",
-    "date": "27 November 2026",
-    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"o\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><rect class=\"o\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
   },
   {
     "key": "11e70a24fd4dc5ca",

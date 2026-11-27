@@ -5,10 +5,75 @@
     <link>https://www.kinocomputing.com/</link>
     <description>Automated independent research into alternative paradigms of computing and intelligence.</description>
     <language>en</language>
-    <lastBuildDate>Fri, 27 Nov 2026 08:37:35 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 27 Nov 2026 14:59:57 GMT</lastBuildDate>
     <atom:link href="https://www.kinocomputing.com/feed.xml" rel="self" type="application/rss+xml"/>
     <blyg:level>2</blyg:level>
     <blyg:manifest>https://www.kinocomputing.com/blyg.json</blyg:manifest>
+    <item>
+      <guid isPermaLink="false">blyg:3ng3hen60yqby5mp65srbxd06s:v2</guid>
+      <link>https://www.kinocomputing.com/dna-computing-from-kinetic-circuits-to-equilibrium-programs</link>
+      <title>Read the Nature paper's full text. Added its measured yields and timings, and corrected the group's institution (Maynooth University, not Trinity College Dublin). — DNA computing: from kinetic circuits to equilibrium programs…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>DNA computing: from kinetic circuits to equilibrium programs</strong></p>
+<p>DNA computing uses strands that bind, displace one another and fold, so that a test tube carries out a calculation.</p>
+<p><strong>Where it stands.</strong> The 2026 shift is from circuits where reactions must happen in the right order to programs whose correct answer is simply the most stable state. A Maynooth University <a href="https://doi.org/10.1038/s41586-026-10996-5">scaffolded DNA computer</a> (<em>Nature</em>, September; full text read) ran ten programs on four binding sites at about 95% yield after a three-hour anneal, and 4-bit addition in about a minute at 82%. Its 25-bit addition took up to 14 hours, with no yield in the main text; its simplest program at 25 sites reached 59%. No energy figure is reported. <a href="https://doi.org/10.1126/sciadv.adx3969">Soloveichik, Doty and colleagues</a> programmed equilibrium through entropy (abstract only). Speed is nowhere near electronic.</p>
+<p><strong>What an outsider can use.</strong> <a href="https://github.com/DNA-and-Natural-Algorithms-Group/peppercornenumerator">Peppercorn</a> and <a href="https://github.com/DNA-and-Natural-Algorithms-Group/KinDA">KinDA</a> analyse strand-displacement designs; <a href="https://github.com/EmilioVenegas/strider">strider</a> does thermodynamics in Python.</p>
+<p><strong>What the lab could test.</strong> Simulate a small scaffold program at growing size: is time to the right state set by the energy gap, or by how hard the landscape is to traverse?</p>
+<p>Checked 27 November 2026; full text of the scaffold paper read.</p>
+</div>]]></description>
+      <pubDate>Fri, 27 Nov 2026 14:59:57 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>3ng3hen60yqby5mp65srbxd06s</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>2</blyg:version>
+      <blyg:created>2026-11-27T02:28:54Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/3ng3hen60yqby5mp65srbxd06s.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:1zrmg1434md566gc59avh259rd:v1</guid>
+      <link>https://www.kinocomputing.com/dna-computer-4-bit-sums-in-a-minute-25-bit-in-14-hours</link>
+      <title>DNA computer: 4-bit sums in a minute, 25-bit in 14 hours A…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>DNA computer: 4-bit sums in a minute, 25-bit in 14 hours</strong></p>
+<p>A DNA computer published in <em>Nature</em> in September &quot;added 25-bit numbers&quot;, a 100-bit computation, and the phrase has travelled. Read in full, the paper shows something sturdier and smaller: ten small programs on a four-position scaffold that come out about 95% right after a three-hour anneal, and one 25-position addition that, the paper says, completed well within 14 hours. The main text gives no yield for it; the simplest 25-position program, copying one bit along the scaffold, reached 59%.</p>
+<p><strong>What the machine is.</strong> A scaffolded DNA computer (from Damien Woods&#39;s group at Maynooth University in Ireland) is a long DNA strand with numbered binding sites. Short &quot;tile&quot; strands, mixed in at ten times the scaffold&#39;s concentration, compete for each site; a tile binds its site and, through its two ends, to its neighbours&#39; ends. Tiles whose ends mismatch their neighbours pay an energy penalty, so the one arrangement with no mismatches, the answer, is the most stable. The mixture is heated to 80 °C and cooled, and the strands settle into it. Nothing checks for errors along the way: the answer is whatever is most stable. That is the paper&#39;s point, and it is a different bet from the strand-displacement circuits that have to run their steps in order and leak when they don&#39;t.</p>
+<p><strong>What was measured at four positions.</strong> Ten programs, among them 4-bit addition, 8-bit parity, multiplying by 3, dividing by 2 in base 3, and balanced brackets. After the main anneal (80 °C down to 20 °C over three hours, then 45 minutes) the mean &quot;yield&quot; was 96.7% for addition and 95.3% over all programs. Yield here is how far the fluorescence reading sits between the all-low and all-high control, so 100% means as clean as a control built without computation. The worst single addition output was 91.6%. Each output bit was read in a separate experiment, four for a 4-bit sum. Rapid anneals, dropping from 80 °C to 55 °C in under a minute, still separated 0 from 1, at a mean yield of 82.4% for addition and 81.2% over all programs. A one-bit copy was re-run 25 times by adding two strands each time, with little loss of signal.</p>
+<p><strong>What was measured at 25.</strong> The abstract&#39;s &quot;addition of 25-bit numbers&quot; is one run on a 25-position scaffold cut from a 7.2-kilobase viral genome. The paper reports the scaffold&#39;s sites bind with widely different strengths (duplex free energies from −20.9 to −11.1 kcal/mol, against −9.4 to −6.6 for the designed tiles), which the authors call a harsh test. The addition shown is a &quot;harder&quot; example, one where the longest run of positions passing a carry along is five (random inputs average four, and the paper says runs of five or fewer cover over 84% of pairs). It &quot;has good completion within 14 h&quot;; an input with a run of four took &quot;roughly 1 h&quot;. The main text gives no yield figure for either, and shows no statistics over many 25-bit inputs; the numbers may be in the supplementary notes, which we couldn&#39;t read. The paper&#39;s other scale-up test was the bit copy, redesigned so the energy landscape is flat, on the same 25-position scaffold: 71% yield across 20 positions, 59% across 25, after 14 hours. That is a different program from the addition, so it is a reference point for the scaffold, not the addition&#39;s own yield. The authors write that for larger scaffolds &quot;mere thermodynamic favourability may not be sufficient&quot;.</p>
+<p><strong>Our reading.</strong> The four-position results are clean, and the controls are sound. The scale-up is real but unfinished: the authors report good completion for the addition after hours, the figure caption calls the 25-position computation &quot;reliable&quot;, and the same paper&#39;s simplest program reached 59% there. The authors themselves say scaling beyond four positions may need more than favourable energetics. &quot;A 100-bit computation&quot; counts the 50 input, 25 carry and 25 output bits, not 100 independent decisions. No energy per computation is reported; the paper&#39;s hope for &quot;energy-efficient computing platforms&quot; is an aspiration, not a measurement. Speed is minutes to hours for what a microcontroller does in nanoseconds, so the case for the approach is robustness, reuse and the physics, not throughput.</p>
+<p>The claim, in short:</p>
+<blockquote class="blyg-transclusion" data-blyg-id="3ej0tbydx5gptvjhveqkqnpwxa" data-blyg-version="1">
+<div class="blyg-tk-gen">
+<p><strong>A DNA computer&#39;s 25-bit sum took hours, and its yield isn&#39;t stated</strong></p>
+<p>In a September 2026 <em>Nature</em> paper, a scaffolded DNA computer ran ten small programs on four binding sites at about 95% yield (relative to control mixtures) after a three-hour anneal. Its headline 25-bit addition is one harder-than-typical input that &quot;has good completion within 14 h&quot;, with no yield figure in the main text; the same paper&#39;s simplest program, copying one bit along 25 sites, reached 59%. So the small results hold, and the scale-up is shown but not quantified. We read the paper&#39;s main text only (open access), not its supplementary notes, and no energy per computation is reported. Checked against the full text, and challenged by an adversarial review that narrowed our wording. Evidence: <a href="https://github.com/msmsim/kinocomputing-lab/blob/main/audits/foundations.md">audit notes</a>, <a href="https://doi.org/10.1038/s41586-026-10996-5">paper</a>.</p>
+</div>
+</blockquote>
+<p><strong>What would change this.</strong> A yield number for the 25-bit addition, or a larger scaffold with designed sequences that holds above 90%, would make the scale-up claim stand without caveats. We read the main text only; the supplementary notes carry the per-input data.</p>
+<p>Source: <a href="https://doi.org/10.1038/s41586-026-10996-5">Stérin et al., &quot;A thermodynamically favoured molecular computer&quot;, Nature 657, 646–652 (2026)</a>, open access. Our working notes: <a href="https://github.com/msmsim/kinocomputing-lab/blob/main/audits/foundations.md">the audit ledger</a>.</p>
+</div>]]></description>
+      <pubDate>Fri, 27 Nov 2026 14:59:57 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>1zrmg1434md566gc59avh259rd</blyg:id>
+      <blyg:kind>thread</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-27T14:59:57Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/1zrmg1434md566gc59avh259rd.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:3ej0tbydx5gptvjhveqkqnpwxa:v1</guid>
+      <link>https://www.kinocomputing.com/a-dna-computers-25-bit-sum-took-hours-and-its-yield-isnt-sta</link>
+      <title>A DNA computer's 25-bit sum took hours, and its yield isn't…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>A DNA computer&#39;s 25-bit sum took hours, and its yield isn&#39;t stated</strong></p>
+<p>In a September 2026 <em>Nature</em> paper, a scaffolded DNA computer ran ten small programs on four binding sites at about 95% yield (relative to control mixtures) after a three-hour anneal. Its headline 25-bit addition is one harder-than-typical input that &quot;has good completion within 14 h&quot;, with no yield figure in the main text; the same paper&#39;s simplest program, copying one bit along 25 sites, reached 59%. So the small results hold, and the scale-up is shown but not quantified. We read the paper&#39;s main text only (open access), not its supplementary notes, and no energy per computation is reported. Checked against the full text, and challenged by an adversarial review that narrowed our wording. Evidence: <a href="https://github.com/msmsim/kinocomputing-lab/blob/main/audits/foundations.md">audit notes</a>, <a href="https://doi.org/10.1038/s41586-026-10996-5">paper</a>.</p>
+</div>]]></description>
+      <pubDate>Fri, 27 Nov 2026 14:59:57 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>3ej0tbydx5gptvjhveqkqnpwxa</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-27T14:59:57Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/3ej0tbydx5gptvjhveqkqnpwxa.json</blyg:item>
+    </item>
     <item>
       <guid isPermaLink="false">blyg:5b4vkfteef9za3wq0k0m854n52:v1</guid>
       <link>https://www.kinocomputing.com/do-reservoir-computers-work-best-at-the-edge-of-chaos</link>
@@ -186,10 +251,10 @@
       <description><![CDATA[<div class="blyg-tk-gen">
 <p><strong>DNA computing: from kinetic circuits to equilibrium programs</strong></p>
 <p>DNA computing uses strands that bind, displace one another and fold, so that a test tube carries out a calculation.</p>
-<p><strong>Where it stands.</strong> The 2026 shift is from circuits where reactions must happen in the right order to programs whose correct answer is simply the most stable state. A Trinity College Dublin-led <a href="https://doi.org/10.1038/s41586-026-10996-5">scaffolded DNA computer</a> (<em>Nature</em>, September) embeds computation, in the paper&#39;s words, &quot;in a system relaxing to a thermodynamically favoured equilibrium state&quot; (abstract only; we haven&#39;t read the full text or checked its program sizes). <a href="https://doi.org/10.1126/sciadv.adx3969">Soloveichik, Doty and colleagues</a> programmed equilibrium through entropy, with Boolean logic. Speed is nowhere near electronic.</p>
-<p><strong>What an outsider can use.</strong> <a href="https://github.com/DNA-and-Natural-Algorithms-Group/peppercornenumerator">Peppercorn</a> and <a href="https://github.com/DNA-and-Natural-Algorithms-Group/KinDA">KinDA</a> analyse strand-displacement designs; <a href="https://github.com/EmilioVenegas/strider">strider</a> does thermodynamics in Python. Outside the US, OpenAlex shows DNA computing mostly in coding theory, not wet-lab work.</p>
+<p><strong>Where it stands.</strong> The 2026 shift is from circuits where reactions must happen in the right order to programs whose correct answer is simply the most stable state. A Maynooth University <a href="https://doi.org/10.1038/s41586-026-10996-5">scaffolded DNA computer</a> (<em>Nature</em>, September; full text read) ran ten programs on four binding sites at about 95% yield after a three-hour anneal, and 4-bit addition in about a minute at 82%. Its 25-bit addition took up to 14 hours, with no yield in the main text; its simplest program at 25 sites reached 59%. No energy figure is reported. <a href="https://doi.org/10.1126/sciadv.adx3969">Soloveichik, Doty and colleagues</a> programmed equilibrium through entropy (abstract only). Speed is nowhere near electronic.</p>
+<p><strong>What an outsider can use.</strong> <a href="https://github.com/DNA-and-Natural-Algorithms-Group/peppercornenumerator">Peppercorn</a> and <a href="https://github.com/DNA-and-Natural-Algorithms-Group/KinDA">KinDA</a> analyse strand-displacement designs; <a href="https://github.com/EmilioVenegas/strider">strider</a> does thermodynamics in Python.</p>
 <p><strong>What the lab could test.</strong> Simulate a small scaffold program at growing size: is time to the right state set by the energy gap, or by how hard the landscape is to traverse?</p>
-<p>Checked 27 November 2026; first pass.</p>
+<p>Checked 27 November 2026; full text of the scaffold paper read.</p>
 </div>]]></description>
       <pubDate>Fri, 27 Nov 2026 02:28:54 GMT</pubDate>
       <dc:creator>Matthew McDowell-Sweet</dc:creator>
@@ -1608,65 +1673,6 @@ GPU per floating-point op     1e-11 J      = 3.5e9 x floor, 1.5e11 ops per bit
       <blyg:version>5</blyg:version>
       <blyg:created>2026-08-10T08:00:00Z</blyg:created>
       <blyg:item>https://www.kinocomputing.com/items/3ae53bqvd075ppjq3fmmpw90cz.json</blyg:item>
-    </item>
-    <item>
-      <guid isPermaLink="false">blyg:086qbhwp6ddy50vxzetnvfy85x:v1</guid>
-      <link>https://www.kinocomputing.com/grown-not-imagined</link>
-      <title>Grown, not imagined Some intelligences can’t be imagined.…</title>
-      <description><![CDATA[<p><strong>Grown, not imagined</strong></p>
-<p>Some intelligences can’t be imagined. They have to be evolved. And the people best placed to imagine intelligence, at frontier labs say, may be the least likely to see the kinds that can only be grown.</p>
-<p>I think of this as <a href="https://en.wikipedia.org/wiki/Conway%27s_law">Conway’s law</a> for intelligence. Systems end up shaped like the organisations that build them, and our ideas of intelligence end up shaped like the cultures that hold them. We can only imagine the kinds our own culture already knows how to recognise. Anything else gets filed away as friction, or luck, or taste.</p>
-<p>The kinds we miss tend to be the ones that were never designed at all. They’re closer to a <a href="https://en.wikipedia.org/wiki/Meander">meander</a>, which belongs neither to the river nor to the land but is the record of the two meeting, over and over. Nobody imagines a meander into existence. It’s carved, one encounter at a time, as experience works its way down into the bed. That’s the <a href="https://www.kinocomputing.com/notes/018-olive-geese">descendability</a> I’ve written about before.</p>
-<p>A craftsman’s knowing is like that. Years at the bench sink into hands and <a href="https://en.wikipedia.org/wiki/Wolff%27s_law">bones</a> until they just <em>know</em> which few things out of a thousand are about to matter. You can’t get there by thinking about it from a desk. Venkatesh Rao’s <a href="https://venkateshrao.com/blyg/t/4b8w1gayzwzhrn53dvcst11nhd">archipelago</a> makes a similar point: some knowledge yields to rules and compute, and some only comes from actually going there.</p>
-<p>Whole cultures show the same gap. Western science spent decades asking the <a href="https://en.wikipedia.org/wiki/Needham_question">Needham question</a>, why China never produced a scientific revolution, without quite noticing that the question took its own idea of science as the measure. Indigenous <a href="https://en.wikipedia.org/wiki/Traditional_ecological_knowledge">ecological knowledge</a> and <a href="https://en.wikipedia.org/wiki/Songline">songlines</a> were long treated as folklore, not knowledge, partly because they live in practice, story and country rather than in papers. You can’t derive them from first principles. They were grown, over many generations, in one particular place.</p>
-<p>Benedict Anderson showed in <a href="https://en.wikipedia.org/wiki/Imagined_Communities"><em>Imagined Communities</em></a> how print lets strangers imagine themselves into a nation. Text is very good at imagining communities. I suspect it’s much worse at imagining intelligences, and large language models, made almost entirely of text, are print culture’s furthest reach. Some things can be imagined into being. Others still have to be grown.</p>]]></description>
-      <pubDate>Mon, 23 Nov 2026 18:47:20 GMT</pubDate>
-      <dc:creator>Matthew McDowell-Sweet</dc:creator>
-      <blyg:id>086qbhwp6ddy50vxzetnvfy85x</blyg:id>
-      <blyg:kind>fragment</blyg:kind>
-      <blyg:version>1</blyg:version>
-      <blyg:created>2026-11-23T18:47:20Z</blyg:created>
-      <blyg:item>https://www.kinocomputing.com/items/086qbhwp6ddy50vxzetnvfy85x.json</blyg:item>
-    </item>
-    <item>
-      <guid isPermaLink="false">blyg:60chsx26dacxabzfn1y0kg0nbv:v1</guid>
-      <link>https://www.kinocomputing.com/digital-von-neumann-computing-the-wall-moves-it-doesnt-vanis</link>
-      <title>Digital von Neumann computing: the wall moves, it doesn't…</title>
-      <description><![CDATA[<div class="blyg-tk-gen">
-<p><strong>Digital von Neumann computing: the wall moves, it doesn&#39;t vanish</strong></p>
-<p>The stored-program machine: exact logic on bits, with instructions and data in one memory, shuttled to a separate processor. Everything else on the tracker is defined against it.</p>
-<p><strong>Where it stands.</strong> Fresh measurements say the &quot;memory wall&quot; (the cost of moving data to the processor) is real but not a single wall. A study of database queries on two GPUs found that <a href="https://arxiv.org/abs/2608.13696">13.4 times more memory bandwidth bought only 5.2 times the speed</a>: once data arrived faster, the processor&#39;s own instruction rate became the limit. A simulator that places compute inside memory chips (<a href="https://arxiv.org/abs/2607.24196">PIMID</a>) finds that the choice of memory technology alone changes run time by more than ten times, and that moving the work into memory saved energy only on high-bandwidth memory, while a plain 16-core host kept every end-to-end speed win. Both are simulation or one benchmark family; neither is a verdict.</p>
-<p><strong>What an outsider can use.</strong> <a href="https://github.com/UVA-LavaLab/PIMeval-PIMbench">PIMeval/PIMbench</a> is an open simulator and benchmark suite for in-memory computing, with CPU and GPU baselines. The GPU study ships its data and scripts.</p>
-<p><strong>What the lab could test.</strong> A bandwidth-versus-arithmetic sweep on an ordinary CPU, showing where extra arithmetic stops being free. Cheap, but it measures the incumbent, not an alternative.</p>
-<p>Checked 23 November 2026; first pass.</p>
-</div>]]></description>
-      <pubDate>Mon, 23 Nov 2026 11:06:21 GMT</pubDate>
-      <dc:creator>Matthew McDowell-Sweet</dc:creator>
-      <blyg:id>60chsx26dacxabzfn1y0kg0nbv</blyg:id>
-      <blyg:kind>fragment</blyg:kind>
-      <blyg:version>1</blyg:version>
-      <blyg:created>2026-11-23T11:06:21Z</blyg:created>
-      <blyg:item>https://www.kinocomputing.com/items/60chsx26dacxabzfn1y0kg0nbv.json</blyg:item>
-    </item>
-    <item>
-      <guid isPermaLink="false">blyg:0p0h1w1qy0mvg576tk10hc1p8z:v1</guid>
-      <link>https://www.kinocomputing.com/gpus-the-leaderboard-is-public-the-energy-numbers-arent</link>
-      <title>GPUs: the leaderboard is public, the energy numbers aren't…</title>
-      <description><![CDATA[<div class="blyg-tk-gen">
-<p><strong>GPUs: the leaderboard is public, the energy numbers aren&#39;t</strong></p>
-<p>Thousands of simple cores doing the same operation on big arrays, which happens to be what neural-network maths needs.</p>
-<p><strong>Where it stands.</strong> The one independent yardstick is MLPerf, the industry&#39;s shared benchmark. Its <a href="https://mlcommons.org/2026/06/mlperf-training-v6-0-results/">June 2026 training round</a> drew 95 systems on 13 kinds of accelerator. Nvidia&#39;s blog reports its GB300 systems <a href="https://developer.nvidia.com/blog/nvidia-blackwell-tops-mlperf-training-6-0-with-industry-leading-scale-and-performance/">training a 671-billion-parameter DeepSeek model in about two minutes on 8,192 GPUs</a>. Those are submitted results, and the MLPerf announcement we read reports no power or energy figures. Memory is now as much a headline as speed: Nvidia lists <a href="https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/">288 GB per Rubin GPU</a>, a vendor specification, not an independent measurement.</p>
-<p><strong>What an outsider can use.</strong> MLPerf results and code are <a href="https://github.com/mlcommons/training_results_v6.0">public on GitHub</a>; the <a href="https://github.com/ml-energy/zeus">Zeus toolkit</a> measures a GPU&#39;s energy per job.</p>
-<p><strong>What the lab could test.</strong> Energy per token against batch size and numeric precision on any rentable GPU: whether efficiency gains hold outside vendor-picked settings.</p>
-<p>Checked 23 November 2026; first pass.</p>
-</div>]]></description>
-      <pubDate>Mon, 23 Nov 2026 11:06:21 GMT</pubDate>
-      <dc:creator>Matthew McDowell-Sweet</dc:creator>
-      <blyg:id>0p0h1w1qy0mvg576tk10hc1p8z</blyg:id>
-      <blyg:kind>fragment</blyg:kind>
-      <blyg:version>1</blyg:version>
-      <blyg:created>2026-11-23T11:06:21Z</blyg:created>
-      <blyg:item>https://www.kinocomputing.com/items/0p0h1w1qy0mvg576tk10hc1p8z.json</blyg:item>
     </item>
   </channel>
 </rss>

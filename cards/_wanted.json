@@ -6,6 +6,36 @@
     "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><rect class=\"o\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"s\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
   },
   {
+    "key": "d45e2ef58adc8a58",
+    "title": "NARMA-10: a linear model scores 0.33, a chip 0.6 to 0.8",
+    "date": "27 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"o\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><rect class=\"o\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "11e70a24fd4dc5ca",
+    "title": "NARMA-10: a linear digital model scores about 0.33 in simulation",
+    "date": "27 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"o\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><rect class=\"o\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "377fdfa16f848270",
+    "title": "How many threads can one person run? Two ceilings, not one",
+    "date": "27 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"s\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"o\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"s\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"o\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "d839e0c328f388fe",
+    "title": "Do reservoir computers work best at the edge of chaos?",
+    "date": "27 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"o\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><rect class=\"s\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"o\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "f71c9c62e6eaf0ec",
+    "title": "\"Best at the edge of chaos\" is not a reliable rule for reservoirs",
+    "date": "27 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"s\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"s\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"o\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/></svg>"
+  },
+  {
     "key": "2f0db5e02529b388",
     "title": "Physical neural networks: training is the live problem",
     "date": "27 November 2026",

@@ -1577,6 +1577,43 @@
       "seen": "7017c504714b3a27",
       "page": "lab-brief-27-november-2026"
     },
+    "lab-2026-11-27-edge-of-chaos-claim": {
+      "id": "0qk6nkc52k5h5eg9rpr7ecwgjx",
+      "created": "2026-11-27T08:37:35Z",
+      "hash": "sha256:9bcc4861a07a80d490a21d4bf4956d964e3ee8d0d0665f5cade75a63aede72c5",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-27T08:37:35Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-27T08:37:35Z",
+          "note": null
+        }
+      ],
+      "seen": "ef7ca86e3471b851",
+      "page": "best-at-the-edge-of-chaos-is-not-a-reliable-rule-for-reservo"
+    },
+    "lab-2026-11-27-how-many-threads-can-one-human-run": {
+      "id": "50vnmfm8v59mdk13h1b7b7sfpa",
+      "created": "2026-11-27T08:37:35Z",
+      "hash": "sha256:de902769f5492e100c869a34c2b156c3458a10e20bf9fdf7f3facb09c8365163",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-27T08:37:35Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-27T08:37:35Z",
+          "note": null
+        }
+      ],
+      "seen": "73b803554a4efc41",
+      "page": "how-many-threads-can-one-person-run-two-ceilings-not-one"
+    },
     "lab-2026-11-27-kinetic-history-of-computing": {
       "id": "5wcfrevwbz2ede369jkjzk7199",
       "created": "2026-11-27T02:28:54Z",
@@ -1595,6 +1632,43 @@
       ],
       "seen": "98ad4f900e31fe61",
       "page": "a-kinetic-history-of-computing-what-can-be-tested"
+    },
+    "lab-2026-11-27-narma-10-linear-control-claim": {
+      "id": "0ekn5qfq2pnewx6bspsb8eqyd8",
+      "created": "2026-11-27T08:37:35Z",
+      "hash": "sha256:a62bcb20152669fd1181bfeb44ad58ae0e32da3b079fefad1bd0e47b48aa5d35",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-27T08:37:35Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-27T08:37:35Z",
+          "note": null
+        }
+      ],
+      "seen": "ce8dff492980641c",
+      "page": "narma-10-a-linear-digital-model-scores-about-0-33-in-simulat"
+    },
+    "lab-2026-11-27-narma-10-linear-model-beats-chip": {
+      "id": "1p3z2z752kzmky9hfsrmc95b2f",
+      "created": "2026-11-27T08:37:35Z",
+      "hash": "sha256:14c4a2c8d25cf4fe7601c0ae440ec356a165e5b4f14249e4be794aee5f279f84",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-27T08:37:35Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-27T08:37:35Z",
+          "note": null
+        }
+      ],
+      "seen": "347e60101184777b",
+      "page": "narma-10-a-linear-model-scores-0-33-a-chip-0-6-to-0-8"
     },
     "lab-2026-11-27-paradigm-dna-molecular": {
       "id": "3ng3hen60yqby5mp65srbxd06s",
@@ -1635,20 +1709,44 @@
     "lab-2026-11-27-paradigm-physical-reservoir": {
       "id": "2naj598wp5f1tb69n4dc5n969g",
       "created": "2026-11-27T02:28:54Z",
-      "hash": "sha256:d4ad4f8717bdfd98ad14373ffda06c4bcbe03807cfa7e76a2980c5c44771080a",
+      "hash": "sha256:a71eb883ab7a6c4e38197ee69ee65530f9ea177801be12afd6d4c81564330cc6",
       "generated": {
         "model": "claude-sonnet-5-5",
-        "at": "2026-11-27T02:28:54Z"
+        "at": "2026-11-27T08:37:35Z"
       },
       "changelog": [
         {
           "version": 1,
           "at": "2026-11-27T02:28:54Z",
           "note": null
+        },
+        {
+          "version": 2,
+          "at": "2026-11-27T08:37:35Z",
+          "note": "Added the first measured hardware result, a coupled-drum chip, read in full text: its 12.5 femtojoule energy figure counts only the electrical drive, and its NARMA-10 error is poor (0.6 to 0.8)."
         }
       ],
-      "seen": "c6d45368636f0286",
+      "seen": "a54ae88eb99852b2",
       "page": "physical-reservoir-computing-tiny-energy-figures-thin-compar"
+    },
+    "lab-2026-11-27-reservoir-edge-of-chaos-overstretched": {
+      "id": "5b4vkfteef9za3wq0k0m854n52",
+      "created": "2026-11-27T08:37:35Z",
+      "hash": "sha256:5c8bd4b41dd28bc4de7f1c7abaca100fccd629135293a2485ddbb93ba661e5b9",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-27T08:37:35Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-27T08:37:35Z",
+          "note": null
+        }
+      ],
+      "seen": "6d389f9215c79dd2",
+      "page": "do-reservoir-computers-work-best-at-the-edge-of-chaos"
     }
   }
 }

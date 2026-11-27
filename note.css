@@ -27,8 +27,7 @@
   --hover: #b0d0f7;        /* a link under the pointer */
   --blue: #2f5d8c;         /* emphasis, a second series, focus, 5.0:1 */
   --vermilion: #c8553d;    /* the one warm accent: marks, not text */
-  --image-card: transparent; /* images are drawn for the light page… */
-  --image-pad: 0;
+  --image-filter: none;     /* images are drawn for the light page, on no background of their own… */
   --serif: "Newsreader", Charter, Georgia, serif;
   --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --mono: "SF Mono", Monaco, "Cascadia Code", monospace;
@@ -54,8 +53,7 @@
     --hover: #26425f;
     --blue: #8db8e8;       /* 8.5:1 */
     --vermilion: #f08c74;  /* 7.3:1 */
-    --image-card: #cbdff7; /* …so on the dark one they sit on its colour */
-    --image-pad: 0.9em;
+    --image-filter: invert(1) hue-rotate(180deg); /* …so on the dark one they turn over, ink to light, the background to the page */
   }
 }
 
@@ -73,8 +71,7 @@
   --hover: #26425f;
   --blue: #8db8e8;       /* 8.5:1 */
   --vermilion: #f08c74;  /* 7.3:1 */
-  --image-card: #cbdff7; /* …so on the dark one they sit on its colour */
-  --image-pad: 0.9em;
+  --image-filter: invert(1) hue-rotate(180deg); /* …so on the dark one they turn over, ink to light, the background to the page */
 }
 
 /* Two faces, self-hosted, Latin, one variable file per style (SIL Open Font
@@ -328,13 +325,20 @@ ul.listing .summary {
    on a small grey line under the lab's line. The filter is a plain text box
    and a select, shown only once its script has run. */
 ul.reading .site,
+ul.reading .added,
 ul.reading .meta {
   font-size: 0.85em;
   color: var(--grey);
 }
 
-ul.reading .tag {
+ul.reading .tag,
+ul.reading .added {
   white-space: nowrap;
+}
+
+ul.reading .meta time,
+ul.reading .added time {
+  font-size: inherit; /* already the small grey line's size */
 }
 
 ul.reading .tag + .tag::before {
@@ -844,8 +848,11 @@ table.tracker td:not(.when) {
    on a wide screen breaks out of the column on both sides. A figure — a
    chart or a diagram — sits in the column at its own size or less. Both
    carry a caption below, in the furniture's sans, saying what to see.
-   Images are drawn for the light page; on the dark page they sit on a card
-   of the light page's colour, so they look the same either way. */
+   Images are drawn in the house palette for the light page, on no
+   background of their own. On the dark page they are turned over (inverted,
+   then rotated back round the colour wheel): the ink comes out light, the
+   vermilion stays warm, and the page shows through, so there is never a
+   slab of light on the dark. */
 figure {
   margin: 1.75em 0;
 }
@@ -855,10 +862,7 @@ figure img {
   max-width: 100%;
   height: auto;
   margin: 0 auto;
-  background: var(--image-card);
-  padding: var(--image-pad);
-  border-radius: 4px;
-  box-sizing: border-box;
+  filter: var(--image-filter);
 }
 
 figure.plate img {

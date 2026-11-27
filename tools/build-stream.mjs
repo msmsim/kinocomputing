@@ -148,7 +148,7 @@ const MENU = [
 // links are other people's pages, not items of this blyg.
 const READING = {
   id: "reading", title: "Reading",
-  blurb: "What the lab is reading: every link Matt sends it, and every source the lab itself found worth keeping, each with a line on what it is and why it matters, and the notes that used it. Newest first.",
+  blurb: "What the lab is reading: every link Matt sends it, and every source the lab itself found worth keeping, each with a line on what it is and why it matters, and the notes that used it, how often and when last. Newest first, or sorted by use.",
 };
 BLYG.hoppers = [{ title: READING.title, page: READING.id, feed: `feeds/${READING.id}.xml` }];
 
@@ -1554,17 +1554,25 @@ const paradigmNames = new Map(((await readFile(join(SOURCE_DIR, "_tracker.json")
 const esc = (text) => String(text ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const noteByFile = new Map(notes.map((note) => [note.fileSlug, note]));
 
-/** One link: its title, where it's from, when it was added, the lab's line, its paradigms, and the notes that used it. */
+/**
+ * One link: its title, where it's from, when it was added, the lab's line,
+ * its paradigms, and the notes that used it: how many, the latest first, and
+ * when it was last used, which is the latest of those notes' dates.
+ */
 function readingRow(item) {
   const tags = item.paradigms.map((id) => `<span class="tag" data-paradigm="${esc(id)}">${esc(paradigmNames.get(id) ?? id)}</span>`).join(" ");
-  const used = item.used_in.map((name) => noteByFile.get(name)).filter(Boolean)
-    .map((note) => `<a href="${note.path}">${titleOf(note)}</a>`);
+  const notesUsing = [...new Set(item.used_in)].map((name) => noteByFile.get(name)).filter(Boolean)
+    .sort((a, b) => new Date(b.time) - new Date(a.time));
+  const lastUsed = notesUsing[0] ? new Date(notesUsing[0].time).toISOString().slice(0, 10) : "";
+  const used = notesUsing.length
+    ? `Used in ${notesUsing.length === 1 ? "1 note" : `${notesUsing.length} notes`}, last <time datetime="${lastUsed}">${dateOnly(`${lastUsed}T12:00:00Z`)}</time>: ${notesUsing.map((note) => `<a href="${note.path}">${titleOf(note)}</a>`).join(", ")}`
+    : "";
   const searchable = [item.title, item.why, item.site, ...item.paradigms.map((id) => paradigmNames.get(id) ?? id)].join(" ").toLowerCase();
   return [
-    `<li id="${esc(item.id)}" data-paradigms="${esc(item.paradigms.join(" "))}" data-text="${esc(searchable)}">`,
-    `<a href="${esc(item.url)}">${esc(item.title)}</a> <span class="site">${esc(item.site)}</span> <time datetime="${esc(item.added)}">${dateOnly(`${item.added}T12:00:00Z`)}</time>`,
+    `<li id="${esc(item.id)}" data-paradigms="${esc(item.paradigms.join(" "))}" data-text="${esc(searchable)}" data-added="${esc(item.added)}" data-used="${lastUsed}" data-uses="${notesUsing.length}">`,
+    `<a href="${esc(item.url)}">${esc(item.title)}</a> <span class="site">${esc(item.site)}</span> <span class="added">added <time datetime="${esc(item.added)}">${dateOnly(`${item.added}T12:00:00Z`)}</time></span>`,
     ...(item.why ? [`<br><span class="summary">${esc(item.why)}</span>`] : []),
-    ...(tags || used.length ? [`<br><span class="meta">${[tags, used.length ? `Used in ${used.join(", ")}` : ""].filter(Boolean).join(" · ")}</span>`] : []),
+    ...(tags || used ? [`<br><span class="meta">${[tags, used].filter(Boolean).join(" · ")}</span>`] : []),
     "</li>",
   ].join("");
 }
@@ -1576,6 +1584,14 @@ const READING_SCRIPT = `<script>
   const q = document.getElementById("reading-q"), p = document.getElementById("reading-p");
   const rows = [...document.querySelectorAll("ul.reading > li")];
   const count = document.getElementById("reading-count");
+  const list = document.querySelector("ul.reading"), order = document.getElementById("reading-s");
+  // Newest added, most recently used, or most used; ties keep the page's order.
+  const sort = () => {
+    const key = order.value;
+    const by = (row) => key === "uses" ? Number(row.dataset.uses) : row.dataset[key] || "";
+    rows.map((row, i) => [row, i]).sort(([a, i], [b, j]) => (by(a) < by(b) ? 1 : by(a) > by(b) ? -1 : i - j))
+      .forEach(([row]) => list.appendChild(row));
+  };
   const apply = () => {
     const words = q.value.toLowerCase().split(/\\s+/).filter(Boolean);
     let shown = 0;
@@ -1590,6 +1606,7 @@ const READING_SCRIPT = `<script>
   document.getElementById("reading-filter").hidden = false;
   q.addEventListener("input", apply);
   p.addEventListener("change", apply);
+  order.addEventListener("change", sort);
 })();
 </script>`;
 
@@ -1602,6 +1619,7 @@ async function renderReading() {
     '<form id="reading-filter" class="filter" role="search" hidden onsubmit="return false">',
     '<input id="reading-q" type="search" placeholder="Filter" aria-label="Filter by words">',
     ...(present.length ? [`<select id="reading-p" aria-label="Filter by paradigm"><option value="">All paradigms</option>${present.map((id) => `<option value="${esc(id)}">${esc(paradigmNames.get(id) ?? id)}</option>`).join("")}</select>`] : ['<select id="reading-p" hidden><option value=""></option></select>']),
+    '<select id="reading-s" aria-label="Sort"><option value="added">Newest</option><option value="used">Recently used</option><option value="uses">Most used</option></select>',
     '<span id="reading-count" class="count"></span>',
     "</form>",
   ].join("\n") : "";

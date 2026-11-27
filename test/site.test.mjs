@@ -142,6 +142,16 @@ test("the page colour reaches past the page's ends, in both schemes; every colou
     }
     assert.ok(ratio(colours.vermilion, colours.paper) >= 3, `${name}: vermilion marks under 3:1`);
   }
+  // Images: drawn for the light page with no ground of their own, turned over
+  // on the dark one, never set on a light card there.
+  const filterIn = (block) => block.match(/--image-filter:\s*([^;]+);/)?.[1];
+  assert.equal(filterIn(css.match(/^:root \{[\s\S]*?\n\}/m)[0]), "none");
+  for (const block of [css.match(/@media \(prefers-color-scheme: dark\) \{\s*:root:not\(\[data-theme="light"\]\) \{[\s\S]*?\}/)[0], css.match(/^:root\[data-theme="dark"\] \{[\s\S]*?\n\}/m)[0]]) {
+    assert.equal(filterIn(block), "invert(1) hue-rotate(180deg)");
+  }
+  const img = css.match(/^figure img \{[^}]*\}/m)[0];
+  assert.match(img, /filter: var\(--image-filter\);/);
+  assert.ok(!/background/.test(img), "no card behind an image");
 });
 
 test("a 404 page: Cloudflare serves it, with a 404 status, for any address the site doesn't have", () => {
@@ -323,9 +333,10 @@ test("reading: the lab's list of links, newest first, filterable, with its feed 
   const site = makeSite();
   try {
     site.publish("lab-2026-11-25-photonic-note", { body: "<p><strong>A photonic note</strong></p>\n<p>It used the chip paper, and said so.</p>", iso: "2026-11-25T03:00:00Z", generated: "m" });
+    site.publish("lab-2026-11-27-second-look", { body: "<p><strong>A second look</strong></p>\n<p>It used the chip paper again.</p>", iso: "2026-11-27T03:00:00Z", generated: "m" });
     writeFileSync(join(site.root, "notes", "_tracker.json"), JSON.stringify({ groups: [{ name: "Let physics compute", paradigms: [{ id: "photonic", name: "Photonic / optical computing" }] }] }));
     writeFileSync(join(site.root, "notes", "_hopper.json"), JSON.stringify({ updated: "2026-11-25", items: [
-      { id: "500-amber-owls", url: "https://example.org/chip?a=1&b=2", title: "A new <photonic> chip", site: "example.org", added: "2026-11-25", from: "pi", paradigms: ["photonic"], why: "A measured 10 fJ per operation, on silicon.", used_in: ["lab-2026-11-25-photonic-note"] },
+      { id: "500-amber-owls", url: "https://example.org/chip?a=1&b=2", title: "A new <photonic> chip", site: "example.org", added: "2026-11-25", from: "pi", paradigms: ["photonic"], why: "A measured 10 fJ per operation, on silicon.", used_in: ["lab-2026-11-25-photonic-note", "lab-2026-11-27-second-look", "lab-2026-11-25-photonic-note"] },
       { id: "r-0123456789", url: "https://arxiv.org/abs/2611.00001", title: "A reservoir paper", site: "arxiv.org", added: "2026-11-24", from: "lab", paradigms: [], why: "Found while checking the reservoir entry.", used_in: [] },
       { id: "bad id", url: "javascript:alert(1)", title: "x", added: "2026-11-24" },
     ] }));
@@ -334,7 +345,9 @@ test("reading: the lab's list of links, newest first, filterable, with its feed 
     const page = tree.get("reading.html");
     const rows = [...page.matchAll(/<li id="([^"]+)"/g)].map((m) => m[1]);
     assert.deepEqual(rows, ["500-amber-owls", "r-0123456789"], "newest first; a bad line never shows");
-    assert.match(page, /<li id="500-amber-owls" data-paradigms="photonic" data-text="[^"]*photonic \/ optical computing"><a href="https:\/\/example\.org\/chip\?a=1&amp;b=2">A new &lt;photonic&gt; chip<\/a> <span class="site">example\.org<\/span> <time datetime="2026-11-25">25 Nov 2026<\/time><br><span class="summary">A measured 10 fJ per operation, on silicon\.<\/span><br><span class="meta"><span class="tag" data-paradigm="photonic">Photonic \/ optical computing<\/span> · Used in <a href="\/a-photonic-note" target="_self">A photonic note<\/a><\/span><\/li>/);
+    assert.match(page, /<li id="500-amber-owls" data-paradigms="photonic" data-text="[^"]*photonic \/ optical computing" data-added="2026-11-25" data-used="2026-11-27" data-uses="2"><a href="https:\/\/example\.org\/chip\?a=1&amp;b=2">A new &lt;photonic&gt; chip<\/a> <span class="site">example\.org<\/span> <span class="added">added <time datetime="2026-11-25">25 Nov 2026<\/time><\/span><br><span class="summary">A measured 10 fJ per operation, on silicon\.<\/span><br><span class="meta"><span class="tag" data-paradigm="photonic">Photonic \/ optical computing<\/span> · Used in 2 notes, last <time datetime="2026-11-27">27 Nov 2026<\/time>: <a href="\/a-second-look" target="_self">A second look<\/a>, <a href="\/a-photonic-note" target="_self">A photonic note<\/a><\/span><\/li>/, "how often it was used, and when last, the latest first");
+    assert.match(page, /<li id="r-0123456789"[^>]* data-used="" data-uses="0">/, "never used");
+    assert.match(page, /<select id="reading-s" aria-label="Sort"><option value="added">Newest<\/option><option value="used">Recently used<\/option><option value="uses">Most used<\/option><\/select>/);
     assert.match(page, /<form id="reading-filter" class="filter" role="search" hidden/, "the filter shows only when its script runs");
     assert.match(page, /<option value="photonic">Photonic \/ optical computing<\/option>/);
     assert.match(page, /<\/main>\n<script>/);

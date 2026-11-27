@@ -39,6 +39,10 @@ jobs:
       # otherwise leave the push rejected and the state a step behind. The
       # state step reads notes/ and writes only blyg/, so restarting from the
       # current head is always safe.
+      # The share cards are drawn here, with the packages a PNG needs, so the
+      # deploy itself draws nothing (tools/card.mjs).
+      - run: npm ci
+
       - name: Update and commit
         run: |
           git config user.name "github-actions[bot]"
@@ -49,13 +53,15 @@ jobs:
             git reset --hard origin/main
 
             node tools/build-stream.mjs --state
+            node tools/build-stream.mjs --cards > /dev/null
+            node tools/card.mjs
 
-            if [ -z "$(git status --porcelain blyg)" ]; then
+            if [ -z "$(git status --porcelain blyg cards)" ]; then
               echo "already up to date"
               exit 0
             fi
 
-            git add blyg
+            git add blyg cards
             git commit -m "blyg: record state"
 
             if git push origin HEAD:main; then

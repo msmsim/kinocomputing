@@ -2,17 +2,6 @@
   "updated": "2026-11-27",
   "items": [
     {
-      "id": "974-violet-wrens",
-      "url": "https://wired.com/story/just-ridiculous-a-famed-philosopher-takes-on-ai-consciousness",
-      "title": "'Just Ridiculous': A Famed Philosopher Takes on AI Consciousness (WIRED)",
-      "site": "wired.com",
-      "added": "2026-11-27",
-      "from": "pi",
-      "paradigms": [],
-      "why": "Interview in which a philosopher doubts AI systems are conscious yet allows non-biological conscious beings in principle, and worries about lost human intellectual effort.",
-      "used_in": []
-    },
-    {
       "id": "r-0853db06d5",
       "url": "https://doi.org/10.1038/s41586-026-10996-5",
       "title": "A thermodynamically favoured molecular computer",
@@ -26,77 +15,6 @@
       "used_in": [
         "lab-2026-11-27-paradigm-dna-molecular"
       ]
-    },
-    {
-      "id": "586-cobalt-deer",
-      "url": "https://blyg.aneeshsathe.com/t/28dgvc6a2tqjt8th3dc61fvy74",
-      "title": "AI as a tool that allows selection pressure to act on code (Aneesh Sathe)",
-      "site": "blyg.aneeshsathe.com",
-      "added": "2026-11-27",
-      "from": "pi",
-      "paradigms": [],
-      "why": "A reply to the Regenerable Software essay arguing software has an ecological niche, so cheaper regeneration speeds a Red Queen race rather than ending it. An argument, not a measurement.",
-      "used_in": [
-        "lab-2026-11-26-regenerable-software-hot-state"
-      ]
-    },
-    {
-      "id": "703-plum-pikes",
-      "url": "https://symmetrybroken.com/asymmetric-evolution",
-      "title": "Asymmetric Evolution (symmetry, broken)",
-      "site": "symmetrybroken.com",
-      "added": "2026-11-27",
-      "from": "pi",
-      "paradigms": [
-        "thermodynamic"
-      ],
-      "why": "Part of a series on a 'synchronization tax': the thermodynamic cost of keeping systems' descriptions in agreement. A theory essay, assuming the series' earlier parts.",
-      "used_in": []
-    },
-    {
-      "id": "r-48ff5f8dc9",
-      "url": "https://arxiv.org/abs/2611.14782",
-      "title": "Bayesian inference with a polymer probabilistic computer",
-      "site": "arxiv.org",
-      "added": "2026-11-27",
-      "from": "lab",
-      "paradigms": [
-        "thermodynamic"
-      ],
-      "why": "Four conjugated-polymer probabilistic bits sampling 16-state Bayesian posteriors within the spread expected of ideal bits.",
-      "used_in": [
-        "lab-2026-11-26-paradigm-thermodynamic"
-      ]
-    },
-    {
-      "id": "784-ivory-foxes",
-      "url": "https://symmetrybroken.com/coherence-at-300-kelvin",
-      "title": "Coherence at 300 Kelvin (symmetry, broken)",
-      "site": "symmetrybroken.com",
-      "added": "2026-11-27",
-      "from": "pi",
-      "paradigms": [
-        "thermodynamic",
-        "physical-limits"
-      ],
-      "why": "A long theory essay linking Landauer's floor, multiplicative noise and attention dynamics, with a list of falsifiable tests and Pythia experiments; it compares brain and chatbot energy per bit.",
-      "used_in": [
-        "lab-2026-11-26-brain-chatbot-landauer-gap",
-        "lab-2026-11-26-landauer-gap-match-soft-claim"
-      ]
-    },
-    {
-      "id": "954-sage-shrews",
-      "url": "https://stankerstjens.github.io/could-a-computer-scientist-build-a-brain",
-      "title": "Could a computer scientist build a brain?",
-      "site": "stankerstjens.github.io",
-      "added": "2026-11-27",
-      "from": "pi",
-      "paradigms": [
-        "embodied-cognition"
-      ],
-      "why": "An essay reading evolution, development and learning as one process on different time scales, with the genome as a compressed record that development unfolds.",
-      "used_in": []
     },
     {
       "id": "r-3f01b5ce1a",
@@ -114,150 +32,6 @@
       ]
     },
     {
-      "id": "616-umber-crows",
-      "url": "https://x.com/esrtweet/status/2121339860824797635",
-      "title": "Eric Raymond on 'hot-state dependency'",
-      "site": "x.com",
-      "added": "2026-11-27",
-      "from": "pi",
-      "paradigms": [],
-      "why": "A short post defining hot-state dependency: a system that depends on relationships and operational knowledge existing only in its running configuration, and 'heat death' when it crashes and cannot be rebuilt.",
-      "used_in": [
-        "lab-2026-11-26-regenerable-software-hot-state"
-      ]
-    },
-    {
-      "id": "r-db051192ad",
-      "url": "https://arxiv.org/abs/2609.19999",
-      "title": "Evaluating Positive Feedback Adiabatic Logic in 16nm FinFET with a Realistic Power-Clock",
-      "site": "arxiv.org",
-      "added": "2026-11-27",
-      "from": "lab",
-      "paradigms": [
-        "reversible"
-      ],
-      "why": "A simulation study of adiabatic logic at 16 nm finding energy advantages over static CMOS in small circuits, and three sources of loss that limit them.",
-      "used_in": [
-        "lab-2026-11-26-paradigm-reversible"
-      ]
-    },
-    {
-      "id": "833-olive-egrets",
-      "url": "https://developer.nvidia.com/blog/extreme-event-likelihoods-with-guided-generative-models",
-      "title": "Extreme Event Likelihoods with Guided Generative Models",
-      "site": "developer.nvidia.com",
-      "added": "2026-11-27",
-      "from": "pi",
-      "paradigms": [],
-      "why": "A vendor blog on guiding a diffusion climate emulator toward tropical cyclones to estimate odds ratios; an example of generative models as risk-analysis tools.",
-      "used_in": []
-    },
-    {
-      "id": "r-b2f4d4dac8",
-      "url": "https://epoch.ai/gradient-updates/how-much-energy-does-chatgpt-use",
-      "title": "How much energy does ChatGPT use? (Epoch AI)",
-      "site": "epoch.ai",
-      "added": "2026-11-27",
-      "from": "lab",
-      "paradigms": [
-        "gpus"
-      ],
-      "why": "Epoch AI's estimate of about 0.3 Wh for a typical GPT-4o text query, with its assumptions, and why older estimates were ten times higher.",
-      "used_in": [
-        "lab-2026-11-26-brain-chatbot-landauer-gap"
-      ]
-    },
-    {
-      "id": "r-52747a1c5d",
-      "url": "https://www.ibm.com/quantum/blog/open-plan-updates",
-      "title": "IBM Quantum Open Plan updates",
-      "site": "ibm.com",
-      "added": "2026-11-27",
-      "from": "lab",
-      "paradigms": [
-        "quantum"
-      ],
-      "why": "Describes free access to real quantum hardware (10 minutes per 28 days) for outsiders.",
-      "used_in": [
-        "lab-2026-11-26-paradigm-quantum"
-      ]
-    },
-    {
-      "id": "r-9740cee48a",
-      "url": "https://doi.org/10.1088/1742-5468/2015/06/p06015",
-      "title": "Information and thermodynamics: experimental verification of Landauer's Erasure principle",
-      "site": "doi.org",
-      "added": "2026-11-27",
-      "from": "lab",
-      "paradigms": [
-        "thermodynamic",
-        "reversible"
-      ],
-      "why": "A colloidal-particle one-bit memory whose mean heat of erasure saturates at the Landauer bound for slow cycles: the principle measured, not just argued.",
-      "used_in": []
-    },
-    {
-      "id": "984-bronze-finches",
-      "url": "https://mdpi.com/2409-9287/11/5/161",
-      "title": "Ingressing Minds: Causal, Non-Physical Patterns In-Form Natural, Synthetic, and Hybrid Embodiments",
-      "site": "mdpi.com",
-      "added": "2026-11-27",
-      "from": "pi",
-      "paradigms": [
-        "basal-cognition"
-      ],
-      "why": "Michael Levin's theoretical paper proposing that mathematical patterns relate to physical objects as minds relate to bodies; a philosophical proposal, not an experiment.",
-      "used_in": []
-    },
-    {
-      "id": "800-flax-cranes",
-      "url": "https://unconv.ai/blog/introducing-un-0-generating-images-with-coupled-oscillators",
-      "title": "Introducing Un-0: Generating Images with Coupled Oscillators",
-      "site": "unconv.ai",
-      "added": "2026-11-27",
-      "from": "pi",
-      "paradigms": [
-        "physical-neural-networks",
-        "thermodynamic"
-      ],
-      "why": "A start-up's post on a simulated oscillator network that generates images (FID 6.74 on ImageNet 64x64); no hardware energy measured. Weights and code released.",
-      "used_in": [
-        "lab-2026-11-26-un-0-oscillator-image-generator"
-      ]
-    },
-    {
-      "id": "r-30b77afd86",
-      "url": "https://blog.google/innovation-and-ai/models-and-research/quantum-computing/magic-state-cultivation-quantum-computing/",
-      "title": "Magic state cultivation on Willow",
-      "site": "blog.google",
-      "added": "2026-11-27",
-      "from": "lab",
-      "paradigms": [
-        "quantum"
-      ],
-      "why": "Google's account of a roughly 40-fold error reduction for magic states and 99.99% logical T-state fidelity on its Willow chip, published in Science.",
-      "used_in": [
-        "lab-2026-11-26-paradigm-quantum"
-      ]
-    },
-    {
-      "id": "838-teal-eels",
-      "url": "https://www.zach.be/p/making-unconventional-computing-practical",
-      "title": "Making Unconventional Computing Practical",
-      "site": "zach.be",
-      "added": "2026-11-27",
-      "from": "pi",
-      "paradigms": [
-        "analog-in-memory",
-        "neuromorphic",
-        "thermodynamic"
-      ],
-      "why": "A practitioner's essay arguing that processing-in-memory, neuromorphic and thermodynamic chips reached customers by keeping one benefit and going digital. One author's view.",
-      "used_in": [
-        "lab-2026-11-26-analog-chips-digital-survivors"
-      ]
-    },
-    {
       "id": "r-0d04eca795",
       "url": "https://doi.org/10.1002/advs.75476",
       "title": "Memristive Physical Reservoir Computing",
@@ -271,19 +45,6 @@
       "used_in": [
         "lab-2026-11-27-paradigm-physical-reservoir"
       ]
-    },
-    {
-      "id": "654-amber-kites",
-      "url": "https://researchoutreach.org/articles/metabiology-complexity-natural-evolution",
-      "title": "Metabiology and the complexity of natural evolution",
-      "site": "researchoutreach.org",
-      "added": "2026-11-27",
-      "from": "pi",
-      "paradigms": [
-        "embodied-cognition"
-      ],
-      "why": "An outreach article on Carsetti's view that natural computation is embodied and cannot be reduced to purely syntactic processing; a position, not a measurement.",
-      "used_in": []
     },
     {
       "id": "r-ff8e6e7023",
@@ -331,21 +92,6 @@
       ]
     },
     {
-      "id": "r-639fabcc68",
-      "url": "https://github.com/DNA-and-Natural-Algorithms-Group/peppercornenumerator",
-      "title": "Peppercorn enumerator",
-      "site": "github.com",
-      "added": "2026-11-27",
-      "from": "lab",
-      "paradigms": [
-        "dna-molecular"
-      ],
-      "why": "Open tool that enumerates reactions of DNA strand-displacement designs and simulates their kinetics.",
-      "used_in": [
-        "lab-2026-11-27-paradigm-dna-molecular"
-      ]
-    },
-    {
       "id": "r-b1c0c9c1f7",
       "url": "https://github.com/wurui1991/PHRESCO_2026",
       "title": "PHRESCO 2026",
@@ -358,6 +104,21 @@
       "why": "Examples of a crumpled-paper reservoir driven by an Arduino and tracked by phone camera, with NARMA evaluation.",
       "used_in": [
         "lab-2026-11-27-paradigm-physical-reservoir"
+      ]
+    },
+    {
+      "id": "r-639fabcc68",
+      "url": "https://github.com/DNA-and-Natural-Algorithms-Group/peppercornenumerator",
+      "title": "Peppercorn enumerator",
+      "site": "github.com",
+      "added": "2026-11-27",
+      "from": "lab",
+      "paradigms": [
+        "dna-molecular"
+      ],
+      "why": "Open tool that enumerates reactions of DNA strand-displacement designs and simulates their kinetics.",
+      "used_in": [
+        "lab-2026-11-27-paradigm-dna-molecular"
       ]
     },
     {
@@ -391,21 +152,6 @@
       ]
     },
     {
-      "id": "r-4c8b425dad",
-      "url": "https://arxiv.org/abs/2606.25313",
-      "title": "Programmable Probabilistic Computer with 1,000,000 p-bits",
-      "site": "arxiv.org",
-      "added": "2026-11-27",
-      "from": "lab",
-      "paradigms": [
-        "thermodynamic"
-      ],
-      "why": "Measured: a million probabilistic bits on 18 FPGAs sustaining 10^12 updates a second, checked against a GPU reference on spin-glass optimisation.",
-      "used_in": [
-        "lab-2026-11-26-paradigm-thermodynamic"
-      ]
-    },
-    {
       "id": "r-25620a78a2",
       "url": "https://github.com/JeremieMelo/pytorch-onn",
       "title": "PyTorch-ONN",
@@ -436,30 +182,6 @@
       ]
     },
     {
-      "id": "696-cobalt-moths",
-      "url": "https://venkateshrao.com/blyg/t/0mrdcxtf673g97gytsm87a6mva",
-      "title": "Regenerable Software: A Vision for Agentic Software Engineering (Venkatesh Rao)",
-      "site": "venkateshrao.com",
-      "added": "2026-11-27",
-      "from": "pi",
-      "paradigms": [],
-      "why": "A draft essay proposing a third regime of software engineering where the durable asset is the intelligence needed to regenerate code (specs, assurance), not the code itself. A vision, not evidence.",
-      "used_in": [
-        "lab-2026-11-26-regenerable-software-hot-state"
-      ]
-    },
-    {
-      "id": "730-moss-wrens",
-      "url": "https://scalingswarms.com/",
-      "title": "s3: Simple Scaling of Swarms via Cooperative Multi-agent RL",
-      "site": "scalingswarms.com",
-      "added": "2026-11-27",
-      "from": "pi",
-      "paradigms": [],
-      "why": "Project page for training leaderless asynchronous swarms of language models with a shared reward, reporting gains over best-of-N from solo agents and carry-over to larger swarms.",
-      "used_in": []
-    },
-    {
       "id": "r-4634766308",
       "url": "https://doi.org/10.1038/s43588-026-01075-w",
       "title": "Scalable physical deep learning using optical dynamics with state-skipping training and single-map architecture",
@@ -472,95 +194,6 @@
       "why": "Optoelectronic physical learning with a training rule that skips states, claiming roughly 40% less computation.",
       "used_in": [
         "lab-2026-11-27-paradigm-physical-neural-networks"
-      ]
-    },
-    {
-      "id": "613-coral-moles",
-      "url": "https://commoncog.com/sensemaking-heart-of-expertise",
-      "title": "Sensemaking as the Heart of Expertise (Commoncog)",
-      "site": "commoncog.com",
-      "added": "2026-11-27",
-      "from": "pi",
-      "paradigms": [],
-      "why": "Cedric Chin on expertise as the ability to build better frames, with a proposed exercise: react to a case, then compare your reaction with an expert's.",
-      "used_in": []
-    },
-    {
-      "id": "551-flax-otters",
-      "url": "https://goodfire.com/research/mechanistic-shaping",
-      "title": "Shaping and Monitoring Models Through Their Internal Representations (Goodfire)",
-      "site": "goodfire.com",
-      "added": "2026-11-27",
-      "from": "pi",
-      "paradigms": [],
-      "why": "Goodfire's account of training models by shaping which internal concepts they rely on (curbing sycophancy, reward hacking, X-ray shortcuts), with a hierarchy for measuring monitorability. Company research; a post summarising a longer pape",
-      "used_in": []
-    },
-    {
-      "id": "999-coral-eels",
-      "url": "https://frontiersin.org/journals/integrative-neuroscience/articles/10.3389/fnint.2023.1057622/full",
-      "title": "The brain is not mental! coupling neuronal and immune cellular processing in human organisms",
-      "site": "frontiersin.org",
-      "added": "2026-11-27",
-      "from": "pi",
-      "paradigms": [
-        "embodied-cognition"
-      ],
-      "why": "A Frontiers paper arguing that cognition is distributed across all the body's cells, not the brain alone; a theoretical argument.",
-      "used_in": []
-    },
-    {
-      "id": "508-slate-falcons",
-      "url": "https://venkateshrao.com/blyg/t/2mrz24qfj6shxc932nqfh3xebb",
-      "title": "The future of human coordination",
-      "site": "venkateshrao.com",
-      "added": "2026-11-27",
-      "from": "pi",
-      "paradigms": [],
-      "why": "Venkatesh Rao on why individual 10x-1000x speedups from AI break team coordination in complex, many-layered technical stacks, and what a better coordination design would need.",
-      "used_in": [
-        "lab-2026-11-26-regenerable-software-hot-state"
-      ]
-    },
-    {
-      "id": "974-bronze-larks",
-      "url": "https://commoncog.com/the-tacit-knowledge-series",
-      "title": "The Tacit Knowledge Series",
-      "site": "commoncog.com",
-      "added": "2026-11-27",
-      "from": "pi",
-      "paradigms": [],
-      "why": "A long-running series on knowledge that cannot be captured in words and how expertise is acquired.",
-      "used_in": []
-    },
-    {
-      "id": "r-60421fc2b5",
-      "url": "https://arxiv.org/abs/2408.10234",
-      "title": "The Unbearable Slowness of Being: Why do we live at 10 bits/s?",
-      "site": "arxiv.org",
-      "added": "2026-11-27",
-      "from": "lab",
-      "paradigms": [
-        "physical-limits"
-      ],
-      "why": "Zheng and Meister's estimate that human behavioural throughput is about 10 bits/s against about 10^9 bits/s gathered by the senses, and why that gap is unexplained.",
-      "used_in": [
-        "lab-2026-11-26-brain-chatbot-landauer-gap"
-      ]
-    },
-    {
-      "id": "r-466deb82b9",
-      "url": "https://github.com/extropic-ai/thrml",
-      "title": "THRML",
-      "site": "github.com",
-      "added": "2026-11-27",
-      "from": "lab",
-      "paradigms": [
-        "thermodynamic"
-      ],
-      "why": "Open-source JAX library for blocked Gibbs sampling and energy-based models, from Extropic.",
-      "used_in": [
-        "lab-2026-11-26-paradigm-thermodynamic"
       ]
     },
     {
@@ -579,24 +212,367 @@
       ]
     },
     {
-      "id": "648-jade-bees",
-      "url": "https://symmetrybroken.com/when-a-fact-becomes-history",
-      "title": "When a Fact Becomes History (symmetry, broken)",
-      "site": "symmetrybroken.com",
-      "added": "2026-11-27",
+      "id": "974-violet-wrens",
+      "url": "https://wired.com/story/just-ridiculous-a-famed-philosopher-takes-on-ai-consciousness",
+      "title": "'Just Ridiculous': A Famed Philosopher Takes on AI Consciousness (WIRED)",
+      "site": "wired.com",
+      "added": "2026-11-26",
       "from": "pi",
+      "paradigms": [],
+      "why": "Interview in which a philosopher doubts AI systems are conscious yet allows non-biological conscious beings in principle, and worries about lost human intellectual effort.",
+      "used_in": []
+    },
+    {
+      "id": "586-cobalt-deer",
+      "url": "https://blyg.aneeshsathe.com/t/28dgvc6a2tqjt8th3dc61fvy74",
+      "title": "AI as a tool that allows selection pressure to act on code (Aneesh Sathe)",
+      "site": "blyg.aneeshsathe.com",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [],
+      "why": "A reply to the Regenerable Software essay arguing software has an ecological niche, so cheaper regeneration speeds a Red Queen race rather than ending it. An argument, not a measurement.",
+      "used_in": [
+        "lab-2026-11-26-regenerable-software-hot-state"
+      ]
+    },
+    {
+      "id": "703-plum-pikes",
+      "url": "https://symmetrybroken.com/asymmetric-evolution",
+      "title": "Asymmetric Evolution (symmetry, broken)",
+      "site": "symmetrybroken.com",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [
+        "thermodynamic"
+      ],
+      "why": "Part of a series on a 'synchronization tax': the thermodynamic cost of keeping systems' descriptions in agreement. A theory essay, assuming the series' earlier parts.",
+      "used_in": []
+    },
+    {
+      "id": "r-48ff5f8dc9",
+      "url": "https://arxiv.org/abs/2611.14782",
+      "title": "Bayesian inference with a polymer probabilistic computer",
+      "site": "arxiv.org",
+      "added": "2026-11-26",
+      "from": "lab",
+      "paradigms": [
+        "thermodynamic"
+      ],
+      "why": "Four conjugated-polymer probabilistic bits sampling 16-state Bayesian posteriors within the spread expected of ideal bits.",
+      "used_in": [
+        "lab-2026-11-26-paradigm-thermodynamic"
+      ]
+    },
+    {
+      "id": "784-ivory-foxes",
+      "url": "https://symmetrybroken.com/coherence-at-300-kelvin",
+      "title": "Coherence at 300 Kelvin (symmetry, broken)",
+      "site": "symmetrybroken.com",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [
+        "thermodynamic",
+        "physical-limits"
+      ],
+      "why": "A long theory essay linking Landauer's floor, multiplicative noise and attention dynamics, with a list of falsifiable tests and Pythia experiments; it compares brain and chatbot energy per bit.",
+      "used_in": [
+        "lab-2026-11-26-brain-chatbot-landauer-gap",
+        "lab-2026-11-26-landauer-gap-match-soft-claim"
+      ]
+    },
+    {
+      "id": "954-sage-shrews",
+      "url": "https://stankerstjens.github.io/could-a-computer-scientist-build-a-brain",
+      "title": "Could a computer scientist build a brain?",
+      "site": "stankerstjens.github.io",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [
+        "embodied-cognition"
+      ],
+      "why": "An essay reading evolution, development and learning as one process on different time scales, with the genome as a compressed record that development unfolds.",
+      "used_in": []
+    },
+    {
+      "id": "616-umber-crows",
+      "url": "https://x.com/esrtweet/status/2121339860824797635",
+      "title": "Eric Raymond on 'hot-state dependency'",
+      "site": "x.com",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [],
+      "why": "A short post defining hot-state dependency: a system that depends on relationships and operational knowledge existing only in its running configuration, and 'heat death' when it crashes and cannot be rebuilt.",
+      "used_in": [
+        "lab-2026-11-26-regenerable-software-hot-state"
+      ]
+    },
+    {
+      "id": "r-db051192ad",
+      "url": "https://arxiv.org/abs/2609.19999",
+      "title": "Evaluating Positive Feedback Adiabatic Logic in 16nm FinFET with a Realistic Power-Clock",
+      "site": "arxiv.org",
+      "added": "2026-11-26",
+      "from": "lab",
+      "paradigms": [
+        "reversible"
+      ],
+      "why": "A simulation study of adiabatic logic at 16 nm finding energy advantages over static CMOS in small circuits, and three sources of loss that limit them.",
+      "used_in": [
+        "lab-2026-11-26-paradigm-reversible"
+      ]
+    },
+    {
+      "id": "833-olive-egrets",
+      "url": "https://developer.nvidia.com/blog/extreme-event-likelihoods-with-guided-generative-models",
+      "title": "Extreme Event Likelihoods with Guided Generative Models",
+      "site": "developer.nvidia.com",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [],
+      "why": "A vendor blog on guiding a diffusion climate emulator toward tropical cyclones to estimate odds ratios; an example of generative models as risk-analysis tools.",
+      "used_in": []
+    },
+    {
+      "id": "r-b2f4d4dac8",
+      "url": "https://epoch.ai/gradient-updates/how-much-energy-does-chatgpt-use",
+      "title": "How much energy does ChatGPT use? (Epoch AI)",
+      "site": "epoch.ai",
+      "added": "2026-11-26",
+      "from": "lab",
+      "paradigms": [
+        "gpus"
+      ],
+      "why": "Epoch AI's estimate of about 0.3 Wh for a typical GPT-4o text query, with its assumptions, and why older estimates were ten times higher.",
+      "used_in": [
+        "lab-2026-11-26-brain-chatbot-landauer-gap"
+      ]
+    },
+    {
+      "id": "r-52747a1c5d",
+      "url": "https://www.ibm.com/quantum/blog/open-plan-updates",
+      "title": "IBM Quantum Open Plan updates",
+      "site": "ibm.com",
+      "added": "2026-11-26",
+      "from": "lab",
+      "paradigms": [
+        "quantum"
+      ],
+      "why": "Describes free access to real quantum hardware (10 minutes per 28 days) for outsiders.",
+      "used_in": [
+        "lab-2026-11-26-paradigm-quantum"
+      ]
+    },
+    {
+      "id": "r-9740cee48a",
+      "url": "https://doi.org/10.1088/1742-5468/2015/06/p06015",
+      "title": "Information and thermodynamics: experimental verification of Landauer's Erasure principle",
+      "site": "doi.org",
+      "added": "2026-11-26",
+      "from": "lab",
+      "paradigms": [
+        "thermodynamic",
+        "reversible"
+      ],
+      "why": "A colloidal-particle one-bit memory whose mean heat of erasure saturates at the Landauer bound for slow cycles: the principle measured, not just argued.",
+      "used_in": []
+    },
+    {
+      "id": "984-bronze-finches",
+      "url": "https://mdpi.com/2409-9287/11/5/161",
+      "title": "Ingressing Minds: Causal, Non-Physical Patterns In-Form Natural, Synthetic, and Hybrid Embodiments",
+      "site": "mdpi.com",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [
+        "basal-cognition"
+      ],
+      "why": "Michael Levin's theoretical paper proposing that mathematical patterns relate to physical objects as minds relate to bodies; a philosophical proposal, not an experiment.",
+      "used_in": []
+    },
+    {
+      "id": "800-flax-cranes",
+      "url": "https://unconv.ai/blog/introducing-un-0-generating-images-with-coupled-oscillators",
+      "title": "Introducing Un-0: Generating Images with Coupled Oscillators",
+      "site": "unconv.ai",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [
+        "physical-neural-networks",
+        "thermodynamic"
+      ],
+      "why": "A start-up's post on a simulated oscillator network that generates images (FID 6.74 on ImageNet 64x64); no hardware energy measured. Weights and code released.",
+      "used_in": [
+        "lab-2026-11-26-un-0-oscillator-image-generator"
+      ]
+    },
+    {
+      "id": "r-30b77afd86",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/quantum-computing/magic-state-cultivation-quantum-computing/",
+      "title": "Magic state cultivation on Willow",
+      "site": "blog.google",
+      "added": "2026-11-26",
+      "from": "lab",
+      "paradigms": [
+        "quantum"
+      ],
+      "why": "Google's account of a roughly 40-fold error reduction for magic states and 99.99% logical T-state fidelity on its Willow chip, published in Science.",
+      "used_in": [
+        "lab-2026-11-26-paradigm-quantum"
+      ]
+    },
+    {
+      "id": "838-teal-eels",
+      "url": "https://www.zach.be/p/making-unconventional-computing-practical",
+      "title": "Making Unconventional Computing Practical",
+      "site": "zach.be",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [
+        "analog-in-memory",
+        "neuromorphic",
+        "thermodynamic"
+      ],
+      "why": "A practitioner's essay arguing that processing-in-memory, neuromorphic and thermodynamic chips reached customers by keeping one benefit and going digital. One author's view.",
+      "used_in": [
+        "lab-2026-11-26-analog-chips-digital-survivors"
+      ]
+    },
+    {
+      "id": "654-amber-kites",
+      "url": "https://researchoutreach.org/articles/metabiology-complexity-natural-evolution",
+      "title": "Metabiology and the complexity of natural evolution",
+      "site": "researchoutreach.org",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [
+        "embodied-cognition"
+      ],
+      "why": "An outreach article on Carsetti's view that natural computation is embodied and cannot be reduced to purely syntactic processing; a position, not a measurement.",
+      "used_in": []
+    },
+    {
+      "id": "r-4c8b425dad",
+      "url": "https://arxiv.org/abs/2606.25313",
+      "title": "Programmable Probabilistic Computer with 1,000,000 p-bits",
+      "site": "arxiv.org",
+      "added": "2026-11-26",
+      "from": "lab",
+      "paradigms": [
+        "thermodynamic"
+      ],
+      "why": "Measured: a million probabilistic bits on 18 FPGAs sustaining 10^12 updates a second, checked against a GPU reference on spin-glass optimisation.",
+      "used_in": [
+        "lab-2026-11-26-paradigm-thermodynamic"
+      ]
+    },
+    {
+      "id": "696-cobalt-moths",
+      "url": "https://venkateshrao.com/blyg/t/0mrdcxtf673g97gytsm87a6mva",
+      "title": "Regenerable Software: A Vision for Agentic Software Engineering (Venkatesh Rao)",
+      "site": "venkateshrao.com",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [],
+      "why": "A draft essay proposing a third regime of software engineering where the durable asset is the intelligence needed to regenerate code (specs, assurance), not the code itself. A vision, not evidence.",
+      "used_in": [
+        "lab-2026-11-26-regenerable-software-hot-state"
+      ]
+    },
+    {
+      "id": "613-coral-moles",
+      "url": "https://commoncog.com/sensemaking-heart-of-expertise",
+      "title": "Sensemaking as the Heart of Expertise (Commoncog)",
+      "site": "commoncog.com",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [],
+      "why": "Cedric Chin on expertise as the ability to build better frames, with a proposed exercise: react to a case, then compare your reaction with an expert's.",
+      "used_in": []
+    },
+    {
+      "id": "551-flax-otters",
+      "url": "https://goodfire.com/research/mechanistic-shaping",
+      "title": "Shaping and Monitoring Models Through Their Internal Representations (Goodfire)",
+      "site": "goodfire.com",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [],
+      "why": "Goodfire's account of training models by shaping which internal concepts they rely on (curbing sycophancy, reward hacking, X-ray shortcuts), with a hierarchy for measuring monitorability. Company research; a post summarising a longer pape",
+      "used_in": []
+    },
+    {
+      "id": "r-466deb82b9",
+      "url": "https://github.com/extropic-ai/thrml",
+      "title": "THRML",
+      "site": "github.com",
+      "added": "2026-11-26",
+      "from": "lab",
+      "paradigms": [
+        "thermodynamic"
+      ],
+      "why": "Open-source JAX library for blocked Gibbs sampling and energy-based models, from Extropic.",
+      "used_in": [
+        "lab-2026-11-26-paradigm-thermodynamic"
+      ]
+    },
+    {
+      "id": "974-bronze-larks",
+      "url": "https://commoncog.com/the-tacit-knowledge-series",
+      "title": "The Tacit Knowledge Series",
+      "site": "commoncog.com",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [],
+      "why": "A long-running series on knowledge that cannot be captured in words and how expertise is acquired.",
+      "used_in": []
+    },
+    {
+      "id": "r-60421fc2b5",
+      "url": "https://arxiv.org/abs/2408.10234",
+      "title": "The Unbearable Slowness of Being: Why do we live at 10 bits/s?",
+      "site": "arxiv.org",
+      "added": "2026-11-26",
+      "from": "lab",
       "paradigms": [
         "physical-limits"
       ],
-      "why": "An essay arguing a standard objection to relational quantum mechanics fails because reversing a lab that recorded a fact would mean undoing all its copies in the environment.",
+      "why": "Zheng and Meister's estimate that human behavioural throughput is about 10 bits/s against about 10^9 bits/s gathered by the senses, and why that gap is unexplained.",
+      "used_in": [
+        "lab-2026-11-26-brain-chatbot-landauer-gap"
+      ]
+    },
+    {
+      "id": "999-coral-eels",
+      "url": "https://frontiersin.org/journals/integrative-neuroscience/articles/10.3389/fnint.2023.1057622/full",
+      "title": "The brain is not mental! coupling neuronal and immune cellular processing in human organisms",
+      "site": "frontiersin.org",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [
+        "embodied-cognition"
+      ],
+      "why": "A Frontiers paper arguing that cognition is distributed across all the body's cells, not the brain alone; a theoretical argument.",
       "used_in": []
+    },
+    {
+      "id": "508-slate-falcons",
+      "url": "https://venkateshrao.com/blyg/t/2mrz24qfj6shxc932nqfh3xebb",
+      "title": "The future of human coordination",
+      "site": "venkateshrao.com",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [],
+      "why": "Venkatesh Rao on why individual 10x-1000x speedups from AI break team coordination in complex, many-layered technical stacks, and what a better coordination design would need.",
+      "used_in": [
+        "lab-2026-11-26-regenerable-software-hot-state"
+      ]
     },
     {
       "id": "633-fern-egrets",
       "url": "https://www.worldscientific.com/series/wssuc",
       "title": "WSPC Book Series in Unconventional Computing",
       "site": "worldscientific.com",
-      "added": "2026-11-27",
+      "added": "2026-11-26",
       "from": "pi",
       "paradigms": [
         "reversible",
@@ -606,14 +582,38 @@
       "used_in": []
     },
     {
+      "id": "648-jade-bees",
+      "url": "https://symmetrybroken.com/when-a-fact-becomes-history",
+      "title": "When a Fact Becomes History (symmetry, broken)",
+      "site": "symmetrybroken.com",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [
+        "physical-limits"
+      ],
+      "why": "An essay arguing a standard objection to relational quantum mechanics fails because reversing a lab that recorded a fact would mean undoing all its copies in the environment.",
+      "used_in": []
+    },
+    {
       "id": "673-onyx-falcons",
       "url": "https://movingcastles.world/posts/zero",
       "title": "Zero (Moving Castles)",
       "site": "movingcastles.world",
-      "added": "2026-11-27",
+      "added": "2026-11-26",
       "from": "pi",
       "paradigms": [],
       "why": "A write-up of fine-tuning an 8B base model into a fixed character, reporting character breaks in 2.8% of conversations against 45.2% for a system-prompted instruct model, plus activation analysis.",
+      "used_in": []
+    },
+    {
+      "id": "730-moss-wrens",
+      "url": "https://scalingswarms.com/",
+      "title": "s3: Simple Scaling of Swarms via Cooperative Multi-agent RL",
+      "site": "scalingswarms.com",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [],
+      "why": "Project page for training leaderless asynchronous swarms of language models with a shared reward, reporting gains over best-of-N from solo agents and carry-over to larger swarms.",
       "used_in": []
     }
   ]

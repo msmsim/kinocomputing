@@ -9,6 +9,7 @@ import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { makeSite } from "./twin.mjs";
+const REPO = new URL("..", import.meta.url).pathname;
 
 const menuOf = (html) => html.match(/<nav class="sections"[\s\S]*?<\/nav>/)[0];
 
@@ -442,6 +443,44 @@ test("images: a figure publishes with its caption, its file is served from media
     assert.match(item.content_md, /!\[A wall between a processor and a memory, data squeezing through a gap\]\(https:\/\/www\.kinocomputing\.com\/media\/0123456789abcdef\.svg "The memory wall: moving data costs more than computing on it\."\)/);
     assert.deepEqual(item.media, [{ url: "https://www.kinocomputing.com/media/0123456789abcdef.svg", mime: "image/svg+xml", alt: "A wall between a processor and a memory, data squeezing through a gap" }]);
     assert.match(tree.get("index.html"), /Moving numbers costs more than computing on them/, "the stream previews the lead, not the image");
+  } finally {
+    site.dispose();
+  }
+});
+
+test("share cards: each note's own once drawn, named by what it shows, the site's until then; a retitled note's old card dropped", async () => {
+  const { drawCards } = await import("../tools/card.mjs");
+  const site = makeSite();
+  try {
+    const cardOf = (page) => page.match(/<meta property="og:image" content="([^"]*)">/)?.[1];
+    const pageOf = (tree) => [...tree.entries()].find(([k, v]) => k.endsWith(".html") && v.includes("Body.") && !k.startsWith("index"))[1];
+    site.publish("001-ash-eels", { body: "<p><strong>Walls &amp; clocks</strong></p>\n<p>Body.</p>", iso: "2026-11-01T10:01:00Z" });
+    site.action("2026-11-01T10:02:00Z");
+    assert.match(cardOf(pageOf(site.deploy())), /kinocomputing-basic-og\.jpg/, "not drawn yet: the site's card");
+
+    assert.equal(site.run(["--cards"]).code, 0);
+    const [wanted] = JSON.parse(readFileSync(join(site.root, "cards/_wanted.json"), "utf8"));
+    assert.equal(wanted.title, "Walls & clocks");
+    assert.equal(wanted.date, "1 November 2026");
+    assert.match(wanted.glyph, /^<svg class="glyph"/);
+    assert.deepEqual(await drawCards(join(site.root, "cards"), REPO), { drawn: 1, dropped: 0 });
+    const png = readFileSync(join(site.root, "cards", `${wanted.key}.png`));
+    assert.deepEqual([png.readUInt32BE(16), png.readUInt32BE(20)], [1200, 630]);
+
+    const tree = site.deploy();
+    const page = pageOf(tree);
+    assert.equal(cardOf(page), `https://www.kinocomputing.com/cards/${wanted.key}.png`);
+    assert.match(page, /<meta property="og:image:width" content="1200">/);
+    assert.match(page, /<meta property="og:image:alt" content="Walls &amp; clocks: a note on Kinocomputing">/);
+    assert.match(page, /<meta name="twitter:card" content="summary_large_image">/);
+    assert.ok(tree.has(`cards/${wanted.key}.png`), "served");
+    assert.ok(!tree.has("cards/_wanted.json"), "the list isn't");
+    assert.match(cardOf(tree.get("index.html")), /kinocomputing-basic-og\.jpg/, "the stream keeps the site's");
+
+    site.publish("001-ash-eels", { body: "<p><strong>Walls and clocks</strong></p>\n<p>Body.</p>", iso: "2026-11-01T10:01:00Z" });
+    site.action("2026-11-02T10:02:00Z");
+    site.run(["--cards"]);
+    assert.deepEqual(await drawCards(join(site.root, "cards"), REPO), { drawn: 1, dropped: 1 });
   } finally {
     site.dispose();
   }

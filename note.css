@@ -660,6 +660,13 @@ main > :first-child {
   margin: 0.5em 0 0;
   text-align: right;
   font-size: 0.85em;
+  white-space: nowrap; /* the date and its glyph go to a line together, never split */
+}
+
+/* A version note wraps as prose, so the date after it goes whole to the next
+   line when it doesn't fit, and that line reads like any other note's. */
+.stamp .versions {
+  white-space: normal;
 }
 
 /* GLYPH
@@ -671,7 +678,7 @@ main > :first-child {
   height: 1.05em;
   width: auto;
   margin-left: 0.55em;
-  vertical-align: -0.12em;
+  vertical-align: -0.22em; /* its middle a touch under the figures', so it sits on the line */
   overflow: visible;
 }
 

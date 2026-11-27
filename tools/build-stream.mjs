@@ -31,6 +31,7 @@ import {
 import { stubTarget, resolveStub } from "./stub.mjs";
 import { withMaths } from "./maths.mjs";
 import { glyph, glyphsFor } from "./glyph.mjs";
+import { CARD, cardKey, plainText } from "./card.mjs";
 
 // Notes are published into a folder of their own and served from the site root:
 // a note written as notes/001-teal-voles.html is served at /001-teal-voles, and
@@ -187,6 +188,8 @@ const MAX_WITHDRAWALS = 3;
 
 const check = process.argv.includes("--check");
 const stateMode = process.argv.includes("--state");
+// Lists what every note's share card shows, for tools/card.mjs to draw.
+const cardsMode = process.argv.includes("--cards");
 const massWithdrawal = process.argv.includes("--allow-mass-withdrawal");
 const now = process.env.BLYG_NOW ? new Date(process.env.BLYG_NOW) : new Date();
 
@@ -934,13 +937,13 @@ const imageSize = (bytes) => pngSize(bytes) ?? jpegSize(bytes);
  * read — takes the stale tags out with it. A page left advertising an image
  * that 404s shares worse than one advertising none.
  */
-function imageFields() {
-  const size = image?.width ? image : null;
+function imageFields(card = image) {
+  const size = card?.width ? card : null;
   return [
-    ["og:image", image?.url],
+    ["og:image", card?.url],
     ["og:image:width", size && String(size.width)],
     ["og:image:height", size && String(size.height)],
-    ["og:image:alt", image && OG_IMAGE_ALT],
+    ["og:image:alt", card && (card.alt ?? OG_IMAGE_ALT)],
   ].map(([property, content]) => ({
     find: new RegExp(`<meta property="${property}" content="[^"]*">`),
     tag: content
@@ -949,7 +952,7 @@ function imageFields() {
   }));
 }
 
-const headFields = ({ title, url, type }) => [
+const headFields = ({ title, url, type, image: card }) => [
   { find: /<title>[^<]*<\/title>/,
     tag: `<title>${pageTitle(title)}</title>` },
   { find: /<meta property="og:title" content="[^"]*">/,
@@ -963,7 +966,7 @@ const headFields = ({ title, url, type }) => [
   // A 1200x630 card shown as summary would be cropped to a small square
   // thumbnail, so the card and this value have to change together.
   { find: /<meta name="twitter:card" content="[^"]*">/,
-    tag: `<meta name="twitter:card" content="${image ? "summary_large_image" : "summary"}">` },
+    tag: `<meta name="twitter:card" content="${(image ?? card) ? "summary_large_image" : "summary"}">` },
   { find: /<link rel="canonical" href="[^"]*">/,
     tag: `<link rel="canonical" href="${url}">` },
   { find: /<link rel="stylesheet" href="[^"]*">/,
@@ -987,7 +990,7 @@ const headFields = ({ title, url, type }) => [
   // The body face, fetched with the stylesheet rather than after it.
   { find: /<link rel="preload" href="\/fonts\/[^"]*"[^>]*>/,
     tag: '<link rel="preload" href="/fonts/inter-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>' },
-  ...imageFields(),
+  ...imageFields(card ?? image),
 ];
 
 /**
@@ -1308,6 +1311,34 @@ for (const [path, content] of await readTree(STATE_DIR)) {
 site.set("index.html", finishPage(withSiteFoot(withStructuredData(
   renderStream(streamTemplate, notes).replace("<!-- sections -->", sectionNav("notes")), GRAPH))));
 
+// Each note's own share card (tools/card.mjs), once it has been drawn; until
+// then, the site's.
+const wantedCards = [];
+const cardDate = (iso) => new Intl.DateTimeFormat("en-GB", {
+  day: "numeric", month: "long", year: "numeric", timeZone: TIME_ZONE,
+}).format(new Date(iso));
+async function noteCard(note) {
+  const shows = {
+    title: plainText(note.title ?? note.slug),
+    // Not twice: a brief's title is its date.
+    date: plainText(note.title ?? "").includes(cardDate(note.time)) ? "" : cardDate(note.time),
+    glyph: GLYPHS.get(note.fileSlug) ?? glyph(note.fileSlug),
+  };
+  const key = cardKey(shows);
+  wantedCards.push({ key, ...shows });
+  const file = `cards/${key}.png`;
+  const bytes = await readFile(file).catch(() => null);
+  if (!bytes) return null;
+  assets.set(file, bytes);
+  site.set(file, bytes);
+  return { url: `${SITE_BASE}/${file}`, ...CARD, alt: `${asText(note.title ?? note.slug)}: a note on Kinocomputing` };
+}
+const cards = await Promise.all(notes.map(noteCard));
+if (cardsMode) {
+  await mkdir("cards", { recursive: true });
+  await writeFile("cards/_wanted.json", `${JSON.stringify(wantedCards, null, 2)}\n`);
+}
+
 notes.forEach((note, i) => {
   const { html } = note;
 
@@ -1317,6 +1348,7 @@ notes.forEach((note, i) => {
     title: note.title ? asText(note.title) : note.slug,
     url: `${SITE_BASE}${note.path}`,
     type: "article",
+    image: cards[i],
   });
   updated = withDescription(updated, describe(note), note.title ? asText(note.title) : "");
   updated = withStructuredData(updated, noteGraph(note, registry.items[note.fileSlug],

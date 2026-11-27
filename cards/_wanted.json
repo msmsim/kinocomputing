@@ -1,0 +1,440 @@
+[
+  {
+    "key": "691b51e89cf503d7",
+    "title": "Physical reservoir computing: tiny energy figures, thin comparisons",
+    "date": "27 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><rect class=\"o\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"s\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "2f0db5e02529b388",
+    "title": "Physical neural networks: training is the live problem",
+    "date": "27 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"s\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "d49ceb32c9822139",
+    "title": "Lab brief: 27 November 2026",
+    "date": "",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"o\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"s\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "ab080f59b8c50973",
+    "title": "DNA computing: from kinetic circuits to equilibrium programs",
+    "date": "27 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><rect class=\"s\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"s\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><rect class=\"o\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "538217325ce2a1c6",
+    "title": "Arbitrage between analog and digital computing: a sketch",
+    "date": "27 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"o\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"s\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><rect class=\"o\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "a1a2bd9a28b301df",
+    "title": "A kinetic history of computing: what can be tested",
+    "date": "27 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"s\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><rect class=\"s\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "58b7ed9a61f317f2",
+    "title": "About",
+    "date": "26 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"o\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><rect class=\"s\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"s\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><path class=\"o\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "6a5cb6a24f774abd",
+    "title": "Lab brief: 26 November 2026",
+    "date": "",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"s\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"o\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><rect class=\"o\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "0f18d015378d73ae",
+    "title": "The brain–chatbot match to the thermal floor is soft",
+    "date": "26 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><rect class=\"o\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"s\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"o\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "7dabcfafa73be4f7",
+    "title": "The alternative paradigms tracker",
+    "date": "26 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><rect class=\"s\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><path class=\"s\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"o\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"o\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><rect class=\"o\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "d0ecbb0b490c078d",
+    "title": "Can you rebuild a running system from its spec?",
+    "date": "26 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"s\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "50aafcac4482b3eb",
+    "title": "Brain and chatbot sit equally far above the thermal floor",
+    "date": "26 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"s\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><rect class=\"s\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "5f1c98538d0e1227",
+    "title": "Why the dragoman monopoly may not repeat with AI",
+    "date": "26 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><rect class=\"o\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"o\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "a2195f558cda7c18",
+    "title": "Unconventional chips that survive tend to be digital copies",
+    "date": "26 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><rect class=\"s\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><rect class=\"o\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "d6d14275b4fb93e3",
+    "title": "Thermodynamic computing: a million p-bits, energy unproven",
+    "date": "26 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"o\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"s\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "aeff49eec16ea30e",
+    "title": "Reversible computing: energy recovery in small parts only",
+    "date": "26 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><rect class=\"s\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"o\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><rect class=\"o\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "d34f31e46e74c268",
+    "title": "Quantum computing: errors fall, no useful machine yet",
+    "date": "26 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"s\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"o\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"o\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "68ba983764ddd8ef",
+    "title": "Oscillator network makes images, in simulation only",
+    "date": "26 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"o\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><path class=\"s\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "340ea8cc48bbb39e",
+    "title": "Organoid computing's hard part may be reading the answer",
+    "date": "26 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><rect class=\"o\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><rect class=\"s\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><rect class=\"o\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "00a9f60641a3a673",
+    "title": "Optical neural networks: the 1,000x figure is for the light",
+    "date": "25 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"o\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "94759fea81dd57d1",
+    "title": "Noisy analog chips hurt image generators early, not late",
+    "date": "25 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"s\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"o\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><path class=\"s\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"o\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><rect class=\"o\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "e0e9ec354d9f3618",
+    "title": "Lab brief: 25 November 2026",
+    "date": "",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"s\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"o\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><rect class=\"o\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><rect class=\"o\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "0e39b150104469bc",
+    "title": "Converters, not arithmetic, dominate small analog arrays",
+    "date": "25 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><path class=\"o\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "6e179f033a16201a",
+    "title": "Analog chips: the converters cost more than the arithmetic",
+    "date": "25 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"o\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><rect class=\"o\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><path class=\"o\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "b37660a3c779153a",
+    "title": "Two chips that fit the coupling idea, and one number that doesn't",
+    "date": "25 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"s\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><path class=\"s\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "b7b2adc448fcc1c6",
+    "title": "Photonic computing: tiny optical energy, bigger system bill",
+    "date": "25 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"s\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "ce5b233cf1a28184",
+    "title": "Language models as consensus machines: weighing a dialogue",
+    "date": "25 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><rect class=\"o\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"s\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><path class=\"o\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "80d2d0c2ee0a13ac",
+    "title": "Deep learning: energy depends on more than model size",
+    "date": "25 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"o\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><path class=\"o\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "f904d1808c5bd93d",
+    "title": "Analog in-memory computing: real chips, hard-to-compare numbers",
+    "date": "25 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><rect class=\"o\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"o\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"o\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><rect class=\"o\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "57d1065b62baa9c6",
+    "title": "AI alignment is five problems, and each camp picks one",
+    "date": "25 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"o\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"o\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><path class=\"o\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><rect class=\"o\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "d9da64ad68d2e349",
+    "title": "Coupling reality to paradigms",
+    "date": "24 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"o\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><rect class=\"s\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "f6aa75cf831af988",
+    "title": "Symbolic AI is now the verifier, not the brain",
+    "date": "24 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"o\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"s\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><rect class=\"o\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "497f0d7b3c923584",
+    "title": "Scaling laws: bigger still helps, but shape and energy matter",
+    "date": "24 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><rect class=\"o\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><rect class=\"o\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><rect class=\"o\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "657c0e5e4c040162",
+    "title": "Lab brief: 24 November 2026",
+    "date": "",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"s\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "77359735b574caa9",
+    "title": "Grown or trained? Gradient descent is growing too",
+    "date": "24 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "89c51894e1174f6d",
+    "title": "Discreteness as a choice made within a continuous world",
+    "date": "24 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"o\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"s\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"o\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><path class=\"o\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "0b8068c458e6b117",
+    "title": "A flash-memory fix for AI's memory wall, reported in modelling",
+    "date": "24 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"s\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"o\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "a1e8b65a85bceaea",
+    "title": "Grown, not imagined",
+    "date": "23 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><rect class=\"s\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "45c479afad6ea0b6",
+    "title": "We predicted a memory-wall gap. The test measured something else",
+    "date": "23 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"o\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><path class=\"o\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "fe0e384cb30f0660",
+    "title": "The founding bet: energy and embodiment, and what it has cost",
+    "date": "23 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"o\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><rect class=\"s\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "55e11d2437fc3598",
+    "title": "Lab brief: 23 November 2026",
+    "date": "",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"s\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "80056329024b5751",
+    "title": "GPUs: the leaderboard is public, the energy numbers aren't",
+    "date": "23 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"o\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><path class=\"s\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "b92d2df12157e631",
+    "title": "Digital von Neumann computing: the wall moves, it doesn't vanish",
+    "date": "23 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"o\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><rect class=\"o\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "264dab6fa96dfbd2",
+    "title": "AI accelerators: who wins depends on the model and precision",
+    "date": "23 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"s\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><path class=\"o\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "87639d6d34144500",
+    "title": "A tree's ledger would copy its own mistakes",
+    "date": "23 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"s\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"s\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"o\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><path class=\"s\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "9855ca041ed7d688",
+    "title": "A flash-memory prototype packs 4.8M weights per mm²",
+    "date": "23 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"o\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"o\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><path class=\"s\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><rect class=\"o\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "03923dd9f3b1d502",
+    "title": "Introducing Goldleaf: money that grows on trees",
+    "date": "22 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"s\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"o\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><path class=\"s\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><rect class=\"o\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "f6f8c37bf92455c6",
+    "title": "Lab brief: 22 November 2026",
+    "date": "",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"s\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><path class=\"s\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "a9a6dba578b1b36a",
+    "title": "At block scale, the chip beats a matched plain ensemble",
+    "date": "22 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"s\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><rect class=\"s\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><rect class=\"o\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "a5080781171eb23a",
+    "title": "Descending to liveness",
+    "date": "21 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"o\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"o\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "9563fd24f68ccfe2",
+    "title": "Most of the chip's edge is its extra spread",
+    "date": "21 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><rect class=\"s\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"o\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"o\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "f4ee2c51ba744053",
+    "title": "Lab brief: 21 November 2026",
+    "date": "",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "58d05d40810c4057",
+    "title": "Where today's computing sits in the World Machines",
+    "date": "21 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"o\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><path class=\"s\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><rect class=\"o\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "66d012e2b9e3ba6f",
+    "title": "Today's computing stack straddles two world machines",
+    "date": "21 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><path class=\"s\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><path class=\"o\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "98d8388d71ea47a2",
+    "title": "Rerunning the chip-native rain forecast: a first small test",
+    "date": "21 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"o\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><rect class=\"o\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><rect class=\"o\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "d30d90834b8a5112",
+    "title": "Physics computing as repair, body computing as new ground",
+    "date": "21 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "f3c30af9a4d1ce84",
+    "title": "Noisy oscillators fall short of a digital reservoir",
+    "date": "21 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "adf216acf2f748e6",
+    "title": "Giving the oscillators more room didn't close the gap",
+    "date": "21 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"o\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"o\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "db76a7ef26fa0268",
+    "title": "Few alternative-hardware abstracts compare with digital",
+    "date": "21 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><rect class=\"o\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "c8d3f1ae4cb190bc",
+    "title": "Do new computers judge themselves by the old ones?",
+    "date": "21 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><rect class=\"s\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><rect class=\"o\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "a66df076a1c42716",
+    "title": "Can a box of noisy oscillators compute? Not this one, yet",
+    "date": "21 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"s\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"o\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><rect class=\"o\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "362d67c6de3e5da2",
+    "title": "A wider oscillator design still trails the digital one",
+    "date": "21 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"s\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"o\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><path class=\"s\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"o\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "cecf0a7ca013cc3e",
+    "title": "A thermodynamic computer, built from ordinary digital parts",
+    "date": "21 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"s\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"o\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><rect class=\"o\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><path class=\"o\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "f86f296529eb4e6a",
+    "title": "A first rerun of the chip-native nowcaster falls short",
+    "date": "21 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><path class=\"o\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "6af390063b4b0e69",
+    "title": "Welcome to oncology",
+    "date": "20 November 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><rect class=\"o\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><path class=\"s\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"o\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><path class=\"o\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "e6ed24f570274de8",
+    "title": "Thermodynamic computing doesn’t shortcut numerical weather prediction yet",
+    "date": "18 October 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"s\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><rect class=\"s\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><path class=\"o\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "67ae0e4870424d70",
+    "title": "Alternative paradigms",
+    "date": "3 October 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><rect class=\"s\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><path class=\"s\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><rect class=\"o\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "c490e9e071a0d41b",
+    "title": "Patterns that matter",
+    "date": "1 October 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"o\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><rect class=\"o\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><rect class=\"o\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><path class=\"o\" d=\"M30 21.1L33.9 25L30 28.9L26.1 25Z\"/></svg>"
+  },
+  {
+    "key": "fe5705b87e9e01af",
+    "title": "Resident M",
+    "date": "26 September 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"o\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"s\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"s\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"o\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"s\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><rect class=\"s\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "203ca15f4cb422a7",
+    "title": "The NWP horseshoe",
+    "date": "12 September 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><path class=\"s\" d=\"M10 1.1L13.9 5L10 8.9L6.1 5Z\"/><rect class=\"o\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><rect class=\"s\" x=\"12\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><path class=\"s\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><rect class=\"s\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "68579a975a08c7ad",
+    "title": "AI’s heretical question",
+    "date": "5 September 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"s\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"17\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><rect class=\"o\" x=\"2\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"o\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><rect class=\"o\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "315db28dc3c04210",
+    "title": "Simplistic thermodynamic computing",
+    "date": "29 August 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"s\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M20 1.1L23.9 5L20 8.9L16.1 5Z\"/><path class=\"o\" d=\"M30 1.1L33.9 5L30 8.9L26.1 5Z\"/><path class=\"o\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><path class=\"o\" d=\"M25 11.1L28.9 15L25 18.9L21.1 15Z\"/><path class=\"s\" d=\"M35 11.1L38.9 15L35 18.9L31.1 15Z\"/><rect class=\"o\" x=\"7\" y=\"22\" width=\"6\" height=\"6\"/><rect class=\"o\" x=\"17\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  },
+  {
+    "key": "896ac04bca04084f",
+    "title": "Brandian returns",
+    "date": "23 August 2026",
+    "glyph": "<svg class=\"glyph\" viewBox=\"0 0 40 30\" aria-hidden=\"true\"><rect class=\"o\" x=\"7\" y=\"2\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"27\" y=\"2\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M5 11.1L8.9 15L5 18.9L1.1 15Z\"/><path class=\"s\" d=\"M15 11.1L18.9 15L15 18.9L11.1 15Z\"/><rect class=\"s\" x=\"22\" y=\"12\" width=\"6\" height=\"6\"/><rect class=\"s\" x=\"32\" y=\"12\" width=\"6\" height=\"6\"/><path class=\"o\" d=\"M10 21.1L13.9 25L10 28.9L6.1 25Z\"/><path class=\"o\" d=\"M20 21.1L23.9 25L20 28.9L16.1 25Z\"/><rect class=\"o\" x=\"27\" y=\"22\" width=\"6\" height=\"6\"/></svg>"
+  }
+]

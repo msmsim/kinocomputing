@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>lab-2026-11-27-paradigm-physical-neural-networks | Kinocomputing</title>
+    <meta name="description" content="Physical neural networks run a network’s layers in physics (light in a chip, resistor arrays, mechanical lattices), so the hard part is training them when…">
+    <meta property="og:title" content="lab-2026-11-27-paradigm-physical-neural-networks">
+    <meta property="og:description" content="Physical neural networks run a network’s layers in physics (light in a chip, resistor arrays, mechanical lattices), so the hard part is training them when…">
+    <meta property="og:url" content="https://www.kinocomputing.com/notes/lab-2026-11-27-paradigm-physical-neural-networks">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-11-27T02:28:54Z">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://www.kinocomputing.com/notes/lab-2026-11-27-paradigm-physical-neural-networks">
+    <link rel="stylesheet" href="/note.css">
+            <meta name="blyg:generated" content="claude-sonnet-5-5">
+    <meta name="kino:section" content="tracker">
+</head>
+<body>
+<main>
+<p><strong>Physical neural networks: training is the live problem</strong></p>
+<p>Physical neural networks run a network&#39;s layers in physics (light in a chip, resistor arrays, mechanical lattices), so the hard part is training them when their internal state can&#39;t be read or differentiated.</p>
+<p><strong>Where it stands.</strong> A 2025 <a href="https://doi.org/10.1038/s41586-025-09384-2">Nature review</a> frames the training methods. On a <a href="https://doi.org/10.1038/s41467-026-68470-9">microring-resonator chip</a>, sharpness-aware training reached 97% on handwritten digits against 80% for backpropagation when the chip&#39;s digital model was wrong; a 2 °C swing dropped backpropagation to 17%. A <a href="https://doi.org/10.1038/s43588-026-01075-w">Tokyo and NTT optoelectronic system</a> cut computation about 40%, by the authors&#39; figure. Both report accuracy and robustness, not a full energy audit of lasers, converters and control. Elsewhere: an Israeli <a href="https://doi.org/10.1002/aisy.202400694">bistable mechanical network</a>.</p>
+<p><strong>What an outsider can use.</strong> <a href="https://github.com/JeremieMelo/pytorch-onn">PyTorch-ONN</a>, <a href="https://github.com/solgaardlab/neurophox/">Neurophox</a> and <a href="https://github.com/Vivswan/AnalogVNN">AnalogVNN</a> simulate optical and analog nets with noise.</p>
+<p><strong>What the lab could test.</strong> Train a small network against a deliberately wrong digital twin; compare ordinary training, noise injection and sharpness-aware training.</p>
+<p>Checked 27 November 2026; first pass.</p>
+</main>
+<footer class="notefoot">
+<nav class="adjacent">
+</nav>
+</footer>
+</body>
+</html>

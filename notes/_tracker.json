@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-26",
+  "updated": "2026-11-27",
   "source": "https://www.kinocomputing.com/alternative-paradigms",
   "groups": [
     {
@@ -79,20 +79,20 @@
         {
           "id": "physical-reservoir",
           "name": "Physical reservoir computing",
-          "last_checked": null,
-          "entry": null
+          "last_checked": "2026-11-27",
+          "entry": "lab-2026-11-27-paradigm-physical-reservoir"
         },
         {
           "id": "physical-neural-networks",
           "name": "Physical neural networks",
-          "last_checked": null,
-          "entry": null
+          "last_checked": "2026-11-27",
+          "entry": "lab-2026-11-27-paradigm-physical-neural-networks"
         },
         {
           "id": "dna-molecular",
           "name": "DNA / molecular computing",
-          "last_checked": null,
-          "entry": null
+          "last_checked": "2026-11-27",
+          "entry": "lab-2026-11-27-paradigm-dna-molecular"
         }
       ]
     },

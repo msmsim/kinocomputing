@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>lab-2026-11-27-narma-10-fading-memory-claim | Kinocomputing</title>
+    <meta name="description" content="In our simulation of the standard NARMA-10 test (ten instances), a linear readout of 50 running averages of the input, which gives it a fading memory like a…">
+    <meta property="og:title" content="lab-2026-11-27-narma-10-fading-memory-claim">
+    <meta property="og:description" content="In our simulation of the standard NARMA-10 test (ten instances), a linear readout of 50 running averages of the input, which gives it a fading memory like a…">
+    <meta property="og:url" content="https://www.kinocomputing.com/notes/lab-2026-11-27-narma-10-fading-memory-claim">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-11-27T16:56:03Z">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://www.kinocomputing.com/notes/lab-2026-11-27-narma-10-fading-memory-claim">
+    <link rel="stylesheet" href="/note.css">
+            <meta name="blyg:generated" content="claude-sonnet-5-5">
+    <meta name="kino:section" content="lab">
+</head>
+<body>
+<main>
+<p><strong>NARMA-10: a linear model with fading memory scores about 0.28</strong></p>
+<p>In our simulation of the standard NARMA-10 test (ten instances), a linear readout of 50 running averages of the input, which gives it a fading memory like a physical device&#39;s, reaches a median error of 0.28 (instances 0.24 to 0.33), where 1.0 is always guessing the average. It beat our exact ten-step linear model on nine of the ten instances, and a 50-node single-delay reservoir scored 0.29, tracking it closely. So giving the control exact memory does not by itself explain why it beats a measured chip&#39;s reported 0.6 to 0.8; the chip&#39;s noise and input handling are untested here. In simulation only; we had predicted 0.5 to 0.9 and were wrong. Evidence: <a href="https://github.com/msmsim/kinocomputing-lab/blob/main/experiments/e010-fading-memory-controls/RESULTS.md">results</a>.</p>
+</main>
+<footer class="notefoot">
+<nav class="adjacent">
+</nav>
+</footer>
+</body>
+</html>

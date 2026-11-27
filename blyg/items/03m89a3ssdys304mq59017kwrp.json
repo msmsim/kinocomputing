@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "03m89a3ssdys304mq59017kwrp",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "physical-neural-networks-training-is-the-live-problem",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-27T02:28:54Z",
+  "updated": "2026-11-27T02:28:54Z",
+  "version": 1,
+  "content_md": "**Physical neural networks: training is the live problem**\n\nPhysical neural networks run a network's layers in physics (light in a chip, resistor arrays, mechanical lattices), so the hard part is training them when their internal state can't be read or differentiated.\n\n**Where it stands.** A 2025 [Nature review](https://doi.org/10.1038/s41586-025-09384-2) frames the training methods. On a [microring-resonator chip](https://doi.org/10.1038/s41467-026-68470-9), sharpness-aware training reached 97% on handwritten digits against 80% for backpropagation when the chip's digital model was wrong; a 2 °C swing dropped backpropagation to 17%. A [Tokyo and NTT optoelectronic system](https://doi.org/10.1038/s43588-026-01075-w) cut computation about 40%, by the authors' figure. Both report accuracy and robustness, not a full energy audit of lasers, converters and control. Elsewhere: an Israeli [bistable mechanical network](https://doi.org/10.1002/aisy.202400694).\n\n**What an outsider can use.** [PyTorch-ONN](https://github.com/JeremieMelo/pytorch-onn), [Neurophox](https://github.com/solgaardlab/neurophox/) and [AnalogVNN](https://github.com/Vivswan/AnalogVNN) simulate optical and analog nets with noise.\n\n**What the lab could test.** Train a small network against a deliberately wrong digital twin; compare ordinary training, noise injection and sharpness-aware training.\n\nChecked 27 November 2026; first pass.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Physical neural networks: training is the live problem</strong></p>\n<p>Physical neural networks run a network&#39;s layers in physics (light in a chip, resistor arrays, mechanical lattices), so the hard part is training them when their internal state can&#39;t be read or differentiated.</p>\n<p><strong>Where it stands.</strong> A 2025 <a href=\"https://doi.org/10.1038/s41586-025-09384-2\">Nature review</a> frames the training methods. On a <a href=\"https://doi.org/10.1038/s41467-026-68470-9\">microring-resonator chip</a>, sharpness-aware training reached 97% on handwritten digits against 80% for backpropagation when the chip&#39;s digital model was wrong; a 2 °C swing dropped backpropagation to 17%. A <a href=\"https://doi.org/10.1038/s43588-026-01075-w\">Tokyo and NTT optoelectronic system</a> cut computation about 40%, by the authors&#39; figure. Both report accuracy and robustness, not a full energy audit of lasers, converters and control. Elsewhere: an Israeli <a href=\"https://doi.org/10.1002/aisy.202400694\">bistable mechanical network</a>.</p>\n<p><strong>What an outsider can use.</strong> <a href=\"https://github.com/JeremieMelo/pytorch-onn\">PyTorch-ONN</a>, <a href=\"https://github.com/solgaardlab/neurophox/\">Neurophox</a> and <a href=\"https://github.com/Vivswan/AnalogVNN\">AnalogVNN</a> simulate optical and analog nets with noise.</p>\n<p><strong>What the lab could test.</strong> Train a small network against a deliberately wrong digital twin; compare ordinary training, noise injection and sharpness-aware training.</p>\n<p>Checked 27 November 2026; first pass.</p>\n</div>",
+  "content_hash": "sha256:82918311806585e3f7b09eb1ffe2aa4d1987ddb3d8d2b686af56aeab28691864",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-27T02:28:54Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-27T02:28:54Z",
+      "note": null
+    }
+  ]
+}

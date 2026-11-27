@@ -1538,6 +1538,117 @@
       ],
       "seen": "283c0306e44c33b4",
       "page": "oscillator-network-makes-images-in-simulation-only"
+    },
+    "lab-2026-11-27-analog-digital-arbitrage-sketch": {
+      "id": "7r8n6xex67vt6hep8n5ww29q09",
+      "created": "2026-11-27T02:28:54Z",
+      "hash": "sha256:d18ac38e523b7925ef3ddf792d3363d750fbc1e6fbf77104c02a5cc24130691e",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-27T02:28:54Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-27T02:28:54Z",
+          "note": null
+        }
+      ],
+      "seen": "c8a7d589cfce34ce",
+      "page": "arbitrage-between-analog-and-digital-computing-a-sketch"
+    },
+    "lab-2026-11-27-brief": {
+      "id": "0f15mzkkkyjmth1tv7esk4mx2n",
+      "created": "2026-11-27T02:28:54Z",
+      "hash": "sha256:455fcb1f3335cec5448ca0f8d93975dcc2f323979644d20f9f3de3960461b7fa",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-27T02:28:54Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-27T02:28:54Z",
+          "note": null
+        }
+      ],
+      "seen": "7017c504714b3a27",
+      "page": "lab-brief-27-november-2026"
+    },
+    "lab-2026-11-27-kinetic-history-of-computing": {
+      "id": "5wcfrevwbz2ede369jkjzk7199",
+      "created": "2026-11-27T02:28:54Z",
+      "hash": "sha256:745103ef33e1ed3fc83904b480a658585a5926fd59ffca59bd8de2a7a97c83d1",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-27T02:28:54Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-27T02:28:54Z",
+          "note": null
+        }
+      ],
+      "seen": "98ad4f900e31fe61",
+      "page": "a-kinetic-history-of-computing-what-can-be-tested"
+    },
+    "lab-2026-11-27-paradigm-dna-molecular": {
+      "id": "3ng3hen60yqby5mp65srbxd06s",
+      "created": "2026-11-27T02:28:54Z",
+      "hash": "sha256:523a8aaf4f0f2bc9854e98a8b960413640502772aff8d7a1ff1e58ad657faf19",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-27T02:28:54Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-27T02:28:54Z",
+          "note": null
+        }
+      ],
+      "seen": "fb6ccd364f550043",
+      "page": "dna-computing-from-kinetic-circuits-to-equilibrium-programs"
+    },
+    "lab-2026-11-27-paradigm-physical-neural-networks": {
+      "id": "03m89a3ssdys304mq59017kwrp",
+      "created": "2026-11-27T02:28:54Z",
+      "hash": "sha256:82918311806585e3f7b09eb1ffe2aa4d1987ddb3d8d2b686af56aeab28691864",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-27T02:28:54Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-27T02:28:54Z",
+          "note": null
+        }
+      ],
+      "seen": "9e2d4e4f758a3cc0",
+      "page": "physical-neural-networks-training-is-the-live-problem"
+    },
+    "lab-2026-11-27-paradigm-physical-reservoir": {
+      "id": "2naj598wp5f1tb69n4dc5n969g",
+      "created": "2026-11-27T02:28:54Z",
+      "hash": "sha256:d4ad4f8717bdfd98ad14373ffda06c4bcbe03807cfa7e76a2980c5c44771080a",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-27T02:28:54Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-27T02:28:54Z",
+          "note": null
+        }
+      ],
+      "seen": "c6d45368636f0286",
+      "page": "physical-reservoir-computing-tiny-energy-figures-thin-compar"
     }
   }
 }

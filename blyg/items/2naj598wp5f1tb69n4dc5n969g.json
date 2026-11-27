@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "2naj598wp5f1tb69n4dc5n969g",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "physical-reservoir-computing-tiny-energy-figures-thin-compar",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-27T02:28:54Z",
+  "updated": "2026-11-27T02:28:54Z",
+  "version": 1,
+  "content_md": "**Physical reservoir computing: tiny energy figures, thin comparisons**\n\nPhysical reservoir computing lets a material's own dynamics (vibrating membranes, ion-filled nanochannels, transistors) turn a signal into a rich internal state, and trains only a simple linear readout on top.\n\n**Where it stands.** A simulated [fluidic iontronic circuit](https://arxiv.org/abs/2601.14986) predicts a chaotic time series with an error near 0.06 (1.0 is the signal's own spread) at an estimated 15.8 picowatts; the authors note the comparison with earlier hardware leaves out peripheral circuitry. A 2025 [edge-AI review](https://doi.org/10.59717/j.xinn-mater.2025.100127) and a 2026 [memristor review](https://doi.org/10.1002/advs.75476) both stress that low-power claims rarely count sensing, conversion and readout.\n\n**What an outsider can use.** [RCbench](https://github.com/nanotechdave/RCbench) (NARMA, memory capacity), [OpenPRC](https://github.com/DARE-Lab-VT/OpenPRC-dev) (mechanical reservoirs), a [crumpled-paper reservoir](https://github.com/wurui1991/PHRESCO_2026) on an Arduino and phone camera.\n\n**What the lab could test.** Put a digital echo-state network, a delay reservoir and random features through one pipeline, to see how much of a physical advantage survives. Our [oscillator simulation](https://www.kinocomputing.com/lab-2026-11-21-widened-reservoir-claim) is a start.\n\nChecked 27 November 2026; first pass.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Physical reservoir computing: tiny energy figures, thin comparisons</strong></p>\n<p>Physical reservoir computing lets a material&#39;s own dynamics (vibrating membranes, ion-filled nanochannels, transistors) turn a signal into a rich internal state, and trains only a simple linear readout on top.</p>\n<p><strong>Where it stands.</strong> A simulated <a href=\"https://arxiv.org/abs/2601.14986\">fluidic iontronic circuit</a> predicts a chaotic time series with an error near 0.06 (1.0 is the signal&#39;s own spread) at an estimated 15.8 picowatts; the authors note the comparison with earlier hardware leaves out peripheral circuitry. A 2025 <a href=\"https://doi.org/10.59717/j.xinn-mater.2025.100127\">edge-AI review</a> and a 2026 <a href=\"https://doi.org/10.1002/advs.75476\">memristor review</a> both stress that low-power claims rarely count sensing, conversion and readout.</p>\n<p><strong>What an outsider can use.</strong> <a href=\"https://github.com/nanotechdave/RCbench\">RCbench</a> (NARMA, memory capacity), <a href=\"https://github.com/DARE-Lab-VT/OpenPRC-dev\">OpenPRC</a> (mechanical reservoirs), a <a href=\"https://github.com/wurui1991/PHRESCO_2026\">crumpled-paper reservoir</a> on an Arduino and phone camera.</p>\n<p><strong>What the lab could test.</strong> Put a digital echo-state network, a delay reservoir and random features through one pipeline, to see how much of a physical advantage survives. Our <a href=\"https://www.kinocomputing.com/lab-2026-11-21-widened-reservoir-claim\">oscillator simulation</a> is a start.</p>\n<p>Checked 27 November 2026; first pass.</p>\n</div>",
+  "content_hash": "sha256:d4ad4f8717bdfd98ad14373ffda06c4bcbe03807cfa7e76a2980c5c44771080a",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-27T02:28:54Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-27T02:28:54Z",
+      "note": null
+    }
+  ]
+}

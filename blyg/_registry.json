@@ -188,6 +188,20 @@
       "seen": "548748cbcb44920a",
       "page": "coupling-reality-to-paradigms"
     },
+    "024-flax-falcons": {
+      "id": "5egzd31s7nqarwm00ry0c2k93f",
+      "created": "2026-11-27T20:05:54Z",
+      "hash": "sha256:d9fe10071b11e35da47bf91b90309a1baaeffedf599596c626be067f697e7c53",
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-27T20:05:54Z",
+          "note": null
+        }
+      ],
+      "seen": "d9d0869ecb03be57",
+      "page": "the-brain-is-so-boring"
+    },
     "about": {
       "id": "3ae53bqvd075ppjq3fmmpw90cz",
       "created": "2026-08-10T08:00:00Z",

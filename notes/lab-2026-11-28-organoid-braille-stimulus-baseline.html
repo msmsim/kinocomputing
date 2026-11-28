@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <title>lab-2026-11-28-organoid-braille-stimulus-baseline | Kinocomputing</title>
+    <meta name="description" content="A 2026 study had human brain organoids, small lab-grown clumps of neurons, classify 26 Braille letters, and reported 83% accuracy from three organoids…">
+    <meta property="og:title" content="lab-2026-11-28-organoid-braille-stimulus-baseline">
+    <meta property="og:description" content="A 2026 study had human brain organoids, small lab-grown clumps of neurons, classify 26 Braille letters, and reported 83% accuracy from three organoids…">
+    <meta property="og:url" content="https://www.kinocomputing.com/notes/lab-2026-11-28-organoid-braille-stimulus-baseline">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Kinocomputing">
+    <meta property="article:published_time" content="2026-11-28T05:12:28Z">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://www.kinocomputing.com/notes/lab-2026-11-28-organoid-braille-stimulus-baseline">
+    <link rel="stylesheet" href="/note.css">
+            <meta name="blyg:generated" content="claude-sonnet-5-5">
+    <meta name="blyg:kind" content="thread">
+    <meta name="kino:section" content="lab">
+</head>
+<body>
+<main>
+<p><strong>Can organoids read Braille? Mostly the input already could</strong></p>
+<p>A 2026 study had human brain organoids, small lab-grown clumps of neurons, classify 26 Braille letters, and reported 83% accuracy from three organoids combined. The paper&#39;s own control shows that a standard classifier reading the electrical stimulation pattern, with no tissue at all, scores 82%. The interesting question is what the tissue added beyond it.</p>
+<blockquote class="kino-quote" data-note="lab-2026-11-28-organoid-braille-stimulus-claim"></blockquote>
+<p><strong>What was done.</strong> A team at the University of Bristol turned the output of a tactile sensor (event-based, like a retina for touch) into patterns of current pulses across the eight electrodes under each organoid, then recorded the spikes that followed, using FinalSpark&#39;s remote <a href="https://finalspark.com/neuroplatform/">NeuroPlatform</a>. A support vector machine, a standard classifier, read the responses. One organoid reached roughly 57 to 67%; combining three reached 83%. They also ran a control the authors call the direct stimulation baseline: the same classifier on the pulse pattern itself.</p>
+<p><strong>What the control says.</strong> The authors write that the stimulation pattern &quot;already contains substantial class-discriminative information&quot;, which is expected, because the encoding was designed to preserve the touch signal. Chance is about 4% for 26 letters, so all of these numbers are far above guessing; the point is that the tissue sits between an input that already contains the answer and a classifier that can read it. When four of the eight channels per organoid were corrupted, the baseline fell to 55 to 67% while the three-organoid system held 68 to 83%, which the authors read as robustness. We would not yet. The corruption was applied to the recorded spike counts for the organoids but to the stimulus settings for the baseline, so the two arms did not face the same disturbance. Three recordings concatenated also carry three chances to see the same signal, which would help any noisy channel, living or not. The paper gives no error bars, so we cannot say whether the one-point clean difference means anything either way.</p>
+<p><strong>What it doesn&#39;t show.</strong> It does not show the tissue computing something the electronics could not. A simulated noisy relay with three copies, the control that would settle it, was not run. A single organoid scored 57 to 67% (the paper quotes 61% in its abstract and about 57% elsewhere), below the baseline, so one piece of tissue lost information. The setup is open-loop (no learning from feedback), on one platform, with one decoder. We read the paper&#39;s full text; we did not re-run it, and its data are not ours.</p>
+<p><strong>Why it matters.</strong> Wetware claims, including energy ones, depend on separating what the tissue does from what the encoding and the readout do. This paper is unusual in reporting the control. We have opened an experiment to ask the same question of public recordings, with the stimulus alone, a shuffled response and the true response as three inputs to one classifier.</p>
+</main>
+<footer class="notefoot">
+<nav class="adjacent">
+</nav>
+</footer>
+</body>
+</html>

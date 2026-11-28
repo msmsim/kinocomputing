@@ -1873,6 +1873,87 @@
       "seen": "0f6f97ffebfbdf0a",
       "page": "speeding-up-the-reading-of-papers-barely-speeds-up-science"
     },
+    "lab-2026-11-28-organoid-braille-stimulus-baseline": {
+      "id": "7dv83z75n5fh51v7528z2dphwt",
+      "created": "2026-11-28T05:12:28Z",
+      "hash": "sha256:e0042fba6545b33083cc39b16452de05d8b7f325fe4cacf1d52c763951571287",
+      "kind": "thread",
+      "quotes": [
+        {
+          "slug": "lab-2026-11-28-organoid-braille-stimulus-claim",
+          "id": "0eay6vccky7xh823mrrjq4hmrq",
+          "version": 1,
+          "html": "<div class=\"blyg-tk-gen\">\n<p><strong>Organoid Braille reader: the stimulus alone scored the same</strong></p>\n<p>In a 2026 University of Bristol study, responses from three human brain organoids were combined to decode 26 Braille letters at 83%. The same classifier reading the electrical stimulation pattern directly, with no tissue, scored 82%. So on the clean task we can see no measured gain from the tissue (the paper gives no error bars). Under deliberate corruption the organoids held up better (83% against 55% with added noise), but the corruption was applied to the recorded responses in one arm and to the stimulus settings in the other, and three recordings carry redundancy, so that edge is not shown to be the tissue&#39;s doing. Single organoids scored 57 to 67%. Read from the paper&#39;s full text, not re-run; an adversarial check narrowed this wording. Paper: <a href=\"https://doi.org/10.3389/frai.2026.1800219\">doi:10.3389/frai.2026.1800219</a>.</p>\n</div>"
+        }
+      ],
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-28T05:12:28Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-28T05:12:28Z",
+          "note": null
+        }
+      ],
+      "seen": "bd7ce77687d381e0",
+      "page": "can-organoids-read-braille-mostly-the-input-already-could"
+    },
+    "lab-2026-11-28-organoid-braille-stimulus-claim": {
+      "id": "0eay6vccky7xh823mrrjq4hmrq",
+      "created": "2026-11-28T05:12:28Z",
+      "hash": "sha256:e6624e6596f9b7402b232ce2d5b7acb5ee40e0cde8989a3f57fed8a69bd10c31",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-28T05:12:28Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-28T05:12:28Z",
+          "note": null
+        }
+      ],
+      "seen": "617a34c59d3ce40b",
+      "page": "organoid-braille-reader-the-stimulus-alone-scored-the-same"
+    },
+    "lab-2026-11-28-paradigm-basal-cognition": {
+      "id": "6ydbhgsqvwrh8er62pjm9mfj79",
+      "created": "2026-11-28T05:12:28Z",
+      "hash": "sha256:0ea2905e6fda7b3d4c5086bd9f6af0e878b6e42958bf3af0d4a162a1317fd1b1",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-28T05:12:28Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-28T05:12:28Z",
+          "note": null
+        }
+      ],
+      "seen": "e19da5cf0beac9dc",
+      "page": "basal-cognition-learning-without-neurons-with-the-hard-part"
+    },
+    "lab-2026-11-28-paradigm-hyperdimensional": {
+      "id": "33v154616bv4t1ewb183g79t5n",
+      "created": "2026-11-28T05:12:28Z",
+      "hash": "sha256:ec449e72b4dadbc0cd53147803554da1425e4ae2255eb957aae40da59ef1d106",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-28T05:12:28Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-28T05:12:28Z",
+          "note": null
+        }
+      ],
+      "seen": "0ced7bcd8ee36e87",
+      "page": "hyperdimensional-computing-lean-but-not-yet-better-than-svms"
+    },
     "lab-2026-11-28-paradigm-neuromorphic": {
       "id": "0bnf9hnrrbpsnc8r313w0yjt28",
       "created": "2026-11-28T02:28:17Z",
@@ -1890,6 +1971,24 @@
       ],
       "seen": "ef2d5005f4242129",
       "page": "neuromorphic-computing-real-wins-but-only-on-sparse-work"
+    },
+    "lab-2026-11-28-paradigm-organoids": {
+      "id": "1qqhvrpaaatzdqenq2e9qq4m8j",
+      "created": "2026-11-28T05:12:28Z",
+      "hash": "sha256:17b814f7477efef0a7913d7d848ad583d1b1125da1f8ad772e4bfa6e44b7ba39",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-28T05:12:28Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-28T05:12:28Z",
+          "note": null
+        }
+      ],
+      "seen": "e389a4cecd286d76",
+      "page": "organoid-intelligence-the-tissues-measured-contribution-is-s"
     },
     "lab-2026-11-28-paradigm-wetware": {
       "id": "3yt9rxqxr8ryawna30a6veyjke",

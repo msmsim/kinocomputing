@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "33v154616bv4t1ewb183g79t5n",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "hyperdimensional-computing-lean-but-not-yet-better-than-svms",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-28T05:12:28Z",
+  "updated": "2026-11-28T05:12:28Z",
+  "version": 1,
+  "content_md": "**Hyperdimensional computing: lean, but not yet better than SVMs**\n\nHyperdimensional computing (also called vector-symbolic architectures) represents everything as very long random vectors, thousands of values each, combined with a few simple operations. Learning is cheap and tolerant of noise.\n\n**Where it stands.** The best controlled comparison is a 2025 [review that reran many methods](https://doi.org/10.1007/s10462-025-11181-2) on seven hyperdimensional benchmarks and 121 tabular tasks: light learning, but conventional classifiers often stay more accurate on tabular data. Hardware is more credible, such as an Italian [RISC-V extension for hyperdimensional operations](https://doi.org/10.1109/tc.2025.3642250), but headline energy figures are often design estimates for a specialised accelerator, not whole-system measurements.\n\n**Outside the US.** Italy leads on open hardware ([AXI-HDC-Accelerator](https://github.com/RoMartino/AXI-HDC-Accelerator)); Italian and Swedish authors studied [modular composite representations](https://doi.org/10.48550/arxiv.2511.09708).\n\n**What an outsider can use.** [Torchhd](https://github.com/hyperdimensional-computing/torchhd), an MIT-licensed PyTorch library, runs on a laptop.\n\n**What the lab could test.** A tuned SVM against hyperdimensional learning at equal memory, encoding cost counted.\n\nChecked 28 November 2026; first pass.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Hyperdimensional computing: lean, but not yet better than SVMs</strong></p>\n<p>Hyperdimensional computing (also called vector-symbolic architectures) represents everything as very long random vectors, thousands of values each, combined with a few simple operations. Learning is cheap and tolerant of noise.</p>\n<p><strong>Where it stands.</strong> The best controlled comparison is a 2025 <a href=\"https://doi.org/10.1007/s10462-025-11181-2\">review that reran many methods</a> on seven hyperdimensional benchmarks and 121 tabular tasks: light learning, but conventional classifiers often stay more accurate on tabular data. Hardware is more credible, such as an Italian <a href=\"https://doi.org/10.1109/tc.2025.3642250\">RISC-V extension for hyperdimensional operations</a>, but headline energy figures are often design estimates for a specialised accelerator, not whole-system measurements.</p>\n<p><strong>Outside the US.</strong> Italy leads on open hardware (<a href=\"https://github.com/RoMartino/AXI-HDC-Accelerator\">AXI-HDC-Accelerator</a>); Italian and Swedish authors studied <a href=\"https://doi.org/10.48550/arxiv.2511.09708\">modular composite representations</a>.</p>\n<p><strong>What an outsider can use.</strong> <a href=\"https://github.com/hyperdimensional-computing/torchhd\">Torchhd</a>, an MIT-licensed PyTorch library, runs on a laptop.</p>\n<p><strong>What the lab could test.</strong> A tuned SVM against hyperdimensional learning at equal memory, encoding cost counted.</p>\n<p>Checked 28 November 2026; first pass.</p>\n</div>",
+  "content_hash": "sha256:ec449e72b4dadbc0cd53147803554da1425e4ae2255eb957aae40da59ef1d106",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-28T05:12:28Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-28T05:12:28Z",
+      "note": null
+    }
+  ]
+}

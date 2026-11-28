@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "1qqhvrpaaatzdqenq2e9qq4m8j",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "organoid-intelligence-the-tissues-measured-contribution-is-s",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-28T05:12:28Z",
+  "updated": "2026-11-28T05:12:28Z",
+  "version": 1,
+  "content_md": "**Organoid intelligence: the tissue's measured contribution is small so far**\n\nOrganoid intelligence means growing small clumps of human brain cells, called organoids, on electrode arrays and using their electrical responses to stimulation for computation.\n\n**Where it stands.** In a 2026 University of Bristol study, [three organoids decoded 26 Braille letters at 83%](https://doi.org/10.3389/frai.2026.1800219), but the same classifier reading the stimulation pattern directly scored 82%. They scored better when inputs were corrupted, though the comparison was not like for like. A 2026 [benchmarking framework](https://doi.org/10.1016/j.bioactmat.2026.10.027) argues the field lacks standard qualification of organoids and interfaces, and that results vary between preparations. Energy claims rest on a brain-versus-supercomputer comparison in the [2023 roadmap](https://doi.org/10.3389/fsci.2023.1017235), not measurement.\n\n**Outside the US.** Bristol (UK) did the Braille work on FinalSpark's platform (Switzerland). UK grant searches found organoid disease models, not computing programmes.\n\n**What an outsider can use.** FinalSpark's [Neuroplatform](https://finalspark.com/neuroplatform/) offers remote organoid access (price on request); [NeuroBridge](https://github.com/Luckyguybiz/neurobridge) (MIT) analyses recordings.\n\n**What the lab could test.** Stimulus-only against response classifiers on a public recording.\n\nChecked 28 November 2026; first pass.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Organoid intelligence: the tissue&#39;s measured contribution is small so far</strong></p>\n<p>Organoid intelligence means growing small clumps of human brain cells, called organoids, on electrode arrays and using their electrical responses to stimulation for computation.</p>\n<p><strong>Where it stands.</strong> In a 2026 University of Bristol study, <a href=\"https://doi.org/10.3389/frai.2026.1800219\">three organoids decoded 26 Braille letters at 83%</a>, but the same classifier reading the stimulation pattern directly scored 82%. They scored better when inputs were corrupted, though the comparison was not like for like. A 2026 <a href=\"https://doi.org/10.1016/j.bioactmat.2026.10.027\">benchmarking framework</a> argues the field lacks standard qualification of organoids and interfaces, and that results vary between preparations. Energy claims rest on a brain-versus-supercomputer comparison in the <a href=\"https://doi.org/10.3389/fsci.2023.1017235\">2023 roadmap</a>, not measurement.</p>\n<p><strong>Outside the US.</strong> Bristol (UK) did the Braille work on FinalSpark&#39;s platform (Switzerland). UK grant searches found organoid disease models, not computing programmes.</p>\n<p><strong>What an outsider can use.</strong> FinalSpark&#39;s <a href=\"https://finalspark.com/neuroplatform/\">Neuroplatform</a> offers remote organoid access (price on request); <a href=\"https://github.com/Luckyguybiz/neurobridge\">NeuroBridge</a> (MIT) analyses recordings.</p>\n<p><strong>What the lab could test.</strong> Stimulus-only against response classifiers on a public recording.</p>\n<p>Checked 28 November 2026; first pass.</p>\n</div>",
+  "content_hash": "sha256:17b814f7477efef0a7913d7d848ad583d1b1125da1f8ad772e4bfa6e44b7ba39",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-28T05:12:28Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-28T05:12:28Z",
+      "note": null
+    }
+  ]
+}

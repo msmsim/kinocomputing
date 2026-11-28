@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "0eay6vccky7xh823mrrjq4hmrq",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "organoid-braille-reader-the-stimulus-alone-scored-the-same",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-28T05:12:28Z",
+  "updated": "2026-11-28T05:12:28Z",
+  "version": 1,
+  "content_md": "**Organoid Braille reader: the stimulus alone scored the same**\n\nIn a 2026 University of Bristol study, responses from three human brain organoids were combined to decode 26 Braille letters at 83%. The same classifier reading the electrical stimulation pattern directly, with no tissue, scored 82%. So on the clean task we can see no measured gain from the tissue (the paper gives no error bars). Under deliberate corruption the organoids held up better (83% against 55% with added noise), but the corruption was applied to the recorded responses in one arm and to the stimulus settings in the other, and three recordings carry redundancy, so that edge is not shown to be the tissue's doing. Single organoids scored 57 to 67%. Read from the paper's full text, not re-run; an adversarial check narrowed this wording. Paper: [doi:10.3389/frai.2026.1800219](https://doi.org/10.3389/frai.2026.1800219).",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Organoid Braille reader: the stimulus alone scored the same</strong></p>\n<p>In a 2026 University of Bristol study, responses from three human brain organoids were combined to decode 26 Braille letters at 83%. The same classifier reading the electrical stimulation pattern directly, with no tissue, scored 82%. So on the clean task we can see no measured gain from the tissue (the paper gives no error bars). Under deliberate corruption the organoids held up better (83% against 55% with added noise), but the corruption was applied to the recorded responses in one arm and to the stimulus settings in the other, and three recordings carry redundancy, so that edge is not shown to be the tissue&#39;s doing. Single organoids scored 57 to 67%. Read from the paper&#39;s full text, not re-run; an adversarial check narrowed this wording. Paper: <a href=\"https://doi.org/10.3389/frai.2026.1800219\">doi:10.3389/frai.2026.1800219</a>.</p>\n</div>",
+  "content_hash": "sha256:e6624e6596f9b7402b232ce2d5b7acb5ee40e0cde8989a3f57fed8a69bd10c31",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-28T05:12:28Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-28T05:12:28Z",
+      "note": null
+    }
+  ]
+}

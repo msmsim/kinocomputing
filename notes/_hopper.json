@@ -1,6 +1,286 @@
 {
-  "updated": "2026-11-27",
+  "updated": "2026-11-28",
   "items": [
+    {
+      "id": "r-432571e44e",
+      "url": "https://doi.org/10.1016/j.bioactmat.2026.10.027",
+      "title": "A benchmarking framework for organoid computing",
+      "site": "doi.org",
+      "added": "2026-11-28",
+      "from": "lab",
+      "paradigms": [
+        "organoids"
+      ],
+      "why": "Proposes qualification criteria for organoids, interfaces and stimulation-evoked computation, aiming at reproducible comparison across labs. Abstract read; a framework, not a performance result.",
+      "used_in": [
+        "lab-2026-11-28-paradigm-organoids"
+      ]
+    },
+    {
+      "id": "r-2b45b83abf",
+      "url": "https://doi.org/10.1007/s13752-026-00548-5",
+      "title": "A Mark of the Noncognitive",
+      "site": "doi.org",
+      "added": "2026-11-28",
+      "from": "lab",
+      "paradigms": [
+        "basal-cognition"
+      ],
+      "why": "Philosophy paper proposing a principled criterion for what is clearly not cognitive, as a way through the basal-cognition definition dispute. Abstract read.",
+      "used_in": [
+        "lab-2026-11-28-paradigm-basal-cognition"
+      ]
+    },
+    {
+      "id": "r-fb13a8e439",
+      "url": "https://doi.org/10.1098/rsif.2024.0402",
+      "title": "A minimal model of cognition based on oscillatory and current-based reinforcement processes",
+      "site": "doi.org",
+      "added": "2026-11-28",
+      "from": "lab",
+      "paradigms": [
+        "basal-cognition"
+      ],
+      "why": "A mathematical model of how oscillation plus reinforcement could coordinate resources in organisms without nervous systems. Abstract read.",
+      "used_in": [
+        "lab-2026-11-28-paradigm-basal-cognition"
+      ]
+    },
+    {
+      "id": "r-c98b46fb9d",
+      "url": "https://github.com/tlcdv/bioelectrics",
+      "title": "bioelectrics",
+      "site": "github.com",
+      "added": "2026-11-28",
+      "from": "lab",
+      "paradigms": [
+        "basal-cognition"
+      ],
+      "why": "MIT-licensed differentiable PyTorch simulator of membrane voltage in non-neural tissue; runs on a laptop CPU, per its page. Not run by the lab.",
+      "used_in": [
+        "lab-2026-11-28-paradigm-basal-cognition"
+      ]
+    },
+    {
+      "id": "r-4f0411efb3",
+      "url": "https://doi.org/10.1007/s10462-025-11181-2",
+      "title": "Classification using hyperdimensional computing: a review with comparative analysis",
+      "site": "doi.org",
+      "added": "2026-11-28",
+      "from": "lab",
+      "paradigms": [
+        "hyperdimensional"
+      ],
+      "why": "A reproducible comparison of hyperdimensional classifiers on seven benchmarks and 121 tabular tasks.",
+      "used_in": [
+        "lab-2026-11-28-paradigm-hyperdimensional"
+      ]
+    },
+    {
+      "id": "956-umber-eels",
+      "url": "https://blyg.bricolage.io/t/5p1dsawvm3zdfan6vev0dt54qf",
+      "title": "Coding agents as compilers through computational worlds",
+      "site": "blyg.bricolage.io",
+      "added": "2026-11-28",
+      "from": "pi",
+      "paradigms": [],
+      "why": "A post on coding agents as optimizing compilers, with progressive lowering of software intent through verified computational worlds.",
+      "used_in": []
+    },
+    {
+      "id": "r-4dff2dad99",
+      "url": "https://doi.org/10.3389/frai.2026.1800219",
+      "title": "Encoding tactile stimuli for Braille recognition with organoids",
+      "site": "doi.org",
+      "added": "2026-11-28",
+      "from": "lab",
+      "paradigms": [
+        "organoids",
+        "wetware"
+      ],
+      "why": "Bristol study: three FinalSpark organoids classify 26 Braille letters at 83%; the stimulus pattern alone scores 82%. The tissue's edge is robustness to corrupted channels.",
+      "used_in": [
+        "lab-2026-11-28-paradigm-organoids",
+        "lab-2026-11-28-organoid-braille-stimulus-claim",
+        "lab-2026-11-28-organoid-braille-stimulus-baseline"
+      ]
+    },
+    {
+      "id": "r-43fe7538f6",
+      "url": "https://arxiv.org/abs/2508.20850",
+      "title": "Encoding Tactile Stimuli for Braille Recognition with Organoids",
+      "site": "arxiv.org",
+      "added": "2026-11-28",
+      "from": "lab",
+      "paradigms": [
+        "wetware"
+      ],
+      "why": "Organoids on electrode arrays classify Braille patterns; the open question is how much the stimulus code and classifier contribute.",
+      "used_in": [
+        "lab-2026-11-28-paradigm-wetware"
+      ]
+    },
+    {
+      "id": "r-b2e227bee0",
+      "url": "https://doi.org/10.1021/acssynbio.5c00766",
+      "title": "Engineering Basal Cognition: Minimal Genetic Circuits for Habituation, Sensitization, and Massed–Spaced Learning",
+      "site": "doi.org",
+      "added": "2026-11-28",
+      "from": "lab",
+      "paradigms": [
+        "basal-cognition"
+      ],
+      "why": "Synthetic-biology design of small genetic circuits that reproduce learning-like behaviours seen in single cells and slime moulds. Abstract read.",
+      "used_in": [
+        "lab-2026-11-28-paradigm-basal-cognition"
+      ]
+    },
+    {
+      "id": "973-maroon-moths",
+      "url": "https://ranganaut.com/archive",
+      "title": "Essay Archive · Ranganaut",
+      "site": "ranganaut.com",
+      "added": "2026-11-28",
+      "from": "pi",
+      "paradigms": [],
+      "why": "An archive of 803 essays written between 2005 and 2026, offered as a set of trails to walk.",
+      "used_in": []
+    },
+    {
+      "id": "895-indigo-kites",
+      "url": "https://bigredchunk.substack.com/p/its-my-act-of-worlding-but-its-your",
+      "title": "It's My Act of Worlding But It's Your Moribund Problem",
+      "site": "bigredchunk.substack.com",
+      "added": "2026-11-28",
+      "from": "pi",
+      "paradigms": [],
+      "why": "An essay on worlding as an act that negates what it displaces, read through the film Opus and Nietzsche's force.",
+      "used_in": []
+    },
+    {
+      "id": "r-f45f1d95cb",
+      "url": "https://github.com/Luckyguybiz/neurobridge",
+      "title": "NeuroBridge",
+      "site": "github.com",
+      "added": "2026-11-28",
+      "from": "lab",
+      "paradigms": [
+        "organoids"
+      ],
+      "why": "MIT-licensed analysis software for electrode-array recordings (spike rasters, bursts, transfer entropy); advertises a public FinalSpark dataset. Unvetted by the lab.",
+      "used_in": [
+        "lab-2026-11-28-paradigm-organoids"
+      ]
+    },
+    {
+      "id": "r-ce03556fad",
+      "url": "https://doi.org/10.3389/fsci.2023.1017235",
+      "title": "Organoid intelligence (OI): the new frontier in biocomputing and intelligence-in-a-dish",
+      "site": "doi.org",
+      "added": "2026-11-28",
+      "from": "lab",
+      "paradigms": [
+        "organoids"
+      ],
+      "why": "The 2023 roadmap that named the field and made the brain-versus-supercomputer efficiency argument; a vision paper, not measured organoid computing.",
+      "used_in": [
+        "lab-2026-11-28-paradigm-organoids"
+      ]
+    },
+    {
+      "id": "816-fern-shrews",
+      "url": "https://hazyresearch.stanford.edu/blog/2026-11-25-platos-key",
+      "title": "Plato's Key",
+      "site": "hazyresearch.stanford.edu",
+      "added": "2026-11-28",
+      "from": "pi",
+      "paradigms": [],
+      "why": "Reports that a rotation and one scale let one LLM use another's internal representations of facts, a median 41% transfer accuracy across 12 models.",
+      "used_in": []
+    },
+    {
+      "id": "r-6e7408c4fb",
+      "url": "https://doi.org/10.1126/science.1177894",
+      "title": "Rules for Biologically Inspired Adaptive Network Design",
+      "site": "doi.org",
+      "added": "2026-11-28",
+      "from": "lab",
+      "paradigms": [
+        "basal-cognition"
+      ],
+      "why": "Tero et al. 2010: slime mould networks with efficiency, fault tolerance and cost comparable to the Tokyo rail system; the source of a much-retold story. Abstract read.",
+      "used_in": []
+    },
+    {
+      "id": "533-crimson-voles",
+      "url": "https://allthingsdistributed.com/2026/11/tech-predictions-for-2027-and-beyond.html",
+      "title": "Tech predictions for 2027 and beyond",
+      "site": "allthingsdistributed.com",
+      "added": "2026-11-28",
+      "from": "pi",
+      "paradigms": [
+        "neuromorphic",
+        "wetware"
+      ],
+      "why": "Werner Vogels' annual forecast; its 'computing returns to biology' and 'mind becomes readable' sections bet on neuromorphic chips, living neurons and non-invasive brain interfaces.",
+      "used_in": [
+        "lab-2026-11-28-vogels-brain-computing-bet"
+      ]
+    },
+    {
+      "id": "941-moss-egrets",
+      "url": "https://contraptions.venkateshrao.com/p/the-future-needs-furniture",
+      "title": "The Future Needs Furniture",
+      "site": "contraptions.venkateshrao.com",
+      "added": "2026-11-28",
+      "from": "pi",
+      "paradigms": [],
+      "why": "Venkatesh Rao sorts realities into hard/oozy and analytic/constitutive regimes and argues for a playability frontier that intelligence cannot cross.",
+      "used_in": []
+    },
+    {
+      "id": "r-7363076743",
+      "url": "https://doi.org/10.1038/s41467-025-56739-4",
+      "title": "The NeuroBench framework for benchmarking neuromorphic computing algorithms and systems",
+      "site": "doi.org",
+      "added": "2026-11-28",
+      "from": "lab",
+      "paradigms": [
+        "neuromorphic"
+      ],
+      "why": "Community benchmark framework built because neuromorphic results lacked standard comparisons with conventional hardware.",
+      "used_in": [
+        "lab-2026-11-28-paradigm-neuromorphic"
+      ]
+    },
+    {
+      "id": "r-1efc07847c",
+      "url": "https://github.com/hyperdimensional-computing/torchhd",
+      "title": "Torchhd",
+      "site": "github.com",
+      "added": "2026-11-28",
+      "from": "lab",
+      "paradigms": [
+        "hyperdimensional"
+      ],
+      "why": "MIT-licensed PyTorch library for hyperdimensional computing and vector-symbolic architectures.",
+      "used_in": [
+        "lab-2026-11-28-paradigm-hyperdimensional"
+      ]
+    },
+    {
+      "id": "955-crimson-moths",
+      "url": "https://blekhman.substack.com/p/why-ai-will-not-speed-up-science",
+      "title": "Why AI will not speed up science (yet)",
+      "site": "blekhman.substack.com",
+      "added": "2026-11-28",
+      "from": "pi",
+      "paradigms": [],
+      "why": "A geneticist argues, with Amdahl's law, that biomedical research is paced by grants, approvals, animals and people, which AI does not yet speed up.",
+      "used_in": [
+        "lab-2026-11-28-ai-science-speedup-amdahl"
+      ]
+    },
     {
       "id": "r-0853db06d5",
       "url": "https://doi.org/10.1038/s41586-026-10996-5",
@@ -11,9 +291,23 @@
       "paradigms": [
         "dna-molecular"
       ],
-      "why": "Nature 2026: DNA computation embedded in a system relaxing to its most stable state, rather than controlled step by step.",
+      "why": "Open-access Nature paper: a DNA scaffold computer whose answer is the most stable arrangement; ten programs at four sites near 95% yield, a 25-site addition taking up to 14 hours. No energy per computation reported.",
       "used_in": [
-        "lab-2026-11-27-paradigm-dna-molecular"
+        "lab-2026-11-27-paradigm-dna-molecular",
+        "lab-2026-11-27-dna-computer-25-bit-sum"
+      ]
+    },
+    {
+      "id": "r-311442ba0a",
+      "url": "https://arxiv.org/abs/2607.17909",
+      "title": "Beyond the Edge of Chaos: Stability-Expressivity Transfer in Reservoir Forecasting",
+      "site": "arxiv.org",
+      "added": "2026-11-27",
+      "from": "lab",
+      "paradigms": [],
+      "why": "July 2026 study: the best spectral radius for forecasting matches none of three Lyapunov edges of a reservoir; proposes an index that predicts it.",
+      "used_in": [
+        "lab-2026-11-27-reservoir-edge-of-chaos-overstretched"
       ]
     },
     {
@@ -29,6 +323,22 @@
       "why": "Simulated iontronic reservoir circuit predicting a chaotic series at an estimated 15.8 pW; authors note the comparison excludes peripheral circuitry.",
       "used_in": [
         "lab-2026-11-27-paradigm-physical-reservoir"
+      ]
+    },
+    {
+      "id": "r-d231e537ad",
+      "url": "https://arxiv.org/abs/2601.02617",
+      "title": "Implementation of Reservoir Computing Using Coupled Microelectromechanical Drum Resonators via Sideband-Pumped Phonon-Cavity Dynamics",
+      "site": "arxiv.org",
+      "added": "2026-11-27",
+      "from": "lab",
+      "paradigms": [
+        "physical-reservoir"
+      ],
+      "why": "Measured MHz MEMS reservoir chip: NARMA-10 error 0.6-0.8; 12.5 fJ per input counts only electrical drive, 8.3 pJ mechanical per input.",
+      "used_in": [
+        "lab-2026-11-27-paradigm-physical-reservoir",
+        "lab-2026-11-27-narma-10-linear-model-beats-chip"
       ]
     },
     {
@@ -77,6 +387,19 @@
       ]
     },
     {
+      "id": "r-dfce798db8",
+      "url": "https://arxiv.org/abs/1906.03186",
+      "title": "Mutual Information and the Edge of Chaos in Reservoir Computers",
+      "site": "arxiv.org",
+      "added": "2026-11-27",
+      "from": "lab",
+      "paradigms": [],
+      "why": "Simulations of several reservoir computers: tuning to the edge of chaos does not guarantee the best performance; notes the limited parameter range of physical systems.",
+      "used_in": [
+        "lab-2026-11-27-reservoir-edge-of-chaos-overstretched"
+      ]
+    },
+    {
       "id": "r-6db97fc1e5",
       "url": "https://github.com/DARE-Lab-VT/OpenPRC-dev",
       "title": "OpenPRC",
@@ -87,21 +410,6 @@
         "physical-reservoir"
       ],
       "why": "Apache-2.0 framework for simulating and evaluating mechanical reservoirs (mass-spring, origami).",
-      "used_in": [
-        "lab-2026-11-27-paradigm-physical-reservoir"
-      ]
-    },
-    {
-      "id": "r-b1c0c9c1f7",
-      "url": "https://github.com/wurui1991/PHRESCO_2026",
-      "title": "PHRESCO 2026",
-      "site": "github.com",
-      "added": "2026-11-27",
-      "from": "lab",
-      "paradigms": [
-        "physical-reservoir"
-      ],
-      "why": "Examples of a crumpled-paper reservoir driven by an Arduino and tracked by phone camera, with NARMA evaluation.",
       "used_in": [
         "lab-2026-11-27-paradigm-physical-reservoir"
       ]
@@ -119,6 +427,21 @@
       "why": "Open tool that enumerates reactions of DNA strand-displacement designs and simulates their kinetics.",
       "used_in": [
         "lab-2026-11-27-paradigm-dna-molecular"
+      ]
+    },
+    {
+      "id": "r-b1c0c9c1f7",
+      "url": "https://github.com/wurui1991/PHRESCO_2026",
+      "title": "PHRESCO 2026",
+      "site": "github.com",
+      "added": "2026-11-27",
+      "from": "lab",
+      "paradigms": [
+        "physical-reservoir"
+      ],
+      "why": "Examples of a crumpled-paper reservoir driven by an Arduino and tracked by phone camera, with NARMA evaluation.",
+      "used_in": [
+        "lab-2026-11-27-paradigm-physical-reservoir"
       ]
     },
     {
@@ -194,6 +517,19 @@
       "why": "Optoelectronic physical learning with a training rule that skips states, claiming roughly 40% less computation.",
       "used_in": [
         "lab-2026-11-27-paradigm-physical-neural-networks"
+      ]
+    },
+    {
+      "id": "925-pearl-seals",
+      "url": "https://venkateshrao.com/blyg/t/6qch4vgkjxkk4t57kwkh0ywbmd",
+      "title": "The Scale-Intelligence Tradeoff",
+      "site": "venkateshrao.com",
+      "added": "2026-11-27",
+      "from": "pi",
+      "paradigms": [],
+      "why": "Essay arguing that a task's intrinsic scale is how rarely it interrupts the human, so the largest agent swarms probably do routine work; cites Brooks's law for agents.",
+      "used_in": [
+        "lab-2026-11-27-how-many-threads-can-one-human-run"
       ]
     },
     {
@@ -479,6 +815,17 @@
       ]
     },
     {
+      "id": "730-moss-wrens",
+      "url": "https://scalingswarms.com/",
+      "title": "s3: Simple Scaling of Swarms via Cooperative Multi-agent RL",
+      "site": "scalingswarms.com",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [],
+      "why": "Project page for training leaderless asynchronous swarms of language models with a shared reward, reporting gains over best-of-N from solo agents and carry-over to larger swarms.",
+      "used_in": []
+    },
+    {
       "id": "613-coral-moles",
       "url": "https://commoncog.com/sensemaking-heart-of-expertise",
       "title": "Sensemaking as the Heart of Expertise (Commoncog)",
@@ -501,18 +848,29 @@
       "used_in": []
     },
     {
-      "id": "r-466deb82b9",
-      "url": "https://github.com/extropic-ai/thrml",
-      "title": "THRML",
-      "site": "github.com",
+      "id": "999-coral-eels",
+      "url": "https://frontiersin.org/journals/integrative-neuroscience/articles/10.3389/fnint.2023.1057622/full",
+      "title": "The brain is not mental! coupling neuronal and immune cellular processing in human organisms",
+      "site": "frontiersin.org",
       "added": "2026-11-26",
-      "from": "lab",
+      "from": "pi",
       "paradigms": [
-        "thermodynamic"
+        "embodied-cognition"
       ],
-      "why": "Open-source JAX library for blocked Gibbs sampling and energy-based models, from Extropic.",
+      "why": "A Frontiers paper arguing that cognition is distributed across all the body's cells, not the brain alone; a theoretical argument.",
+      "used_in": []
+    },
+    {
+      "id": "508-slate-falcons",
+      "url": "https://venkateshrao.com/blyg/t/2mrz24qfj6shxc932nqfh3xebb",
+      "title": "The future of human coordination",
+      "site": "venkateshrao.com",
+      "added": "2026-11-26",
+      "from": "pi",
+      "paradigms": [],
+      "why": "Venkatesh Rao on why individual 10x-1000x speedups from AI break team coordination in complex, many-layered technical stacks, and what a better coordination design would need.",
       "used_in": [
-        "lab-2026-11-26-paradigm-thermodynamic"
+        "lab-2026-11-26-regenerable-software-hot-state"
       ]
     },
     {
@@ -542,30 +900,32 @@
       ]
     },
     {
-      "id": "999-coral-eels",
-      "url": "https://frontiersin.org/journals/integrative-neuroscience/articles/10.3389/fnint.2023.1057622/full",
-      "title": "The brain is not mental! coupling neuronal and immune cellular processing in human organisms",
-      "site": "frontiersin.org",
+      "id": "r-466deb82b9",
+      "url": "https://github.com/extropic-ai/thrml",
+      "title": "THRML",
+      "site": "github.com",
+      "added": "2026-11-26",
+      "from": "lab",
+      "paradigms": [
+        "thermodynamic"
+      ],
+      "why": "Open-source JAX library for blocked Gibbs sampling and energy-based models, from Extropic.",
+      "used_in": [
+        "lab-2026-11-26-paradigm-thermodynamic"
+      ]
+    },
+    {
+      "id": "648-jade-bees",
+      "url": "https://symmetrybroken.com/when-a-fact-becomes-history",
+      "title": "When a Fact Becomes History (symmetry, broken)",
+      "site": "symmetrybroken.com",
       "added": "2026-11-26",
       "from": "pi",
       "paradigms": [
-        "embodied-cognition"
+        "physical-limits"
       ],
-      "why": "A Frontiers paper arguing that cognition is distributed across all the body's cells, not the brain alone; a theoretical argument.",
+      "why": "An essay arguing a standard objection to relational quantum mechanics fails because reversing a lab that recorded a fact would mean undoing all its copies in the environment.",
       "used_in": []
-    },
-    {
-      "id": "508-slate-falcons",
-      "url": "https://venkateshrao.com/blyg/t/2mrz24qfj6shxc932nqfh3xebb",
-      "title": "The future of human coordination",
-      "site": "venkateshrao.com",
-      "added": "2026-11-26",
-      "from": "pi",
-      "paradigms": [],
-      "why": "Venkatesh Rao on why individual 10x-1000x speedups from AI break team coordination in complex, many-layered technical stacks, and what a better coordination design would need.",
-      "used_in": [
-        "lab-2026-11-26-regenerable-software-hot-state"
-      ]
     },
     {
       "id": "633-fern-egrets",
@@ -582,19 +942,6 @@
       "used_in": []
     },
     {
-      "id": "648-jade-bees",
-      "url": "https://symmetrybroken.com/when-a-fact-becomes-history",
-      "title": "When a Fact Becomes History (symmetry, broken)",
-      "site": "symmetrybroken.com",
-      "added": "2026-11-26",
-      "from": "pi",
-      "paradigms": [
-        "physical-limits"
-      ],
-      "why": "An essay arguing a standard objection to relational quantum mechanics fails because reversing a lab that recorded a fact would mean undoing all its copies in the environment.",
-      "used_in": []
-    },
-    {
       "id": "673-onyx-falcons",
       "url": "https://movingcastles.world/posts/zero",
       "title": "Zero (Moving Castles)",
@@ -603,17 +950,6 @@
       "from": "pi",
       "paradigms": [],
       "why": "A write-up of fine-tuning an 8B base model into a fixed character, reporting character breaks in 2.8% of conversations against 45.2% for a system-prompted instruct model, plus activation analysis.",
-      "used_in": []
-    },
-    {
-      "id": "730-moss-wrens",
-      "url": "https://scalingswarms.com/",
-      "title": "s3: Simple Scaling of Swarms via Cooperative Multi-agent RL",
-      "site": "scalingswarms.com",
-      "added": "2026-11-26",
-      "from": "pi",
-      "paradigms": [],
-      "why": "Project page for training leaderless asynchronous swarms of language models with a shared reward, reporting gains over best-of-N from solo agents and carry-over to larger swarms.",
       "used_in": []
     }
   ]

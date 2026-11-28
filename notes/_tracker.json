@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-27",
+  "updated": "2026-11-28",
   "source": "https://www.kinocomputing.com/alternative-paradigms",
   "groups": [
     {
@@ -102,14 +102,14 @@
         {
           "id": "neuromorphic",
           "name": "Neuromorphic / spiking computing",
-          "last_checked": null,
-          "entry": null
+          "last_checked": "2026-11-28",
+          "entry": "lab-2026-11-28-paradigm-neuromorphic"
         },
         {
           "id": "hyperdimensional",
           "name": "Hyperdimensional computing / vector-symbolic architectures",
-          "last_checked": null,
-          "entry": null
+          "last_checked": "2026-11-28",
+          "entry": "lab-2026-11-28-paradigm-hyperdimensional"
         }
       ]
     },
@@ -119,20 +119,20 @@
         {
           "id": "wetware",
           "name": "Synthetic biological intelligence (wetware)",
-          "last_checked": null,
-          "entry": null
+          "last_checked": "2026-11-28",
+          "entry": "lab-2026-11-28-paradigm-wetware"
         },
         {
           "id": "organoids",
           "name": "Organoid intelligence",
-          "last_checked": null,
-          "entry": null
+          "last_checked": "2026-11-28",
+          "entry": "lab-2026-11-28-paradigm-organoids"
         },
         {
           "id": "basal-cognition",
           "name": "Basal cognition / diverse intelligence",
-          "last_checked": null,
-          "entry": null
+          "last_checked": "2026-11-28",
+          "entry": "lab-2026-11-28-paradigm-basal-cognition"
         },
         {
           "id": "slime-mould-chemical",

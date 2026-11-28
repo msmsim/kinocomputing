@@ -1,16 +1,28 @@
 // Fooling the oracle: each mutant breaks one promised behaviour in a copy of
 // tools/, and the oracle suite must fail against it. A mutant that survives is
-// a hole in the oracle, not a pass. Run by hand; it takes a few minutes.
+// a hole in the oracle, not a pass. Run by hand.
 //
 //   node test/mutants.mjs [name…]
+//
+// The oracle's files run side by side, and a mutant stops at the first file
+// that fails. test/mutants.json remembers which file killed each mutant; that
+// file runs first, alone, next time, and the rest only if it passes, so
+// several mutants can run at once (MUTANT_JOBS, default one per core). A
+// mutant is capped at MUTANT_TIMEOUT_MS (default 300 s); one that hits the
+// cap counts as survived.
 
-import { spawnSync } from "node:child_process";
-import { cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
-import { tmpdir } from "node:os";
+import { spawn } from "node:child_process";
+import { cpSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { availableParallelism, tmpdir } from "node:os";
 import { join } from "node:path";
 
 const REPO = new URL("..", import.meta.url).pathname;
 const RUNS = process.env.ORACLE_RUNS ?? "120";
+const FILES = ["test/oracle.test.mjs", "test/examples.test.mjs", "test/threads.test.mjs"];
+const JOBS = Math.max(1, Number(process.env.MUTANT_JOBS ?? availableParallelism()));
+const TIMEOUT_MS = Number(process.env.MUTANT_TIMEOUT_MS ?? 300_000);
+const KILLERS_PATH = join(REPO, "test/mutants.json");
+const killers = existsSync(KILLERS_PATH) ? JSON.parse(readFileSync(KILLERS_PATH, "utf8")) : {};
 
 const MUTANTS = {
   "version-time-always-page": ["blyg.mjs", "const at = paged > last.at ? paged : toUtc(now);", "const at = paged;"],
@@ -52,29 +64,71 @@ const MUTANTS = {
   "placeholder-ships": ["build-stream.mjs", "  note.content = baked ?? note.content.replace(", "  note.content = note.content ?? note.content.replace("],
 };
 
-const only = process.argv.slice(2);
-const results = [];
-for (const [name, [file, from, to]] of Object.entries(MUTANTS)) {
-  if (only.length && !only.includes(name)) continue;
-  const dir = mkdtempSync(join(tmpdir(), `mutant-${name}-`));
-  cpSync(join(REPO, "tools"), dir, { recursive: true });
-  const path = join(dir, file);
-  const source = readFileSync(path, "utf8");
-  if (!source.includes(from)) {
-    results.push([name, "STALE (the code it mutates has changed)"]);
-    console.log(`${name}: ${results.at(-1)[1]}`);
-    continue;
-  }
-  writeFileSync(path, source.replace(from, to));
-  const run = spawnSync(process.execPath, ["--test", "test/oracle.test.mjs", "test/threads.test.mjs"], {
-    cwd: REPO, encoding: "utf8", env: { ...process.env, ORACLE_TOOLS: dir, ORACLE_RUNS: RUNS },
+/** One oracle file against a mutant's tools: resolves true if it passes. */
+function runFile(tools, file, stops) {
+  return new Promise((resolve) => {
+    // Its own process group, so a stop takes the builds it started with it.
+    const child = spawn(process.execPath, ["--test", "--test-reporter=tap", file], {
+      cwd: REPO, detached: true, stdio: ["ignore", "pipe", "ignore"], env: { ...process.env, ORACLE_TOOLS: tools, ORACLE_RUNS: RUNS },
+    });
+    const stop = () => { try { process.kill(-child.pid, "SIGKILL"); } catch {} };
+    stops.push(stop);
+    let failed = false;
+    let tail = "";
+    child.stdout.on("data", (chunk) => {
+      tail = (tail + chunk).slice(-4000);
+      if (!failed && /^\s*not ok /m.test(tail)) { failed = true; stop(); }
+    });
+    child.on("close", (code) => resolve(!failed && code === 0));
   });
-  rmSync(dir, { recursive: true, force: true });
-  const killed = run.status !== 0;
-  const why = (run.stdout.match(/\[cause\]: AssertionError[^:]*: ([^\n]*)/) ?? [])[1] ?? "";
-  results.push([name, killed ? `killed — ${why.slice(0, 110)}` : "SURVIVED"]);
-  console.log(`${name}: ${results.at(-1)[1]}`);
 }
+
+/** Files side by side until one fails: that file, null if all passed, or "timed out". */
+function firstFailure(tools, files) {
+  return new Promise((resolve) => {
+    const stops = [];
+    let done = false;
+    let left = files.length;
+    const finish = (value) => { if (done) return; done = true; clearTimeout(timer); stops.forEach((s) => s()); resolve(value); };
+    const timer = setTimeout(() => finish("timed out"), TIMEOUT_MS);
+    for (const file of files) runFile(tools, file, stops).then((passed) => (!passed ? finish(file) : --left === 0 && finish(null)));
+  });
+}
+
+async function worker(queue, results) {
+  for (let next = queue.shift(); next; next = queue.shift()) {
+    const [name, [file, from, to]] = next;
+    const dir = mkdtempSync(join(tmpdir(), `mutant-${name}-`));
+    try {
+      cpSync(join(REPO, "tools"), dir, { recursive: true });
+      const path = join(dir, file);
+      const source = readFileSync(path, "utf8");
+      if (!source.includes(from)) {
+        results.push([name, "STALE (the code it mutates has changed)"]);
+        console.log(`${name}: ${results.at(-1)[1]}`);
+        continue;
+      }
+      writeFileSync(path, source.replace(from, to));
+      const started = Date.now();
+      const known = FILES.includes(killers[name]) ? killers[name] : null;
+      let killer = known ? await firstFailure(dir, [known]) : null;
+      if (!killer) killer = await firstFailure(dir, FILES.filter((f) => f !== known));
+      const killed = killer && killer !== "timed out";
+      if (killed) killers[name] = killer;
+      results.push([name, killed ? `killed by ${killer.slice(5)}` : killer === "timed out" ? "TIMED OUT" : "SURVIVED"]);
+      console.log(`${name}: ${results.at(-1)[1]} (${((Date.now() - started) / 1000).toFixed(1)}s)`);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  }
+}
+
+const only = process.argv.slice(2);
+const queue = Object.entries(MUTANTS).filter(([name]) => !only.length || only.includes(name));
+const results = [];
+const started = Date.now();
+await Promise.all(Array.from({ length: Math.min(JOBS, queue.length) }, () => worker(queue, results)));
+writeFileSync(KILLERS_PATH, `${JSON.stringify(Object.fromEntries(Object.entries(killers).filter(([n]) => n in MUTANTS).sort()), null, 2)}\n`);
 const survived = results.filter(([, r]) => !r.startsWith("killed"));
-console.log(`\n${results.length - survived.length}/${results.length} mutants killed`);
+console.log(`\n${results.length - survived.length}/${results.length} mutants killed in ${((Date.now() - started) / 1000).toFixed(0)}s`);
 process.exit(survived.length ? 1 : 0);

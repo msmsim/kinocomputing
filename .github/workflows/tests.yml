@@ -1,0 +1,46 @@
+name: Tests
+
+# Every change to the site's machinery runs the tests (npm test: the oracle's
+# generated and written histories and the tools' own; about fifteen seconds).
+# The differential test against msn skips itself here, msn not being checked
+# out beside the site; it runs on a machine that has both. Publishing notes
+# doesn't trigger it.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tools/**"
+      - "test/**"
+      - "notes/_*.html"
+      - "*.css"
+      - "package.json"
+      - "package-lock.json"
+      - ".nvmrc"
+      - ".github/workflows/**"
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm test

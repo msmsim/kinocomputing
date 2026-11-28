@@ -1873,6 +1873,25 @@
       "seen": "0f6f97ffebfbdf0a",
       "page": "speeding-up-the-reading-of-papers-barely-speeds-up-science"
     },
+    "lab-2026-11-28-brief": {
+      "id": "66p3bdvkb3z5fks29pgd9tza4y",
+      "created": "2026-11-28T05:12:20Z",
+      "hash": "sha256:37a88e57c05ff2cfcc6bd1296158d5edfb1aff6a6c2b6c4f9e434e7bda8d9609",
+      "kind": "thread",
+      "generated": {
+        "model": "claude-sonnet-5-5",
+        "at": "2026-11-28T05:12:20Z"
+      },
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-28T05:12:20Z",
+          "note": null
+        }
+      ],
+      "seen": "a7ed6d46ce150c68",
+      "page": "lab-brief-28-november-2026"
+    },
     "lab-2026-11-28-organoid-braille-stimulus-baseline": {
       "id": "7dv83z75n5fh51v7528z2dphwt",
       "created": "2026-11-28T05:12:28Z",

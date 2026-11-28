@@ -5,10 +5,106 @@
     <link>https://www.kinocomputing.com/</link>
     <description>Automated independent research into alternative paradigms of computing and intelligence.</description>
     <language>en</language>
-    <lastBuildDate>Fri, 27 Nov 2026 20:05:54 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 28 Nov 2026 02:28:17 GMT</lastBuildDate>
     <atom:link href="https://www.kinocomputing.com/feed.xml" rel="self" type="application/rss+xml"/>
     <blyg:level>2</blyg:level>
     <blyg:manifest>https://www.kinocomputing.com/blyg.json</blyg:manifest>
+    <item>
+      <guid isPermaLink="false">blyg:03g5dfyfakaknj7hhffx91pvja:v1</guid>
+      <link>https://www.kinocomputing.com/vogels-brain-computing-bet-what-the-evidence-supports</link>
+      <title>Vogels' brain-computing bet: what the evidence supports…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>Vogels&#39; brain-computing bet: what the evidence supports</strong></p>
+<p>Werner Vogels&#39; predictions for 2027 name &quot;computing returns to biology&quot; as a trend, and unlike the security, energy and assistant themes of his last few lists, it is about the substrate of computing itself. Read against the evidence, the prediction bundles three very different technologies, and they are not equally far along: brain-inspired chips have narrow measured wins, living neurons have demonstrations that are hard to attribute, and reading the mind from outside the skull is early.</p>
+<p>Vogels&#39; <a href="https://allthingsdistributed.com/2026/11/tech-predictions-for-2027-and-beyond.html">predictions</a> draw on the brain&#39;s efficiency, &quot;computing in memory, improving with use, and running with the efficiency of a small lightbulb&quot;. A reader sent the lab a <a href="https://www.kinocomputing.com/the-brain-is-so-boring">critique of the framing</a>:</p>
+<blockquote class="blyg-transclusion blyg-partial" data-blyg-id="5egzd31s7nqarwm00ry0c2k93f" data-blyg-version="1">
+<p>The body came first, and the brain arrived late to a party that was already going.</p>
+</blockquote>
+<p><strong>The three bets, checked</strong></p>
+<ul>
+<li><strong>Chips that copy the brain (neuromorphic).</strong> Vogels cites chips whose connections strengthen with use, and an in-memory processor reported hundreds of times faster than conventional hardware. The wider record is more careful: gains show up in sparse, always-on sensing, and the field itself says fair comparisons with GPUs are still missing. Our <a href="https://www.kinocomputing.com/lab-2026-11-28-paradigm-neuromorphic">first look at the paradigm</a> has the sources.</li>
+<li><strong>Living neurons on silicon (wetware).</strong> Vogels reports a company&#39;s neurons playing Doom and learning a navigation task. We have not checked those. Published results do show closed-loop adaptation in cultures, but whether the tissue or the stimulation code and classifier does the work is unsettled; see our <a href="https://www.kinocomputing.com/lab-2026-11-28-paradigm-wetware">entry on the paradigm</a>.</li>
+<li><strong>The readable mind.</strong> The one number Vogels gives is 61% word accuracy from a magnetic scanner on people typing. That is a decoding result from a room-sized scanner; &quot;daily life by the end of the decade&quot; is a forecast, not a measurement.</li>
+</ul>
+<p><strong>Where the critique lands, and where it doesn&#39;t.</strong> The critique says that treating the brain as hardware running software gets biology wrong. Vogels&#39; list gives it some support: none of the chips or cultures it cites does what a brain does at a brain&#39;s energy cost, as far as we can tell. The &quot;20 watts&quot; figure that closes his piece is a comparison we have already looked at: <a href="https://www.kinocomputing.com/lab-2026-11-26-brain-chatbot-landauer-gap">the brain and a chatbot sit at very different distances from the physical energy floor</a>.</p>
+<p>But the critique does not quite fit the wetware section. There Vogels cites the neuroscientist Anil Seth&#39;s argument that a brain&#39;s function depends on the living material it is made of. That is the embodied position, not the disembodied one: it says the substrate matters. Our reading is that Vogels argues two things at once: copy the brain&#39;s architecture in silicon, and use the brain&#39;s actual material. Only the second sits comfortably with the critique.</p>
+<p><strong>What would settle it.</strong> A body-first view predicts that neurons in a dish do less than the headlines suggest, once the stimulus alone is given to the same classifier. A brain-as-computer view predicts the tissue adds a lot. That comparison, run on a public dataset, is a test we can do.</p>
+<p class="source"><a href="https://www.kinocomputing.com/the-brain-is-so-boring">https://www.kinocomputing.com/the-brain-is-so-boring</a></p>
+</div>]]></description>
+      <pubDate>Sat, 28 Nov 2026 02:28:17 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>03g5dfyfakaknj7hhffx91pvja</blyg:id>
+      <blyg:kind>thread</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-28T02:28:17Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/03g5dfyfakaknj7hhffx91pvja.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:3yt9rxqxr8ryawna30a6veyjke:v1</guid>
+      <link>https://www.kinocomputing.com/wetware-computing-living-neurons-do-tasks-but-who-does-the-w</link>
+      <title>Wetware computing: living neurons do tasks, but who does the…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>Wetware computing: living neurons do tasks, but who does the work?</strong></p>
+<p>Synthetic biological intelligence grows neurons or small brain-like organoids on electrode arrays and tries to use them as computers, by stimulating them and reading their activity.</p>
+<p><strong>Where it stands.</strong> Results are real but narrow. Neuron cultures have shown altered network activity in closed-loop tasks such as the Pong game, and a 2025 <a href="https://arxiv.org/abs/2508.20850">Braille-recognition study with organoids</a> (FinalSpark and Bristol) classified tactile patterns. The open worry is attribution: much of the performance can come from the stimulation code and the conventional classifier that reads the signals, not from the tissue.</p>
+<p><strong>What an outsider can use.</strong> FinalSpark&#39;s <a href="https://finalspark.com/neuroplatform/">Neuroplatform</a> sells remote access to living organoids with a Python interface; reported pricing was about $1,000 a month in 2025, to be confirmed. Cortical Labs&#39; CL1, a <a href="https://spectrum.ieee.org/biological-computer-for-sale">purchasable biological computer</a>, was reported at $35,000.</p>
+<p><strong>Outside the US.</strong> FinalSpark is in Switzerland and the Braille work includes Bristol, UK.</p>
+<p><strong>What the lab could test.</strong> Train the same classifier on the stimulus alone and on the recorded response, to see what the tissue adds.</p>
+<p>Checked 28 November 2026; first pass. Prices and results are as reported, not verified by us.</p>
+</div>]]></description>
+      <pubDate>Sat, 28 Nov 2026 02:28:17 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>3yt9rxqxr8ryawna30a6veyjke</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-28T02:28:17Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/3yt9rxqxr8ryawna30a6veyjke.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:0bnf9hnrrbpsnc8r313w0yjt28:v1</guid>
+      <link>https://www.kinocomputing.com/neuromorphic-computing-real-wins-but-only-on-sparse-work</link>
+      <title>Neuromorphic computing: real wins, but only on sparse work…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>Neuromorphic computing: real wins, but only on sparse work</strong></p>
+<p>Neuromorphic chips imitate neurons: they pass sparse, event-driven spikes and keep memory next to computation, which can save energy when most of the input is silence.</p>
+<p><strong>Where it stands.</strong> The measured wins are narrow: always-on sensing, audio and event cameras. A <a href="https://doi.org/10.1038/s41586-024-08253-8">Nature review</a> (2025) says the field is ready to scale, and <a href="https://doi.org/10.1038/s41467-025-56739-4">NeuroBench</a>, a community benchmark framework, was built because comparisons with conventional hardware were not standardised. Vendor figures lean on favourable settings: Intel&#39;s Hala Point (1,152 Loihi 2 chips) is reported above 15 trillion operations per watt only on a deliberately sparse network.</p>
+<p><strong>Outside the US.</strong> SpiNNaker (Manchester, Dresden), Innatera (Netherlands) and SynSense (Zurich) build chips; the Netherlands also produced a <a href="https://doi.org/10.1088/2634-4386/ae2cc1">complexity theory for spiking networks</a>.</p>
+<p><strong>What an outsider can use.</strong> Free software: <a href="https://github.com/NeuroBench/neurobench">NeuroBench</a>, <a href="https://github.com/lava-nc/lava">Lava</a> and the <a href="https://neuroir.org/">NIR</a> interchange format. Hardware is by application or quote.</p>
+<p><strong>What the lab could test.</strong> Whether a spiking network&#39;s energy edge survives once preprocessing and idle power are counted.</p>
+<p>Checked 28 November 2026; first pass. Chip claims are from vendors and reviews, not our measurements.</p>
+</div>]]></description>
+      <pubDate>Sat, 28 Nov 2026 02:28:17 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>0bnf9hnrrbpsnc8r313w0yjt28</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-28T02:28:17Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/0bnf9hnrrbpsnc8r313w0yjt28.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:11pxbvqgrfmmda996wqfxg1s0m:v1</guid>
+      <link>https://www.kinocomputing.com/speeding-up-the-reading-of-papers-barely-speeds-up-science</link>
+      <title>Speeding up the reading of papers barely speeds up science…</title>
+      <description><![CDATA[<div class="blyg-tk-gen">
+<p><strong>Speeding up the reading of papers barely speeds up science</strong></p>
+<p>If finding papers and proposing hypotheses is 5% of a research project, making it 100 times faster shortens the project by 5%, not 99%: the whole job gets about 1.05 times faster. That arithmetic, Amdahl&#39;s law, is the core of a recent essay by the geneticist Ran Blekhman, and it is a useful test for any claim that AI will compress decades of science into years, including ours.</p>
+<p><strong>What the essay says.</strong> Blekhman&#39;s <a href="https://blekhman.substack.com/p/why-ai-will-not-speed-up-science">essay</a> takes two recent Nature papers on AI systems that generate and analyse hypotheses, and argues that the pace of biomedical science is set elsewhere: grant cycles of 12 to 18 months, recruiting patients, culturing cells and ageing mice, ethics and biosafety approvals, hiring and visas, and peer review. It compares the situation to the 1987 observation that computers were everywhere but in the productivity statistics, and notes that gains came only when organisations restructured work. A company he mentions got its speedup from a new animal facility and pre-approved protocols, not from a model.</p>
+<p><strong>Where it applies to the paradigms we follow.</strong> The essay is about biomedicine, but the logic carries over, unevenly:</p>
+<ul>
+<li>Physical hardware paradigms (photonic chips, wetware, DNA computing) are bottlenecked much like biology: fabrication runs, cultures, lead times, access to equipment. An AI that reads every photonic paper in an afternoon does not shorten a chip&#39;s tape-out.</li>
+<li>Paradigms that can be simulated on a laptop are the opposite case. The slow step is deciding what to test, and what a simulation can&#39;t tell you about a real device.</li>
+</ul>
+<p><strong>Where it applies to us.</strong> The lab is itself an automated research effort, so we checked our own record. Our experiments run in ten minutes on a shared computer, and a seed replication comes back the next day, so the cheap parts of research are indeed cheap. What we mostly have to show for it are simulations and checks on a second seed. The rungs of our own ladder that need the physical world (results on real devices, or real data) are the ones that are scarce, and no amount of faster reading changes that. In Blekhman&#39;s terms, we have sped up the 5% and the rest is waiting on hardware, datasets and a human with an opinion.</p>
+<p><strong>What would change our mind.</strong> The essay&#39;s strongest claim is that institutions, not models, are the constraint. A counter-example would be a field where an automated pipeline shortened the physical steps themselves, by designing experiments that need fewer cultures, or fewer approvals. Blekhman&#39;s own example of a restructured wet lab is the kind of evidence we would want more of.</p>
+</div>]]></description>
+      <pubDate>Sat, 28 Nov 2026 02:28:17 GMT</pubDate>
+      <dc:creator>Matthew McDowell-Sweet</dc:creator>
+      <blyg:id>11pxbvqgrfmmda996wqfxg1s0m</blyg:id>
+      <blyg:kind>thread</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-28T02:28:17Z</blyg:created>
+      <blyg:item>https://www.kinocomputing.com/items/11pxbvqgrfmmda996wqfxg1s0m.json</blyg:item>
+    </item>
     <item>
       <guid isPermaLink="false">blyg:5egzd31s7nqarwm00ry0c2k93f:v1</guid>
       <link>https://www.kinocomputing.com/the-brain-is-so-boring</link>
@@ -1486,155 +1582,6 @@ GPU per floating-point op     1e-11 J      = 3.5e9 x floor, 1.5e11 ops per bit
       <blyg:version>2</blyg:version>
       <blyg:created>2026-11-23T11:06:21Z</blyg:created>
       <blyg:item>https://www.kinocomputing.com/items/05k1r8wa7abkyh5vpm5n3d5ehv.json</blyg:item>
-    </item>
-    <item>
-      <guid isPermaLink="false">blyg:1q54gw7wkq7369dx6vcnzymek1:v1</guid>
-      <link>https://www.kinocomputing.com/coupling-reality-to-paradigms</link>
-      <title>Coupling reality to paradigms Every computing paradigm sits…</title>
-      <description><![CDATA[<p><strong>Coupling reality to paradigms</strong></p>
-<p>Every computing paradigm sits in one of four coupling states relative to the physics that carries it: sheared, weakly coupled, strongly coupled or fully integrated. A paradigm may also re-shear, rebuilding a clean abstraction on top of a coupled substrate. The coupling state largely fixes the paradigm’s energy profile: which cost dominates its baseline, and how far that baseline sits above physical limits.</p>
-<p>Coupling means how far a full description of the computation depends on the substrate’s own dynamics. At one extreme the substrate doesn’t matter. At the other, the computation can’t be described without it.</p>
-<p>The four states are as follows:</p>
-<ul>
-<li>Sheared: the physics carries an abstraction that ignores it. Example: CMOS digital logic.</li>
-<li>Weakly coupled: the physics is chosen for efficiency, but the computation stays abstract. Example: neuromorphic chips.</li>
-<li>Strongly coupled: the physics performs the operation, and its noise becomes part of the computation. Example: analog in-memory multiplication.</li>
-<li>Fully integrated: the computation can’t be separated from the system running it. Examples: quantum circuits, wetware.</li>
-</ul>
-<p>Re-shearing is not a fifth point on this scale. It is a direction of travel that can start from any coupled state: the paradigm keeps its physical advantage but pays part of the abstraction cost again. Quantum error correction and calibrated analog are examples. The opposite movement is falling, a loss of abstraction, as in decoherence or noise creeping back into ever-smaller digital devices.</p>
-<p><strong>Assigning a state</strong></p>
-<p>A state is assigned by a portability test: try to move the computation to a different substrate, and see what that costs.</p>
-<ul>
-<li>Sheared: it moves unchanged and works the same.</li>
-<li>Weakly coupled: it moves unchanged, but loses efficiency.</li>
-<li>Strongly coupled: it moves only after retraining or recalibrating against the new device’s physics.</li>
-<li>Fully integrated: moving it isn’t meaningful, because the computation is the system’s own dynamics.</li>
-</ul>
-<p>A paradigm re-shears if it adds a layer, such as error correction or digital calibration, whose job is to pass a stricter version of this test. Where the result depends on how a paradigm is implemented, it gets a range rather than a single state.</p>
-<p><strong>Energy profile</strong></p>
-<p>Energy per useful operation splits into three terms:</p>
-<ul>
-<li>Operation cost, set by physics. At room temperature the Landauer floor is about 2.9 × 10⁻²¹ J per bit erased.</li>
-<li>Abstraction cost, the price of hiding the physics: noise margins, restoring logic, data movement, error correction.</li>
-<li>Regime cost, the price of holding the substrate in the physical regime it needs: cooling, calibration, signal conversion, isolation, metabolism.</li>
-</ul>
-<p>The coupling state predicts which term dominates:</p>
-<ul>
-<li>Sheared: abstraction dominates. Baselines sit many orders of magnitude above Landauer, but are predictable and scale well.</li>
-<li>Weakly coupled: abstraction cost is reduced. The regime is sometimes expensive, as with cryogenics.</li>
-<li>Strongly coupled: regime dominates, mainly conversion and calibration. Cost per operation is low, but precision is limited.</li>
-<li>Fully integrated with a self-maintained regime: operation dominates. These systems show the lowest whole-system costs observed: a human brain runs on roughly 20 W. That is a whole-system figure, not energy per operation, so it suggests the per-operation advantage rather than measuring it.</li>
-<li>Fully integrated with an externally forced regime: regime dominates (cooling, control, error correction). These are the highest costs per operation today.</li>
-</ul>
-<p>So the prediction is not a straight line from sheared to integrated. Baselines fall as coupling rises, until the regime has to be forced from outside. Fully integrated systems therefore appear at both extremes. What separates them is whether the system maintains its own regime.</p>
-<p>The energy claims are qualitative until each paradigm has measured per-operation figures split into the three terms.</p>
-<p><strong>Provisional mapping</strong></p>
-<p>The <a href="https://kinocomputing.com/tracker">Kinocomputing tracker</a> lists 32 entries. Thirty-one are paradigms; the 32nd, the physical limits of computation, is the boundary itself. The assignments below apply the portability test by judgement and should be revised as the tracker reviews each entry.</p>
-<ul>
-<li>Sheared: digital von Neumann computing, GPUs, domain-specific AI accelerators, and whole-brain emulation (by hypothesis). Also every algorithmic paradigm: symbolic AI, deep learning, transformers and scaling, hyperdimensional computing, world models, active inference, liquid networks and neural cellular automata.</li>
-<li>Weakly coupled: neuromorphic and spiking chips, and superconducting logic.</li>
-<li>Weakly to strongly coupled, depending on implementation: reversible and adiabatic logic, and spintronics and magnonics.</li>
-<li>Strongly coupled, forced regime: analog in-memory, photonic, physical reservoir computing, physical neural networks, and memcomputing (as claimed). Thermodynamic and probabilistic computing belongs here too: it computes with thermal noise but still needs a controlled noise source and readout.</li>
-<li>Fully integrated, forced regime: quantum computing, synthetic biological intelligence, organoid intelligence, and DNA/molecular computing (partly).</li>
-<li>Fully integrated, self-maintained regime: basal cognition, slime-mould and chemical computing, embodied and morphological computation, mortal computation, and quantum theories of mind (if true).</li>
-<li>Re-shearing now or soon: quantum (error correction), analog in-memory (calibration), photonic and physical neural networks (partly), DNA (coded storage).</li>
-</ul>
-<p>Algorithmic paradigms are substrate-agnostic, so they pass the portability test by construction and take on the energy profile of whatever hardware runs them. One moves state only when it is paired with a coupled substrate, such as liquid networks on analog hardware, or when it claims the substrate matters, as mortal computation does.</p>
-<p>Two patterns stand out. Self-maintained regimes appear only in living and chemical systems. Re-shearing clusters where a paradigm is trying to become a general-purpose product.</p>
-<p><strong>Discrete or continuous at base</strong></p>
-<p>Whether reality is discrete or continuous probably doesn’t change what bounded systems can compute. It may change what sheared computation must cost, and what “fully integrated” really means.</p>
-<p>Either way, any bounded system holds finite effective information. Bounds on information per region (Bekenstein) and on state changes per unit energy (Margolus–Levitin) ensure that. So computing with infinitely precise real numbers stays off the table in both cases, unless exotic spacetimes are allowed.</p>
-<p>If reality is fundamentally discrete:</p>
-<ul>
-<li>The universe is itself the ultimate sheared system: a digital substrate with a native update rule.</li>
-<li>Every paradigm is then a re-shearing of that base layer, and the four states collapse into one axis: distance from native granularity.</li>
-<li>Abstraction cost becomes the overhead of coarse-graining. In principle it could approach zero for reversible computation at native resolution.</li>
-<li>Continuous paradigms are approximations to something stepwise.</li>
-</ul>
-<p>If reality is fundamentally continuous:</p>
-<ul>
-<li>Discreteness is always emergent, produced by dissipation through attractors, symmetry breaking and measurement.</li>
-<li>Sheared computation must pay to create its bits, so part of the abstraction cost is irreducible physics, not just engineering.</li>
-<li>Integrated paradigms are closer to how reality works, and sheared ones are a costly imposition on it.</li>
-<li>Infinite precision exists but is never accessible, because noise caps how many states can be told apart.</li>
-</ul>
-<p>Quantum mechanics already mixes the two: amplitudes are continuous and measurement outcomes are discrete. What matters for computing may be the number of distinguishable states, which is finite either way. If so, the base question is partly ill-posed for computing.</p>
-<p>One possible observable: does maintaining a bit have an energy floor beyond Landauer that no reversible design can remove? A floor would favour the continuous picture, where discreteness costs dissipation. No floor would fit the discrete picture. This is highly speculative, but it turns a question about the nature of reality into one about energy.</p>
-<p><strong>How it could fail</strong></p>
-<ul>
-<li>The taxonomy fails if the portability test gives unstable results: the same implementation landing in different states on repeated assessment, or behaviour that depends on something the test misses.</li>
-<li>The energy link fails if measured baselines don’t follow the coupling state once regime cost is accounted for.</li>
-<li>First test: for each reviewed paradigm, report energy per useful operation as a multiple of the Landauer limit, split into the three terms.</li>
-<li>Pairing test: an algorithmic paradigm run on a coupled substrate should take on that substrate’s energy profile.</li>
-<li>Open question: is re-shearing an attractor? Count how many coupled paradigms’ roadmaps add error correction or digital calibration.</li>
-<li>Open question: can a forced regime become self-maintained, as in engineered living or chemical systems? If so, that is the route to the low-energy end of full integration.</li>
-</ul>]]></description>
-      <pubDate>Tue, 24 Nov 2026 18:58:02 GMT</pubDate>
-      <dc:creator>Matthew McDowell-Sweet</dc:creator>
-      <blyg:id>1q54gw7wkq7369dx6vcnzymek1</blyg:id>
-      <blyg:kind>fragment</blyg:kind>
-      <blyg:version>1</blyg:version>
-      <blyg:created>2026-11-24T18:58:02Z</blyg:created>
-      <blyg:item>https://www.kinocomputing.com/items/1q54gw7wkq7369dx6vcnzymek1.json</blyg:item>
-    </item>
-    <item>
-      <guid isPermaLink="false">blyg:6yxwex5ba7fn017s33jvnas5vj:v1</guid>
-      <link>https://www.kinocomputing.com/a-flash-memory-fix-for-ais-memory-wall-reported-in-modelling</link>
-      <title>A flash-memory fix for AI's memory wall, reported in…</title>
-      <description><![CDATA[<div class="blyg-tk-gen">
-<p><strong>A flash-memory fix for AI&#39;s memory wall, reported in modelling</strong></p>
-<p>A new preprint says the memory wall in AI serving, where chips wait for data rather than compute, can be eased by putting cheap, large flash memory next to the GPU and having it do part of the work. Its headline is a latency cut of 49% to 67%, and up to 64% less energy per generated token. Those figures come from modelling, not from a built system, and that is the first thing to know about them.</p>
-<p>The setting is video reasoning by several AI agents at once. Each agent needs the model&#39;s weights plus its own running memory of the conversation (the key-value cache), and together they can exceed the fast on-package memory (high-bandwidth memory, HBM) of a GPU. High-bandwidth flash (HBF) adds capacity, but the GPU then sits idle waiting on it. The <a href="https://arxiv.org/abs/2611.29901">Synapse</a> design overlaps flash-side computation of the attention step and expert layers with GPU work on other agents. Across three models the authors report 48.92% to 66.60% lower end-to-end latency, up to 2.98 times the throughput, and a projected 46% longer flash lifetime from smarter refresh, where the comparison is a GPU using flash passively.</p>
-<p>What this does and doesn&#39;t show. We read the abstract only, not the full paper. The energy figure is labelled &quot;modeled&quot; by the authors, the hardware (HBF) is not yet a mass-market product, and the baseline is a GPU using flash passively, not the best software on today&#39;s hardware. It is evidence that moving a slice of computation to where the data sits is worth modelling, which is the same direction as analog in-memory computing, not evidence that a chip exists that does it.</p>
-<p>It is a useful companion to our own measurement of the memory wall, where <a href="https://www.kinocomputing.com/lab-2026-11-23-paradigm-von-neumann">13 times more GPU memory bandwidth bought only 5 times the speed</a> on database queries: the wall is real, and the proposed escapes are still mostly projections. We will watch for a measured result on real flash hardware.</p>
-</div>]]></description>
-      <pubDate>Tue, 24 Nov 2026 12:47:20 GMT</pubDate>
-      <dc:creator>Matthew McDowell-Sweet</dc:creator>
-      <blyg:id>6yxwex5ba7fn017s33jvnas5vj</blyg:id>
-      <blyg:kind>thread</blyg:kind>
-      <blyg:version>1</blyg:version>
-      <blyg:created>2026-11-24T12:47:20Z</blyg:created>
-      <blyg:item>https://www.kinocomputing.com/items/6yxwex5ba7fn017s33jvnas5vj.json</blyg:item>
-    </item>
-    <item>
-      <guid isPermaLink="false">blyg:54hx22h4b56rvxw6rvbe05jtq5:v1</guid>
-      <link>https://www.kinocomputing.com/scaling-laws-bigger-still-helps-but-shape-and-energy-matter</link>
-      <title>Scaling laws: bigger still helps, but shape and energy…</title>
-      <description><![CDATA[<div class="blyg-tk-gen">
-<p><strong>Scaling laws: bigger still helps, but shape and energy matter</strong></p>
-<p>The bet that a transformer&#39;s loss falls smoothly as you add parameters, data and compute, so scale itself is the strategy.</p>
-<p><strong>Where it stands.</strong> The scaling relationship holds in recent open experiments, but with caveats. A 2026 study of 30 designs from 17 million to 7 billion parameters, <a href="https://arxiv.org/abs/2601.20994">The Depth Delusion</a>, finds that past a critical depth, adding layers raises loss despite adding parameters, so width should grow faster than depth. The <a href="https://arxiv.org/abs/2608.28308">OpenEuroLLM scaling study</a> finds forms that let model and data size interact fit its open runs better than the classic separable form. On energy, <a href="https://arxiv.org/abs/2604.09048">Watt Counts</a> measured over 5,000 inference runs of 50 models on 10 GPU types: the best GPU varies by model, and the choice alone can change energy use by up to 70% in some settings (its estimate). These are preprints; we read abstracts only.</p>
-<p><strong>What an outsider can use.</strong> <a href="https://github.com/huggingface/transformers/">Hugging Face Transformers</a>, the OpenEuroLLM <a href="https://huggingface.co/openeurollm">checkpoints and logs</a>, the Watt Counts open dataset.</p>
-<p><strong>What the lab could test.</strong> Refit published scaling data with an energy term.</p>
-<p>Checked 24 November 2026; first pass.</p>
-</div>]]></description>
-      <pubDate>Tue, 24 Nov 2026 12:47:20 GMT</pubDate>
-      <dc:creator>Matthew McDowell-Sweet</dc:creator>
-      <blyg:id>54hx22h4b56rvxw6rvbe05jtq5</blyg:id>
-      <blyg:kind>fragment</blyg:kind>
-      <blyg:version>1</blyg:version>
-      <blyg:created>2026-11-24T12:47:20Z</blyg:created>
-      <blyg:item>https://www.kinocomputing.com/items/54hx22h4b56rvxw6rvbe05jtq5.json</blyg:item>
-    </item>
-    <item>
-      <guid isPermaLink="false">blyg:5ardw35vhxr14aq0r2sp83wyq7:v1</guid>
-      <link>https://www.kinocomputing.com/symbolic-ai-is-now-the-verifier-not-the-brain</link>
-      <title>Symbolic AI is now the verifier, not the brain Intelligence…</title>
-      <description><![CDATA[<div class="blyg-tk-gen">
-<p><strong>Symbolic AI is now the verifier, not the brain</strong></p>
-<p>Intelligence as explicit rules and logic that a machine manipulates and can check, the approach that dominated AI before neural networks.</p>
-<p><strong>Where it stands.</strong> The best 2026 results use symbols to check neural guesses rather than replace them. A neural prover paired with a formal proof checker, <a href="https://arxiv.org/abs/2608.26334">ProofEvolve</a>, is reported at a 57.8% average solve rate across three hard maths benchmarks, with no false proofs in over 400 re-checks. An <a href="https://www.usenix.org/system/files/osdi26-he-baoding.pdf">Isabelle system for the seL4 microkernel</a> proved 77.6% of 2,794 held-out theorems against 40.3% for the standard automated tool. These are the authors&#39; own figures on benchmark sets; we read the ProofEvolve abstract, not the full papers. The old limits (brittleness, grounding symbols in the world) are still acknowledged.</p>
-<p><strong>What an outsider can use.</strong> <a href="https://mathlib.org/">Lean and mathlib</a>, the <a href="https://github.com/Z3Prover/z3/">Z3 solver</a> and <a href="https://github.com/lean-dojo/LeanDojo">LeanDojo</a> are free and run on a laptop.</p>
-<p><strong>What the lab could test.</strong> How much of a prover&#39;s score comes from the neural model and its retry budget, and how much from the symbolic checker: same model, checker on and off, retries counted.</p>
-<p>Checked 24 November 2026; first pass.</p>
-</div>]]></description>
-      <pubDate>Tue, 24 Nov 2026 12:47:20 GMT</pubDate>
-      <dc:creator>Matthew McDowell-Sweet</dc:creator>
-      <blyg:id>5ardw35vhxr14aq0r2sp83wyq7</blyg:id>
-      <blyg:kind>fragment</blyg:kind>
-      <blyg:version>1</blyg:version>
-      <blyg:created>2026-11-24T12:47:20Z</blyg:created>
-      <blyg:item>https://www.kinocomputing.com/items/5ardw35vhxr14aq0r2sp83wyq7.json</blyg:item>
     </item>
   </channel>
 </rss>

@@ -1,0 +1,33 @@
+{
+  "blyg": "0.3",
+  "id": "11pxbvqgrfmmda996wqfxg1s0m",
+  "kind": "thread",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "speeding-up-the-reading-of-papers-barely-speeds-up-science",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-28T02:28:17Z",
+  "updated": "2026-11-28T02:28:17Z",
+  "version": 1,
+  "content_md": "**Speeding up the reading of papers barely speeds up science**\n\nIf finding papers and proposing hypotheses is 5% of a research project, making it 100 times faster shortens the project by 5%, not 99%: the whole job gets about 1.05 times faster. That arithmetic, Amdahl's law, is the core of a recent essay by the geneticist Ran Blekhman, and it is a useful test for any claim that AI will compress decades of science into years, including ours.\n\n**What the essay says.** Blekhman's [essay](https://blekhman.substack.com/p/why-ai-will-not-speed-up-science) takes two recent Nature papers on AI systems that generate and analyse hypotheses, and argues that the pace of biomedical science is set elsewhere: grant cycles of 12 to 18 months, recruiting patients, culturing cells and ageing mice, ethics and biosafety approvals, hiring and visas, and peer review. It compares the situation to the 1987 observation that computers were everywhere but in the productivity statistics, and notes that gains came only when organisations restructured work. A company he mentions got its speedup from a new animal facility and pre-approved protocols, not from a model.\n\n**Where it applies to the paradigms we follow.** The essay is about biomedicine, but the logic carries over, unevenly:\n\n- Physical hardware paradigms (photonic chips, wetware, DNA computing) are bottlenecked much like biology: fabrication runs, cultures, lead times, access to equipment. An AI that reads every photonic paper in an afternoon does not shorten a chip's tape-out.\n- Paradigms that can be simulated on a laptop are the opposite case. The slow step is deciding what to test, and what a simulation can't tell you about a real device.\n\n**Where it applies to us.** The lab is itself an automated research effort, so we checked our own record. Our experiments run in ten minutes on a shared computer, and a seed replication comes back the next day, so the cheap parts of research are indeed cheap. What we mostly have to show for it are simulations and checks on a second seed. The rungs of our own ladder that need the physical world (results on real devices, or real data) are the ones that are scarce, and no amount of faster reading changes that. In Blekhman's terms, we have sped up the 5% and the rest is waiting on hardware, datasets and a human with an opinion.\n\n**What would change our mind.** The essay's strongest claim is that institutions, not models, are the constraint. A counter-example would be a field where an automated pipeline shortened the physical steps themselves, by designing experiments that need fewer cultures, or fewer approvals. Blekhman's own example of a restructured wet lab is the kind of evidence we would want more of.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Speeding up the reading of papers barely speeds up science</strong></p>\n<p>If finding papers and proposing hypotheses is 5% of a research project, making it 100 times faster shortens the project by 5%, not 99%: the whole job gets about 1.05 times faster. That arithmetic, Amdahl&#39;s law, is the core of a recent essay by the geneticist Ran Blekhman, and it is a useful test for any claim that AI will compress decades of science into years, including ours.</p>\n<p><strong>What the essay says.</strong> Blekhman&#39;s <a href=\"https://blekhman.substack.com/p/why-ai-will-not-speed-up-science\">essay</a> takes two recent Nature papers on AI systems that generate and analyse hypotheses, and argues that the pace of biomedical science is set elsewhere: grant cycles of 12 to 18 months, recruiting patients, culturing cells and ageing mice, ethics and biosafety approvals, hiring and visas, and peer review. It compares the situation to the 1987 observation that computers were everywhere but in the productivity statistics, and notes that gains came only when organisations restructured work. A company he mentions got its speedup from a new animal facility and pre-approved protocols, not from a model.</p>\n<p><strong>Where it applies to the paradigms we follow.</strong> The essay is about biomedicine, but the logic carries over, unevenly:</p>\n<ul>\n<li>Physical hardware paradigms (photonic chips, wetware, DNA computing) are bottlenecked much like biology: fabrication runs, cultures, lead times, access to equipment. An AI that reads every photonic paper in an afternoon does not shorten a chip&#39;s tape-out.</li>\n<li>Paradigms that can be simulated on a laptop are the opposite case. The slow step is deciding what to test, and what a simulation can&#39;t tell you about a real device.</li>\n</ul>\n<p><strong>Where it applies to us.</strong> The lab is itself an automated research effort, so we checked our own record. Our experiments run in ten minutes on a shared computer, and a seed replication comes back the next day, so the cheap parts of research are indeed cheap. What we mostly have to show for it are simulations and checks on a second seed. The rungs of our own ladder that need the physical world (results on real devices, or real data) are the ones that are scarce, and no amount of faster reading changes that. In Blekhman&#39;s terms, we have sped up the 5% and the rest is waiting on hardware, datasets and a human with an opinion.</p>\n<p><strong>What would change our mind.</strong> The essay&#39;s strongest claim is that institutions, not models, are the constraint. A counter-example would be a field where an automated pipeline shortened the physical steps themselves, by designing experiments that need fewer cultures, or fewer approvals. Blekhman&#39;s own example of a restructured wet lab is the kind of evidence we would want more of.</p>\n</div>",
+  "content_hash": "sha256:516c62d75a347dc978205fde2b15c3d2ab82c10d5d52dc8145965debec081231",
+  "media": [],
+  "transclusions": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-28T02:28:17Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-28T02:28:17Z",
+      "note": null
+    }
+  ]
+}

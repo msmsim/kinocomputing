@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "0bnf9hnrrbpsnc8r313w0yjt28",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "neuromorphic-computing-real-wins-but-only-on-sparse-work",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-28T02:28:17Z",
+  "updated": "2026-11-28T02:28:17Z",
+  "version": 1,
+  "content_md": "**Neuromorphic computing: real wins, but only on sparse work**\n\nNeuromorphic chips imitate neurons: they pass sparse, event-driven spikes and keep memory next to computation, which can save energy when most of the input is silence.\n\n**Where it stands.** The measured wins are narrow: always-on sensing, audio and event cameras. A [Nature review](https://doi.org/10.1038/s41586-024-08253-8) (2025) says the field is ready to scale, and [NeuroBench](https://doi.org/10.1038/s41467-025-56739-4), a community benchmark framework, was built because comparisons with conventional hardware were not standardised. Vendor figures lean on favourable settings: Intel's Hala Point (1,152 Loihi 2 chips) is reported above 15 trillion operations per watt only on a deliberately sparse network.\n\n**Outside the US.** SpiNNaker (Manchester, Dresden), Innatera (Netherlands) and SynSense (Zurich) build chips; the Netherlands also produced a [complexity theory for spiking networks](https://doi.org/10.1088/2634-4386/ae2cc1).\n\n**What an outsider can use.** Free software: [NeuroBench](https://github.com/NeuroBench/neurobench), [Lava](https://github.com/lava-nc/lava) and the [NIR](https://neuroir.org/) interchange format. Hardware is by application or quote.\n\n**What the lab could test.** Whether a spiking network's energy edge survives once preprocessing and idle power are counted.\n\nChecked 28 November 2026; first pass. Chip claims are from vendors and reviews, not our measurements.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Neuromorphic computing: real wins, but only on sparse work</strong></p>\n<p>Neuromorphic chips imitate neurons: they pass sparse, event-driven spikes and keep memory next to computation, which can save energy when most of the input is silence.</p>\n<p><strong>Where it stands.</strong> The measured wins are narrow: always-on sensing, audio and event cameras. A <a href=\"https://doi.org/10.1038/s41586-024-08253-8\">Nature review</a> (2025) says the field is ready to scale, and <a href=\"https://doi.org/10.1038/s41467-025-56739-4\">NeuroBench</a>, a community benchmark framework, was built because comparisons with conventional hardware were not standardised. Vendor figures lean on favourable settings: Intel&#39;s Hala Point (1,152 Loihi 2 chips) is reported above 15 trillion operations per watt only on a deliberately sparse network.</p>\n<p><strong>Outside the US.</strong> SpiNNaker (Manchester, Dresden), Innatera (Netherlands) and SynSense (Zurich) build chips; the Netherlands also produced a <a href=\"https://doi.org/10.1088/2634-4386/ae2cc1\">complexity theory for spiking networks</a>.</p>\n<p><strong>What an outsider can use.</strong> Free software: <a href=\"https://github.com/NeuroBench/neurobench\">NeuroBench</a>, <a href=\"https://github.com/lava-nc/lava\">Lava</a> and the <a href=\"https://neuroir.org/\">NIR</a> interchange format. Hardware is by application or quote.</p>\n<p><strong>What the lab could test.</strong> Whether a spiking network&#39;s energy edge survives once preprocessing and idle power are counted.</p>\n<p>Checked 28 November 2026; first pass. Chip claims are from vendors and reviews, not our measurements.</p>\n</div>",
+  "content_hash": "sha256:39273139e67ea48a480e035e3d77b643665fd0ae5c4aeb1cd80f9d021bc66584",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-28T02:28:17Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-28T02:28:17Z",
+      "note": null
+    }
+  ]
+}

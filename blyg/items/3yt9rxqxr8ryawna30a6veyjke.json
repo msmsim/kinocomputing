@@ -1,0 +1,32 @@
+{
+  "blyg": "0.3",
+  "id": "3yt9rxqxr8ryawna30a6veyjke",
+  "kind": "fragment",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "wetware-computing-living-neurons-do-tasks-but-who-does-the-w",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-28T02:28:17Z",
+  "updated": "2026-11-28T02:28:17Z",
+  "version": 1,
+  "content_md": "**Wetware computing: living neurons do tasks, but who does the work?**\n\nSynthetic biological intelligence grows neurons or small brain-like organoids on electrode arrays and tries to use them as computers, by stimulating them and reading their activity.\n\n**Where it stands.** Results are real but narrow. Neuron cultures have shown altered network activity in closed-loop tasks such as the Pong game, and a 2025 [Braille-recognition study with organoids](https://arxiv.org/abs/2508.20850) (FinalSpark and Bristol) classified tactile patterns. The open worry is attribution: much of the performance can come from the stimulation code and the conventional classifier that reads the signals, not from the tissue.\n\n**What an outsider can use.** FinalSpark's [Neuroplatform](https://finalspark.com/neuroplatform/) sells remote access to living organoids with a Python interface; reported pricing was about $1,000 a month in 2025, to be confirmed. Cortical Labs' CL1, a [purchasable biological computer](https://spectrum.ieee.org/biological-computer-for-sale), was reported at $35,000.\n\n**Outside the US.** FinalSpark is in Switzerland and the Braille work includes Bristol, UK.\n\n**What the lab could test.** Train the same classifier on the stimulus alone and on the recorded response, to see what the tissue adds.\n\nChecked 28 November 2026; first pass. Prices and results are as reported, not verified by us.",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Wetware computing: living neurons do tasks, but who does the work?</strong></p>\n<p>Synthetic biological intelligence grows neurons or small brain-like organoids on electrode arrays and tries to use them as computers, by stimulating them and reading their activity.</p>\n<p><strong>Where it stands.</strong> Results are real but narrow. Neuron cultures have shown altered network activity in closed-loop tasks such as the Pong game, and a 2025 <a href=\"https://arxiv.org/abs/2508.20850\">Braille-recognition study with organoids</a> (FinalSpark and Bristol) classified tactile patterns. The open worry is attribution: much of the performance can come from the stimulation code and the conventional classifier that reads the signals, not from the tissue.</p>\n<p><strong>What an outsider can use.</strong> FinalSpark&#39;s <a href=\"https://finalspark.com/neuroplatform/\">Neuroplatform</a> sells remote access to living organoids with a Python interface; reported pricing was about $1,000 a month in 2025, to be confirmed. Cortical Labs&#39; CL1, a <a href=\"https://spectrum.ieee.org/biological-computer-for-sale\">purchasable biological computer</a>, was reported at $35,000.</p>\n<p><strong>Outside the US.</strong> FinalSpark is in Switzerland and the Braille work includes Bristol, UK.</p>\n<p><strong>What the lab could test.</strong> Train the same classifier on the stimulus alone and on the recorded response, to see what the tissue adds.</p>\n<p>Checked 28 November 2026; first pass. Prices and results are as reported, not verified by us.</p>\n</div>",
+  "content_hash": "sha256:0acf35ae6e0d35ae3ccaa35ca86a007752fe63718a3bb6ee37956b42c20b1cd6",
+  "media": [],
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-28T02:28:17Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-28T02:28:17Z",
+      "note": null
+    }
+  ]
+}

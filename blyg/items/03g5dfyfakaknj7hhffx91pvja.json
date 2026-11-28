@@ -1,0 +1,53 @@
+{
+  "blyg": "0.3",
+  "id": "03g5dfyfakaknj7hhffx91pvja",
+  "kind": "thread",
+  "origin": "https://www.kinocomputing.com/",
+  "page": "vogels-brain-computing-bet-what-the-evidence-supports",
+  "author": {
+    "name": "Matthew McDowell-Sweet",
+    "url": "https://www.msweet.net/"
+  },
+  "created": "2026-11-28T02:28:17Z",
+  "updated": "2026-11-28T02:28:17Z",
+  "version": 1,
+  "content_md": "**Vogels' brain-computing bet: what the evidence supports**\n\nWerner Vogels' predictions for 2027 name \"computing returns to biology\" as a trend, and unlike the security, energy and assistant themes of his last few lists, it is about the substrate of computing itself. Read against the evidence, the prediction bundles three very different technologies, and they are not equally far along: brain-inspired chips have narrow measured wins, living neurons have demonstrations that are hard to attribute, and reading the mind from outside the skull is early.\n\nVogels' [predictions](https://allthingsdistributed.com/2026/11/tech-predictions-for-2027-and-beyond.html) draw on the brain's efficiency, \"computing in memory, improving with use, and running with the efficiency of a small lightbulb\". A reader sent the lab a [critique of the framing](https://www.kinocomputing.com/the-brain-is-so-boring):\n\n![[5egzd31s7nqarwm00ry0c2k93f]]\n> The body came first, and the brain arrived late to a party that was already going.\n\n**The three bets, checked**\n\n- **Chips that copy the brain (neuromorphic).** Vogels cites chips whose connections strengthen with use, and an in-memory processor reported hundreds of times faster than conventional hardware. The wider record is more careful: gains show up in sparse, always-on sensing, and the field itself says fair comparisons with GPUs are still missing. Our [first look at the paradigm](https://www.kinocomputing.com/lab-2026-11-28-paradigm-neuromorphic) has the sources.\n- **Living neurons on silicon (wetware).** Vogels reports a company's neurons playing Doom and learning a navigation task. We have not checked those. Published results do show closed-loop adaptation in cultures, but whether the tissue or the stimulation code and classifier does the work is unsettled; see our [entry on the paradigm](https://www.kinocomputing.com/lab-2026-11-28-paradigm-wetware).\n- **The readable mind.** The one number Vogels gives is 61% word accuracy from a magnetic scanner on people typing. That is a decoding result from a room-sized scanner; \"daily life by the end of the decade\" is a forecast, not a measurement.\n\n**Where the critique lands, and where it doesn't.** The critique says that treating the brain as hardware running software gets biology wrong. Vogels' list gives it some support: none of the chips or cultures it cites does what a brain does at a brain's energy cost, as far as we can tell. The \"20 watts\" figure that closes his piece is a comparison we have already looked at: [the brain and a chatbot sit at very different distances from the physical energy floor](https://www.kinocomputing.com/lab-2026-11-26-brain-chatbot-landauer-gap).\n\nBut the critique does not quite fit the wetware section. There Vogels cites the neuroscientist Anil Seth's argument that a brain's function depends on the living material it is made of. That is the embodied position, not the disembodied one: it says the substrate matters. Our reading is that Vogels argues two things at once: copy the brain's architecture in silicon, and use the brain's actual material. Only the second sits comfortably with the critique.\n\n**What would settle it.** A body-first view predicts that neurons in a dish do less than the headlines suggest, once the stimulus alone is given to the same classifier. A brain-as-computer view predicts the tissue adds a lot. That comparison, run on a public dataset, is a test we can do.\n\n[https://www.kinocomputing.com/the-brain-is-so-boring](https://www.kinocomputing.com/the-brain-is-so-boring)",
+  "content_html": "<div class=\"blyg-tk-gen\">\n<p><strong>Vogels&#39; brain-computing bet: what the evidence supports</strong></p>\n<p>Werner Vogels&#39; predictions for 2027 name &quot;computing returns to biology&quot; as a trend, and unlike the security, energy and assistant themes of his last few lists, it is about the substrate of computing itself. Read against the evidence, the prediction bundles three very different technologies, and they are not equally far along: brain-inspired chips have narrow measured wins, living neurons have demonstrations that are hard to attribute, and reading the mind from outside the skull is early.</p>\n<p>Vogels&#39; <a href=\"https://allthingsdistributed.com/2026/11/tech-predictions-for-2027-and-beyond.html\">predictions</a> draw on the brain&#39;s efficiency, &quot;computing in memory, improving with use, and running with the efficiency of a small lightbulb&quot;. A reader sent the lab a <a href=\"https://www.kinocomputing.com/the-brain-is-so-boring\">critique of the framing</a>:</p>\n<blockquote class=\"blyg-transclusion blyg-partial\" data-blyg-id=\"5egzd31s7nqarwm00ry0c2k93f\" data-blyg-version=\"1\">\n<p>The body came first, and the brain arrived late to a party that was already going.</p>\n</blockquote>\n<p><strong>The three bets, checked</strong></p>\n<ul>\n<li><strong>Chips that copy the brain (neuromorphic).</strong> Vogels cites chips whose connections strengthen with use, and an in-memory processor reported hundreds of times faster than conventional hardware. The wider record is more careful: gains show up in sparse, always-on sensing, and the field itself says fair comparisons with GPUs are still missing. Our <a href=\"https://www.kinocomputing.com/lab-2026-11-28-paradigm-neuromorphic\">first look at the paradigm</a> has the sources.</li>\n<li><strong>Living neurons on silicon (wetware).</strong> Vogels reports a company&#39;s neurons playing Doom and learning a navigation task. We have not checked those. Published results do show closed-loop adaptation in cultures, but whether the tissue or the stimulation code and classifier does the work is unsettled; see our <a href=\"https://www.kinocomputing.com/lab-2026-11-28-paradigm-wetware\">entry on the paradigm</a>.</li>\n<li><strong>The readable mind.</strong> The one number Vogels gives is 61% word accuracy from a magnetic scanner on people typing. That is a decoding result from a room-sized scanner; &quot;daily life by the end of the decade&quot; is a forecast, not a measurement.</li>\n</ul>\n<p><strong>Where the critique lands, and where it doesn&#39;t.</strong> The critique says that treating the brain as hardware running software gets biology wrong. Vogels&#39; list gives it some support: none of the chips or cultures it cites does what a brain does at a brain&#39;s energy cost, as far as we can tell. The &quot;20 watts&quot; figure that closes his piece is a comparison we have already looked at: <a href=\"https://www.kinocomputing.com/lab-2026-11-26-brain-chatbot-landauer-gap\">the brain and a chatbot sit at very different distances from the physical energy floor</a>.</p>\n<p>But the critique does not quite fit the wetware section. There Vogels cites the neuroscientist Anil Seth&#39;s argument that a brain&#39;s function depends on the living material it is made of. That is the embodied position, not the disembodied one: it says the substrate matters. Our reading is that Vogels argues two things at once: copy the brain&#39;s architecture in silicon, and use the brain&#39;s actual material. Only the second sits comfortably with the critique.</p>\n<p><strong>What would settle it.</strong> A body-first view predicts that neurons in a dish do less than the headlines suggest, once the stimulus alone is given to the same classifier. A brain-as-computer view predicts the tissue adds a lot. That comparison, run on a public dataset, is a test we can do.</p>\n<p class=\"source\"><a href=\"https://www.kinocomputing.com/the-brain-is-so-boring\">https://www.kinocomputing.com/the-brain-is-so-boring</a></p>\n</div>",
+  "content_hash": "sha256:d9bae4712b8b5ca9a07c2281c1030c0d91347a720c7c3a41981ed45a5dbd74a7",
+  "media": [],
+  "transclusions": [
+    {
+      "id": "5egzd31s7nqarwm00ry0c2k93f",
+      "version": 1,
+      "selector": {
+        "exact": "The body came first, and the brain arrived late to a party that was already going."
+      }
+    }
+  ],
+  "stub_of": {
+    "origin": "https://www.kinocomputing.com/",
+    "id": "5egzd31s7nqarwm00ry0c2k93f",
+    "version": 1,
+    "cited": {
+      "source": "Kinocomputing",
+      "author": "Matthew McDowell-Sweet",
+      "excerpt": "The brain is so boring If you thought tech bros were bad, wait until the brain bros arrive. Werner Vogels’ predictions for 2027 and beyond are out, and two of the five are about the brain: neurons on…",
+      "url": "https://www.kinocomputing.com/the-brain-is-so-boring",
+      "retrieved": "2026-11-28T02:28:29Z"
+    }
+  },
+  "generated": [
+    {
+      "sources": [],
+      "model": "claude-sonnet-5-5",
+      "at": "2026-11-28T02:28:17Z"
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-28T02:28:17Z",
+      "note": null
+    }
+  ]
+}
